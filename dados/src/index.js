@@ -9531,7 +9531,10 @@ if (isCmd && command && !isOwner) {
           'caverna': { emoji: '🕳️', name: 'Caverna Cristalina', level: 5, players: 3, reward: 15000, xp: 500, boss: '🦇 Morcego Gigante' },
           'ruinas': { emoji: '🏚️', name: 'Ruínas Antigas', level: 10, players: 3, reward: 35000, xp: 1000, boss: '💀 Esqueleto Rei' },
           'vulcao': { emoji: '🌋', name: 'Vulcão Ardente', level: 20, players: 4, reward: 80000, xp: 2500, boss: '🔥 Dragão de Fogo' },
-          'abismo': { emoji: '🕳️', name: 'Abismo Profundo', level: 35, players: 4, reward: 200000, xp: 6000, boss: '👹 Demônio Ancião' }
+          'abismo': { emoji: '🕳️', name: 'Abismo Profundo', level: 35, players: 4, reward: 200000, xp: 6000, boss: '👹 Demônio Ancião' },
+          'rei_sem_face': { emoji: '🎭', name: 'O Rei Sem Face', level: 50, players: 4, reward: 600000, xp: 18000, boss: '👑 Monarca Aamaldiçoado', desc: 'Trono abandonado cheio de espelhos rachados. Poderes: roubar habilidades, criar clones ilusórios, desaparecer na fumaça negra.' },
+          'leviata_ferro': { emoji: '⚙️', name: 'Leviatã de Ferro', level: 75, players: 5, reward: 3600000, xp: 100000, boss: '🐋 Máquina Marinha', desc: 'Porto industrial inundado. Poderes: laser pelo olho, ondas de choque, invocar drones enferrujados, puxar jogadores com correntes.' },
+          'marionetista': { emoji: '🧶', name: 'A Marionetista Carmesim', level: 100, players: 5, reward: 36000000, xp: 1000000, boss: '🩸 Marionetista Carmesim', desc: 'Teatro antigo iluminado apenas por velas vermelhas. Poderes: controlar NPCs, prender jogadores em fios, alterar a gravidade da sala, transformar a própria sombra em monstros.' }
         };
 
         const sub = args[0]?.toLowerCase();
@@ -9547,7 +9550,9 @@ if (isCmd && command && !isOwner) {
             text += `${data.emoji} *${data.name}* ${available}\n`;
             text += `   📊 Nv.${data.level}+ | 👥 ${data.players} jogadores\n`;
             text += `   💰 ${data.reward.toLocaleString()} | ✨ ${data.xp} XP\n`;
-            text += `   👹 Boss: ${data.boss}\n\n`;
+            text += `   👹 Boss: ${data.boss}\n`;
+            if (data.desc) text += `   📝 ${data.desc}\n`;
+            text += `\n`;
           }
 
           text += `💡 *Comandos:*\n`;
