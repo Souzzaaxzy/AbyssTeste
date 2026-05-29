@@ -6532,10 +6532,10 @@ if (isCmd && command && !isOwner) {
             // Se não houver vagas no arquivo de economia, usar catálogo padrão embutido
             if (!jobs || Object.keys(jobs).length === 0) {
               jobs = {
-                "estagiario": { name: "Estagiário", min: 80, max: 140 },
-                "designer": { name: "Designer", min: 150, max: 250 },
-                "programador": { name: "Programador", min: 200, max: 350 },
-                "gerente": { name: "Gerente", min: 260, max: 420 }
+                "repositor": { name: "Repositor", min: 80, max: 140 },
+                "mecanico": { name: "Mecânico", min: 158, max: 263 },
+                "empresario": { name: "Empresário", min: 210, max: 368 },
+                "garota_de_programa": { name: "Garota(o) de Programa", min: 273, max: 441 }
               };
             }
 
@@ -6560,10 +6560,10 @@ if (isCmd && command && !isOwner) {
 ╰━━━━━━━━━━━━━━━━━━━━━╯`);
 
             const defaultJobs = {
-              "estagiario": { name: "Estagiário", min: 80, max: 140 },
-              "designer": { name: "Designer", min: 150, max: 250 },
-              "programador": { name: "Programador", min: 200, max: 350 },
-              "gerente": { name: "Gerente", min: 260, max: 420 }
+              "repositor": { name: "Repositor", min: 80, max: 140 },
+              "mecanico": { name: "Mecânico", min: 158, max: 263 },
+              "empresario": { name: "Empresário", min: 210, max: 368 },
+              "garota_de_programa": { name: "Garota(o) de Programa", min: 273, max: 441 }
             };
 
             const jobCatalog = (econ.jobCatalog && Object.keys(econ.jobCatalog).length) ? econ.jobCatalog : defaultJobs;

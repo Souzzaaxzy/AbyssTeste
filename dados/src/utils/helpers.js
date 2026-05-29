@@ -314,10 +314,10 @@ const PARAM_ALIASES = {
   'linha': ['linha', 'thread', 'fio'],
   'cristal': ['cristal', 'crystal'],
   // Empregos
-  'estagiario': ['estagiario', 'estagiário', 'estag', 'intern'],
-  'designer': ['designer', 'design', 'grafico', 'gráfico'],
-  'programador': ['programador', 'dev', 'developer', 'coder', 'prog'],
-  'gerente': ['gerente', 'manager', 'chefe', 'ger'],
+  'repositor': ['repositor', 'reposição', 'estoque'],
+  'mecanico': ['mecanico', 'mecânico', 'oficina'],
+  'empresario': ['empresario', 'empresário', 'negócios'],
+  'garota_de_programa': ['garota_de_programa', 'garoto_de_programa', 'acompanhante', 'gdp'],
   // Ferramentas
   'pickaxe_bronze': ['pickaxe_bronze', 'picareta_bronze', 'picaretabronze', 'bronze'],
   'pickaxe_ferro': ['pickaxe_ferro', 'picareta_ferro', 'picaretaferro', 'pferro'],

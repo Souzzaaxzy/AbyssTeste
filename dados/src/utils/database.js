@@ -223,10 +223,10 @@ ensureJsonFileExists(ECONOMY_FILE, {
     luvas_aco: { requires: { ferro: 15, carvao: 6 }, gold: 600 }
   },
   jobCatalog: {
-    "estagiario": { name: "Estagiário", min: 80, max: 140 },
-    "designer": { name: "Designer", min: 150, max: 250 },
-    "programador": { name: "Programador", min: 200, max: 350 },
-    "gerente": { name: "Gerente", min: 260, max: 420 }
+    "repositor": { name: "Repositor", min: 80, max: 140 },
+    "mecanico": { name: "Mecânico", min: 158, max: 263 },
+    "empresario": { name: "Empresário", min: 210, max: 368 },
+    "garota_de_programa": { name: "Garota(o) de Programa", min: 273, max: 441 }
   }
 });
 ensureJsonFileExists(LEVELING_FILE, {
