@@ -7,7 +7,7 @@
   />
 </p>
 
-<h1 align="center">nazuna Bot</h1>
+<h1 align="center">KaiserBot</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/STATUS-ATIVO-success?style=for-the-badge" alt="Status: Ativo" />
