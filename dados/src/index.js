@@ -6099,6 +6099,7 @@ if (isCmd && command && !isOwner) {
 
             // Força o recálculo dos bônus no padrão original do Nazuna antes de exibir
             recalcEquipmentBonuses(me, econ.shop);
+            const combatStats = calculateCombatStats(me, econ);
             
             let text = `╭━━━⊱ ⚔️ *PERFIL RPG* ⚔️ ⊱━━━╮\n`;
             text += `│ ${pushname}\n`;
