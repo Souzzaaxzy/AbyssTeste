@@ -32903,24 +32903,28 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           if (momentToShow.type === 'text') {
             await reply(momentToShow.content);
           } else if (momentToShow.type === 'image' && momentToShow.content) {
+            const imageBuffer = Buffer.from(momentToShow.content, 'base64');
             await nazu.sendMessage(from, {
-              image: { data: Buffer.from(momentToShow.content, 'base64') },
+              image: imageBuffer,
               caption: momentToShow.caption || ''
             });
           } else if (momentToShow.type === 'video' && momentToShow.content) {
+            const videoBuffer = Buffer.from(momentToShow.content, 'base64');
             await nazu.sendMessage(from, {
-              video: { data: Buffer.from(momentToShow.content, 'base64') },
+              video: videoBuffer,
               caption: momentToShow.caption || ''
             });
           } else if (momentToShow.type === 'audio' && momentToShow.content) {
+            const audioBuffer = Buffer.from(momentToShow.content, 'base64');
             await nazu.sendMessage(from, {
-              audio: { data: Buffer.from(momentToShow.content, 'base64') },
+              audio: audioBuffer,
               mimetype: 'audio/mpeg',
               ptt: momentToShow.ptt || false
             });
           } else if (momentToShow.type === 'sticker' && momentToShow.content) {
+            const stickerBuffer = Buffer.from(momentToShow.content, 'base64');
             await nazu.sendMessage(from, {
-              sticker: { data: Buffer.from(momentToShow.content, 'base64') }
+              sticker: stickerBuffer
             });
           } else {
             await reply('❌ Não foi possível recuperar a mídia!');
