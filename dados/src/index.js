@@ -32822,11 +32822,10 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
             const requesterMention = m.requester ? `@${m.requester.split('@')[0]}` : 'Desconhecido';
             
             // Adicionar à lista de mentions
-            if (m.sender && !mentions.includes(m.sender)) mentions.push(m.sender);
             if (m.requester && !mentions.includes(m.requester)) mentions.push(m.requester);
+            if (m.sender && !mentions.includes(m.sender)) mentions.push(m.sender);
             
-            responseText += `${i + 1}. 👤 Enviado por: ${senderMention} (${m.senderName})\n`;
-            responseText += `   📄 Salvo por: ${requesterMention} (${m.requesterName || 'Desconhecido'})\n`;
+            responseText += `${i + 1}. 📄 Salvo por: ${requesterMention} (${m.requesterName || 'Desconhecido'})\n`;
             responseText += `   🕒 ${time}\n`;
             
             if (m.type === 'text') {
