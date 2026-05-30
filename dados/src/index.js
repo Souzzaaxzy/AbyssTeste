@@ -32813,12 +32813,18 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           if (moments.length === 0) return reply('📸 Nenhum momento salvo para hoje!');
 
           let responseText = `📸 *Momentos Salvos Hoje (${moments.length}/10)*\n\n`;
+          let mentions = [];
 
           for (let i = 0; i < moments.length; i++) {
             const m = moments[i];
             const time = new Date(m.savedAt).toLocaleTimeString('pt-BR');
             const senderMention = m.sender ? `@${m.sender.split('@')[0]}` : 'Desconhecido';
             const requesterMention = m.requester ? `@${m.requester.split('@')[0]}` : 'Desconhecido';
+            
+            // Adicionar à lista de mentions
+            if (m.sender && !mentions.includes(m.sender)) mentions.push(m.sender);
+            if (m.requester && !mentions.includes(m.requester)) mentions.push(m.requester);
+            
             responseText += `${i + 1}. 👤 Enviado por: ${senderMention} (${m.senderName})\n`;
             responseText += `   📄 Salvo por: ${requesterMention} (${m.requesterName || 'Desconhecido'})\n`;
             responseText += `   🕒 ${time}\n`;
@@ -32846,7 +32852,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           }
 
           responseText += `\n📌 Limite: ${moments.length}/10 momentos por dia\n🚮 Para apagar um momento, use ${groupPrefix}apm [número]`;
-          await reply(responseText);
+          await reply(responseText, { mentions: mentions });
         } catch (e) {
           console.error('Erro no comando moment:', e);
           await reply('❌ Ocorreu um erro ao listar momentos 💔');
