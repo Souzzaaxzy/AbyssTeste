@@ -32727,10 +32727,16 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
           if (!quotedMessageContent) return reply(`📸 Como usar:\n\n1️⃣ Responda uma mensagem (texto, áudio, foto, vídeo, etc)\n2️⃣ Mande ${groupPrefix}salvarm\n\nExemplo: ${groupPrefix}salvarm (respondendo uma foto)`);
 
+          // Obter informações de quem pediu o salvamento
+          const requesterJid = sender;
+          const requesterName = pushname || getUserName(sender);
+          
           const moment = {
             type: type,
             sender: sender,
             senderName: pushname || getUserName(sender),
+            requester: requesterJid,
+            requesterName: requesterName,
             content: null,
             caption: null
           };
@@ -32807,7 +32813,11 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           for (let i = 0; i < moments.length; i++) {
             const m = moments[i];
             const time = new Date(m.savedAt).toLocaleTimeString('pt-BR');
-            responseText += `${i + 1}. 👤 ${m.senderName} - ${time}\n`;
+            const senderMention = m.sender ? `@${m.sender.split('@')[0]}` : 'Desconhecido';
+            const requesterMention = m.requester ? `@${m.requester.split('@')[0]}` : 'Desconhecido';
+            responseText += `${i + 1}. 👤 Enviado por: ${senderMention} (${m.senderName})\n`;
+            responseText += `   📄 Salvo por: ${requesterMention} (${m.requesterName || 'Desconhecido'})\n`;
+            responseText += `   🕒 ${time}\n`;
             
             if (m.type === 'text') {
               responseText += `   📝 ${m.content.substring(0, 50)}${m.content.length > 50 ? '...' : ''}\n`;
@@ -32833,18 +32843,20 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           // Enviar as mídias realmente
           for (let i = 0; i < moments.length; i++) {
             const m = moments[i];
+            const senderMention = m.sender ? `@${m.sender.split('@')[0]}` : 'Desconhecido';
+            const requesterMention = m.requester ? `@${m.requester.split('@')[0]}` : 'Desconhecido';
             try {
               if (m.type === 'image') {
                 const imageBuffer = Buffer.from(m.content, 'base64');
                 await nazu.sendMessage(from, {
                   image: imageBuffer,
-                  caption: `${i + 1}. 👤 ${m.senderName}\n${m.caption || ''}`
+                  caption: `${i + 1}. 👤 Enviado por: ${senderMention}\n📄 Salvo por: ${requesterMention}\n${m.caption || ''}`
                 });
               } else if (m.type === 'video') {
                 const videoBuffer = Buffer.from(m.content, 'base64');
                 await nazu.sendMessage(from, {
                   video: videoBuffer,
-                  caption: `${i + 1}. 👤 ${m.senderName}\n${m.caption || ''}`
+                  caption: `${i + 1}. 👤 Enviado por: ${senderMention}\n📄 Salvo por: ${requesterMention}\n${m.caption || ''}`
                 });
               } else if (m.type === 'audio') {
                 const audioBuffer = Buffer.from(m.content, 'base64');
