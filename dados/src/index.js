@@ -32740,7 +32740,9 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
             content: null,
             caption: null,
             originalMessageKey: info.message.extendedTextMessage?.contextInfo?.stanzaId || null,
-            originalMessageId: info.message.extendedTextMessage?.contextInfo?.id || null
+            originalMessageId: info.message.extendedTextMessage?.contextInfo?.id || null,
+            originalSender: quotedMessageContent?.participant || info.message.extendedTextMessage?.contextInfo?.participant || null,
+            originalFromMe: quotedMessageContent?.fromMe || false
           };
 
           // Extrair conteúdo da mensagem respondida
@@ -32890,26 +32892,39 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           
           const momentToMark = moments[momentIndex];
           
-          // Marcar o usuário de verdade com menção
+          // Responder citando a mensagem original
           if (momentToMark.sender) {
-            let mentionedJid = [momentToMark.sender];
-            let citationText = `@${momentToMark.senderName}\n\n`;
+            let responseText = '';
             
             if (momentToMark.type === 'text') {
-              citationText += `📝 ${momentToMark.content.substring(0, 100)}`;
+              responseText = momentToMark.content.substring(0, 100);
             } else if (momentToMark.type === 'image') {
-              citationText += `📷 Foto${momentToMark.caption ? `\n${momentToMark.caption.substring(0, 100)}` : ''}`;
+              responseText = `📷 Foto${momentToMark.caption ? `\n${momentToMark.caption.substring(0, 100)}` : ''}`;
             } else if (momentToMark.type === 'video') {
-              citationText += `🎥 Vídeo${momentToMark.caption ? `\n${momentToMark.caption.substring(0, 100)}` : ''}`;
+              responseText = `🎥 Vídeo${momentToMark.caption ? `\n${momentToMark.caption.substring(0, 100)}` : ''}`;
             } else if (momentToMark.type === 'audio') {
-              citationText += `🎵 Áudio`;
+              responseText = `🎵 Áudio`;
             } else if (momentToMark.type === 'sticker') {
-              citationText += `🎭 Sticker`;
+              responseText = `🎭 Sticker`;
             }
             
+            // Responder citando a mensagem original do usuário
             await nazu.sendMessage(from, {
-              text: citationText,
-              mentions: mentionedJid
+              text: responseText,
+              mentions: [momentToMark.sender]
+            }, {
+              quoted: {
+                key: {
+                  remoteJid: from,
+                  fromMe: momentToMark.originalFromMe || false,
+                  id: momentToMark.originalMessageId
+                },
+                message: {
+                  extendedTextMessage: {
+                    text: momentToMark.content || responseText
+                  }
+                }
+              }
             });
           } else {
             await reply('❌ Não foi possível recuperar a mensagem original!');
