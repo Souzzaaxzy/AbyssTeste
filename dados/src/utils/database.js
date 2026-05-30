@@ -44,6 +44,7 @@ import {
   MENU_AUDIO_FILE,
   MENU_LERMAIS_FILE,
   SUPPORT_TICKETS_FILE,
+  MOMENTS_FILE,
   CONFIG_FILE
 } from './paths.js';
 
@@ -3478,4 +3479,67 @@ export {
   getMenuLerMaisText,
   // Funções de combate
   calculateCombatStats,
+  // Sistema de Momentos
+  getMomentsData,
+  saveMomentsData,
+  addMoment,
+  getMoments,
+};
+
+// ===== Sistema de Momentos (Salvamento de mensagens) =====
+const getMomentsData = () => {
+  const data = loadJsonFile(MOMENTS_FILE, {});
+  return data;
+};
+
+const saveMomentsData = (data) => {
+  try {
+    ensureDirectoryExists(DATABASE_DIR);
+    fs.writeFileSync(MOMENTS_FILE, JSON.stringify(data, null, 2));
+    return true;
+  } catch (error) {
+    console.error('❌ Erro ao salvar momentos:', error);
+    return false;
+  }
+};
+
+const addMoment = (groupId, moment) => {
+  try {
+    const data = getMomentsData();
+    if (!data[groupId]) {
+      data[groupId] = [];
+    }
+    
+    // Verificar limite de 10 por dia
+    const today = new Date().toDateString();
+    const todayMoments = data[groupId].filter(m => new Date(m.savedAt).toDateString() === today);
+    
+    if (todayMoments.length >= 10) {
+      return { success: false, message: 'Limite de 10 momentos por dia atingido!' };
+    }
+    
+    moment.savedAt = new Date().toISOString();
+    moment.id = Date.now().toString();
+    data[groupId].push(moment);
+    
+    saveMomentsData(data);
+    return { success: true, message: 'Momento salvo com sucesso!' };
+  } catch (error) {
+    console.error('❌ Erro ao adicionar momento:', error);
+    return { success: false, message: 'Erro ao salvar momento' };
+  }
+};
+
+const getMoments = (groupId) => {
+  try {
+    const data = getMomentsData();
+    if (!data[groupId]) return [];
+    
+    // Filtrar apenas momentos de hoje
+    const today = new Date().toDateString();
+    return data[groupId].filter(m => new Date(m.savedAt).toDateString() === today);
+  } catch (error) {
+    console.error('❌ Erro ao obter momentos:', error);
+    return [];
+  }
 };

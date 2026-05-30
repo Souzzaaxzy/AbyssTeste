@@ -85,6 +85,13 @@ ${middleBorder}${menuItemIcon}${prefix}denuncias
 ${bottomBorder}
 
 ${menuTopBorder}
+│ 📸 MOMENTOS DO GRUPO
+${middleBorder}
+${middleBorder}${menuItemIcon}${prefix}salvarm
+${middleBorder}${menuItemIcon}${prefix}moment
+${bottomBorder}
+
+${menuTopBorder}
 │ ${gamingMenuTitle}
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}likeff

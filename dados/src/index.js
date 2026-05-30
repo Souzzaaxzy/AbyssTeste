@@ -251,6 +251,11 @@ import {
   getMenuLerMaisText,
   // Funções de combate
   calculateCombatStats,
+  // Sistema de Momentos
+  getMomentsData,
+  saveMomentsData,
+  addMoment,
+  getMoments,
 } from './utils/database.js';
 import { parseCustomCommandMeta, buildUsageFromParams, parseArgsFromString, escapeRegExp, validateParamValue } from './utils/helpers.js';
 import {
@@ -32713,6 +32718,114 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
         } catch (error) {
           console.error('❌ Error cleaning rental stats:', error);
           await reply(`❌ Ocorreu um erro ao limpar as estatísticas: ${error.message}`);
+        }
+        break;
+
+      case 'salvarm':
+        try {
+          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!quotedMessageContent) return reply(`📸 Como usar:\n\n1️⃣ Responda uma mensagem (texto, áudio, foto, vídeo, etc)\n2️⃣ Mande ${groupPrefix}salvarm\n\nExemplo: ${groupPrefix}salvarm (respondendo uma foto)`);
+
+          const moment = {
+            type: type,
+            sender: sender,
+            senderName: pushname || getUserName(sender),
+            content: null,
+            caption: null
+          };
+
+          // Extrair conteúdo da mensagem respondida
+          if (isQuotedMsg || isQuotedMsg2) {
+            moment.type = 'text';
+            moment.content = quotedMessageContent.conversation || quotedMessageContent.extendedTextMessage?.text || '';
+          } else if (isQuotedImage) {
+            moment.type = 'image';
+            try {
+              const imageBuffer = await getFileBuffer(quotedMessageContent.imageMessage, 'image');
+              moment.content = imageBuffer.toString('base64');
+              moment.caption = quotedMessageContent.imageMessage.caption || '';
+            } catch (e) {
+              console.error('Erro ao extrair imagem:', e);
+              return reply('❌ Erro ao processar a imagem!');
+            }
+          } else if (isQuotedVideo) {
+            moment.type = 'video';
+            try {
+              const videoBuffer = await getFileBuffer(quotedMessageContent.videoMessage, 'video');
+              moment.content = videoBuffer.toString('base64');
+              moment.caption = quotedMessageContent.videoMessage.caption || '';
+            } catch (e) {
+              console.error('Erro ao extrair vídeo:', e);
+              return reply('❌ Erro ao processar o vídeo!');
+            }
+          } else if (isQuotedAudio) {
+            moment.type = 'audio';
+            try {
+              const audioBuffer = await getFileBuffer(quotedMessageContent.audioMessage, 'audio');
+              moment.content = audioBuffer.toString('base64');
+              moment.ptt = quotedMessageContent.audioMessage.ptt || false;
+            } catch (e) {
+              console.error('Erro ao extrair áudio:', e);
+              return reply('❌ Erro ao processar o áudio!');
+            }
+          } else if (isQuotedSticker) {
+            moment.type = 'sticker';
+            try {
+              const stickerBuffer = await getFileBuffer(quotedMessageContent.stickerMessage, 'sticker');
+              moment.content = stickerBuffer.toString('base64');
+            } catch (e) {
+              console.error('Erro ao extrair sticker:', e);
+              return reply('❌ Erro ao processar o sticker!');
+            }
+          } else {
+            return reply('❌ Tipo de mídia não suportado!');
+          }
+
+          const result = addMoment(from, moment);
+          if (result.success) {
+            await reply(`✅ ${result.message}`);
+          } else {
+            await reply(`❌ ${result.message}`);
+          }
+        } catch (e) {
+          console.error('Erro no comando salvarm:', e);
+          await reply('❌ Ocorreu um erro ao salvar o momento 💔');
+        }
+        break;
+
+      case 'moment':
+      case 'moments':
+        try {
+          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+
+          const moments = getMoments(from);
+          if (moments.length === 0) return reply('📸 Nenhum momento salvo para hoje!');
+
+          let responseText = `📸 *Momentos Salvos Hoje (${moments.length}/10)*\n\n`;
+
+          for (let i = 0; i < moments.length; i++) {
+            const m = moments[i];
+            const time = new Date(m.savedAt).toLocaleTimeString('pt-BR');
+            responseText += `${i + 1}. 👤 ${m.senderName} - ${time}\n`;
+            
+            if (m.type === 'text') {
+              responseText += `   📝 ${m.content.substring(0, 50)}${m.content.length > 50 ? '...' : ''}\n\n`;
+            } else if (m.type === 'image') {
+              responseText += `   🖼️ Foto${m.caption ? ` - ${m.caption.substring(0, 30)}` : ''}\n\n`;
+            } else if (m.type === 'video') {
+              responseText += `   🎥 Vídeo${m.caption ? ` - ${m.caption.substring(0, 30)}` : ''}\n\n`;
+            } else if (m.type === 'audio') {
+              responseText += `   🎵 Áudio\n\n`;
+            } else if (m.type === 'sticker') {
+              responseText += `   🎭 Sticker\n\n`;
+            }
+          }
+
+          responseText += `\n📌 Limite: ${moments.length}/10 momentos por dia`;
+          await reply(responseText);
+        } catch (e) {
+          console.error('Erro no comando moment:', e);
+          await reply('❌ Ocorreu um erro ao listar momentos 💔');
         }
         break;
 
