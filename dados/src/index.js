@@ -32751,7 +32751,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           }
         }
         if (!isCmd && isAutoRepo) {
-          await processAutoResponse(nazu, from, body, info);
+          await processAutoResponse(nazu, from, budy2, info);
         };
     };
 
