@@ -1746,6 +1746,10 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
           groupData = {};
         }
       }
+      // Garantir que autorepo seja inicializado como true por padrão
+      if (groupData.autorepo === undefined) {
+        groupData.autorepo = true;
+      }
     }
 
     // ==== Helpers de Rolê (definidos fora de blocos para uso global dentro da função) ====
