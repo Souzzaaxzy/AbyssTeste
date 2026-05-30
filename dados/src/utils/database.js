@@ -137,47 +137,8 @@ ensureJsonFileExists(ECONOMY_FILE, {
     "lamp": { name: "Lanterna", price: 600, type: "tool", effect: { exploreBonus: 0.2 } },
     "bow": { name: "Arco de Caça", price: 800, type: "tool", effect: { huntBonus: 0.25 } },
     "forge": { name: "Kit de Forja", price: 1200, type: "tool", effect: { forgeBonus: 0.25 } },
-    // Player Equipment - Weapons
-    "espada_ferro": { name: "Espada de Ferro", price: 800, type: "equipment", slot: "weapon", attackBonus: 10, durability: 50 },
-    "espada_aco": { name: "Espada de Aço", price: 1500, type: "equipment", slot: "weapon", attackBonus: 18, durability: 80 },
-    "espada_diamante": { name: "Espada de Diamante", price: 3000, type: "equipment", slot: "weapon", attackBonus: 30, durability: 120 },
-    "arco_basico": { name: "Arco Básico", price: 600, type: "equipment", slot: "weapon", attackBonus: 8, durability: 40 },
-    "arco_reforcado": { name: "Arco Reforçado", price: 1800, type: "equipment", slot: "weapon", attackBonus: 20, durability: 70 },
-    // Player Equipment - Armor
-    "armadura_couro": { name: "Armadura de Couro", price: 900, type: "equipment", slot: "armor", defenseBonus: 8, durability: 60 },
-    "armadura_ferro": { name: "Armadura de Ferro", price: 2400, type: "equipment", slot: "armor", defenseBonus: 20, durability: 100 },
-    "armadura_aco": { name: "Armadura de Aço", price: 3600, type: "equipment", slot: "armor", defenseBonus: 32, durability: 140 },
-    "escudo_madeira": { name: "Escudo de Madeira", price: 450, type: "equipment", slot: "shield", defenseBonus: 5, durability: 30 },
-    "escudo_ferro": { name: "Escudo de Ferro", price: 1350, type: "equipment", slot: "shield", defenseBonus: 15, durability: 60 },
-    // Player Equipment - Helmets
-    "elmo_couro": { name: "Elmo de Couro", price: 600, type: "equipment", slot: "helmet", defenseBonus: 4, durability: 40 },
-    "elmo_ferro": { name: "Elmo de Ferro", price: 1200, type: "equipment", slot: "helmet", defenseBonus: 12, durability: 70 },
-    "elmo_aco": { name: "Elmo de Aço", price: 2100, type: "equipment", slot: "helmet", defenseBonus: 20, durability: 100 },
-    // Player Equipment - Boots
-    "botas_couro": { name: "Botas de Couro", price: 750, type: "equipment", slot: "boots", defenseBonus: 3, durability: 45 },
-    "botas_ferro": { name: "Botas de Ferro", price: 1500, type: "equipment", slot: "boots", defenseBonus: 10, durability: 80 },
-    "botas_aco": { name: "Botas de Aço", price: 2700, type: "equipment", slot: "boots", defenseBonus: 18, durability: 120 },
-    // Player Equipment - Accessories
-    "anel_ferro": { name: "Anel de Ferro", price: 1050, type: "equipment", slot: "accessory", attackBonus: 5, defenseBonus: 3, durability: 50 },
-    "anel_ouro": { name: "Anel de Ouro", price: 2400, type: "equipment", slot: "accessory", attackBonus: 12, defenseBonus: 8, durability: 80 },
-    "amuleto_protecao": { name: "Amuleto de Proteção", price: 3000, type: "equipment", slot: "accessory", defenseBonus: 15, hpBonus: 20, durability: 100 },
-    "luvas_ferro": { name: "Luvas de Ferro", price: 900, type: "equipment", slot: "accessory", attackBonus: 4, defenseBonus: 4, durability: 40 },
-    "luvas_aco": { name: "Luvas de Aço", price: 1800, type: "equipment", slot: "accessory", attackBonus: 10, defenseBonus: 10, durability: 70 },
-    // Equipamentos para pets
-    "pet_sword": { name: "Espada para Pet", price: 1200, type: "pet_equipment", slot: "weapon", attackBonus: 15, durability: 30 },
-    "pet_armor": { name: "Armadura para Pet", price: 1500, type: "pet_equipment", slot: "armor", defenseBonus: 12, durability: 40 },
-    "pet_shield": { name: "Escudo para Pet", price: 1000, type: "pet_equipment", slot: "shield", defenseBonus: 8, durability: 50 },
-    "pet_ring": { name: "Anel do Pet", price: 700, type: "pet_equipment", slot: "accessory", attackBonus: 5, defenseBonus: 5, durability: 25 },
-    // Novos itens de vantagem
-    "dragonslayer": { name: "Mata-Dragões", price: 3000, type: "pet_equipment", slot: "weapon", attackBonus: 20, advantage: "dragao", durability: 40 },
-    "wolfbane": { name: "Maldiç ão Lobisomem", price: 2500, type: "pet_equipment", slot: "weapon", attackBonus: 18, advantage: "lobo", durability: 35 },
-    "phoenix_feather": { name: "Pena de Fênix", price: 2800, type: "pet_equipment", slot: "accessory", hpBonus: 30, advantage: "fenix", durability: 30 },
-    "tiger_talisman": { name: "Talismã do Tigre", price: 2200, type: "pet_equipment", slot: "accessory", attackBonus: 12, advantage: "tigre", durability: 25 },
-    "eagle_eye": { name: "Olho de Águia", price: 2400, type: "pet_equipment", slot: "accessory", critBonus: 15, advantage: "aguia", durability: 30 },
-    "mystic_collar": { name: "Coleira Mística", price: 3500, type: "pet_equipment", slot: "accessory", attackBonus: 10, defenseBonus: 10, hpBonus: 20, durability: 50 },
-    "battle_potion": { name: "Poção de Batalha", price: 500, type: "consumable", effect: { tempAttack: 10, duration: 3 } },
-    "defense_potion": { name: "Poção de Defesa", price: 500, type: "consumable", effect: { tempDefense: 10, duration: 3 } },
-    "evolution_stone": { name: "Pedra da Evolução", price: 10000, type: "consumable", effect: { evolve: true } }
+    // A loja será preenchida automaticamente pela função ensureEconomyDefaults abaixo
+    "repairkit": { "name": "Kit de Reparos", "price": 350, "type": "consumable", "effect": { "repair": 40 } },
   },
   materialsPrices: {
     pedra: 2,
@@ -279,27 +240,6 @@ ensureJsonFileExists(LEVELING_FILE, {
   }, {
     name: "Divindade",
     minLevel: 100
-  }, {
-    name: "Cosmico",
-    minLevel: 120
-  }, {
-    name: "Eterno",
-    minLevel: 140
-  }, {
-    name: "Supremo",
-    minLevel: 160
-  }, {
-    name: "Omnipotente",
-    minLevel: 180
-  }, {
-    name: "Transcendente",
-    minLevel: 200
-  }, {
-    name: "Absoluto",
-    minLevel: 250
-  }, {
-    name: "Infinito",
-    minLevel: 300
   }]
 });
 ensureJsonFileExists(MSGPREFIX_FILE, { message: false });
@@ -1696,6 +1636,21 @@ function migrateAndValidateEcoUser(user) {
   // === RPG - BONUSES ===
   user.attackBonus = validateNumber(user.attackBonus, 0);
   user.defenseBonus = validateNumber(user.defenseBonus, 0);
+  user.hpBonus = validateNumber(user.hpBonus, 0);
+
+  // === RPG - EQUIPAMENTOS ATUAIS ===
+  // Sincroniza e valida os dois campos de equipamento para compatibilidade total com o bot original
+  const defaultEquips = {
+    weapon: null,
+    armor: null,
+    accessory: null,
+    boots: null,
+    helmet: null,
+    shield: null
+  };
+  
+  user.equipments = validateObject(user.equipments || user.equipment, defaultEquips);
+  user.equipment = user.equipments;
 
   // === SKILLS E PROPRIEDADES ===
   user.skills = validateObject(user.skills);
@@ -1893,6 +1848,46 @@ function applyShopBonuses(user, econ) {
   return { mineBonus, workBonus, bankCapacity, fishBonus, exploreBonus, huntBonus, forgeBonus };
 }
 
+/**
+ * Calcula os atributos totais de combate somando base, level e equipamentos
+ */
+function calculateCombatStats(user, econ) {
+  const shop = econ.shop || {};
+  // Força o recálculo oficial do Nazuna (equipment.js)
+  // Isso preenche user.attackBonus, user.defenseBonus, user.hpBonus e user.maxHp
+  recalcEquipmentBonuses(user, shop);
+
+  // Atributos base por nível
+  const level = user.level || 1;
+  
+  // No Nazuna, attackBonus e defenseBonus já contém a soma de todos os equipamentos.
+  // Vamos somar isso aos valores base.
+  let totalAtk = 100 + (level * 10) + (user.attackBonus || 0);
+  let totalDef = 50 + (level * 5) + (user.defenseBonus || 0);
+  let totalHp = 200 + (level * 20) + (user.hpBonus || 0);
+  
+  // Bônus de Classe (se existir)
+  if (user.classeBonuses) {
+    totalAtk += (user.classeBonuses.attack || 0);
+    totalDef += (user.classeBonuses.defense || 0);
+    totalHp += (user.classeBonuses.hp || 0);
+  }
+
+  const stats = {
+    power: totalAtk,
+    attack: totalAtk,
+    defense: totalDef,
+    hp: totalHp,
+    maxHp: totalHp
+  };
+
+  // Sincroniza campos globais para compatibilidade com outros comandos
+  user.power = stats.power;
+  user.maxHp = stats.maxHp;
+  
+  return stats;
+}
+
 // ===== Economia: Ferramentas, Materiais, Desafios =====
 const PICKAXE_TIER_MULT = { bronze: 1.0, ferro: 1.25, diamante: 1.6 };
 const PICKAXE_TIER_ORDER = { bronze: 1, ferro: 2, diamante: 3 };
@@ -1938,19 +1933,77 @@ function ensureEconomyDefaults(econ) {
     }
   });
 
-  // === FERRAMENTAS PADRÃO ===
-  const defs = {
-    "pickaxe_bronze": { name: "Picareta de Bronze", price: 500, type: "tool", toolType: "pickaxe", tier: "bronze", durability: 20, effect: { mineBonus: 0.1 } },
-    "pickaxe_ferro": { name: "Picareta de Ferro", price: 1500, type: "tool", toolType: "pickaxe", tier: "ferro", durability: 60, effect: { mineBonus: 0.25 } },
-    "pickaxe_diamante": { name: "Picareta de Diamante", price: 5000, type: "tool", toolType: "pickaxe", tier: "diamante", durability: 150, effect: { mineBonus: 0.5 } },
-    "repairkit": { name: "Kit de Reparos", price: 350, type: "consumable", effect: { repair: 40 } }
-  };
-  for (const [k, v] of Object.entries(defs)) {
-    if (!econ.shop[k]) {
+    // === NOVA LOJA (KAISERBOT) ===
+  const kaiserShop = {
+  "arco_basico": { "name": "Arco Básico", "price": 600, "type": "weapon", "rarity": "Comum", "durability": -1, "effect": { "attack": 8 } },
+  "espada_de_ferro": { "name": "Espada de Ferro", "price": 800, "type": "weapon", "rarity": "Comum", "durability": -1, "effect": { "attack": 10 } },
+  "espada_rubra_do_guerreiro": { "name": "Espada Rubra do Guerreiro", "price": 10000, "type": "weapon", "rarity": "Raro", "durability": -1, "effect": { "attack": 18, "special": "Chance de queimadura" } },
+  "lamina_fantasma_lunar": { "name": "Lâmina Fantasma Lunar", "price": 25000, "type": "weapon", "rarity": "Épico", "durability": -1, "effect": { "attack": 35, "speed": 10, "special": "Crítico noturno" } },
+  "excalibur_do_imperador_caido": { "name": "Excalibur do Imperador Caído", "price": 50000, "type": "weapon", "rarity": "Lendário", "durability": -1, "effect": { "attack": 60, "defense": 20, "special": "Onda de energia" } },
+  "katana_do_vazio": { "name": "Katana do Vazio", "price": 120000, "type": "weapon", "rarity": "Épico", "durability": -1, "effect": { "attack": 85, "special": "Ignora 20% DEF" } },
+  "espada_tempestade": { "name": "Espada Tempestade", "price": 240000, "type": "weapon", "rarity": "Lendário", "durability": -1, "effect": { "attack": 110, "special": "Chance de raio" } },
+  "foice_do_abismo": { "name": "Foice do Abismo", "price": 500000, "type": "weapon", "rarity": "Mítico", "durability": -1, "effect": { "attack": 160, "special": "Roubo de vida" } },
+  "armadura_de_couro": { "name": "Armadura de Couro", "price": 900, "type": "armor", "rarity": "Comum", "durability": -1, "effect": { "defense": 15 } },
+  "armadura_de_ferro": { "name": "Armadura de Ferro", "price": 2400, "type": "armor", "rarity": "Incomum", "durability": -1, "effect": { "defense": 35 } },
+  "armadura_de_aco": { "name": "Armadura de Aço", "price": 3600, "type": "armor", "rarity": "Raro", "durability": -1, "effect": { "defense": 50 } },
+  "armadura_de_aco_do_guardiao": { "name": "Armadura de Aço do Guardião", "price": 10000, "type": "armor", "rarity": "Raro", "durability": -1, "effect": { "defense": 35, "special": "Resistência física" } },
+  "armadura_sombria_do_abismo": { "name": "Armadura Sombria do Abismo", "price": 35000, "type": "armor", "rarity": "Épico", "durability": -1, "effect": { "defense": 60, "hp": 15, "special": "Aura intimidadora" } },
+  "armadura_real_do_eclipse": { "name": "Armadura Real do Eclipse", "price": 75000, "type": "armor", "rarity": "Lendário", "durability": -1, "effect": { "defense": 100, "special": "Escudo sombrio" } },
+  "armadura_do_guardiao_celestial": { "name": "Armadura do Guardião Celestial", "price": 450000, "type": "armor", "rarity": "Lendário", "durability": -1, "effect": { "defense": 140, "special": "Escudo automático" } },
+  "armadura_abissal": { "name": "Armadura Abissal", "price": 700000, "type": "armor", "rarity": "Mítico", "durability": -1, "effect": { "defense": 180, "special": "Resistência mágica" } },
+  "elmo_de_couro": { "name": "Elmo de Couro", "price": 600, "type": "helmet", "rarity": "Comum", "durability": -1, "effect": { "defense": 4 } },
+  "elmo_de_ferro": { "name": "Elmo de Ferro", "price": 1200, "type": "helmet", "rarity": "Incomum", "durability": -1, "effect": { "defense": 12 } },
+  "elmo_do_berserker_carmesim": { "name": "Elmo do Berserker Carmesim", "price": 12000, "type": "helmet", "rarity": "Épico", "durability": -1, "effect": { "attack": 25, "defense": 15 } },
+  "elmo_da_tempestade": { "name": "Elmo da Tempestade", "price": 24000, "type": "helmet", "rarity": "Lendário", "durability": -1, "effect": { "attack": 40, "defense": 30, "special": "Dano de Raio" } },
+  "coroa_dos_mil_olhos": { "name": "Coroa dos Mil Olhos", "price": 45000, "type": "helmet", "rarity": "Mítico", "durability": -1, "effect": { "attack": 60, "defense": 50, "special": "Visão Real" } },
+  "mascara_da_ilusao": { "name": "Máscara da Ilusão", "price": 20000, "type": "helmet", "rarity": "Lendário", "durability": -1, "effect": { "defense": 45, "special": "Invisibilidade" } },
+  "botas_de_couro": { "name": "Botas de Couro", "price": 750, "type": "boots", "rarity": "Comum", "durability": -1, "effect": { "defense": 3 } },
+  "botas_de_ferro": { "name": "Botas de Ferro", "price": 1500, "type": "boots", "rarity": "Incomum", "durability": -1, "effect": { "defense": 10 } },
+  "botas_de_couro_reforcado": { "name": "Botas de Couro Reforçado", "price": 450, "type": "boots", "rarity": "Comum", "durability": -1, "effect": { "defense": 5, "special": "Resistência" } },
+  "botas_de_ferro_pesado": { "name": "Botas de Ferro Pesado", "price": 1200, "type": "boots", "rarity": "Incomum", "durability": -1, "effect": { "defense": 12, "special": "Reduz velocidade" } },
+  "botas_do_cacador": { "name": "Botas do Caçador", "price": 3500, "type": "boots", "rarity": "Raro", "durability": -1, "effect": { "defense": 25, "special": "Furtividade" } },
+  "botas_do_relampago_celestial": { "name": "Botas do Relâmpago Celestial", "price": 25000, "type": "boots", "rarity": "Lendário", "durability": -1, "effect": { "defense": 50, "special": "Passo Instantâneo" } },
+  "botas_do_vento": { "name": "Botas do Vento", "price": 180000, "type": "boots", "rarity": "Épico", "durability": -1, "effect": { "defense": 25, "special": "+35% velocidade" } },
+  "botas_fantasma": { "name": "Botas Fantasma", "price": 280000, "type": "boots", "rarity": "Lendário", "durability": -1, "effect": { "defense": 30, "special": "Passos silenciosos" } },
+  "escudo_de_madeira": { "name": "Escudo de Madeira", "price": 450, "type": "shield", "rarity": "Comum", "durability": -1, "effect": { "defense": 5 } },
+  "escudo_de_ferro_reforcado": { "name": "Escudo de Ferro Reforçado", "price": 800, "type": "shield", "rarity": "Comum", "durability": -1, "effect": { "defense": 15 } },
+  "escudo_do_viajante": { "name": "Escudo do Viajante", "price": 1500, "type": "shield", "rarity": "Incomum", "durability": -1, "effect": { "defense": 25 } },
+  "escudo_infernal_de_magma": { "name": "Escudo Infernal de Magma", "price": 14000, "type": "shield", "rarity": "Épico", "durability": -1, "effect": { "defense": 80, "special": "Reflete Fogo" } },
+  "escudo_glacial_eterno": { "name": "Escudo Glacial Eterno", "price": 21000, "type": "shield", "rarity": "Lendário", "durability": -1, "effect": { "defense": 120, "special": "Congelamento" } },
+  "anel_do_cacador_agil": { "name": "Anel do Caçador Ágil", "price": 10000, "type": "accessory", "rarity": "Raro", "durability": -1, "effect": { "speed": 8, "special": "+5% esquiva" } },
+  "colar_das_chamas_antigas": { "name": "Colar das Chamas Antigas", "price": 25000, "type": "accessory", "rarity": "Épico", "durability": -1, "effect": { "magic_dmg": 15, "special": "Resistência fogo" } },
+  "amuleto_do_olho_sombrio": { "name": "Amuleto do Olho Sombrio", "price": 50000, "type": "accessory", "rarity": "Épico", "durability": -1, "effect": { "critical": 12, "special": "Aumenta percepção" } },
+  "bracelete_do_tita": { "name": "Bracelete do Titã", "price": 90000, "type": "accessory", "rarity": "Lendário", "durability": -1, "effect": { "hp": 35, "strength": 20, "special": "Resistência física" } },
+  "manto_do_arcanjo_caido": { "name": "Manto do Arcanjo Caído", "price": 15000, "type": "accessory", "rarity": "Lendário", "durability": -1, "effect": { "magic_def": 40, "special": "Regeneração de mana" } },
+  "relicario_do_vazio_eterno": { "name": "Relicário do Vazio Eterno", "price": 250000, "type": "accessory", "rarity": "Mítico", "durability": -1, "effect": { "all_stats": 50, "special": "Imunidade a maldições" } },
+  "pickaxe_bronze": { "name": "Picareta de Bronze", "price": 500, "type": "tool", "toolType": "pickaxe", "tier": "bronze", "durability": 20, "effect": { "mineBonus": 0.1 } },
+  "pickaxe_ferro": { "name": "Picareta de Ferro", "price": 1500, "type": "tool", "toolType": "pickaxe", "tier": "ferro", "durability": 60, "effect": { "mineBonus": 0.25 } },
+  "pickaxe_diamante": { "name": "Picareta de Diamante", "price": 5000, "type": "tool", "toolType": "pickaxe", "tier": "diamante", "durability": 150, "effect": { "mineBonus": 0.5 } },
+  "picareta_de_titanio": { "name": "Picareta de Titânio", "price": 4000, "type": "tool", "rarity": "Raro", "durability": 300, "effect": { "mineBonus": 0.8 }, "toolType": "pickaxe", "tier": "titanio" },
+  "picareta_industrial": { "name": "Picareta Industrial", "price": 8500, "type": "tool", "rarity": "Épico", "durability": 600, "effect": { "mineBonus": 1.5 }, "toolType": "pickaxe", "tier": "industrial" },
+  "picareta_vulcanica": { "name": "Picareta Vulcânica", "price": 22000, "type": "tool", "rarity": "Lendário", "durability": 1200, "effect": { "mineBonus": 3.0 }, "toolType": "pickaxe", "tier": "vulcanica" },
+  "picareta_da_tempestade": { "name": "Picareta da Tempestade", "price": 26000, "type": "tool", "rarity": "Lendário", "durability": 1500, "effect": { "mineBonus": 4.0 }, "toolType": "pickaxe", "tier": "tempestade" },
+  "picareta_do_vazio": { "name": "Picareta do Vazio", "price": 50000, "type": "tool", "rarity": "Mítico", "durability": 3000, "effect": { "mineBonus": 10.0 }, "toolType": "pickaxe", "tier": "vazio" },
+  "repairkit": { "name": "Kit de Reparos", "price": 350, "type": "consumable", "effect": { "repair": 40 } },
+  "pocao_de_vida": { "name": "Poção de Vida", "price": 400, "type": "consumable", "rarity": "Comum", "durability": -1, "effect": { "special": "+50 HP" } }
+};
+
+  // Força a atualização de todos os itens da loja KaiserBot para garantir tipos e preços corretos
+  for (const [k, v] of Object.entries(kaiserShop)) {
+    if (!econ.shop[k] || JSON.stringify(econ.shop[k]) !== JSON.stringify(v)) {
       econ.shop[k] = v;
       changed = true;
     }
   }
+
+  // Remove itens duplicados ou com categorias erradas (ex: botas que estavam como armor)
+  const legacyKeys = ["botas_de_ferro_reforcado_legacy", "elmo_de_couro_legacy"]; // Exemplo de chaves para limpar se necessário
+  legacyKeys.forEach(lk => {
+    if (econ.shop[lk]) {
+      delete econ.shop[lk];
+      changed = true;
+    }
+  });
 
   // === MATERIAIS E RECEITAS ===
   econ.materialsPrices = econ.materialsPrices || {
@@ -2343,12 +2396,29 @@ function checkLevelUp(userId, userData, levelingData, nazu, from) {
     userData.level = typeof userData.level === 'number' && !isNaN(userData.level) ? Math.max(1, Math.floor(userData.level)) : 1;
     userData.xp = typeof userData.xp === 'number' && !isNaN(userData.xp) ? Math.max(0, Math.floor(userData.xp)) : 0;
 
+    // Hard cap em 100
+    if (userData.level >= 100) {
+      userData.level = 100;
+      userData.xp = 0;
+      userData.power = 100 + (100 * 15); // 1600
+      return;
+    }
+
     const nextLevelXp = calculateNextLevelXp(userData.level);
 
     if (userData.xp >= nextLevelXp) {
       userData.level++;
       userData.xp -= nextLevelXp;
+      
+      if (userData.level >= 100) {
+        userData.level = 100;
+        userData.xp = 0;
+      }
+      
       userData.patent = getPatent(userData.level, levelingData.patents || DEFAULT_PATENTS);
+      
+      // Sincroniza o poder com o nível (lógica original: 100 + level * 15)
+      userData.power = 100 + (userData.level * 15);
 
       // Usa salvamento seguro
       saveLevelingSafe(levelingData);
