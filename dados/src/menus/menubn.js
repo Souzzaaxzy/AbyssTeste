@@ -109,6 +109,7 @@ ${bottomBorder}
 ${menuTopBorder}
 │ ${maleFunMenuTitle}
 ${middleBorder}
+${middleBorder}${menuItemIcon}${prefix}medirpau
 ${isLiteMode ? '' : `${middleBorder}${menuItemIcon}${prefix}gay\n`}${middleBorder}${menuItemIcon}${prefix}burro
 ${middleBorder}${menuItemIcon}${prefix}inteligente
 ${middleBorder}${menuItemIcon}${prefix}otaku
