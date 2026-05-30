@@ -3473,4 +3473,5 @@ export {
   isMenuLerMaisEnabled,
   setMenuLerMais,
   getMenuLerMaisText
+  calculateCombatStats
 };
