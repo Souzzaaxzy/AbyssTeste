@@ -32839,42 +32839,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
           responseText += `\n📌 Limite: ${moments.length}/10 momentos por dia\n🚮 Para apagar um momento, use ${groupPrefix}apm [número]`;
           await reply(responseText);
-          
-          // Enviar as mídias realmente
-          for (let i = 0; i < moments.length; i++) {
-            const m = moments[i];
-            const senderMention = m.sender ? `@${m.sender.split('@')[0]}` : 'Desconhecido';
-            const requesterMention = m.requester ? `@${m.requester.split('@')[0]}` : 'Desconhecido';
-            try {
-              if (m.type === 'image') {
-                const imageBuffer = Buffer.from(m.content, 'base64');
-                await nazu.sendMessage(from, {
-                  image: imageBuffer,
-                  caption: `${i + 1}. 👤 Enviado por: ${senderMention}\n📄 Salvo por: ${requesterMention}\n${m.caption || ''}`
-                });
-              } else if (m.type === 'video') {
-                const videoBuffer = Buffer.from(m.content, 'base64');
-                await nazu.sendMessage(from, {
-                  video: videoBuffer,
-                  caption: `${i + 1}. 👤 Enviado por: ${senderMention}\n📄 Salvo por: ${requesterMention}\n${m.caption || ''}`
-                });
-              } else if (m.type === 'audio') {
-                const audioBuffer = Buffer.from(m.content, 'base64');
-                await nazu.sendMessage(from, {
-                  audio: audioBuffer,
-                  ptt: m.ptt || false,
-                  mimetype: 'audio/ogg; codecs=opus'
-                });
-              } else if (m.type === 'sticker') {
-                const stickerBuffer = Buffer.from(m.content, 'base64');
-                await nazu.sendMessage(from, {
-                  sticker: stickerBuffer
-                });
-              }
-            } catch (mediaError) {
-              console.error(`Erro ao enviar mídia ${i + 1}:`, mediaError);
-            }
-          }
+          // Tudo junto em um único texto, sem enviar mídias separadas
         } catch (e) {
           console.error('Erro no comando moment:', e);
           await reply('❌ Ocorreu um erro ao listar momentos 💔');
