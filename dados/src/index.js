@@ -9749,7 +9749,7 @@ if (isCmd && command && !isOwner) {
           const partyId = `party_${Date.now()}`;
           econ.dungeonParties[partyId] = {
             id: partyId,
-            type: tipo,
+            type: dungeonKey, // Salva o ID da dungeon (ex: floresta) em vez do bossId
             leader: sender,
             members: [sender],
             maxMembers: dg.players,
@@ -9759,6 +9759,30 @@ if (isCmd && command && !isOwner) {
 
           saveEconomy(econ);
           return reply(`╭━━━⊱ 🎉 *PARTY CRIADA* ⊱━━━╮\n\n${dg.emoji} *${dg.name}*\n\n🆔 ID: \`${partyId.slice(-8)}\`\n👥 Membros: 1/${dg.players}\n👹 Boss: ${dg.boss}\n\n💡 Outros jogadores podem usar:\n${prefix}dungeon entrar ${partyId.slice(-8)}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+        }
+
+        // Sair da party
+        if (sub === 'sair' || sub === 'leave') {
+          let partyId = null;
+          for (const [id, party] of Object.entries(econ.dungeonParties)) {
+            if (party.members.includes(sender)) {
+              partyId = id;
+              break;
+            }
+          }
+
+          if (!partyId) return reply('❌ Você não está em nenhuma party!');
+
+          const party = econ.dungeonParties[partyId];
+          if (party.leader === sender) {
+            delete econ.dungeonParties[partyId];
+            saveEconomy(econ);
+            return reply('👋 Você saiu e a party foi desfeita por você ser o líder.');
+          } else {
+            party.members = party.members.filter(m => m !== sender);
+            saveEconomy(econ);
+            return reply('👋 Você saiu da party.');
+          }
         }
 
         // Entrar em party
@@ -9887,7 +9911,13 @@ if (isCmd && command && !isOwner) {
               u.wallet += Math.floor(dg.reward / myParty.members.length);
               u.xp = (u.xp || 0) + Math.floor(dg.xp / myParty.members.length);
             });
+            // Remove a party após vitória
+            delete econ.dungeonParties[myParty.id];
+            saveEconomy(econ);
           } else {
+            // Remove a party após derrota (opcional, mas evita travar os jogadores)
+            delete econ.dungeonParties[myParty.id];
+            saveEconomy(econ);
             text += `💀 *DERROTA!*\n\n`;
             text += `😔 O boss ${dg.boss} foi muito forte...\n`;
             text += `💡 Tente novamente com mais poder!`;
