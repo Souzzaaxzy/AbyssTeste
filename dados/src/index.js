@@ -299,6 +299,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = pathz.dirname(__filename);
 const OWNER_ONLY_MESSAGE = '🚫 Este comando é apenas para o dono do bot!';
 
+const react = async (emoji, sock, messageKey, fromJid) => {
+  if (messageKey && sock && fromJid) {
+    await sock.sendMessage(fromJid, { react: { text: emoji, key: messageKey } });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
 // Função para formatar respostas de IA para WhatsApp (converte ** para *)
 const formatAIResponse = (text) => {
   if (!text || typeof text !== 'string') return text;
@@ -19052,7 +19068,7 @@ case 'addaluguel':
 
           if (q.includes('youtube.com') || q.includes('youtu.be')) {
             videoUrl = q;
-            await nazu.sendMessage(from, { react: { text: '🔍', key: info.key } });
+            await react('🔍', nazu, info.key, from);
 
             await nazu.sendMessage(from, { react: { text: '⏳', key: info.key } });
             youtube.mp3(videoUrl, 128)
