@@ -9761,29 +9761,7 @@ if (isCmd && command && !isOwner) {
           return reply(`╭━━━⊱ 🎉 *PARTY CRIADA* ⊱━━━╮\n\n${dg.emoji} *${dg.name}*\n\n🆔 ID: \`${partyId.slice(-8)}\`\n👥 Membros: 1/${dg.players}\n👹 Boss: ${dg.boss}\n\n💡 Outros jogadores podem usar:\n${prefix}dungeon entrar ${partyId.slice(-8)}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
         }
 
-        // Sair da party
-        if (sub === 'sair' || sub === 'leave') {
-          let partyId = null;
-          for (const [id, party] of Object.entries(econ.dungeonParties)) {
-            if (party.members.includes(sender)) {
-              partyId = id;
-              break;
-            }
-          }
 
-          if (!partyId) return reply('❌ Você não está em nenhuma party!');
-
-          const party = econ.dungeonParties[partyId];
-          if (party.leader === sender) {
-            delete econ.dungeonParties[partyId];
-            saveEconomy(econ);
-            return reply('👋 Você saiu e a party foi desfeita por você ser o líder.');
-          } else {
-            party.members = party.members.filter(m => m !== sender);
-            saveEconomy(econ);
-            return reply('👋 Você saiu da party.');
-          }
-        }
 
         // Entrar em party
         if (sub === 'entrar') {
