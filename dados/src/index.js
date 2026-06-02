@@ -19197,7 +19197,7 @@ case 'addaluguel':
             return reply('❌ Por favor, envie um link válido do Spotify.\n\n💡 Dica: Use o comando play2 para buscar por nome!');
           }
 
-          await nazu.sendMessage(from, { react: { text: '🎵', key: info.key } });
+          await nazu.sendMessage(from, { react: { text: '🔍', key: info.key } });
 
           const downloadResult = await spotifyModule.download(q);
 
@@ -19223,6 +19223,7 @@ case 'addaluguel':
               mimetype: 'audio/mpeg',
               fileName: downloadResult.filename
             }, { quoted: info });
+            await nazu.sendMessage(from, { react: { text: '✅', key: info.key } });
           } catch (audioError) {
             if (String(audioError).includes("ENOSPC") || String(audioError).includes("size")) {
               await reply('📦 Arquivo muito grande, enviando como documento...');
@@ -19306,7 +19307,7 @@ case 'pin':
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
           }
 
-          await reply('🔎 Buscando no Spotify... Aguarde!');
+          await nazu.sendMessage(from, { react: { text: '🔍', key: info.key } });
 
           // 1. Buscar a música
           const searchResult = await spotifyModule.search(q);
@@ -19325,6 +19326,7 @@ case 'pin':
             `📥 *Baixando...*`;
 
           await reply(searchCaption);
+          await nazu.sendMessage(from, { react: { text: '⏳', key: info.key } });
 
           // 2. Baixar a música
           const downloadResult = await spotifyModule.download(track.song_link);
@@ -19339,6 +19341,7 @@ case 'pin':
               mimetype: 'audio/mpeg',
               fileName: downloadResult.filename
             }, { quoted: info });
+            await nazu.sendMessage(from, { react: { text: '✅', key: info.key } });
           } catch (audioError) {
             if (String(audioError).includes("ENOSPC") || String(audioError).includes("size")) {
               await reply('📦 Arquivo muito grande, enviando como documento...');
@@ -19666,7 +19669,7 @@ case 'pin':
           // Verificar se tem API key
 
 
-          reply('Aguarde um momentinho... ☀️');
+          await nazu.sendMessage(from, { react: { text: '🔍', key: info.key } });
           let isTikTokUrl = q.includes('tiktok');
           const tiktokPromise = isTikTokUrl ? tiktok.dl(q) : tiktok.search(q);
 
@@ -19684,6 +19687,7 @@ case 'pin':
                 }, {
                   quoted: info
                 });
+                await nazu.sendMessage(from, { react: { text: '✅', key: info.key } });
               }
 
               if (datinha.audio) await nazu.sendMessage(from, {
@@ -19727,7 +19731,7 @@ case 'pin':
             return reply('❌ Por favor, envie um link válido do Facebook.');
           }
 
-          await reply('📹 Baixando vídeo do Facebook em HD... Aguarde!');
+          await nazu.sendMessage(from, { react: { text: '🔍', key: info.key } });
 
           facebook.downloadHD(q)
             .then(async (result) => {
@@ -19792,7 +19796,7 @@ case 'pin':
         try {
           if (!q) return reply(`Digite um link do Instagram.\n> Ex: ${prefix}${command} https://www.instagram.com/reel/DFaq_X7uoiT/?igsh=M3Q3N2ZyMWU1M3Bo`);
 
-          reply('Aguarde um momentinho... ☀️');
+          await nazu.sendMessage(from, { react: { text: '🔍', key: info.key } });
 
           igdl.dl(q)
             .then(async (datinha) => {
@@ -19835,7 +19839,7 @@ case 'pin':
           if (!q) return reply(`Digite um link do kwai.\n> Ex: ${prefix}${command} https://kwai-video.com/p/q0fr2CRm`);
 
 
-          reply('Aguarde um momentinho... ☀️');
+          await nazu.sendMessage(from, { react: { text: '🔍', key: info.key } });
           kwai.dl(q)
             .then(async (datinha) => {
               if (!datinha.ok) return reply(datinha.msg);
