@@ -9780,7 +9780,19 @@ if (isCmd && command && !isOwner) {
           }
 
           const party = econ.dungeonParties[partyId];
-          const dg = dungeons[party.type];
+          let dg = dungeons[party.type];
+          if (!dg) {
+            for (const data of Object.values(dungeons)) {
+              if (data.bossId === party.type) {
+                dg = data;
+                break;
+              }
+            }
+          }
+          if (!dg) {
+            console.log('❌ [DUNGEON DEBUG] Erro: Dados da dungeon não encontrados.', { type: party.type, partyId: party.id });
+            return reply(`❌ Erro: Dados da dungeon "${party.type}" não encontrados.`);
+          }
 
           if (party.members.includes(sender)) {
             return reply('❌ Você já está nesta party!');
@@ -9812,8 +9824,21 @@ if (isCmd && command && !isOwner) {
 
           if (!myParty) return reply('❌ Você não é líder de nenhuma party!');
 
-          const dg = dungeons[myParty.type];
-          if (!dg) return reply('❌ Erro: Dungeon inválida.');
+          // Encontrar a dungeon correta (pode estar salva pelo ID do boss ou pela chave do objeto)
+          let dg = dungeons[myParty.type];
+          if (!dg) {
+            // Tenta encontrar pelo bossId se a chave direta falhar
+            for (const data of Object.values(dungeons)) {
+              if (data.bossId === myParty.type) {
+                dg = data;
+                break;
+              }
+            }
+          }
+          if (!dg) {
+            console.log('❌ [DUNGEON DEBUG] Erro: Dungeon não encontrada.', { type: myParty.type, partyId: myParty.id });
+            return reply(`❌ Erro técnico: Dungeon "${myParty.type}" não encontrada. Peça ao líder para recriar a party.`);
+          }
 
           if (myParty.members.length < 2) {
             return reply(`❌ Você precisa de pelo menos 2 membros para iniciar!`);
