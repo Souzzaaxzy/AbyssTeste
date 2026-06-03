@@ -1,6 +1,10 @@
 # 👑 KaiserBot
 
 <p align="center">
+  <img src="dados/midias/menu.gif" alt="KaiserBot GIF" width="600">
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/github/package-json/v/Souzzaaxzy/KaiserBot?style=for-the-badge&color=gold" alt="Versão">
   <img src="https://img.shields.io/github/license/Souzzaaxzy/KaiserBot?style=for-the-badge&color=blue" alt="Licença">
 </p>
