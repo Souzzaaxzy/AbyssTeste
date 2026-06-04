@@ -25160,32 +25160,47 @@ ${prefix}togglecmdvip premium_ia off`);
         const subCmd = args[0].toLowerCase();
 
         if (subCmd === 'ver' || !q) {
+          const formatMandate = (m) => {
+            const s = String(m);
+            if (s.endsWith('m')) return s.replace('m', ' minutos');
+            if (s.endsWith('h')) return s.replace('h', ' horas');
+            if (s.endsWith('d')) return s.replace('d', ' dias');
+            return s + ' dias';
+          };
+
           let text = `⚙️ *CONFIGURAÇÕES DA ELEIÇÃO*\n\n`;
           text += `⏳ *Candidatura:* ${config.candidatura} minutos\n`;
           text += `🗳️ *Votação:* ${config.votacao} minutos\n`;
-          text += `👑 *Mandato:* ${config.mandato} dias\n\n`;
+          text += `👑 *Mandato:* ${formatMandate(config.mandato)}\n\n`;
           text += `💡 *Para alterar, use:*\n`;
           text += `> ${prefix}tempeleicao candidatura <minutos>\n`;
           text += `> ${prefix}tempeleicao votacao <minutos>\n`;
-          text += `> ${prefix}tempeleicao mandato <dias>`;
+          text += `> ${prefix}tempeleicao mandato <valor><m/h/d>\n`;
+          text += `_Ex: !tempeleicao mandato 30m, 12h ou 7d_`;
           return reply(text);
         }
 
-        const value = parseInt(args[1]);
-        if (isNaN(value) || value <= 0) return reply('❌ Informe um valor numérico válido maior que zero.');
-
         let msg = '';
-        if (subCmd === 'candidatura') {
-          config.candidatura = value;
-          msg = `✅ Tempo de candidatura definido para ${value} minutos.`;
-        } else if (subCmd === 'votacao' || subCmd === 'votação') {
-          config.votacao = value;
-          msg = `✅ Tempo de votação definido para ${value} minutos.`;
-        } else if (subCmd === 'mandato') {
-          config.mandato = value;
-          msg = `✅ Duração do mandato definida para ${value} dias.`;
+        if (subCmd === 'mandato') {
+          const rawValue = args[1].toLowerCase();
+          if (!/^\d+[mhd]$/.test(rawValue) && !/^\d+$/.test(rawValue)) {
+            return reply('❌ Formato inválido! Use: 30m, 12h ou 7d.');
+          }
+          config.mandato = rawValue;
+          msg = `✅ Duração do mandato definida para ${rawValue}.`;
         } else {
-          return reply('❌ Subcomando inválido. Use: candidatura, votacao ou mandato.');
+          const value = parseInt(args[1]);
+          if (isNaN(value) || value <= 0) return reply('❌ Informe um valor numérico válido maior que zero.');
+
+          if (subCmd === 'candidatura') {
+            config.candidatura = value;
+            msg = `✅ Tempo de candidatura definido para ${value} minutos.`;
+          } else if (subCmd === 'votacao' || subCmd === 'votação') {
+            config.votacao = value;
+            msg = `✅ Tempo de votação definido para ${value} minutos.`;
+          } else {
+            return reply('❌ Subcomando inválido. Use: candidatura, votacao ou mandato.');
+          }
         }
 
         saveElectionConfig(config);

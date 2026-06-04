@@ -75,8 +75,17 @@ class ElectionManager {
   async declareWinner(groupId, winner) {
     const config = loadElectionConfig();
     const mandates = loadMandates();
+    
+    // Cálculo de expiração flexível (suporta m, h, d)
     const endDate = new Date();
-    endDate.setDate(endDate.getDate() + config.mandato);
+    const mandateStr = String(config.mandato);
+    const unit = mandateStr.slice(-1).toLowerCase();
+    const value = parseInt(mandateStr);
+
+    if (unit === 'm') endDate.setMinutes(endDate.getMinutes() + value);
+    else if (unit === 'h') endDate.setHours(endDate.getHours() + value);
+    else if (unit === 'd') endDate.setDate(endDate.getDate() + value);
+    else endDate.setDate(endDate.getDate() + value); // Padrão dias se não houver unidade
 
     mandates.push({
       groupId,
@@ -88,7 +97,7 @@ class ElectionManager {
 
     let text = `🏆 *RESULTADO DA ELEIÇÃO*\n\n`;
     text += `👑 Moderador eleito: @${winner.id.split('@')[0]}\n\n`;
-    text += `🎉 Parabéns! Seu mandato dura ${config.mandato} dias.`;
+    text += `🎉 Parabéns! Seu mandato dura ${config.mandato}.`;
 
     await this.nazu.sendMessage(groupId, { text, mentions: [winner.id] });
     
