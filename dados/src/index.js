@@ -8130,9 +8130,13 @@ if (isCmd && command && !isOwner) {
         }
 
         const pet = me.pets[index];
-        const foodCost = pet.feedCost || 100;
+        
+        // Custo base de alimentação (usa feedCost salvo ou padrão 100)
+        // Aumenta 5% por nível para acompanhar o poder do pet
+        let baseFoodCost = pet.feedCost || 100;
+        const foodCost = Math.floor(baseFoodCost * (1 + (pet.level - 1) * 0.05));
 
-        if (me.wallet < foodCost) return reply(`💰 Você precisa de ${foodCost.toLocaleString()} moedas para comprar comida de ${pet.name}!`);
+        if (me.wallet < foodCost) return reply(`💰 Você precisa de ${foodCost.toLocaleString()} moedas para comprar comida de ${pet.name}!\n\n💡 O custo aumenta conforme o nível do pet (Nível atual: ${pet.level})`);
         if (pet.hunger >= 100) return reply(`🍖 ${pet.emoji} *${pet.name}* já está satisfeito!`);
 
         me.wallet -= foodCost;
