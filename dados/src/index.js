@@ -7944,23 +7944,26 @@ if (isCmd && command && !isOwner) {
         }
 
         if (me.pets.length === 0) {
-          let text = `╭━━━⊱ 🐾 *SISTEMA DE PETS* ⊱━━━╮\n`;
-          text += `│ Você ainda não tem companheiros!\n`;
-          text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
-          text += `🦊 *PETS DISPONÍVEIS:*\n\n`;
-          text += `  *Lobo* - Veloz e leal\n`;
-          text += `🐉 *Dragão* - Poderoso e raro\n`;
-          text += `🔥 *Fênix* - Imortal e místico\n`;
-          text += `🐯 *Tigre* - Feroz e forte\n`;
-          text += `🦅 *Águia* - Ágil e preciso\n\n`;
-          text += `💡 Use ${prefix}adotar <nome> para começar!`;
+          let text = `╭─────────────────────⭓\n` +
+                     `│      🐾 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗣𝗘𝗧𝗦 🐾\n` +
+                     `├─────────────────────⭓\n│\n` +
+                     `│ Você ainda não tem companheiros!\n│\n` +
+                     `├──── 𝗣𝗘𝗧𝗦 𝗜𝗡𝗜𝗖𝗜𝗔𝗜𝗦 ────⭓\n│\n` +
+                     `│ 🐺 Lobo | 🐉 Dragão\n` +
+                     `│ 🔥 Fênix | 🐯 Tigre | 🦅 Águia\n│\n` +
+                     `├──── 𝗣𝗘𝗧𝗦 𝗖𝗢́𝗦𝗠𝗜𝗖𝗢𝗦 ────⭓\n│\n` +
+                     `│ 🌌 Nyx | ⏳ Chrony | 👁️ Abyron\n` +
+                     `│ 👼 Seraph | 🩸 Vex\n│\n` +
+                     `╰─────────────────────⭓\n\n💡 *Use !adotar para ver a loja completa!*`;
           return reply(text);
         }
 
-        let text = `╭━━━⊱ 🐾 *MEUS PETS* ⊱━━━╮\n`;
-        text += `│ Treinador: *${pushname}*\n`;
-        text += `│ Total de Pets: ${me.pets.length}/5\n`;
-        text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
+        let text = `╭─────────────────────⭓\n` +
+                   `│      🐾 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗣𝗘𝗧𝗦 🐾\n` +
+                   `├─────────────────────⭓\n` +
+                   `│ 👤 Treinador » ${pushname}\n` +
+                   `│ 🐾 Slots » ${me.pets.length}/5\n` +
+                   `├─────────────────────⭓\n\n`;
 
         let hasWarnings = false;
         me.pets.forEach((pet, i) => {
@@ -7987,29 +7990,27 @@ if (isCmd && command && !isOwner) {
             evolutionText = ` ${'⭐'.repeat(pet.evolutions)}`;
           }
 
-          text += `${i + 1}. ${pet.emoji} *${pet.name}*${evolutionText}${statusEmoji}\n`;
-          text += `┌─────────────────\n`;
-          text += `│ 📊 Level ${pet.level} | 💫 ${pet.exp}/${pet.level * 100} EXP\n`;
-          text += `│ ❤️ HP: ${pet.hp}/${pet.maxHp}\n`;
-          text += `│ ⚔️ ATK: ${pet.attack} | 🛡️ DEF: ${pet.defense}\n`;
-          if (pet.speed) text += `│ ⚡ SPD: ${pet.speed}\n`;
-          text += `│ 🏆 ${pet.wins || 0}V | 💀 ${pet.losses || 0}D\n`;
+          text += `${i + 1}. ${pet.emoji} **${pet.name}**${evolutionText}${statusEmoji}\n` +
+                   `   📊 Level ${pet.level} | 💫 ${pet.exp}/${pet.level * 100} EXP\n` +
+                   `   ❤️ HP » ${pet.hp}/${pet.maxHp}\n` +
+                   `   ⚔️ ATK » ${pet.attack} | 🛡️ DEF » ${pet.defense}\n`;
+          if (pet.speed) text += `   ⚡ SPD » ${pet.speed}\n`;
+          text += `   🏆 ${pet.wins || 0}V | 💀 ${pet.losses || 0}D\n`;
 
           // Mostra equipamentos
           if (pet.equipment && Object.keys(pet.equipment).length > 0) {
-            text += `│ 📦 Equipado:\n`;
+            text += `   📦 Equipado:\n`;
             Object.entries(pet.equipment).forEach(([slot, itemId]) => {
               const item = SHOP_ITEMS[itemId];
               if (item) {
                 const slotIcon = slot === 'weapon' ? '⚔️' : slot === 'armor' ? '🛡️' : slot === 'shield' ? '🛡️' : slot === 'accessory' ? '💍' : '🧪';
-                text += `│   ${slotIcon} ${item.name}\n`;
+                text += `     ${slotIcon} ${item.name}\n`;
               }
             });
           }
 
-          text += `│ 🍖 Fome: ${hungerBar} ${pet.hunger}%\n`;
-          text += `│ 😊 Humor: ${moodBar} ${pet.mood}%\n`;
-          text += `└─────────────────\n\n`;
+          text += `   🍖 Fome » ${pet.hunger}% [${hungerBar}]\n`;
+          text += `   😊 Humor » ${pet.mood}% [${moodBar}]\n\n`;
         });
 
         if (hasWarnings) {
@@ -8045,11 +8046,11 @@ if (isCmd && command && !isOwner) {
           fenix: { emoji: '🔥', name: 'Fênix', type: 'fenix', hp: 120, attack: 20, defense: 12, speed: 20, cost: 10000, desc: 'Imortal e místico', element: 'fire' },
           tigre: { emoji: '🐯', name: 'Tigre', type: 'tigre', hp: 110, attack: 18, defense: 11, speed: 16, cost: 7000, desc: 'Feroz e forte', element: 'normal' },
           aguia: { emoji: '🦅', name: 'Águia', type: 'aguia', hp: 90, attack: 22, defense: 8, speed: 25, cost: 6000, desc: 'Ágil e preciso', element: 'wind' },
-          nyx: { emoji: '🐾', name: 'Nyx, o Devorador de Estrelas', type: 'nyx', hp: 200, attack: 40, defense: 25, speed: 30, cost: 500000, desc: 'Pet cósmico que aumenta o dano continuamente.', element: 'dark', rarity: 'Mítico' },
-          chrony: { emoji: '🐾', name: 'Chrony, a Aranha do Tempo', type: 'chrony', hp: 160, attack: 30, defense: 20, speed: 50, cost: 350000, desc: 'Aranha brilhante capaz de distorcer o tempo.', element: 'time', rarity: 'Lendário' },
-          abyron: { emoji: '🐾', name: 'Abyron, o Olho do Abismo', type: 'abyron', hp: 180, attack: 35, defense: 15, speed: 25, cost: 200000, desc: 'Revela inimigos e reduz a defesa de monstros.', element: 'dark', rarity: 'Épico' },
-          seraph: { emoji: '🐾', name: 'Seraph, o Anjo Fragmentado', type: 'seraph', hp: 250, attack: 20, defense: 45, speed: 20, cost: 400000, desc: 'Cria barreiras protetoras durante combates.', element: 'light', rarity: 'Lendário' },
-          vex: { emoji: '🐾', name: 'Vex, o Parasita Rubro', type: 'vex', hp: 150, attack: 45, defense: 10, speed: 35, cost: 150000, desc: 'Rouba vida dos inimigos e fortalece o portador.', element: 'blood', rarity: 'Épico' }
+          nyx: { emoji: '🌌', name: 'Nyx, o Devorador de Estrelas', type: 'nyx', hp: 1200, attack: 350, defense: 250, speed: 80, cost: 500000, desc: 'Pet cósmico que aumenta o dano continuamente.', element: 'dark', rarity: 'Mítico', feedCost: 5000 },
+          chrony: { emoji: '⏳', name: 'Chrony, a Aranha do Tempo', type: 'chrony', hp: 800, attack: 280, defense: 180, speed: 120, cost: 350000, desc: 'Aranha brilhante capaz de distorcer o tempo.', element: 'time', rarity: 'Lendário', feedCost: 3500 },
+          abyron: { emoji: '👁️', name: 'Abyron, o Olho do Abismo', type: 'abyron', hp: 900, attack: 310, defense: 150, speed: 60, cost: 200000, desc: 'Revela inimigos e reduz a defesa de monstros.', element: 'dark', rarity: 'Épico', feedCost: 2000 },
+          seraph: { emoji: '👼', name: 'Seraph, o Anjo Fragmentado', type: 'seraph', hp: 1500, attack: 180, defense: 450, speed: 40, cost: 400000, desc: 'Cria barreiras protetoras durante combates.', element: 'light', rarity: 'Lendário', feedCost: 4000 },
+          vex: { emoji: '🩸', name: 'Vex, o Parasita Rubro', type: 'vex', hp: 750, attack: 420, defense: 120, speed: 90, cost: 150000, desc: 'Rouba vida dos inimigos e fortalece o portador.', element: 'blood', rarity: 'Épico', feedCost: 1500 }
         };
 
         // Normaliza o parâmetro ignorando acentos
@@ -8057,22 +8058,20 @@ if (isCmd && command && !isOwner) {
         const type = matchParam(inputType, petTypes) || findKeyIgnoringAccents(petTypes, inputType);
 
         if (!type || !petTypes[type]) {
-          let text = `╭━━━⊱ 🐾 *LOJA DE PETS* ⊱━━━╮\n`;
-          text += `│ Escolha seu companheiro!\n`;
-          text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
+          let text = `╭─────────────────────⭓\n` +
+                     `│      🐾 𝗞𝗔𝗜𝗦𝗘𝗥 𝗣𝗘𝗧 𝗦𝗛𝗢𝗣 🐾\n` +
+                     `├─────────────────────⭓\n│\n`;
 
           Object.entries(petTypes).forEach(([key, pet]) => {
-            text += `${pet.emoji} *${pet.name}*\n`;
-            text += `┌─────────────────\n`;
-            text += `│ 📝 ${pet.desc}\n`;
-            text += `│   Preço: ${pet.cost.toLocaleString()}\n`;
-            text += `│ ❤️ HP: ${pet.hp}\n`;
-            text += `│ ⚔️ ATK: ${pet.attack}\n`;
-            text += `│ 🛡️ DEF: ${pet.defense}\n`;
-            text += `└─────────────────\n\n`;
+            const rarityText = pet.rarity ? ` [${pet.rarity}]` : '';
+            text += `│ ${pet.emoji} **${pet.name}**${rarityText}\n` +
+                    `│ 📝 ${pet.desc}\n` +
+                    `│ 💰 Preço: ${pet.cost.toLocaleString()}\n` +
+                    `│ ❤️ HP: ${pet.hp} | ⚔️ ATK: ${pet.attack} | 🛡️ DEF: ${pet.defense}\n` +
+                    `│ 🍖 Manutenção: ${pet.feedCost ? pet.feedCost.toLocaleString() : '100'}\n│\n`;
           });
 
-          text += ` 💡 Use ${prefix}adotar <nome> para adotar`;
+          text += `╰─────────────────────⭓\n\n💡 *Use !adotar <nome> para adotar*`;
           return reply(text);
         }
 
@@ -8131,9 +8130,9 @@ if (isCmd && command && !isOwner) {
         }
 
         const pet = me.pets[index];
-        const foodCost = 100;
+        const foodCost = pet.feedCost || 100;
 
-        if (me.wallet < foodCost) return reply(`💰 Você precisa de ${foodCost} moedas para comprar comida!`);
+        if (me.wallet < foodCost) return reply(`💰 Você precisa de ${foodCost.toLocaleString()} moedas para comprar comida de ${pet.name}!`);
         if (pet.hunger >= 100) return reply(`🍖 ${pet.emoji} *${pet.name}* já está satisfeito!`);
 
         me.wallet -= foodCost;
