@@ -26760,8 +26760,8 @@ break;
           
           if (command === 'gpinfo' || command === 'infogrupo') {
             const groupMetadata = isGroup ? await nazu.groupMetadata(from) : {};
-            const groupAdmins = isGroup ? getGroupAdmins(groupMetadata.participants) : [];
-            const isBotGroupAdmin = groupAdmins.includes(botNumber);
+            const groupAdmins = isGroup ? groupMetadata.participants.filter(p => p.admin || p.isCommunityAdmin).map(p => p.id) : [];
+            const isBotGroupAdmin = idInArray(botNumber, groupAdmins);
             const owner = groupMetadata.owner || from.split('-')[0] + '@s.whatsapp.net';
             
             const gpInfoMsg = `╭─────────────────────⭓\n` +
