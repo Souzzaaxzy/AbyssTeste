@@ -2705,6 +2705,17 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         console.error('❌ Erro no sistema de leveling:', levelingError.message);
       }
     }
+    async function sendKaiserWarning(text) {
+      const warningMessage = `╭─────────────────────⭓\n` +
+        `│      ⚠️ 𝗞𝗔𝗜𝗦𝗘𝗥 𝗔𝗩𝗜𝗦𝗢 ⚠️\n` +
+        `├─────────────────────⭓\n` +
+        `│\n` +
+        `│ ❌ ${text}\n` +
+        `│\n` +
+        `╰─────────────────────⭓`;
+      return reply(warningMessage);
+    }
+
     async function reply(text, options = {}) {
       try {
         const {
@@ -15994,7 +16005,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
         break;
       case 'updates':
         try {
-          if (!isOwner || isOwner && isSubOwner) return reply("🚫 Apenas o Dono principal pode utilizar esse comando!");
+          if (!isOwner || isOwner && isSubOwner) return sendKaiserWarning("Apenas o Dono principal pode utilizar esse comando!");
           if (!fs.existsSync(pathz.join(__dirname, '..', 'database', 'updateSave.json'))) return reply('❌ Sua versão não tem suporte a esse sistema ainda.');
           const AtualCom = await axios.get('https://api.github.com/repos/devcrician/kaiser/commits?per_page=1', {
             headers: {
@@ -23114,7 +23125,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'unbangp':
       case 'desbangp':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isOwner) return reply("Este comando é apenas para o meu dono");
           banGpIds[from] = !banGpIds[from];
           if (banGpIds[from]) {
@@ -23172,7 +23183,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'addvipgp':
         try {
           if (!isOwner) return reply("Este comando é apenas para o meu dono");
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!!premiumListaZinha[from]) return reply('O grupo ja esta na lista premium.');
           premiumListaZinha[from] = true;
           await nazu.sendMessage(from, {
@@ -23192,7 +23203,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'rmvipgp':
         try {
           if (!isOwner) return reply("Este comando é apenas para o meu dono");
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!premiumListaZinha[from]) return reply('O grupo não esta na lista premium.');
           delete premiumListaZinha[from];
           await nazu.sendMessage(from, {
@@ -24250,7 +24261,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'rankativos':
       case 'rankativo':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
 
           // Verifica se a preservação do contador está ativada
           const preservarContadorRankativo = groupData.preservarContador === true;
@@ -24326,7 +24337,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'rankinativos':
       case 'rankinativo':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
 
           // Verifica se a preservação do contador está ativada
           const preservarContador = groupData.preservarContador === true;
@@ -25775,7 +25786,7 @@ packname: `${nomebot}`,            type: isVideo2 ? 'video' : 'image'
 
       case 'mention':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!q) return reply(`📢 *Configuração de Marcações*\n\n🔧 Escolha como deseja ser mencionado:\n\n✅ *${prefix}mention all* → Marcado em tudo (marcações e jogos).\n📢 *${prefix}mention marca* → Apenas em marcações de administradores.\n🎮 *${prefix}mention games* → Somente em jogos do bot.\n🚫 *${prefix}mention 0* → Não será mencionado em nenhuma ocasião.`);
           let options = {
             all: '✨ Você agora será mencionado em todas as interações do bot, incluindo marcações de administradores e os jogos!',
@@ -25825,7 +25836,7 @@ packname: `${nomebot}`,            type: isVideo2 ? 'video' : 'image'
         }
         break;
       case 'blockuser':
-        if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
         if (!isGroupAdmin) return reply("você precisa ser adm 💔");
         try {
           if (!menc_os2) return reply("Marque alguém 🙄");
@@ -25848,7 +25859,7 @@ packname: `${nomebot}`,            type: isVideo2 ? 'video' : 'image'
         }
         break;
       case 'unblockuser':
-        if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
         if (!isGroupAdmin) return reply("você precisa ser adm 💔");
         try {
           if (!menc_os2) return reply("Marque alguém 🙄");
@@ -25937,7 +25948,7 @@ case 'poll':
 break;
       case 'listblocksgp':
       case 'blocklist':
-        if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
         if (!isGroupAdmin) return reply("você precisa ser adm 💔");
         try {
           const blockedUsers = groupData.blockedUsers ? Object.entries(groupData.blockedUsers).map(([user, data]) => `👤 *${getUserName(user)}* - Motivo: ${data.reason}`).join('\n') : 'Nenhum usuário bloqueado no grupo.';
@@ -25953,9 +25964,9 @@ break;
       case 'b':
       case 'kick':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!menc_os2) return reply("Marque alguém 🙄");
           if (menc_os2 === nmrdn) return reply("❌ Não posso banir o dono do bot.");
           if (menc_os2 === botNumber) return reply("❌ Ops! Eu faço parte da bagunça, não dá pra me remover 💔");
@@ -25980,9 +25991,9 @@ break;
       case 'ban2':
       case 'banir2':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!menc_os2) return reply("Marque alguém 🙄");
           if (menc_os2 === nmrdn) return reply("❌ Não posso banir o dono do bot.");
           if (menc_os2 === botNumber) return reply("❌ Ops! Eu faço parte da bagunça, não dá pra me remover 💔");
@@ -26020,7 +26031,7 @@ break;
 
       case 'bam':
       case 'banfake':
-        if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
         if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
         if (!menc_os2) return reply("Marque alguém 🙄");
         if (menc_os2 === nmrdn) return reply("❌ Não posso banir o dono do bot.");
@@ -26049,7 +26060,7 @@ break;
 
       case 'setbammsg':
       case 'editarbam':
-        if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
         if (!isGroupAdmin) return reply("Comando restrito a Administradores 💔");
 
         if (!q) {
@@ -26068,7 +26079,7 @@ break;
 
       case 'verbammsg':
       case 'verbam':
-        if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
 
         try {
           const defaultMsg = `😂 *ERA MEME!*\n\n#user#, relaxa, era só uma brincadeira! 🤣\n\nVocê não vai ser banido... dessa vez! 😎`;
@@ -26082,7 +26093,7 @@ break;
 
       case 'resetbammsg':
       case 'resetarbam':
-        if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
         if (!isGroupAdmin) return reply("Comando restrito a Administradores 💔");
 
         try {
@@ -26098,9 +26109,9 @@ break;
       case 'linkgp':
       case 'linkgroup':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           var linkgc;
           linkgc = await nazu.groupInviteCode(from);
           await reply('https://chat.whatsapp.com/' + linkgc);
@@ -26115,7 +26126,7 @@ break;
         try {
           if (!isGroup) return reply("Isso só pode ser usado em grupo 💔");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
 
           // Função para obter solicitações pendentes (compatível com versões antigas do Baileys)
           let requests = [];
@@ -26176,7 +26187,7 @@ break;
         try {
           if (!isGroup) return reply("Isso só pode ser usado em grupo 💔");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
 
           // Verificar se é "all" para aceitar todos
           if (q && q.toLowerCase().trim() === 'all') {
@@ -26285,7 +26296,7 @@ break;
         try {
           if (!isGroup) return reply("Isso só pode ser usado em grupo 💔");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
 
           if (!menc_jid2 || menc_jid2.length === 0) {
             return reply(`❌ Marque alguém ou mencione números.\n\n💡 Exemplo: ${prefix}recusarsolic @usuario\n\nUse ${prefix}solicitacoes para ver pendentes.`);
@@ -26420,9 +26431,9 @@ break;
       case 'promover':
       case 'promote':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!menc_os2) return reply("Marque alguém 🙄");
           await nazu.groupParticipantsUpdate(from, [menc_os2], 'promote');
 
@@ -26437,9 +26448,9 @@ break;
       case 'rebaixar':
       case 'demote':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!menc_os2) return reply("Marque alguém 🙄");
           await nazu.groupParticipantsUpdate(from, [menc_os2], 'demote');
 
@@ -26457,9 +26468,9 @@ break;
       case 'alterarnome':
       case 'renomeargrupo':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const newName = q.trim();
           if (!newName) return reply('❌ Digite um novo nome para o grupo.\n\n📝 *Uso:* ' + groupPrefix + 'nomegp Nome do Grupo');
 
@@ -26486,9 +26497,9 @@ break;
       case 'alterardesc':
       case 'descricao':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const newDesc = q.trim();
           if (!newDesc) return reply('❌ Digite uma nova descrição para o grupo.\n\n📝 *Uso:* ' + groupPrefix + 'descgrupo Descrição do grupo aqui');
           await nazu.groupUpdateDescription(from, newDesc);
@@ -26513,9 +26524,9 @@ break;
       case 'alterarfoto':
       case 'fotogp':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!isQuotedImage && !isImage) return reply('❌ Envie ou marque uma imagem para definir como foto do grupo.\n\n📝 *Uso:* Envie uma imagem com o comando ou responda uma imagem com ' + groupPrefix + 'fotogrupo');
 
           const messageToUse = isQuotedImage ? quotedMessageContent : info.message;
@@ -26543,9 +26554,9 @@ break;
         break;
       case 'marcar':
       case 'mark':
-        if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
         if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-        if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+        if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
         try {
           // Proteção Anti-Ban: Verifica rate limit para grupos grandes
           const massMentionCheck = checkMassMentionLimit(from, AllgroupMembers.length);
@@ -26581,10 +26592,36 @@ break;
       case 'grupo':
       case 'gp':
       case 'group':
+      case 'gpinfo':
+      case 'infogrupo':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          
+          if (command === 'gpinfo' || command === 'infogrupo') {
+            const groupMetadata = isGroup ? await nazu.groupMetadata(from) : {};
+            const groupAdmins = isGroup ? getGroupAdmins(groupMetadata.participants) : [];
+            const isBotGroupAdmin = groupAdmins.includes(botNumber);
+            const owner = groupMetadata.owner || from.split('-')[0] + '@s.whatsapp.net';
+            
+            const gpInfoMsg = `╭─────────────────────⭓\n` +
+              `│      👥 𝗞𝗔𝗜𝗦𝗘𝗥 𝗚𝗥𝗢𝗨𝗣 👥\n` +
+              `├─────────────────────⭓\n` +
+              `│\n` +
+              `│ 🏷️ Nome: ${groupName}\n` +
+              `│ 👑 Dono: @${owner.split('@')[0]}\n` +
+              `│ 👥 Membros: ${groupMetadata.participants.length}\n` +
+              `│\n` +
+              `├─────────────────────⭓\n` +
+              `│ 🛡️ Anti-Link: ${groupData.antilink ? 'Ativo ✅' : 'Inativo ❌'}\n` +
+              `│ 🚫 Anti-Flood: ${groupData.antiflood ? 'Ativo ✅' : 'Inativo ❌'}\n` +
+              `│ ⚙️ Prefixo: ${prefix}\n` +
+              `│\n` +
+              `╰─────────────────────⭓`;
+              
+            return nazu.sendMessage(from, { text: gpInfoMsg, mentions: [owner, ...groupAdmins] }, { quoted: info });
+          }
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (q.toLowerCase() === 'a' || q.toLowerCase() === 'o' || q.toLowerCase() === 'open' || q.toLowerCase() === 'abrir') {
             await nazu.groupSettingUpdate(from, 'not_announcement');
 
@@ -26618,8 +26655,8 @@ break;
       case 'opengp':
       case 'abrirgp':
         try {
-          if (!isGroup) return reply('Este comando só pode ser usado em grupos 💔');
-          if (!isGroupAdmin) return reply('Apenas administradores podem usar este comando 💔');
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroupAdmin) return sendKaiserWarning("Apenas administradores podem usar este comando.");
           if (!q) return reply(`Uso: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 07:00 | ${groupPrefix}${command} off`);
           const rawArg = q.trim();
           const argLower = rawArg.toLowerCase();
@@ -26676,8 +26713,8 @@ break;
       case 'closegp':
       case 'fechargp':
         try {
-          if (!isGroup) return reply('Este comando só pode ser usado em grupos 💔');
-          if (!isGroupAdmin) return reply('Apenas administradores podem usar este comando 💔');
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroupAdmin) return sendKaiserWarning("Apenas administradores podem usar este comando.");
           if (!q) return reply(`Uso: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 22:30 | ${groupPrefix}${command} off`);
           const rawArg = q.trim();
           const argLower = rawArg.toLowerCase();
@@ -26733,8 +26770,8 @@ break;
         break;
       case 'automsg':
         try {
-          if (!isGroup) return reply('Este comando só pode ser usado em grupos 💔');
-          if (!isGroupAdmin) return reply('Apenas administradores podem usar este comando 💔');
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroupAdmin) return sendKaiserWarning("Apenas administradores podem usar este comando.");
 
           const subCommand = args[0]?.toLowerCase();
 
@@ -27119,7 +27156,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
       case 'sorteio':
         try {
           if (!isGroup) return reply("Este comando só pode ser usado em grupos 💔");
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           let path = pathz.join(GRUPOS_DIR, `${from}.json`);
           // Otimização: Usar cache para leitura de arquivo
           let data = await optimizer.loadJsonWithCache(path, { mark: {} });
@@ -27158,7 +27195,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
     }
 
     if (!isBotAdmin) {
-      return reply("Eu preciso ser adm 💔");
+      return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
     }
 
     let path = pathz.join(GRUPOS_DIR, `${from}.json`);
@@ -27218,9 +27255,9 @@ break;
       case 'cita':
       case 'hidetag':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
 
           // Proteção Anti-Ban: Verifica rate limit para grupos grandes
           const massMentionCheckHidetag = checkMassMentionLimit(from, AllgroupMembers.length);
@@ -27965,7 +28002,7 @@ Exemplos:
       case 'modobn':
       case 'gamemode':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.modobrincadeira || groupData.modobrincadeira === undefined) {
@@ -27991,7 +28028,7 @@ Exemplos:
       case 'boasvindas':
       case 'welcome':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.bemvindo || groupData.bemvindo === undefined) {
@@ -28017,7 +28054,7 @@ Exemplos:
 case 'bemvindo2':        
        case 'welcome2':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.bemvindo2 || groupData.bemvindo2 === undefined) {
@@ -28102,7 +28139,7 @@ case 'bemvindo2':
       case 'fotobv':
       case 'welcomeimg':
         {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
 
           try {
@@ -28145,7 +28182,7 @@ case 'bemvindo2':
 
       case 'set-fotobv':
         {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
 
           try {
@@ -28271,7 +28308,7 @@ case 'set-bannerbv':
       case 'imgsaiu':
       case 'exitimg':
         {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!isQuotedImage && !isImage) return reply('❌ Marque uma imagem ou envie uma imagem com o comando!');
           try {
@@ -28402,7 +28439,7 @@ case 'set-bannerbv':
       case 'legendasaiu':
       case 'exitmsg':
         {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!q) return reply(`📝 Para configurar a mensagem de saída, use:\n${prefix}${command} <mensagem>\n\nVocê pode usar:\n#numerodele# - Menciona quem saiu\n#nomedogp# - Nome do grupo\n#membros# - Total de membros\n#desc# - Descrição do grupo`);
           try {
@@ -28425,7 +28462,7 @@ case 'set-bannerbv':
       case 'saida':
       case 'exit':
         {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           try {
             if (!groupData.exit) {
@@ -28910,7 +28947,7 @@ case 'set-bannerbv':
       case 'onlyadm':
       case 'soadmin':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.soadm || groupData.soadm === undefined) {
@@ -28987,9 +29024,9 @@ case 'set-bannerbv':
         break;
       case 'antilinkgp':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             antilinkgp: false
@@ -29009,9 +29046,9 @@ case 'set-bannerbv':
 
 case 'antistickerplus':
   try {
-    if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+    if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
     if (!isGroupAdmin) return reply("você precisa ser adm 💔");
-    if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+    if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
 
     const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
 
@@ -29090,9 +29127,9 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
       case 'antilinkcanal':
       case 'antilinkch':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             antilinkcanal: false
@@ -29109,7 +29146,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
         break;
       case 'antilinksoft':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
@@ -29127,9 +29164,9 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
         break;
       case 'antiporn':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             antiporn: false
@@ -29250,9 +29287,9 @@ case 'assistent':
   break;
       case 'antigore':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
             antigore: false
@@ -29271,7 +29308,7 @@ case 'assistent':
       case 'textbv':
       case 'welcomemsg':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           if (!q) return reply(`📝 *Configuração da Mensagem de Boas-Vindas*\n\nPara definir uma mensagem personalizada, digite o comando seguido do texto desejado. Você pode usar as seguintes variáveis:\n\n- *#numerodele#* → Marca o novo membro.\n- *#nomedogp#* → Nome do grupo.\n- *#desc#* → Descrição do grupo.\n- *#membros#* → Número total de membros no grupo.\n\n📌 *Exemplo:*\n${prefixo}legendabv Bem-vindo(a) #numerodele# ao grupo *#nomedogp#*! Agora somos #membros# membros. Leia a descrição: #desc#`);
@@ -29291,7 +29328,7 @@ case 'assistent':
       case 'textbv2':
       case 'welcomemsg2':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           if (!q) return reply(`*Esse bem vindo não tem foto!*\n\n📝 *Configuração da Mensagem de Boas-Vindas*\n\nPara definir uma mensagem personalizada, digite o comando seguido do texto desejado. Você pode usar as seguintes variáveis:\n\n- *#numerodele#* → Marca o novo membro.\n- *#nomedogp#* → Nome do grupo.\n- *#desc#* → Descrição do grupo.\n- *#membros#* → Número total de membros no grupo.\n\n📌 *Exemplo:*\n${prefixo}legendabv2 Bem-vindo(a) #numerodele# ao grupo *#nomedogp#*! Agora somos #membros# membros. Leia a descrição: #desc#`);
@@ -29308,9 +29345,9 @@ case 'assistent':
       case 'mute':
       case 'mutar':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
-          if (!isBotAdmin) return reply("Eu preciso ser adm 💔");
+          if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!menc_os2) return reply("Marque alguém 🙄");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
@@ -29339,7 +29376,7 @@ case 'assistent':
       case 'desmutar':
       case 'unmute':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!menc_os2) return reply("Marque alguém 🙄");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -29369,7 +29406,7 @@ case 'assistent':
       case 'mute2':
       case 'mutar2':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!menc_os2) return reply("Marque alguém 🙄");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -29399,7 +29436,7 @@ case 'assistent':
       case 'desmutar2':
       case 'unmute2':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!menc_os2) return reply("Marque alguém 🙄");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -29428,7 +29465,7 @@ case 'assistent':
         break;
       case 'blockcmd':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!q) return reply(`❌ Digite o comando que deseja bloquear. Exemplo: ${prefix}blockcmd sticker`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -29448,7 +29485,7 @@ case 'assistent':
         break;
       case 'unblockcmd':
         try {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!q) return reply(`❌ Digite o comando que deseja desbloquear. Exemplo: ${prefix}unblockcmd sticker`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -29473,7 +29510,7 @@ case 'assistent':
       case 'jogodavelha':
       case 'tictactoe':
         {
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!menc_os2) return reply("Marque alguém 🙄");
           if (!tictactoe || typeof tictactoe.invitePlayer !== 'function') {
             console.warn('[TICTACTOE] invitePlayer not available');
@@ -31134,7 +31171,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
       case 'admin':
       case 'adm':
       case 'adms':
-        if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
         try {
           let membros = groupAdmins;
           let msg = `📢 *Mencionando os admins do grupo:* ${q ? `\n💬 *Mensagem:* ${q}` : ''}\n\n`;
@@ -31313,7 +31350,7 @@ case 'eununca':
   try {
 
     if (!isGroup) {
-      return reply("isso so pode ser usado em grupo 💔");
+      return sendKaiserWarning("Este comando só pode ser usado em grupos.");
     }
 
     if (!isModoBn) {
@@ -31359,7 +31396,7 @@ case 'vab':
   try {
 
     if (!isGroup) {
-      return reply("isso so pode ser usado em grupo 💔");
+      return sendKaiserWarning("Este comando só pode ser usado em grupos.");
     }
 
     if (!isModoBn) {
@@ -31709,7 +31746,7 @@ break;
           if (isModoLite && ['pirocudo', 'pirokudo', 'gostoso', 'nazista', 'machista', 'homofobico', 'racista'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não esta ativo nesse grupo');
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             games: {}
@@ -31833,7 +31870,7 @@ break;
           if (isModoLite && ['bucetuda', 'cachorra', 'vagabunda', 'racista', 'nazista', 'gostosa', 'machista', 'homofobica'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não esta ativo nesse grupo');
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             games: {}
@@ -31920,7 +31957,7 @@ break;
           if (isModoLite && ['rankgostoso', 'rankgostosos', 'ranknazista'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não está ativo nesse grupo.');
           let path = buildGroupFilePath(from);
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
@@ -32002,7 +32039,7 @@ break;
           if (isModoLite && ['rankgostosa', 'rankgostosas', 'ranknazista'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não está ativo nesse grupo.');
           let path = buildGroupFilePath(from);
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
@@ -32079,7 +32116,7 @@ break;
           if (isModoLite && comandosImpróprios.includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return reply("isso so pode ser usado em grupo 💔");
+          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não está ativo nesse grupo.');
           if (!menc_os2) return reply('Marque um usuário.');
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
