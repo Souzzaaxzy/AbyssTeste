@@ -1378,13 +1378,18 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       else if (platformName === 'Facebook') {
         result = await facebook.downloadHD(url);
         if (result && result.ok && result.buffer) {
-          const caption = `╭━━━〔 📘 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗙𝗔𝗖𝗘𝗕𝗢𝗢𝗞 📘 〕━━━╮\n` +
-            `┃\n` +
-            `┃ 📘 Vídeo do Facebook\n` +
-            `┃ 📊 Qualidade: ${result.resolution || 'HD'}\n` +
-            `┃\n` +
-            `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
-            `🎬 Vídeo baixado com sucesso!`;
+          const caption = `╭─────────────────────⭓\n` +
+            `│      📘 𝗞𝗔𝗜𝗦𝗘𝗥 📘\n` +
+            `├─────────────────────⭓\n` +
+            `│\n` +
+            `│ 🎶 Vídeo do Facebook\n` +
+            `│ 📊 Qualidade » ${result.resolution || 'HD'}\n` +
+            `│\n` +
+            `├─────────────────────⭓\n` +
+            `│ 🔗 Link » ${url}\n` +
+            `│\n` +
+            `╰─────────────────────⭓\n\n` +
+            `🎬 𝗩𝗶́𝗱𝗲𝗼 𝗯𝗮𝗶𝘅𝗮𝗱𝗼!`;
           await nazu.sendMessage(from, {
             video: result.buffer,
             caption: caption,
@@ -1399,13 +1404,18 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         result = await pinterest.dl(url);
         if (result && result.ok && result.urls && result.urls.length > 0) {
           const mediaUrl = result.urls[0];
-          const caption = `╭━━━〔 📌 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗣𝗜𝗡𝗧𝗘𝗥𝗘𝗦𝗧 📌 〕━━━╮\n` +
-            `┃\n` +
-            `┃ 📌 Mídia do Pinterest\n` +
-            `┃ 🔗 ID: ${result.id || 'N/A'}\n` +
-            `┃\n` +
-            `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
-            `✨ Mídia baixada com sucesso!`;
+          const caption = `╭─────────────────────⭓\n` +
+            `│      📌 𝗞𝗔𝗜𝗦𝗘𝗥 📌\n` +
+            `├─────────────────────⭓\n` +
+            `│\n` +
+            `│ 🎶 Mídia do Pinterest\n` +
+            `│ 🔗 ID » ${result.id || 'N/A'}\n` +
+            `│\n` +
+            `├─────────────────────⭓\n` +
+            `│ 🔗 Link » ${url}\n` +
+            `│\n` +
+            `╰─────────────────────⭓\n\n` +
+            `✨ 𝗠𝗶́𝗱𝗶𝗮 𝗯𝗮𝗶𝘅𝗮𝗱𝗮!`;
           if (result.type === 'video') {
             await nazu.sendMessage(from, {
               video: { url: mediaUrl },
@@ -1426,13 +1436,18 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       else if (platformName === 'Spotify') {
         result = await spotify.download(url);
         if (result && result.ok && result.buffer) {
-          const caption = `╭━━━〔 🎵 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗦𝗣𝗢𝗧𝗜𝗙𝗬 🎵 〕━━━╮\n` +
-            `┃\n` +
-            `┃ 🎵 ${result.title || 'Música'}\n` +
-            `┃ 🎤 ${result.artist || 'Artista'}\n` +
-            `┃\n` +
-            `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
-            `🎧 Sua música está pronta!`;
+          const caption = `╭─────────────────────⭓\n` +
+            `│      🎵 𝗞𝗔𝗜𝗦𝗘𝗥 🎵\n` +
+            `├─────────────────────⭓\n` +
+            `│\n` +
+            `│ 🎶 ${result.title || 'Música'}\n` +
+            `│ 🎤 ${result.artist || 'Artista'}\n` +
+            `│\n` +
+            `├─────────────────────⭓\n` +
+            `│ 🔗 Link » ${url}\n` +
+            `│\n` +
+            `╰─────────────────────⭓\n\n` +
+            `🎧 𝗕𝗼𝗮 𝗮𝘂𝗱𝗶çã𝗼!`;
           await nazu.sendMessage(from, {
             audio: result.buffer,
             mimetype: 'audio/mpeg',
@@ -1447,13 +1462,18 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       else if (platformName === 'SoundCloud') {
         result = await soundcloud.download(url);
         if (result && result.ok && result.buffer) {
-          const caption = `╭━━━〔 ☁️ 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗦𝗢𝗨𝗡𝗗𝗖𝗟𝗢𝗨𝗗 ☁️ 〕━━━╮\n` +
-            `┃\n` +
-            `┃ ☁️ ${result.title || 'Música'}\n` +
-            `┃ 👤 ${result.author || 'Artista'}\n` +
-            `┃\n` +
-            `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
-            `🎧 Sua música está pronta!`;
+          const caption = `╭─────────────────────⭓\n` +
+            `│      ☁️ 𝗞𝗔𝗜𝗦𝗘𝗥 ☁️\n` +
+            `├─────────────────────⭓\n` +
+            `│\n` +
+            `│ 🎶 ${result.title || 'Música'}\n` +
+            `│ 🎤 ${result.author || 'Artista'}\n` +
+            `│\n` +
+            `├─────────────────────⭓\n` +
+            `│ 🔗 Link » ${url}\n` +
+            `│\n` +
+            `╰─────────────────────⭓\n\n` +
+            `🎧 𝗕𝗼𝗮 𝗮𝘂𝗱𝗶çã𝗼!`;
           await nazu.sendMessage(from, {
             audio: result.buffer,
             mimetype: 'audio/mpeg',
@@ -19178,28 +19198,21 @@ case 'addaluguel':
                 ? videoInfo.data.description.slice(0, 100) + (videoInfo.data.description.length > 100 ? '...' : '')
                 : 'Sem descrição disponível';
 
-              const videoId = videoInfo.data.url.split('v=')[1] || videoInfo.data.url.split('/').pop();
-              const caption = `╭━━━〔 🎵 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗣𝗟𝗔𝗬 🎵 〕━━━╮\n` +
-                `┃\n` +
-                `┃ 🎵 ${videoInfo.data.title}\n` +
-                `┃ 🎤 ${videoInfo.data.author.name}\n` +
-                `┃\n` +
-                `┃ ───────────────────\n` +
-                `┃\n` +
-                `┃ ⏱️ 𝗗𝘂𝗿𝗮𝗰̧𝗮̃𝗼\n` +
-                `┃ ╰➤ ${videoInfo.data.timestamp}\n` +
-                `┃\n` +
-                `┃ 👀 𝗩𝗶𝘀𝘂𝗮𝗹𝗶𝘇𝗮𝗰̧𝗼̃𝗲𝘀\n` +
-                `┃ ╰➤ ${views}\n` +
-                `┃\n` +
-                `┃ 📅 𝗣𝘂𝗯𝗹𝗶𝗰𝗮𝗱𝗼\n` +
-                `┃ ╰➤ ${videoInfo.data.ago}\n` +
-                `┃\n` +
-                `┃ 🔗 𝗬𝗼𝘂𝗧𝘂𝗯𝗲\n` +
-                `┃ ╰➤ ${videoId}\n` +
-                `┃\n` +
-                `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
-                `🎧 Sua música está sendo preparada...`;
+              const caption = `╭─────────────────────⭓\n` +
+                `│      🎵 𝗞𝗔𝗜𝗦𝗘𝗥 🎵\n` +
+                `├─────────────────────⭓\n` +
+                `│\n` +
+                `│ 🎶 ${videoInfo.data.title}\n` +
+                `│ 🎤 ${videoInfo.data.author.name}\n` +
+                `│\n` +
+                `├─────────────────────⭓\n` +
+                `│ ⏱️ Duração   » ${videoInfo.data.timestamp}\n` +
+                `│ 👀 Views     » ${views}\n` +
+                `│ 📅 Lançado   » ${videoInfo.data.ago}\n` +
+                `│ 🔗 Link      » ${videoInfo.data.url}\n` +
+                `│\n` +
+                `╰─────────────────────⭓\n\n` +
+                `🎧 𝗕𝗼𝗮 𝗮𝘂𝗱𝗶çã𝗼!`;
 
               nazu.sendMessage(from, {
                 image: { url: videoInfo.data.thumbnail },
