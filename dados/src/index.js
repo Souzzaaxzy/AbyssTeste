@@ -25144,6 +25144,23 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       }
 
+      case 'parareleicao':
+      case 'parareleição': {
+        if (!isGroup) return reply('❌ Este comando só pode ser usado em grupos.');
+        if (!isGroupAdmin) return reply('❌ Apenas administradores podem parar uma eleição.');
+
+        let elections = loadElections();
+        const electionIndex = elections.findIndex(e => e.groupId === from);
+
+        if (electionIndex === -1) return reply('❌ Não há nenhuma eleição em andamento neste grupo.');
+
+        elections.splice(electionIndex, 1);
+        saveElections(elections);
+
+        return reply('🏛️ *ELEIÇÃO ENCERRADA!* 🛑\n\nA eleição foi cancelada por um administrador.');
+        break;
+      }
+
       case 'cand':
       case 'candidatar': {
         if (!isGroup) return reply('❌ Este comando só pode ser usado em grupos.');
