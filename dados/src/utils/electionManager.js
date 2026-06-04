@@ -1,5 +1,11 @@
 import cron from 'node-cron';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { loadElections, saveElections, loadMandates, saveMandates, loadElectionConfig } from './database.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class ElectionManager {
   constructor(nazu) {
@@ -87,9 +93,18 @@ class ElectionManager {
     await this.nazu.sendMessage(groupId, { text, mentions: [winner.id] });
     
     try {
-      await this.nazu.groupParticipantsUpdate(groupId, [winner.id], 'promote');
+      const groupFile = path.join(__dirname, '..', '..', 'database', 'grupos', `${groupId}.json`);
+      if (fs.existsSync(groupFile)) {
+        const groupData = JSON.parse(fs.readFileSync(groupFile, 'utf8'));
+        if (!groupData.moderators) groupData.moderators = [];
+        if (!groupData.moderators.includes(winner.id)) {
+          groupData.moderators.push(winner.id);
+          fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
+        }
+      }
     } catch (e) {
-      await this.nazu.sendMessage(groupId, { text: '⚠️ Não consegui promover o vencedor automaticamente. Por favor, um admin faça isso manualmente.' });
+      console.error('Erro ao promover moderador:', e);
+      await this.nazu.sendMessage(groupId, { text: '⚠️ Não consegui adicionar o vencedor à lista de moderadores automaticamente.' });
     }
   }
 
@@ -108,9 +123,16 @@ class ElectionManager {
         });
         
         try {
-          await this.nazu.groupParticipantsUpdate(mandate.groupId, [mandate.userId], 'demote');
+          const groupFile = path.join(__dirname, '..', '..', 'database', 'grupos', `${mandate.groupId}.json`);
+          if (fs.existsSync(groupFile)) {
+            const groupData = JSON.parse(fs.readFileSync(groupFile, 'utf8'));
+            if (groupData.moderators) {
+              groupData.moderators = groupData.moderators.filter(m => m !== mandate.userId);
+              fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
+            }
+          }
         } catch (e) {
-          console.error('Erro ao remover admin:', e);
+          console.error('Erro ao remover moderador:', e);
         }
         
         mandates.splice(i, 1);
