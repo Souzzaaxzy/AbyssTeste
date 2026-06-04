@@ -8041,11 +8041,11 @@ if (isCmd && command && !isOwner) {
         if (me.pets.length >= 5) return reply('🐾 Você já tem o máximo de 5 pets!');
 
         const petTypes = {
-          lobo: { emoji: '🐺', name: 'Lobo', type: 'lobo', hp: 100, attack: 15, defense: 10, speed: 18, cost: 5000, desc: 'Veloz e leal', element: 'normal' },
-          dragao: { emoji: '🐉', name: 'Dragão', type: 'dragao', hp: 150, attack: 25, defense: 15, speed: 12, cost: 15000, desc: 'Poderoso e raro', element: 'fire' },
-          fenix: { emoji: '🔥', name: 'Fênix', type: 'fenix', hp: 120, attack: 20, defense: 12, speed: 20, cost: 10000, desc: 'Imortal e místico', element: 'fire' },
-          tigre: { emoji: '🐯', name: 'Tigre', type: 'tigre', hp: 110, attack: 18, defense: 11, speed: 16, cost: 7000, desc: 'Feroz e forte', element: 'normal' },
-          aguia: { emoji: '🦅', name: 'Águia', type: 'aguia', hp: 90, attack: 22, defense: 8, speed: 25, cost: 6000, desc: 'Ágil e preciso', element: 'wind' },
+          lobo: { emoji: '🐺', name: 'Lobo', type: 'lobo', hp: 100, attack: 15, defense: 10, speed: 18, cost: 5000, desc: 'Veloz e leal', element: 'normal', feedCost: 100 },
+          dragao: { emoji: '🐉', name: 'Dragão', type: 'dragao', hp: 150, attack: 25, defense: 15, speed: 12, cost: 15000, desc: 'Poderoso e raro', element: 'fire', feedCost: 500 },
+          fenix: { emoji: '🔥', name: 'Fênix', type: 'fenix', hp: 120, attack: 20, defense: 12, speed: 20, cost: 10000, desc: 'Imortal e místico', element: 'fire', feedCost: 300 },
+          tigre: { emoji: '🐯', name: 'Tigre', type: 'tigre', hp: 110, attack: 18, defense: 11, speed: 16, cost: 7000, desc: 'Feroz e forte', element: 'normal', feedCost: 200 },
+          aguia: { emoji: '🦅', name: 'Águia', type: 'aguia', hp: 90, attack: 22, defense: 8, speed: 25, cost: 6000, desc: 'Ágil e preciso', element: 'wind', feedCost: 150 },
           nyx: { emoji: '🌌', name: 'Nyx, o Devorador de Estrelas', type: 'nyx', hp: 1200, attack: 350, defense: 250, speed: 80, cost: 500000, desc: 'Pet cósmico que aumenta o dano continuamente.', element: 'dark', rarity: 'Mítico', feedCost: 5000 },
           chrony: { emoji: '⏳', name: 'Chrony, a Aranha do Tempo', type: 'chrony', hp: 800, attack: 280, defense: 180, speed: 120, cost: 350000, desc: 'Aranha brilhante capaz de distorcer o tempo.', element: 'time', rarity: 'Lendário', feedCost: 3500 },
           abyron: { emoji: '👁️', name: 'Abyron, o Olho do Abismo', type: 'abyron', hp: 900, attack: 310, defense: 150, speed: 60, cost: 200000, desc: 'Revela inimigos e reduz a defesa de monstros.', element: 'dark', rarity: 'Épico', feedCost: 2000 },
