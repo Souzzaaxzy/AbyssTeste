@@ -1296,9 +1296,16 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         if (result.urls?.length > 0) {
           const videoUrl = result.urls[0];
 
+          const caption = `╭━━━〔 📱 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗧𝗜𝗞𝗧𝗢𝗞 📱 〕━━━╮\n` +
+            `┃\n` +
+            `┃ 📱 ${result.title || 'Vídeo do TikTok'}\n` +
+            `┃ 👤 ${result.author || 'Desconhecido'}\n` +
+            `┃\n` +
+            `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
+            `🎬 Seu vídeo está pronto!`;
           await nazu.sendMessage(from, {
             video: { url: videoUrl },
-            caption: `📱 *TikTok*\n\n${result.title || ''}`,
+            caption: caption,
             mimetype: 'video/mp4'
           }, { quoted: info });
 
@@ -1324,16 +1331,23 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
 
         const media = result.data[0];
 
+        const caption = `╭━━━〔 📸 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗜𝗡𝗦𝗧𝗔𝗚𝗥𝗔𝗠 📸 〕━━━╮\n` +
+          `┃\n` +
+          `┃ 📸 Conteúdo do Instagram\n` +
+          `┃ 👤 ${result.user?.username || 'Usuário'}\n` +
+          `┃\n` +
+          `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
+          `✨ Conteúdo baixado com sucesso!`;
         if (media.type === 'video') {
           await nazu.sendMessage(from, {
             video: { url: media.url },
-            caption: '📸 *Instagram*',
+            caption: caption,
             mimetype: 'video/mp4'
           }, { quoted: info });
         } else {
           await nazu.sendMessage(from, {
             image: { url: media.url },
-            caption: '📸 *Instagram*'
+            caption: caption
           }, { quoted: info });
         }
 
@@ -1364,9 +1378,16 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       else if (platformName === 'Facebook') {
         result = await facebook.downloadHD(url);
         if (result && result.ok && result.buffer) {
+          const caption = `╭━━━〔 📘 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗙𝗔𝗖𝗘𝗕𝗢𝗢𝗞 📘 〕━━━╮\n` +
+            `┃\n` +
+            `┃ 📘 Vídeo do Facebook\n` +
+            `┃ 📊 Qualidade: ${result.resolution || 'HD'}\n` +
+            `┃\n` +
+            `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
+            `🎬 Vídeo baixado com sucesso!`;
           await nazu.sendMessage(from, {
             video: result.buffer,
-            caption: `📘 *Facebook* - ${result.resolution || 'HD'}`,
+            caption: caption,
             mimetype: 'video/mp4'
           }, { quoted: info });
           return true;
@@ -1378,16 +1399,23 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         result = await pinterest.dl(url);
         if (result && result.ok && result.urls && result.urls.length > 0) {
           const mediaUrl = result.urls[0];
+          const caption = `╭━━━〔 📌 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗣𝗜𝗡𝗧𝗘𝗥𝗘𝗦𝗧 📌 〕━━━╮\n` +
+            `┃\n` +
+            `┃ 📌 Mídia do Pinterest\n` +
+            `┃ 🔗 ID: ${result.id || 'N/A'}\n` +
+            `┃\n` +
+            `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
+            `✨ Mídia baixada com sucesso!`;
           if (result.type === 'video') {
             await nazu.sendMessage(from, {
               video: { url: mediaUrl },
-              caption: '📌 *Pinterest*',
+              caption: caption,
               mimetype: 'video/mp4'
             }, { quoted: info });
           } else {
             await nazu.sendMessage(from, {
               image: { url: mediaUrl },
-              caption: '📌 *Pinterest*'
+              caption: caption
             }, { quoted: info });
           }
           return true;
@@ -1398,9 +1426,17 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       else if (platformName === 'Spotify') {
         result = await spotify.download(url);
         if (result && result.ok && result.buffer) {
+          const caption = `╭━━━〔 🎵 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗦𝗣𝗢𝗧𝗜𝗙𝗬 🎵 〕━━━╮\n` +
+            `┃\n` +
+            `┃ 🎵 ${result.title || 'Música'}\n` +
+            `┃ 🎤 ${result.artist || 'Artista'}\n` +
+            `┃\n` +
+            `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
+            `🎧 Sua música está pronta!`;
           await nazu.sendMessage(from, {
             audio: result.buffer,
             mimetype: 'audio/mpeg',
+            caption: caption,
             fileName: result.filename || `${result.title || 'audio'}.mp3`
           }, { quoted: info });
           return true;
@@ -1411,9 +1447,17 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       else if (platformName === 'SoundCloud') {
         result = await soundcloud.download(url);
         if (result && result.ok && result.buffer) {
+          const caption = `╭━━━〔 ☁️ 𝗞𝗔𝗜𝗦𝗘𝗥 • 𝗦𝗢𝗨𝗡𝗗𝗖𝗟𝗢𝗨𝗗 ☁️ 〕━━━╮\n` +
+            `┃\n` +
+            `┃ ☁️ ${result.title || 'Música'}\n` +
+            `┃ 👤 ${result.author || 'Artista'}\n` +
+            `┃\n` +
+            `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
+            `🎧 Sua música está pronta!`;
           await nazu.sendMessage(from, {
             audio: result.buffer,
             mimetype: 'audio/mpeg',
+            caption: caption,
             fileName: result.filename || `${result.title || 'audio'}.mp3`
           }, { quoted: info });
           return true;
