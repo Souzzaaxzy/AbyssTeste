@@ -26176,6 +26176,7 @@ break;
 
 
       case 'smm': {
+        if (!isOwner) return reply('❌ Este comando é restrito ao dono do bot.');
         const arg = q.trim().split(' ');
         const subCmd = arg[0].toLowerCase();
 
