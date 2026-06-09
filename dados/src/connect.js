@@ -1,4 +1,4 @@
-import { useMultiFileAuthState, DisconnectReason, makeCacheableSignalKeyStore, makeWASocket, fetchLatestBaileysVersion, isJidBroadcast, isJidNewsletter, isJidStatusBroadcast } from 'baileys';
+import { useMultiFileAuthState, DisconnectReason, makeCacheableSignalKeyStore, makeWASocket, fetchLatestBaileysVersion, isJidBroadcast, isJidNewsletter, isJidStatusBroadcast, getAggregateVotesInPoll } from 'baileys';
 import { Boom } from '@hapi/boom';
 import NodeCache from 'node-cache';
 import readline from 'readline';
@@ -1544,15 +1544,17 @@ async function createBotSocket(authDir) {
                         try {
                             // Lógica para o comando !tester: armazenar votos de enquetes gerais
                             if (!global.pollVotes) global.pollVotes = {};
-                            if (!global.pollVotes[pollMsgId]) global.pollVotes[pollMsgId] = {};
                             
-                            const voter = pollUpdate.pollUpdateMessageKey.participant || pollUpdate.pollUpdateMessageKey.remoteJid;
-                            const voteNames = pollUpdate.vote?.selectedOptions?.map(opt => opt.name) || [];
+                            // Recupera a mensagem original da enquete do cache para descriptografar os votos
+                            const cacheKey = `${groupId}_${pollMsgId}`;
+                            const pollMsg = messagesCache.get(cacheKey);
                             
-                            if (voteNames.length > 0) {
-                                global.pollVotes[pollMsgId][voter] = voteNames;
-                            } else {
-                                delete global.pollVotes[pollMsgId][voter];
+                            if (pollMsg) {
+                                // Usa o helper do Baileys para agregar e descriptografar todos os votos daquela enquete
+                                const aggregatedVotes = getAggregateVotesInPoll(pollMsg, [update]);
+                                if (aggregatedVotes && aggregatedVotes.length > 0) {
+                                    global.pollVotes[pollMsgId] = aggregatedVotes;
+                                }
                             }
 
                             // Manter a lógica existente de eleições
