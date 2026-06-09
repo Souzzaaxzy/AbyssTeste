@@ -525,7 +525,8 @@ const {
   iaExpanded,
   antipalavra,
   transmissao,
-  canvas
+  canvas,
+  smmApi
 } = modules.default;
 
 
@@ -26190,7 +26191,7 @@ break;
             writeJsonFile(CONFIG_FILE, config);
             
             // Atualiza a instância da API em tempo real
-            funcs.smmApi.apiKey = newKey;
+            smmApi.apiKey = newKey;
             
             return reply(`✅ *API KEY ATUALIZADA*\n\nA chave da SMM foi configurada com sucesso e já está ativa!`);
           } catch (e) {
@@ -26200,7 +26201,7 @@ break;
 
         if (subCmd === 'saldo') {
           try {
-            const res = await funcs.smmApi.getBalance();
+            const res = await smmApi.getBalance();
             if (res.balance) {
               return reply(`💰 *SALDO SMM*\n\n💵 Saldo: ${res.balance} ${res.currency}`);
             } else {
@@ -26213,7 +26214,7 @@ break;
 
         if (subCmd === 'servicos') {
           try {
-            const res = await funcs.smmApi.getServices();
+            const res = await smmApi.getServices();
             if (Array.isArray(res)) {
               let text = `📋 *SERVIÇOS DISPONÍVEIS*\n\n`;
               res.slice(0, 20).forEach(s => {
@@ -26239,7 +26240,7 @@ break;
           }
 
           try {
-            const res = await funcs.smmApi.addOrder({
+            const res = await smmApi.addOrder({
               service: serviceId,
               link: link,
               quantity: quantity
@@ -26260,7 +26261,7 @@ break;
           if (!orderId) return reply(`❌ Informe o ID do pedido.`);
 
           try {
-            const res = await funcs.smmApi.getStatus(orderId);
+            const res = await smmApi.getStatus(orderId);
             if (res.status) {
               return reply(`📊 *STATUS DO PEDIDO*\n\n🆔 ID: ${orderId}\n📈 Status: ${res.status}\n📉 Início: ${res.start_count}\n⏳ Restante: ${res.remains}`);
             } else {
