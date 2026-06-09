@@ -1576,6 +1576,38 @@ async function createBotSocket(authDir) {
                     }
                 }
             });
+
+            KaiserSock.ev.on('messages.upsert', async (m) => {
+                if (m.type !== 'notify') return;
+                for (const info of m.messages) {
+                    const type = Object.keys(info.message || {})[0];
+                    if (type === 'reactionMessage') {
+                        const reaction = info.message.reactionMessage;
+                        const targetId = reaction.key.id;
+                        const emoji = reaction.text;
+                        const voter = info.key.participant || info.key.remoteJid;
+                        const groupId = info.key.remoteJid;
+
+                        try {
+                            const { loadElections, saveElections } = await import('./utils/database.js');
+                            const elections = loadElections();
+                            const election = elections.find(e => e.groupId === groupId && e.pollMsgId === targetId);
+
+                            if (election && election.status === 'votacao') {
+                                if (!election.reactionVotes) election.reactionVotes = {};
+                                if (emoji) {
+                                    election.reactionVotes[voter] = emoji;
+                                } else {
+                                    delete election.reactionVotes[voter];
+                                }
+                                saveElections(elections);
+                            }
+                        } catch (e) {
+                            console.error('Erro ao processar reação de voto:', e);
+                        }
+                    }
+                }
+            });
         };
 
         KaiserSock.ev.on('connection.update', async (update) => {

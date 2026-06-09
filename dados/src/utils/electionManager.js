@@ -43,46 +43,48 @@ class ElectionManager {
           const config = loadElectionConfig();
           election.duration = config.votacao * 60 * 1000;
           
-          const pollOptions = election.candidates.map(c => c.name);
-          const msg = await this.nazu.sendMessage(election.groupId, {
-            poll: {
-              name: '🗳️ VOTAÇÃO PARA ALPHA 🐺',
-              values: pollOptions,
-              selectableCount: 1
-            }
+          const emojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+          let pollText = `🗳️ *VOTAÇÃO PARA ALPHA 🐺*\n\n`;
+          
+          election.candidates.forEach((c, index) => {
+            const emoji = emojis[index] || '👤';
+            c.emoji = emoji;
+            pollText += `${emoji} - ${c.name}\n`;
           });
           
+          pollText += `\n📢 *COMO VOTAR:*\nReaja a esta mensagem com o emoji correspondente ao seu candidato!\n\n⏳ Tempo restante: ${config.votacao} minutos.`;
+
+          const msg = await this.nazu.sendMessage(election.groupId, { text: pollText });
+          
           election.pollMsgId = msg.key.id;
-          await this.nazu.sendMessage(election.groupId, { text: `🗳️ *VOTAÇÃO INICIADA!*\n\nEscolha seu candidato favorito na enquete acima.\n\n⏳ Tempo restante: ${config.votacao} minutos.` });
         }
       } else if (election.status === 'votacao' && now > election.startTime + election.duration) {
         changed = true;
         await this.nazu.sendMessage(election.groupId, { text: '🏁 Votação encerrada! O sistema está processando os votos...' });
         
         const pollId = election.pollMsgId;
-        const votes = global.pollVotes ? global.pollVotes[pollId] : null;
+        const votes = election.reactionVotes || {};
         
         let winner = null;
         
-        if (votes && Object.keys(votes).length > 0) {
+        if (Object.keys(votes).length > 0) {
           const results = {};
-          // Inicializa candidatos
-          election.candidates.forEach(c => { results[c.name] = 0; });
+          // Inicializa candidatos com seus emojis
+          election.candidates.forEach(c => { results[c.emoji] = 0; });
           
-          // Conta votos reais
-          Object.values(votes).forEach(userVotes => {
-            const vArray = Array.isArray(userVotes) ? userVotes : [userVotes];
-            vArray.forEach(optName => {
-              if (results.hasOwnProperty(optName)) results[optName]++;
-            });
+          // Conta votos reais por reação
+          Object.values(votes).forEach(emoji => {
+            if (results.hasOwnProperty(emoji)) {
+              results[emoji]++;
+            }
           });
           
-          // Encontra o nome do vencedor
+          // Encontra o emoji do vencedor
           const sorted = Object.entries(results).sort((a, b) => b[1] - a[1]);
-          const winnerName = sorted[0][1] > 0 ? sorted[0][0] : null;
+          const winnerEmoji = sorted[0][1] > 0 ? sorted[0][0] : null;
           
-          if (winnerName) {
-            winner = election.candidates.find(c => c.name === winnerName);
+          if (winnerEmoji) {
+            winner = election.candidates.find(c => c.emoji === winnerEmoji);
           }
         }
         
@@ -96,8 +98,8 @@ class ElectionManager {
         elections.splice(i, 1);
         
         // Limpa votos da memória após encerrar
-        if (global.pollVotes && global.pollVotes[pollId]) {
-          delete global.pollVotes[pollId];
+        if (election.reactionVotes) {
+          delete election.reactionVotes;
         }
       }
     }
