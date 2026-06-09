@@ -17,7 +17,8 @@ async function menuDono(prefix, botName = "MeuBot", userName = "Usuário", {
     vipSystemMenuTitle = "💎 SISTEMA VIP/PREMIUM",
     botControlMenuTitle = "⚡ CONTROLE & MANUTENÇÃO",
     monitoringMenuTitle = "📊 MONITORAMENTO & ANÁLISE",
-    broadcastMenuTitle = "📡 TRANSMISSÕES"
+    broadcastMenuTitle = "📡 TRANSMISSÕES",
+    smmMenuTitle = "📈 SERVIÇOS SMM (SEGUIDORES)"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
     return `${formattedHeader}
@@ -221,8 +222,18 @@ ${middleBorder}${menuItemIcon}${prefix}divdono list
 ${middleBorder}${menuItemIcon}${prefix}divdono msg
 ${middleBorder}${menuItemIcon}${prefix}divdono send
 ${middleBorder}${menuItemIcon}${prefix}divdono time
-${middleBorder}${menuItemIcon}${prefix}divdono status
-${bottomBorder}
-`;
-}
+	${middleBorder}${menuItemIcon}${prefix}divdono status
+	${bottomBorder}
+	
+	${menuTopBorder}
+	│ ${smmMenuTitle}
+	${middleBorder}
+	${middleBorder}${menuItemIcon}${prefix}smm saldo
+	${middleBorder}${menuItemIcon}${prefix}smm servicos
+	${middleBorder}${menuItemIcon}${prefix}smm pedido
+	${middleBorder}${menuItemIcon}${prefix}smm status
+	${middleBorder}${menuItemIcon}${prefix}smm setkey
+	${bottomBorder}
+	`;
+	}
 export default menuDono;
