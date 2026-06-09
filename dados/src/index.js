@@ -26209,12 +26209,18 @@ break;
 
         // Conta os votos (Formato universal por usuário)
         Object.values(votes).forEach(userVotes => {
+          // Se userVotes for um array de nomes de opções (como salvo no connect.js)
           if (Array.isArray(userVotes)) {
             userVotes.forEach(optName => {
               if (results.hasOwnProperty(optName)) {
                 results[optName]++;
               }
             });
+          } else if (typeof userVotes === 'string') {
+            // Se for apenas uma string (voto único)
+            if (results.hasOwnProperty(userVotes)) {
+              results[userVotes]++;
+            }
           }
         });
 

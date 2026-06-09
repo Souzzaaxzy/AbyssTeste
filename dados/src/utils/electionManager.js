@@ -57,15 +57,48 @@ class ElectionManager {
         }
       } else if (election.status === 'votacao' && now > election.startTime + election.duration) {
         changed = true;
-        // No Baileys real, precisaríamos buscar os resultados da enquete.
-        // Como simplificação para este MVP, vamos simular o encerramento.
-        // O usuário deverá ler o resultado manualmente se o bot não tiver suporte a decifrar votos.
         await this.nazu.sendMessage(election.groupId, { text: '🏁 Votação encerrada! O sistema está processando os votos...' });
         
-        // Simulação de vencedor (em prod, leríamos os votos reais)
-        const winner = election.candidates[Math.floor(Math.random() * election.candidates.length)];
+        const pollId = election.pollMsgId;
+        const votes = global.pollVotes ? global.pollVotes[pollId] : null;
+        
+        let winner = null;
+        
+        if (votes && Object.keys(votes).length > 0) {
+          const results = {};
+          // Inicializa candidatos
+          election.candidates.forEach(c => { results[c.name] = 0; });
+          
+          // Conta votos reais
+          Object.values(votes).forEach(userVotes => {
+            const vArray = Array.isArray(userVotes) ? userVotes : [userVotes];
+            vArray.forEach(optName => {
+              if (results.hasOwnProperty(optName)) results[optName]++;
+            });
+          });
+          
+          // Encontra o nome do vencedor
+          const sorted = Object.entries(results).sort((a, b) => b[1] - a[1]);
+          const winnerName = sorted[0][1] > 0 ? sorted[0][0] : null;
+          
+          if (winnerName) {
+            winner = election.candidates.find(c => c.name === winnerName);
+          }
+        }
+        
+        // Fallback para o primeiro candidato se ninguém votou ou erro no processamento
+        if (!winner) {
+          winner = election.candidates[0];
+          await this.nazu.sendMessage(election.groupId, { text: '⚠️ Ninguém votou ou houve um erro ao processar. O primeiro candidato foi selecionado por padrão.' });
+        }
+        
         await this.declareWinner(election.groupId, winner);
         elections.splice(i, 1);
+        
+        // Limpa votos da memória após encerrar
+        if (global.pollVotes && global.pollVotes[pollId]) {
+          delete global.pollVotes[pollId];
+        }
       }
     }
 

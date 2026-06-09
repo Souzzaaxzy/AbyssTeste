@@ -1549,7 +1549,11 @@ async function createBotSocket(authDir) {
                             if (!global.pollVotes[pollMsgId]) global.pollVotes[pollMsgId] = {};
                             
                             const voter = pollUpdate.pollUpdateMessageKey.participant || pollUpdate.pollUpdateMessageKey.remoteJid;
-                            const voteNames = pollUpdate.vote?.selectedOptions?.map(opt => opt.name) || [];
+                            
+                            // Extrai os nomes das opções selecionadas (Baileys v6.x+)
+                            // Se selectedOptions não estiver disponível, tenta extrair dos hashes de opções se necessário
+                            // Mas normalmente o Baileys já fornece o nome ou o índice.
+                            const voteNames = pollUpdate.vote?.selectedOptions?.map(opt => opt.name || opt) || [];
                             
                             if (voteNames.length > 0) {
                                 global.pollVotes[pollMsgId][voter] = voteNames;
