@@ -21596,8 +21596,8 @@ Precisa de ajuda? Entre em contato:
       case 'menudono':
       case 'ownermenu':
         try {
-          if (!isOwner) {
-            await reply("⚠️ Este menu é exclusivo para o dono do bot.");
+          if (!isOwnerOrSub) {
+            await reply("⚠️ Este menu é exclusivo para o dono e sub-donos do bot.");
             return;
           }
           await sendMenuWithMedia('dono', menuDono);
