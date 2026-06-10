@@ -16,35 +16,13 @@ export default async function menuIa(prefix, botName = "MeuBot", userName = "Usu
 ${menuTopBorder}
 │ ${chatBotMenuTitle}
 ${middleBorder}
-${middleBorder}${menuItemIcon}${prefix}gemma
-${middleBorder}${menuItemIcon}${prefix}gemma2
-${middleBorder}${menuItemIcon}${prefix}codegemma
-${middleBorder}${menuItemIcon}${prefix}qwen
-${middleBorder}${menuItemIcon}${prefix}qwen2
-${middleBorder}${menuItemIcon}${prefix}qwen3
-${middleBorder}${menuItemIcon}${prefix}qwencoder
-${middleBorder}${menuItemIcon}${prefix}llama
 ${middleBorder}${menuItemIcon}${prefix}llama3
-${middleBorder}${menuItemIcon}${prefix}phi
-${middleBorder}${menuItemIcon}${prefix}phi3
-
-${middleBorder}${menuItemIcon}${prefix}yi
-${middleBorder}${menuItemIcon}${prefix}kimi
-${middleBorder}${menuItemIcon}${prefix}kimik2
 ${bottomBorder}
 
 ${menuTopBorder}
 │ ${textMenuTitle}
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}cog
-${middleBorder}${menuItemIcon}${prefix}mistral
-${middleBorder}${menuItemIcon}${prefix}magistral
-${middleBorder}${menuItemIcon}${prefix}baichuan
-${middleBorder}${menuItemIcon}${prefix}marin
-${middleBorder}${menuItemIcon}${prefix}rakutenai
-${middleBorder}${menuItemIcon}${prefix}rocket
-${middleBorder}${menuItemIcon}${prefix}swallow
-${middleBorder}${menuItemIcon}${prefix}falcon
 ${bottomBorder}
 
 ${menuTopBorder}

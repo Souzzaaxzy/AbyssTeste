@@ -13768,7 +13768,7 @@ ${conversaTexto.substring(0, 8000)}
 
 Faça um resumo conciso mas completo, destacando o que é mais relevante.`;
 
-          return ia.makeCognimaRequest('abacusai/dracarys-llama-3.1-70b-instruct', prompt, null);
+          return ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', prompt, null);
         }).then(response => {
           return reply(`💬 *Resumo da Conversa* (últimas mensagens)\n\n${formatAIResponse(response.data.choices[0].message.content)}`);
         }).catch(e => {
@@ -16063,7 +16063,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
           }).catch(() => {
             console.log("API primária do dicionário falhou, tentando IA...");
             const prompt = `Defina a palavra "${palavra}" em português de forma completa e fofa. Inclua a classe gramatical, os principais significados e um exemplo de uso em uma frase curta e bonitinha.`;
-            ia.makeCognimaRequest('meta/llama-3.1-8b-instruct', prompt, null).then((bahz) => {
+            ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', prompt, null).then((bahz) => {
               reply(formatAIResponse(bahz.data.choices[0].message.content));
             }).catch((e) => {
               // Erro silencioso no console para não poluir o chat
