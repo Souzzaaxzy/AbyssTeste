@@ -30929,7 +30929,6 @@ Use ${prefix}horoscopo <signo> para ver a previsão!`);
       case 'debater':
       case 'debate':
         if (!iaExpanded) return reply("Sistema de debate temporariamente indisponível.");
-        if (!ia || !KeyCog) return reply("❌ Sistema de IA não disponível no momento.");
         if (!q) return reply(`💬 *Debater*\n\nUso: ${prefix}debater <tema>\n\nExemplo: ${prefix}debater redes sociais fazem bem ou mal`);
 
         reply("💬 Analisando argumentos...");
@@ -30954,7 +30953,6 @@ Use ${prefix}horoscopo <signo> para ver a previsão!`);
       case 'storyinteractive':
       case 'aventura':
         if (!iaExpanded) return reply("Sistema de história temporariamente indisponível.");
-        if (!ia || !KeyCog) return reply("❌ Sistema de IA não disponível no momento.");
 
         const subCmdStory = args[0]?.toLowerCase();
 
