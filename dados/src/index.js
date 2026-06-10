@@ -13289,7 +13289,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'gemma':
         if (!q) return reply(`🤔 Qual sua dúvida para o Gemma? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
         reply(`⏳ Só um segundinho, estou consultando o Gemma... ✨`).then(() => {
-          ia.makeCognimaRequest('google/gemma-7b', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Gemma:', e);
@@ -13306,7 +13306,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'phi3':
         if (!q) return reply(`🤔 Qual sua dúvida para o Phi? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
         reply(`⏳ Só um segundinho, estou consultando o Phi... ✨`).then(() => {
-          ia.makeCognimaRequest('microsoft/phi-3-medium-4k-instruct', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Phi:', e);
@@ -13322,7 +13322,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'qwen2':
         if (!q) return reply(`🤔 Qual sua dúvida para o Qwen2? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
         reply(`⏳ Só um segundinho, estou consultando o Qwen2... ✨`).then(() => {
-          ia.makeCognimaRequest('qwen/qwen2-7b-instruct', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Qwen2:', e);
@@ -13356,7 +13356,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'llama3':
         if (!q) return reply(`🤔 Qual sua dúvida para o Llama? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
         reply(`⏳ Só um segundinho, estou consultando o Llama... ✨`).then(() => {
-          ia.makeCognimaRequest('abacusai/dracarys-llama-3.1-70b-instruct', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Llama:', e);
@@ -13372,7 +13372,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'baichuan2':
         if (!q) return reply(`🤔 Qual sua dúvida para o Baichuan? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
         reply(`⏳ Só um segundinho, estou consultando o Baichuan... ✨`).then(() => {
-          ia.makeCognimaRequest('baichuan-inc/baichuan2-13b-chat', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Baichuan:', e);
@@ -13388,7 +13388,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o Marin? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o Marin... ✨`).then(() => {
-          ia.makeCognimaRequest('marin/marin-8b-instruct', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Marin:', e);
@@ -13405,7 +13405,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o Kimi? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o Kimi... ✨`).then(() => {
-          ia.makeCognimaRequest('moonshotai/kimi-k2-instruct', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Kimi:', e);
@@ -13422,7 +13422,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o Mistral? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o Mistral... ✨`).then(() => {
-          ia.makeCognimaRequest('mistralai/mistral-small-24b-instruct', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Mistral:', e);
@@ -13439,7 +13439,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o Magistral? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o Magistral... ✨`).then(() => {
-          ia.makeCognimaRequest('mistralai/magistral-small-2506', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Magistral:', e);
@@ -13457,7 +13457,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o RakutenAI? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o RakutenAI... ✨`).then(() => {
-          ia.makeCognimaRequest('rakuten/rakutenai-7b-instruct', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API RakutenAI:', e);
@@ -13474,7 +13474,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o Yi? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o Yi... ✨`).then(() => {
-          ia.makeCognimaRequest('01-ai/yi-large', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Yi:', e);
@@ -13491,7 +13491,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o Gemma2? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o Gemma2... ✨`).then(() => {
-          ia.makeCognimaRequest('google/gemma-2-27b-it', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Gemma2:', e);
@@ -13525,7 +13525,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o Falcon? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o Falcon... ✨`).then(() => {
-          ia.makeCognimaRequest('tiiuae/falcon3-7b-instruct', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Falcon:', e);
@@ -13542,7 +13542,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o Qwencoder? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o Qwencoder... ✨`).then(() => {
-          ia.makeCognimaRequest('qwen/qwen2.5-coder-32b-instruct', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API Qwencoder:', e);
@@ -13559,7 +13559,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q) return reply(`🤔 Qual sua dúvida para o CodeGemma? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
         reply(`⏳ Só um segundinho, estou consultando o CodeGemma... ✨`).then(() => {
-          ia.makeCognimaRequest('google/codegemma-7b', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API CodeGemma:', e);
@@ -15905,7 +15905,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         if (!q) return reply(`📢 Ei, falta a pergunta! Me diga o que quer saber após o comando ${prefix}cog! 😴`);
 
         reply('⏳ Um momentinho, estou pensando na melhor resposta... 🌟').then(() => {
-          ia.makeCognimaRequest('cognima/CognimAI', q, null).then((response) => {
+          ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
             console.error('Erro na API CognimAI:', e);

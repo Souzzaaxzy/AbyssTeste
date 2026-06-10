@@ -1399,12 +1399,12 @@ async function makeCognimaRequest(modelo, texto, systemPrompt = null, historico 
 
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
-      // Usar NVIDIA NIM API (compatível com OpenAI)
+      // Usar NVIDIA NIM API com Llama 3
       const response = await axios.post(
         'https://integrate.api.nvidia.com/v1/chat/completions',
         {
           messages,
-          model: modelo || 'gpt-4o-mini',
+          model: 'meta/llama-3.1-405b-instruct',
           temperature: 0.7,
           max_tokens: 2000
         },
