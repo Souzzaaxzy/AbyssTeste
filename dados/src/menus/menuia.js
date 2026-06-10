@@ -6,18 +6,11 @@ export default async function menuIa(prefix, botName = "MeuBot", userName = "Usu
     menuItemIcon = "•.̇𖥨֗🍓⭟",
     separatorIcon = "❁",
     middleBorder = "│",
-    chatBotMenuTitle = "🤖 CHATBOTS INTELIGENTES",
     textMenuTitle = "✍️ GERAÇÃO DE TEXTO",
     toolsMenuTitle = "🛠️ FERRAMENTAS DE IA"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
     return `${formattedHeader}
-
-${menuTopBorder}
-│ ${chatBotMenuTitle}
-${middleBorder}
-${middleBorder}${menuItemIcon}${prefix}llama3
-${bottomBorder}
 
 ${menuTopBorder}
 │ ${textMenuTitle}
