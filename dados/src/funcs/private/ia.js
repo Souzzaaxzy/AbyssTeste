@@ -10,8 +10,9 @@ dotenv.config();
 
 import userContextDB from '../../utils/userContextDB.js';
 
-// Obter API key da NVIDIA das variáveis de ambiente
+// Obter API keys das variáveis de ambiente
 const IA_API_KEY = process.env.NVIDIA_API_KEY || '';
+const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
 
 // Função para obter data/hora no fuso horário do Brasil (GMT-3)
 function getBrazilDateTime() {
