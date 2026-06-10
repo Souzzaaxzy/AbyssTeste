@@ -142,8 +142,6 @@ ensureJsonFileExists(ECONOMY_FILE, {
     "lamp": { name: "Lanterna", price: 600, type: "tool", effect: { exploreBonus: 0.2 } },
     "bow": { name: "Arco de Caça", price: 800, type: "tool", effect: { huntBonus: 0.25 } },
     "forge": { name: "Kit de Forja", price: 1200, type: "tool", effect: { forgeBonus: 0.25 } },
-    // A loja será preenchida automaticamente pela função ensureEconomyDefaults abaixo
-    "repairkit": { "name": "Kit de Reparos", "price": 350, "type": "consumable", "effect": { "repair": 40 } },
   },
   materialsPrices: {
     pedra: 2,

@@ -3,11 +3,15 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+// Carregar variáveis de ambiente
+dotenv.config();
 
 import userContextDB from '../../utils/userContextDB.js';
 
-// Chave de IA hardcoded
-const IA_API_KEY = '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';
+// Obter API key da NVIDIA das variáveis de ambiente
+const IA_API_KEY = process.env.NVIDIA_API_KEY || '';
 
 // Função para obter data/hora no fuso horário do Brasil (GMT-3)
 function getBrazilDateTime() {
@@ -1376,7 +1380,10 @@ async function makeCognimaRequest(modelo, texto, systemPrompt = null, historico 
     throw new Error('Parâmetros obrigatórios ausentes: modelo e texto');
   }
 
-  // Note: parametro `key` é ignorado; usar `IA_API_KEY` hardcoded definido no topo.
+  // Verificar se a API key está configurada
+  if (!IA_API_KEY) {
+    throw new Error('NVIDIA_API_KEY não configurada. Adicione ao arquivo .env');
+  }
 
   const messages = [];
   
