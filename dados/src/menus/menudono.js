@@ -6,6 +6,7 @@ async function menuDono(prefix, botName = "MeuBot", userName = "Usuário", {
     menuItemIcon = "•.̇𖥨֗🍓⭟",
     separatorIcon = "❁",
     middleBorder = "│",
+    aiMenuTitle = "🤖 INTELIGÊNCIA ARTIFICIAL",
     botConfigMenuTitle = "🤖 CONFIGURAÇÕES DO BOT",
     menuDesignMenuTitle = "🎨 DESIGN & APARÊNCIA",
     automationMenuTitle = "⚙️ SISTEMA & AUTOMAÇÃO",
@@ -27,6 +28,20 @@ ${menuTopBorder}
 │ 📚 INÍCIO
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}tutorial
+${bottomBorder}
+
+${menuTopBorder}
+│ ${aiMenuTitle}
+${middleBorder}
+${middleBorder}${menuTitleIcon} *NVIDIA NIM (Paga):*
+${middleBorder}${menuItemIcon}${prefix}setnvkey <key>
+${middleBorder}
+${middleBorder}${menuTitleIcon} *GROQ (Gratuita):*
+${middleBorder}${menuItemIcon}${prefix}setgroq <key>
+${middleBorder}
+${middleBorder}📝 Status atual:
+${middleBorder}   NVIDIA: ${prefix}setnvkey
+${middleBorder}   Groq: ${prefix}setgroq
 ${bottomBorder}
 
 ${menuTopBorder}
