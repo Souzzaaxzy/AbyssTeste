@@ -2122,6 +2122,11 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       await nazu.sendMessage(from, { react: { text: '☀️', key: info.key } });
     }
 
+    // 👻 REAÇÃO AUTOMÁTICA PARA "CRIS" / "CRIX"
+    if (/cris|crix/i.test(body) && !info.key.fromMe) {
+      await nazu.sendMessage(from, { react: { text: '👻', key: info.key } });
+    }
+
     // Suporte para "! comando" (com espaço após o prefixo)
     const bodyWithoutPrefix = body.trim().slice(groupPrefix.length).trimStart();
 
