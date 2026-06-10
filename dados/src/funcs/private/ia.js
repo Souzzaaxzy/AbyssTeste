@@ -1606,15 +1606,11 @@ function updateHistorico(grupoUserId, role, content, nome = null) {
     historico[grupoUserId] = [];
   }
   
+  // Apenas role e content - sem timestamp/name para compatibilidade com Groq
   const entry = {
     role,
-    content: cleanWhatsAppFormatting(content),
-    timestamp: getBrazilDateTime()
+    content: cleanWhatsAppFormatting(content)
   };
-  
-  if (nome) {
-    entry.name = nome;
-  }
   
   historico[grupoUserId].push(entry);
   
