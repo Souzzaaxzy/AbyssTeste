@@ -301,7 +301,7 @@ const formatAIResponse = (text) => {
 // 🎵 LAYOUT DO PLAYER DE MÚSICA (iPhone Style)
 // ═══════════════════════════════════════════════════════════════
 const formatMusicPlayer = (title, artist, duration = null, progress = null, volume = null) => {
-  const maxWidth = 44; // Largura total do player
+  const maxWidth = 44;
   
   const truncate = (text, maxLen) => {
     if (!text || typeof text !== 'string') return '';
@@ -315,9 +315,8 @@ const formatMusicPlayer = (title, artist, duration = null, progress = null, volu
   const titleDisplay = truncate(safeTitle, maxWidth - 6);
   const artistDisplay = truncate(safeArtist, maxWidth);
   
-  // Calcular tempos
-  const totalSeconds = duration || 194; // padrão: 3:14 = 194 segundos
-  const currentSeconds = progress !== null ? Math.floor(totalSeconds * progress) : 72; // padrão: 2:04 = 124 segundos
+  const totalSeconds = duration || 194;
+  const currentSeconds = progress !== null ? Math.floor(totalSeconds * progress) : 72;
   const remainingSeconds = totalSeconds - currentSeconds;
   
   const formatTime = (secs) => {
@@ -329,14 +328,12 @@ const formatMusicPlayer = (title, artist, duration = null, progress = null, volu
   const currentTimeStr = formatTime(currentSeconds);
   const remainingTimeStr = `-${formatTime(remainingSeconds)}`;
   
-  // Calcular posição na barra
-  const barWidth = 22; // largura da barra entre os tempos
+  const barWidth = 22;
   const filledBars = Math.floor((currentSeconds / totalSeconds) * barWidth);
   const emptyBars = barWidth - filledBars;
   
   const progressBar = '█'.repeat(filledBars) + '▓'.repeat(emptyBars);
   
-  // Barra de volume
   const volPercent = volume !== null ? volume : 75;
   const volFilled = Math.floor((volPercent / 100) * 23);
   const volEmpty = 23 - volFilled;
@@ -344,40 +341,37 @@ const formatMusicPlayer = (title, artist, duration = null, progress = null, volu
   
   const innerWidth = maxWidth;
   const pad = (str, len) => str + ' '.repeat(Math.max(0, len - str.length));
-  const spacer = () => `│${' '.repeat(innerWidth + 2)}│\n`;
+  const line = (content) => ` ${pad(content, innerWidth)} \n`;
+  const spacer = () => ` ${' '.repeat(innerWidth + 2)} \n`;
   
-  let player = `├${'─'.repeat(innerWidth + 2)}┤\n`;
-  player += `│ ${pad('iPhone', innerWidth)} │\n`;
+  let player = ` ${'-'.repeat(innerWidth + 2)} \n`;
+  player += ` ${pad('iPhone', innerWidth)} \n`;
   player += spacer();
   
-  // Título com emoji posicionado à direita
   const emoji = ' 🅴 ';
   const titleWithEmoji = titleDisplay + emoji;
-  player += `│ ${pad(titleWithEmoji, innerWidth)} │\n`;
-  
-  // Artista alinhado à esquerda
-  player += `│ ${pad(artistDisplay, innerWidth)} │\n`;
+  player += line(titleWithEmoji);
+  player += line(artistDisplay);
   player += spacer();
   
-  // Barra de progresso com tempos
   const progressLine = `${currentTimeStr} ${progressBar} ${remainingTimeStr}`;
-  player += `│ ${progressLine} │\n`;
+  player += line(progressLine);
   player += spacer();
   player += spacer();
   
-  // Controles centralizados
+  // Controles com 4 espaços extras para a direita
   const controls = '◀◀      ❚❚      ▶▶';
-  const ctrlSpaces = Math.floor((innerWidth - controls.length) / 2);
-  player += `│${' '.repeat(ctrlSpaces)}${controls}${' '.repeat(innerWidth - ctrlSpaces - controls.length)}│\n`;
-  player += `│${' '.repeat(innerWidth - 2)}◉   │\n`;
+  const ctrlExtraSpaces = 4;
+  player += `    ${controls}${' '.repeat(innerWidth - controls.length - ctrlExtraSpaces)}\n`;
+  player += `                                         ◉   \n`;
   
   player += spacer();
-  
-  // Barra de volume
-  player += `│ 🔊 ${pad(volumeBar, 23)} 🔊 │\n`;
   player += spacer();
   
-  player += `╰${'─'.repeat(innerWidth + 2)}╯`;
+  player += ` 🔊 ${pad(volumeBar, 23)} 🔊 \n`;
+  player += spacer();
+  
+  player += ` ${'─'.repeat(innerWidth + 2)} `;
   
   return player;
 };
