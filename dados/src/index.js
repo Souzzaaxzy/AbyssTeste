@@ -298,56 +298,54 @@ const formatAIResponse = (text) => {
 };
 
 // ═══════════════════════════════════════════════════════════════
-// 🎵 LAYOUT DO PLAYER DE MÚSICA (Grande e sincronizado)
+// 🎵 LAYOUT DO PLAYER DE MÚSICA
 // ═══════════════════════════════════════════════════════════════
 const formatMusicPlayer = (title, artist, duration = null, progress = null, volume = null) => {
-  // Largura grande para sincronizar com imagem
   const maxWidth = 56;
   
-  // Função para criar linha de progresso (usa maxWidth)
   const createProgressBar = (progressPercent) => {
     const filled = Math.round((progressPercent / 100) * maxWidth);
     const empty = maxWidth - filled;
     return '█'.repeat(filled) + '▓'.repeat(Math.min(empty, 1)) + '░'.repeat(Math.max(empty - 1, 0));
   };
   
-  // Truncar texto para caber
   const truncate = (text, maxLen) => {
     if (!text || typeof text !== 'string') return '';
     if (text.length <= maxLen) return text;
     return text.substring(0, maxLen - 3) + '...';
   };
   
-  // Valores seguros
   const safeTitle = title || 'Música desconhecida';
   const safeArtist = artist || 'Artista desconhecido';
   
-  const titleDisplay = truncate(safeTitle, maxWidth - 12);
+  const titleDisplay = truncate(safeTitle, maxWidth - 3);
   const artistDisplay = truncate(safeArtist, maxWidth);
   
-  // Barras grandes
   const progressBarStr = createProgressBar(progress !== null ? progress : 0);
   const volumeBarStr = createProgressBar(volume !== null ? volume : 75);
   
-  // Layout
   const innerWidth = maxWidth;
   const pad = (str, len) => str + ' '.repeat(Math.max(0, len - str.length));
   const line = (content) => `│ ${pad(content, innerWidth)} │\n`;
   
   let player = `├${'─'.repeat(innerWidth + 2)}┤\n`;
-  player += `│ ${pad('iPhone', innerWidth - 1)} 🅴 │\n`;
+  player += `│ ${pad('iPhone', innerWidth)} │\n`;
   player += line('');
-  player += line(titleDisplay);
+  player += `│ ${titleDisplay} 🅴 │\n`;  // Emoji ao lado do título
   player += line(artistDisplay);
   player += line('');
-  player += `│ ${progressBarStr} │\n`;  // Barra grande
+  player += `│ ${progressBarStr} │\n`;
   player += line('');
-  player += `│       ◀◀      ❚❚      ▶▶              │\n`;
-  player += `│                                    ◉    │\n`;
+  
+  // Botões centralizados
+  const controls = '◀◀      ❚❚      ▶▶';
+  const ctrlSpaces = Math.floor((innerWidth - controls.length) / 2);
+  player += `│${' '.repeat(ctrlSpaces)}${controls}${' '.repeat(innerWidth - ctrlSpaces - controls.length)}│\n`;
+  player += `│${' '.repeat(innerWidth - 3)}◉     │\n`;
   player += line('');
   
   if (volume !== null) {
-    player += `│ 🔊 ${volumeBarStr} 🔊     │\n`;  // Barra grande
+    player += `│ 🔊 ${volumeBarStr} 🔊     │\n`;
     player += line('');
   }
   
