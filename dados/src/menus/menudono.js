@@ -1,4 +1,4 @@
-async function menuDono(prefix, botName = "MeuBot", userName = "Usuário", {
+async function menuDono(prefix, botName = "MeuBot", userName = "Usuário", providerName = "VEXAPI", {
     header = `╭──────────────────────────────────────────────╮⊰ 🌸 『 *${botName}* 』\n│Olá, #user#!\n╰──────────────────────────────────────────────╯`,
     menuTopBorder = "╭──────────────────────────────────────────────╮",
     bottomBorder = "╰──────────────────────────────────────────────╯",
@@ -10,6 +10,7 @@ async function menuDono(prefix, botName = "MeuBot", userName = "Usuário", {
     botConfigMenuTitle = "🤖 CONFIGURAÇÕES DO BOT",
     menuDesignMenuTitle = "🎨 DESIGN & APARÊNCIA",
     automationMenuTitle = "⚙️ SISTEMA & AUTOMAÇÃO",
+    downloadProviderMenuTitle = "📥 PROVEDOR DE DOWNLOADS",
     commandCustomMenuTitle = "🛠️ PERSONALIZAÇÃO DE COMANDOS",
     commandLimitingMenuTitle = "🚫 LIMITAÇÃO DE COMANDOS",
     userManagementMenuTitle = "👥 GERENCIAMENTO DE USUÁRIOS",
@@ -93,6 +94,15 @@ ${middleBorder}${menuItemIcon}${prefix}delreact
 ${middleBorder}${menuItemIcon}${prefix}addnopref
 ${middleBorder}${menuItemIcon}${prefix}listnopref
 ${middleBorder}${menuItemIcon}${prefix}delnopref
+${bottomBorder}
+
+${menuTopBorder}
+│ ${downloadProviderMenuTitle}
+${middleBorder}
+${middleBorder}  Atual: ${providerName}
+${middleBorder}
+${middleBorder}${menuItemIcon}${prefix}select vex
+${middleBorder}${menuItemIcon}${prefix}select yt
 ${bottomBorder}
 
 ${menuTopBorder}
