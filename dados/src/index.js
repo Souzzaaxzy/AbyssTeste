@@ -19494,7 +19494,7 @@ case 'addaluguel':
                 75
               );
 
-              const caption = `🎵 *${videoInfo.data.title}*\n👤 ${videoInfo.data.author.name}\n\n${playerLayout}\n\n🎧 *Boa audiÃ§ao!*`;
+              const caption = `${playerLayout}\n\n🎧 *Boa audição!*`;
 
               nazu.sendMessage(from, {
                 image: { url: videoInfo.data.thumbnail },
@@ -19590,7 +19590,7 @@ case 'addaluguel':
             75
           );
 
-          const caption = `🎵 *${downloadResult.title}*\n👤 ${Array.isArray(downloadResult.artists) ? downloadResult.artists.join(', ') : downloadResult.artists}\n\n${playerLayout}\n\n🎧 *Boa audiÃ§ao!*`;
+          const caption = `${playerLayout}\n\n🎧 *Boa audição!*`;
 
           try {
             if (downloadResult.image) {
@@ -19715,7 +19715,7 @@ case 'pin':
             75
           );
 
-          const searchCaption = `🎵 *${track.name}*\n👤 ${track.artist || 'Artista desconhecido'}\n\n${playerLayout}\n\n⏳ *Baixando...*`;
+          const searchCaption = `${playerLayout}\n\n⏳ *Baixando...*`;
 
           await reply(searchCaption);
           await nazu.sendMessage(from, { react: { text: '⏳', key: info.key } });
@@ -19790,7 +19790,7 @@ case 'pin':
                 75
               );
 
-              const caption = `🎵 *${result.title}*\n👤 ${result.artist || 'Artista desconhecido'}\n\n${playerLayout}\n\n🎧 *Enviando áudio...*`;
+              const caption = `${playerLayout}\n\n🎧 *Enviando áudio...*`;
 
               try {
                 if (result.thumbnail) {
@@ -19873,7 +19873,7 @@ case 'pin':
                 75
               );
 
-              const caption = `🎵 *${result.track.title}*\n👤 ${result.artist || 'Artista desconhecido'}\n\n${playerLayout}\n\n🎧 *Baixando e processando...*`;
+              const caption = `${playerLayout}\n\n🎧 *Baixando e processando...*`;
 
               try {
                 if (result.thumbnail) {
