@@ -32237,6 +32237,99 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           reply("ocorreu um erro 💔");
         }
         break;
+      case 'transcrever':
+        try {
+          // Verificar se é membro comum (apenas membros têm limite de uso)
+          const isPrivileged = isOwnerOrSub || isGroupAdmin;
+          
+          // Rate limit: 5 usos a cada 10 minutos para membros comuns
+          if (!isPrivileged) {
+            const transcribeRateLimit = {
+              maxUses: 5,
+              windowMs: 10 * 60 * 1000, // 10 minutos
+              users: {}
+            };
+            
+            const userKey = sender;
+            const now = Date.now();
+            
+            if (!transcribeRateLimit.users[userKey]) {
+              transcribeRateLimit.users[userKey] = { count: 0, resetTime: now + transcribeRateLimit.windowMs };
+            }
+            
+            const userData = transcribeRateLimit.users[userKey];
+            
+            if (now > userData.resetTime) {
+              userData.count = 0;
+              userData.resetTime = now + transcribeRateLimit.windowMs;
+            }
+            
+            if (userData.count >= transcribeRateLimit.maxUses) {
+              const remainingTime = Math.ceil((userData.resetTime - now) / 1000 / 60);
+              return reply(`⏳ Você atingiu o limite de 5 transcrições em 10 minutos. Aguarde ${remainingTime} minuto(s) e tente novamente.`);
+            }
+            
+            userData.count++;
+          }
+          
+          // Verificar se respondeu a um áudio
+          const quotedAudio = quotedMessageContent?.audioMessage || quotedMessageContent?.pttMessage;
+          if (!quotedAudio) {
+            return reply("❌ Responda a um áudio utilizando o comando !transcrever");
+          }
+          
+          // Baixar o áudio
+          await reply("⏳ Transcrevendo áudio...");
+          
+          const audioBuffer = await getFileBuffer(quotedAudio, 'audio');
+          
+          // Verificar duração do áudio (7 minutos = 420 segundos)
+          // WhatsAppaudios não têm duration no metadata diretamente, verificamos pelo tamanho
+          // Aproximadamente: 1MB ≈ 1 minuto para áudio de WhatsApp
+          const audioSizeMB = audioBuffer.length / (1024 * 1024);
+          if (audioSizeMB > 7) {
+            return reply("❌ O áudio excede o limite de 7 minutos.");
+          }
+          
+          // Verificar se tem GROQ_API_KEY
+          if (!process.env.GROQ_API_KEY) {
+            return reply("❌ API da Groq não está configurada. Use !setgroq para configurar.");
+          }
+          
+          // Enviar para transcrição
+          const FormData = (await import('form-data')).default;
+          const form = new FormData();
+          form.append('file', audioBuffer, { filename: 'audio.mp3', contentType: 'audio/mpeg' });
+          form.append('model', 'whisper-large-v3');
+          
+          const response = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
+            },
+            body: form
+          });
+          
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error('Erro na API Groq:', errorData);
+            return reply("❌ Erro ao transcrever o áudio. Tente novamente.");
+          }
+          
+          const result = await response.json();
+          const transcription = result.text || '';
+          
+          if (!transcription || transcription.trim() === '') {
+            return reply("❌ Não foi possível transcrever o áudio. Ele pode estar inaudível ou vazio.");
+          }
+          
+          await reply(`📝 Transcrição:\n\n${transcription}`);
+          
+        } catch (e) {
+          console.error(e);
+          reply("ocorreu um erro 💔");
+        }
+        break;
       case 'perfil':
         try {
           const target = sender;

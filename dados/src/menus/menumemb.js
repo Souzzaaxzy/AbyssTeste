@@ -31,6 +31,7 @@ ${middleBorder}${menuItemIcon}${prefix}statusgp
 ${middleBorder}${menuItemIcon}${prefix}regras
 ${middleBorder}${menuItemIcon}${prefix}zipbot
 ${middleBorder}${menuItemIcon}${prefix}gitbot
+${middleBorder}${menuItemIcon}${prefix}transcrever (responda um áudio)
 ${bottomBorder}
 
 ${menuTopBorder}
