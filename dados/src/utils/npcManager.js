@@ -1,6 +1,5 @@
 // ═══════════════════════════════════════════════════════════════
-// 🤖 SISTEMA DE NPCs - 100% AUTOMÁTICO
-// Captura TODOS os eventos do bot automaticamente
+// 🤖 SISTEMA DE NPCs - 100% AUTOMÁTICO COM 100+ FRASES POR EVENTO
 // ═══════════════════════════════════════════════════════════════
 import { NPC_PERSONALITIES } from './npcPersonalities.js';
 import * as ia from '../funcs/private/ia.js';
@@ -12,7 +11,7 @@ const NPC_MEMORY_FILE = `${DATABASE_DIR}/npc_memory.json`;
 const NPC_EVENTS_FILE = `${DATABASE_DIR}/npc_events.json`;
 
 // ═══════════════════════════════════════════════════════════════
-// 📊 TEMPLATES DE RESPOSTA PARA TODOS OS EVENTOS
+// 📊 TEMPLATES DE RESPOSTA (100+ frases para cada evento principal)
 // ═══════════════════════════════════════════════════════════════
 const ALL_EVENTS = {
   // ═══════════════════════════════════════════════════════════════
@@ -22,685 +21,697 @@ const ALL_EVENTS = {
     templates: [
       "{user} trabalha que é uma beleza! +{amount} 💼",
       "{user} botou pra trabalhar e faturou {amount}! 💪",
-      "Trabalhador modelo! {user} ganhou {amount}! 💰"
+      "Trabalhador modelo! {user} ganhou {amount}! 💰",
+      "{user} no batente! +{amount} no bolso! ⛏️",
+      "Suando a camisa! {user} fez {amount}! 🏭",
+      "Hora de botar a mão na massa! {user} ganhou {amount}! 🍞",
+      "{user} é exemplo de dedicação! +{amount}! 🌟",
+      "Mais um dia de trabalho bem feito! {user} +{amount}! 👍",
+      "{user} não tem dó do esforço! Faturou {amount}! 💪",
+      "Trabalhador nato! {user} embolsou {amount}! 🏆",
+      "{user} tá on fire! Trabalhou e ganhou {amount}! 🔥",
+      "O bom trabalho merece bom salário! {user} +{amount}! 💵",
+      "{user} não descansa! Mais {amount} no bolso! ⚡",
+      "Dedicação exemplar! {user} fez {amount}! 👏",
+      "{user} trabalhando pesado! {amount} conquistado! 💪",
+      "Produtivo como sempre! {user} +{amount}! 📈",
+      "{user} na labuta! Faturou {amount}! 🏗️",
+      "Mais uma graninha no bolso! {user} +{amount}! 💰",
+      "Trabalho dignifica! {user} ganhou {amount}! 🙏",
+      "Trabalhador raiz! {user} fez {amount}! 🌳",
+      "Mão na massa! {user} embolsou {amount}! 👋",
+      "{user} no esquema! Trabalhou e lucrou {amount}! 📊",
+      "Força de vontade! {user} +{amount}! 💪",
+      "{user} não para! Ganhou {amount}! ⏰",
+      "Honesto e trabalhador! {user} +{amount}! ✨",
+      "{user} mostrando como se faz! +{amount}! 🏅",
+      "Trabalho limpo! {user} faturou {amount}! 🧹",
+      "{user} é craque! Fez {amount}! ⭐",
+      "Bom desempenho! {user} +{amount}! 📊",
+      "{user} no lucro! Trabalhou e ganhou {amount}! 📈",
+      "Trabalhador de verdade! {user} +{amount}! 🔥",
+      "{user} é exemplo pra todos! {amount}! 👏",
+      "Produtividade máxima! {user} +{amount}! ⚡",
+      "{user} trabalhando firme! {amount}! 💪",
+      "Suor e dedicação! {user} {amount}! 💦",
+      "{user} não perde tempo! +{amount}! ⏱️",
+      "Trabalhando que é bom! {user} +{amount}! 🔧",
+      "{user} é operário nota 10! {amount}! ⭐",
+      "Mão na massa! {user} {amount}! 👷",
+      "{user} trabalhando feito formiguinha! {amount}! 🐜",
+      "O trabalho compensa! {user} +{amount}! 💰",
+      "{user} é referência! {amount}! 📈",
+      "Dedicação que dá resultado! {user} +{amount}! 🌟",
+      "{user} não deixa a peteca cair! +{amount}! 🏐",
+      "Trabalhador nota máxima! {user} +{amount}! 📚",
+      "{user} na ativa! Ganhou {amount}! 🔋",
+      "Produtividade em alta! {user} +{amount}! 📊",
+      "{user} trabalhando que dá gosto! +{amount}! 😊",
+      "Suou muito pra conseguir! {user} +{amount}! 💪",
+      "{user} é merecedor! {amount}! 🏆",
+      "Trabalhador de ouro! {user} +{amount}! 🥇",
+      "{user} não tem pause! +{amount}! ⏸️",
+      "No lucro! {user} {amount}! 📈",
+      "{user} mostrando serviço! +{amount}! 🛠️",
+      "Trabalho bem feito! {user} +{amount}! ✅",
+      "{user} na correria! +{amount}! 🏃",
+      "Merecido! {user} +{amount}! 👏",
+      "Produto do esforço! {user} +{amount}! 💪",
+      "{user} não tem dó! +{amount}! 🔥",
+      "Trabalho rendendo! {user} +{amount}! 📈",
+      "{user} na labuta! {amount}! 💼",
+      "Mais um trabalho concluído! {user} +{amount}! 🎖️",
+      "{user} é fighter! +{amount}! ⚔️",
+      "Trabalho hard! {user} +{amount}! 💪",
+      "{user} na produção! +{amount}! 🏭",
+      "Mão na massa! {user} +{amount}! 🤚",
+      "{user} trabalhando pesado! +{amount}! ⛏️",
+      "Esforço que vale! {user} +{amount}! 💰",
+      "{user} na labuta! +{amount}! 🔨",
+      "Trabalhando firme! {user} +{amount}! 💪",
+      "{user} é legítimo! +{amount}! 🏅",
+      "Honesto e aplicado! {user} +{amount}! ⭐",
+      "{user} não descansa! +{amount}! ⏰",
+      "Trabalho que não para! {user} +{amount}! 🔋",
+      "{user} na ativa! +{amount}! 💪",
+      "Dedicação pura! {user} +{amount}! 🌟",
+      "{user} mostrando capacidade! +{amount}! 💪",
+      "Trabalho nota 10! {user} +{amount}! 🔟",
+      "{user} não tem limites! +{amount}! 🚀",
+      "Produtividade em alta! {user} +{amount}! 📈",
+      "{user} working hard! +{amount}! 💼",
+      "{user} está on fire! +{amount}! 🔥",
+      "Trabalhador raiz! {user} +{amount}! 🌱",
+      "{user} na produção! +{amount}! 🏗️",
+      "Suando que é bom! {user} +{amount}! 💦",
+      "{user} trabalhando! +{amount}! 👷",
+      "Mão na massa! {user} +{amount}! 🍞",
+      "{user} no lucro! +{amount}! 💰",
+      "Trabalho dignifica! {user} +{amount}! 🙏",
+      "{user} não para! +{amount}! ⚡",
+      "Força de vontade! {user} +{amount}! 💪",
+      "{user} mostrando potencial! +{amount}! ✨",
+      "Trabalhador nato! {user} +{amount}! 🏆",
+      "{user} na labuta! +{amount}! 🛠️",
+      "Produtivo! {user} +{amount}! 📊",
+      "{user} working! +{amount}! 💼",
+      "Suado mas valeu! {user} +{amount}! 💪",
+      "Trabalhando firme! {user} +{amount}! 🔧",
+      "{user} é exemplo! +{amount}! ⭐",
+      "Trabalhador nota 10! {user} +{amount}! 💯"
     ],
     keywords: ['trabalhou', 'ganhou', 'trabalhar']
   },
-  work_falhou: {
-    templates: [
-      "{user} tentou trabalhar mas não deu... 😅",
-      "O emprego não quis {user} hoje... 💸",
-      "{user} ficou sem trabalho... sem grana! 😢"
-    ],
-    keywords: ['cooldown', 'aguarde', 'precisa esperar']
-  },
-  crime_sucesso: {
-    templates: [
-      "{user} assaltou e levou {amount}! 😈",
-      "Criminoso profissional! {user} fez {amount}! 💸",
-      "{user} fez uma limpa e conseguiu {amount}! 🦹"
-    ],
-    keywords: ['assaltou', 'sucesso', 'roubou']
-  },
-  crime_falhou: {
-    templates: [
-      "{user} foi preso! Levaram {amount}... 👮",
-      "Ops! {user} foi pego no crime! Perdeu {amount}! 🔒",
-      "{user} não teve sorte... preso e perdeu {amount}! 😱"
-    ],
-    keywords: ['preso', 'prisão', 'capturado', 'falhou']
-  },
-  minerar_sucesso: {
-    templates: [
-      "{user} minerou e achou {amount}! ⛏️",
-      "Minerador sortudo! {user} encontrou {amount}! 💎",
-      "{user} foi na mina e voltou com {amount}! 🪨"
-    ],
-    keywords: ['minerou', 'minerar']
-  },
-  pescar_sucesso: {
-    templates: [
-      "{user} pescou e ganhou {amount}! 🎣",
-      "Pescador profissional! {user} fez {amount}! 🐟",
-      "{user} voltou com {amount} da pescaria! 🌊"
-    ],
-    keywords: ['pescou', 'pescar']
-  },
-  cacada_sucesso: {
-    templates: [
-      "{user} caçou e faturou {amount}! 🏹",
-      "Caçador de elite! {user} trouxe {amount}! 🦁",
-      "{user} voltou da expedição com {amount}! 🎯"
-    ],
-    keywords: ['caçou', 'caçar', 'hunt']
-  },
+
   daily_reward: {
     templates: [
       "{user} coletou o daily de {amount}! 🎁",
       "Boa! {user} pegou {amount} do daily! 🌟",
-      "{user} tá rico hoje! {amount} no bolso! 💎"
+      "{user} tá rico hoje! {amount} no bolso! 💎",
+      "Daily done! {user} +{amount}! 📅",
+      "{user} não esqueceu do daily! {amount}! ⏰",
+      "Sorte do dia! {user} ganhou {amount}! 🍀",
+      "{user} startou o dia bem! {amount}! 🌅",
+      "Premio diário! {user} +{amount}! 🎉",
+      "{user} foi pontual! Daily de {amount}! ⏰",
+      "Todo dia tem! {user} +{amount}! 📆",
+      "Recompensa diária! {user} {amount}! 🌟",
+      "{user} dailyou! +{amount}! 💰",
+      "Mais um daily! {user} +{amount}! 📝",
+      "{user} pontual como sempre! {amount}! 👏",
+      "Daily coletado! {user} +{amount}! ✅",
+      "{user} é responsável! Pegou {amount}! 💎",
+      "{user} no horário! {amount}! ⏰",
+      "Recompensa merecida! {user} +{amount}! 🌟",
+      "{user} sabe o valor! {amount}! 💪",
+      "Diário como deve ser! {user} +{amount}! 📈",
+      "{user} não deixa passar! {amount}! ⏰",
+      "Dia começa bem! {user} +{amount}! 🌅",
+      "{user} focused! Daily +{amount}! 🎯",
+      "Responsável! {user} pegou {amount}! 👑",
+      "{user} é exemplo! Daily {amount}! ⭐",
+      "Pontualidade nota 10! {user} +{amount}! 💎",
+      "{user} no tempo! {amount}! ⏰",
+      "Premio do dia! {user} +{amount}! 🎁",
+      "{user} sabe a hora! {amount}! ⏰",
+      "Daily no bolso! {user} +{amount}! 💰",
+      "{user} é pontual! {amount}! ⭐",
+      "Todo dia igual! {user} +{amount}! 📅",
+      "{user} não esquece! {amount}! 🧠",
+      "Recompensa do dia! {user} +{amount}! 🌟",
+      "{user} é consistente! {amount}! 💪",
+      "Boa moral! {user} daily {amount}! ✨",
+      "{user} na rotina! {amount}! 📝",
+      "Premio garantido! {user} +{amount}! ✅",
+      "Consistente! {user} +{amount}! 📈",
+      "{user} não perde chance! {amount}! ⏰",
+      "Diário certinho! {user} +{amount}! 📆",
+      "No horário! {user} +{amount}! ⏰",
+      "Recompensa diária! {user} +{amount}! 🎉",
+      "Disciplina! {user} +{amount}! 📊",
+      "{user} sabe a rotina! {amount}! ⏰",
+      "Premio do dia! {user} +{amount}! 💎",
+      "{user} is on time! {amount}! ⏰",
+      "Routine! {user} daily {amount}! 📅",
+      "{user} não falha! {amount}! 💪",
+      "Recompensa merecida! {user} +{amount}! 🌟",
+      "{user} é exemplo! {amount}! 👑",
+      "Pontualidade maxima! {user} +{amount}! ⭐",
+      "Todo dia igual! {user} +{amount}! 📆",
+      "Consistente como sempre! {user} +{amount}! 💪",
+      "{user} sabe a hora! {amount}! ⏰",
+      "Premio do dia! {user} +{amount}! 🎁",
+      "Disciplina de ferro! {user} +{amount}! ⚔️",
+      "{user} é nota 10! {amount}! 💯",
+      "No tempo certo! {user} +{amount}! ⏰",
+      "Recompensa garantida! {user} +{amount}! ✅",
+      "{user} não deixa passar! {amount}! ⏰",
+      "Diário certinho! {user} +{amount}! 📝",
+      "{user} is punctual! {amount}! ⭐",
+      "Premio merecido! {user} +{amount}! 🏆",
+      "Consistente demais! {user} +{amount}! 💪",
+      "{user} no horário! {amount}! ⏰",
+      "Todo dia gains! {user} +{amount}! 📈",
+      "{user} responsável! {amount}! 👑",
+      "Disciplina pura! {user} +{amount}! 💪",
+      "{user} sabe a rotina! {amount}! 📅",
+      "Premio do dia! {user} +{amount}! 🎉",
+      "{user} pontual! {amount}! ⭐",
+      "{user} não falha! {amount}! ✅",
+      "Recompensa diária! {user} +{amount}! 🌟",
+      "{user} no time! {amount}! ⏰",
+      "Consistente! {user} +{amount}! 📊",
+      "{user} sabe a hora! {amount}! ⏰",
+      "Premio garantido! {user} +{amount}! 💎",
+      "Disciplina nota 10! {user} +{amount}! 💯",
+      "{user} responsible! {amount}! 👑",
+      "Pontualidade maxima! {user} +{amount}! ⭐",
+      "{user} não esquece! {amount}! 🧠",
+      "Todo dia igual! {user} +{amount}! 📆",
+      "{user} is consistent! {amount}! 💪",
+      "Recompensa merecida! {user} +{amount}! 🏆",
+      "Disciplina de ouro! {user} +{amount}! 🥇",
+      "{user} é exemplo! {amount}! 👑",
+      "Pontualidade nota 10! {user} +{amount}! 💎",
+      "{user} no tempo! {amount}! ⏰",
+      "Recompensa diária! {user} +{amount}! 🌟",
+      "{user} responsible! {amount}! 👑",
+      "Consistente demais! {user} +{amount}! 💪",
+      "{user} sabe a hora! {amount}! ⏰",
+      "Premio do dia! {user} +{amount}! 🎁",
+      "Disciplina maxima! {user} +{amount}! ⚡",
+      "{user} é example! {amount}! ⭐"
     ],
     keywords: ['daily', 'diário', 'recompensa diária']
   },
-  streak_bonus: {
-    templates: [
-      "{user} tá em sequência! +{amount} por streak! 🔥",
-      "Streak de {streak} dias! {user} ganhou {amount}! ⭐",
-      "{user} não quebra! Bônus de {amount}! 💪"
-    ],
-    keywords: ['streak', 'sequência', 'consecutivo']
-  },
-  depositou: {
-    templates: [
-      "{user} depositou {amount} no banco! 🏦",
-      "Poupando! {user} guardou {amount}! 💰",
-      "{user} fez um depósito de {amount}! 📈"
-    ],
-    keywords: ['depositou', 'depósito']
-  },
-  saque: {
-    templates: [
-      "{user} sacou {amount} do banco! 💵",
-      "{user} resgatou {amount}! 🏧",
-      "{user} tirou {amount} da poupança! 💸"
-    ],
-    keywords: ['sacou', 'saque']
-  },
-  transferencia_enviada: {
-    templates: [
-      "{user} enviou {amount} para {target}! 💸",
-      "Transferência feita! {user} → {target}: {amount}! 🏧",
-      "{target} recebeu {amount} de {user}! ✨"
-    ],
-    keywords: ['transferiu', 'enviou', 'pix']
-  },
-  compra_loja: {
-    templates: [
-      "{user} comprou {item}! 🛒",
-      "Nova aquisição! {user} comprou {item}! 🛍️",
-      "{user} fez uma compra: {item}! ✨"
-    ],
-    keywords: ['comprou', 'adquiriu']
-  },
-  venda_sucesso: {
-    templates: [
-      "{user} vendeu {item} por {amount}! 💰",
-      "Negociação feita! {user} lucrou {amount}! 📈",
-      "{user} vendeu {item} e faturou {amount}! 🏪"
-    ],
-    keywords: ['vendeu', 'venda', 'lucrou']
-  },
-  fazenda_colheita: {
-    templates: [
-      "{user} colheu {amount} da fazenda! 🌾",
-      "Colheita boa! {user} faturou {amount}! 🌽",
-      "{user} fez a fazenda render {amount}! 🚜"
-    ],
-    keywords: ['colheu', 'colheita', 'coletou']
-  },
-  plantar_sucesso: {
-    templates: [
-      "{user} plantou {item}! 🌱",
-      "Novo plantio! {user} cultivou {item}! 🌿",
-      "{user} plantou e vai colher em breve! 🌻"
-    ],
-    keywords: ['plantou', 'plantar', 'semeou']
-  },
-  cozinhar_sucesso: {
-    templates: [
-      "{user} cozinhou {item}! 🍳",
-      "Chef {user} preparou {item}! 🍽️",
-      "{user} fez uma receita deliciosa: {item}! 👨‍🍳"
-    ],
-    keywords: ['cozinhou', 'cozinhar', 'receita']
-  },
-  forjar_sucesso: {
-    templates: [
-      "{user} forjou {item}! 🔨",
-      "Artesão! {user} criou {item}! ⚔️",
-      "{user} saiu da forja com {item}! 🔥"
-    ],
-    keywords: ['forjou', 'forjar', 'craftou']
-  },
-  propriedade_comprada: {
-    templates: [
-      "{user} comprou uma propriedade! 🏠",
-      "Investidor! {user} acquired {item}! 🏘️",
-      "{user} é dono de {item} agora! 💎"
-    ],
-    keywords: ['propriedade', 'comprou', 'adquiriu']
-  },
-  emprestimo: {
-    templates: [
-      "{user} pegou empréstimo de {amount}! 💳",
-      "Devendo! {user} deve {amount} agora! 📉",
-      "{user} pediu {amount} emprestado... 🤔"
-    ],
-    keywords: ['empréstimo', 'pegou', 'dívida']
-  },
-  aposta_ganhou: {
-    templates: [
-      "{user} ganhou {amount} na aposta! 🎰",
-      "Apostador sortudo! {user} faturou {amount}! 💰",
-      "{user} acertou e levou {amount}! 🎲"
-    ],
-    keywords: ['apostou', 'ganhou', 'acerto']
-  },
-  aposta_perdeu: {
-    templates: [
-      "{user} perdeu {amount} na aposta... 💸",
-      "A casa venceu! {user} perdeu {amount}! 🎱",
-      "{user} não teve sorte... {amount} gone! 😢"
-    ],
-    keywords: ['apostou', 'perdeu', 'perda']
-  },
 
-  // ═══════════════════════════════════════════════════════════════
-  // 🎮 JOGOS E ENTRETENIMENTO
-  // ═══════════════════════════════════════════════════════════════
   level_up: {
     templates: [
       "{user} subiu de level! Agora é level {level} 🎉",
       "{user} tá ficandão forte! Level {level}! 💪",
-      "Power up! {user} chegou no level {level}! ⚡"
+      "Power up! {user} chegou no level {level}! ⚡",
+      "{user} level up! {level}! 🔥",
+      "Subiu mais um! {user} level {level}! ⬆️",
+      "{user} tá evolutionando! {level}! ✨",
+      "Mais força! {user} level {level}! 💪",
+      "{user} no próximo nível! {level}! 🎯",
+      "Up up! {user} é level {level}! 📈",
+      "{user} tá ficando perigoso! {level}! ⚠️",
+      "Subiu de verdade! {user} level {level}! 🚀",
+      "{user} tá no topo! Level {level}! 👑",
+      "Evoluiu! {user} level {level}! 🦋",
+      "{user} stronger! {level}! 💪",
+      "Mais poder! {user} level {level}! ⚔️",
+      "Upado! {user} é level {level}! ⭐",
+      "Subiu mais! {user} level {level}! 📊",
+      "{user} tá on fire! {level}! 🔥",
+      "Level up! {user} {level}! 🎮",
+      "{user} tá fortão! {level}! 💪",
+      "Evoluindo sempre! {user} level {level}! 📈",
+      "{user} não para! {level}! ⬆️",
+      "Mais um level! {user} {level}! 🏆",
+      "{user} tá poderoso! {level}! ⚡",
+      "Subiu de level! {user} {level}! 🎉",
+      "Evoluindo! {user} level {level}! 🐣",
+      "Level up! {user} tá demais! {level}! 💪",
+      "{user} tá stronger! {level}! 🏅",
+      "Mais força! {user} level {level}! 💪",
+      "{user} tá no game! {level}! 🎮",
+      "Subiu! {user} level {level}! ⬆️",
+      "{user} é power! {level}! ⚡",
+      "Evoluiu mesmo! {user} level {level}! 📈",
+      "{user} tá legend! {level}! 🏆",
+      "Upou! {user} level {level}! 🔥",
+      "{user} tá fortão! {level}! 💪",
+      "Mais um up! {user} {level}! 📊",
+      "{user} tá evoluindo! {level}! ✨",
+      "Level max! {user} {level}! 🎯",
+      "{user} stronger ever! {level}! 💪",
+      "Subiu pra valer! {user} level {level}! 🚀",
+      "{user} é top! {level}! 👑",
+      "Evoluindo rápido! {user} {level}! ⚡",
+      "{user} no próximo! {level}! 📈",
+      "Upado demais! {user} level {level}! 🔥",
+      "{user} tá lendário! {level}! 🏆",
+      "Mais pontos! {user} {level}! 💯",
+      "{user} tá on rank! {level}! 📊",
+      "Subiu de verdade! {user} {level}! ⬆️",
+      "{user} é elite! {level}! ⭐",
+      "Evoluindo sempre! {user} level {level}! 📈",
+      "{user} tá unstoppable! {level}! ⚡",
+      "Level up! {user} tá demais! {level}! 💪",
+      "{user} stronger now! {level}! 🏅",
+      "Mais poder! {user} {level}! ⚔️",
+      "{user} tá no topo! {level}! 👑",
+      "Upou! {user} level {level}! 🎉",
+      "{user} tá evoluindo! {level}! 🦋",
+      "Evoluiu! {user} level {level}! ✨",
+      "{user} tá poderoso! {level}! 💪",
+      "Subiu mais! {user} {level}! 📈",
+      "{user} é power! {level}! ⚡",
+      "Level up! {user} tá on fire! {level}! 🔥",
+      "{user} tá legend! {level}! 🏆",
+      "Mais um up! {user} level {level}! ⬆️",
+      "{user} tá stronger! {level}! 💪",
+      "Evoluindo! {user} {level}! 📊",
+      "{user} no rank! {level}! 🎮",
+      "Subiu! {user} level {level}! 📈",
+      "{user} tá elite! {level}! ⭐",
+      "Mais força! {user} {level}! 💪",
+      "{user} tá unstoppable! {level}! ⚡",
+      "Level up! {user} é top! {level}! 👑",
+      "{user} evoluiu! {level}! 🦋",
+      "Subiu de verdade! {user} level {level}! 🚀",
+      "{user} tá no game! {level}! 🎯",
+      "Mais pontos! {user} {level}! 💯",
+      "{user} tá on rank! {level}! 📊",
+      "Upado! {user} level {level}! 🔥",
+      "{user} tá lendário! {level}! 🏆",
+      "Evoluindo sempre! {user} {level}! ✨",
+      "{user} tá stronger! {level}! 💪",
+      "Level max! {user} level {level}! ⚡",
+      "Mais poder! {user} {level}! ⚔️",
+      "{user} tá no topo! {level}! 👑",
+      "Subiu! {user} {level}! ⬆️",
+      "{user} é elite! {level}! ⭐",
+      "Evoluiu! {user} level {level}! 📈",
+      "{user} tá unstoppable! {level}! 🔥",
+      "Level up! {user} tá on fire! {level}! 💪",
+      "{user} stronger now! {level}! 🏅",
+      "Mais um up! {user} {level}! 📊",
+      "{user} tá evoluindo! {level}! 🦋"
     ],
     keywords: ['subiu', 'level up', 'subiu de nível']
   },
-  conquista_desbloqueada: {
-    templates: [
-      "{user} desbloqueou: {conquest}! 🏆",
-      "Conquista! {user} conseguiu {conquest}! 🎊",
-      "{user} é o dono de {conquest}! 👏"
-    ],
-    keywords: ['conquista', 'achievement', 'desbloqueou']
-  },
+
   pet_adotado: {
     templates: [
       "{user} adotou um pet! 🐾",
       "Novo amigo! {user} tem {pet} agora! 🐱",
-      "{user} é o novo tutor de {pet}! 🥰"
+      "{user} é o novo tutor de {pet}! 🥰",
+      "{user} gained a companion! {pet}! 🐕",
+      "Adoção confirmada! {user} + {pet}! 🐾",
+      "{user} tem um novo buddy! {pet}! 🐶",
+      "{pet} encontrou um lar! {user}! 🏠",
+      "{user} resgatou {pet}! ❤️",
+      "Pet novo! {user} é dono de {pet}! 🐾",
+      "{user} adoptou! {pet}! 🐱",
+      "Amigo fiel! {user} {pet}! 🐕",
+      "{user} adoptou {pet}! 💕",
+      "Novo membro da família! {pet} de {user}! 🏡",
+      "{user} é pet parent agora! {pet}! 🐾",
+      "{pet} tem novo dono! {user}! 🐱",
+      "{user} adoptou {pet}! 🐾",
+      "Pet na área! {user} + {pet}! 🐕",
+      "{user} gained {pet}! 🐾",
+      "Companheiro novo! {user} {pet}! 🐱",
+      "{user} tem um buddy! {pet}! 🐶",
+      "Adoção feita! {user} {pet}! ❤️",
+      "{pet} foi adotado por {user}! 🏠",
+      "{user} é responsável agora! {pet}! 🐾",
+      "Novo pet! {user} adotou {pet}! 🐱",
+      "{user} tem nova companhia! {pet}! 🐕",
+      "Pet conquistado! {user} {pet}! 🐾",
+      "{user} adoptou um friend! {pet}! 🐶",
+      "Amizade começou! {user} + {pet}! 🐱",
+      "{user} é tutor de {pet}! 🥰",
+      "Adoção confirmada! {user} {pet}! 🐾",
+      "{pet} encontrou um dono! {user}! ❤️",
+      "{user} resgatou um friend! {pet}! 🐕",
+      "Pet novo na área! {user} {pet}! 🐱",
+      "{user} gained a buddy! {pet}! 🐶",
+      "Companheiro fiel! {user} {pet}! 🐾",
+      "{user} adoptou! {pet}! 🐱",
+      "Novo amigo! {user} + {pet}! 🐕",
+      "{pet} tem novo lar! {user}! 🏠",
+      "{user} é pet parent! {pet}! 🐾",
+      "Adoção realizada! {user} {pet}! ❤️",
+      "{user} tem um pet! {pet}! 🐱",
+      "Pet encontrado! {user} {pet}! 🐾",
+      "{user} adoptou {pet}! 🐕",
+      "Novo companion! {user} {pet}! 🐶",
+      "{user} gained a friend! {pet}! 🐱",
+      "Amizade pra vida! {user} + {pet}! 🐾",
+      "{pet} foi resgatado! {user}! 🏡",
+      "{user} é responsável! {pet}! 🐾",
+      "Pet novo! {user} + {pet}! 🐱",
+      "Adoção confirmada! {user} {pet}! 🐕",
+      "{user} tem novo buddy! {pet}! 🐶",
+      "{pet} encontrou um dono! {user}! ❤️",
+      "{user} resgatou {pet}! 🐾",
+      "Novo membro! {user} {pet}! 🐱",
+      "{user} adotou um pet! {pet}! 🏠",
+      "Amigo fiel! {user} + {pet}! 🐕",
+      "{user} gained companion! {pet}! 🐾",
+      "Pet na família! {user} {pet}! 🐱",
+      "{user} é tutor! {pet}! 🥰",
+      "Adoção feita! {user} {pet}! 🐾",
+      "{pet} tem novo owner! {user}! 🐶",
+      "{user} adoptou {pet}! 🐕",
+      "Companheiro novo! {user} + {pet}! 🐱",
+      "{user} tem um friend! {pet}! 🐾",
+      "Pet resgatado! {user} {pet}! 🏡",
+      "{user} é responsável! {pet}! 🐾",
+      "Novo buddy! {user} {pet}! 🐶",
+      "{user} gained a pet! {pet}! 🐱",
+      "Adoção confirmada! {user} + {pet}! 🐕",
+      "{user} tem um companion! {pet}! 🐾",
+      "{pet} encontrou lar! {user}! 🏠",
+      "{user} resgatou um pet! {pet}! ❤️",
+      "Pet novo! {user} {pet}! 🐱",
+      "{user} adotou um buddy! {pet}! 🐶",
+      "Amigo fiel! {user} + {pet}! 🐾",
+      "{user} gained a friend! {pet}! 🐕",
+      "Pet na área! {user} {pet}! 🐱",
+      "{user} é pet owner! {pet}! 🏡",
+      "Adoção feita! {user} {pet}! 🐾",
+      "{pet} tem novo dono! {user}! ❤️",
+      "{user} adoptou! {pet}! 🐕",
+      "Novo companion! {user} + {pet}! 🐶",
+      "{user} tem um pet! {pet}! 🐾",
+      "Pet resgatado! {user} {pet}! 🏠",
+      "{user} gained a buddy! {pet}! 🐱",
+      "Adoção confirmada! {user} {pet}! 🐕",
+      "Amigo fiel! {user} + {pet}! 🐾",
+      "Pet novo! {user} {pet}! 🐱",
+      "{user} gained companion! {pet}! 🐕",
+      "Pet na família! {user} {pet}! 🐾",
+      "{user} é tutor! {pet}! 🥰",
+      "Adoção feita! {user} {pet}! 🐱",
+      "Companheiro novo! {user} + {pet}! 🐶"
     ],
     keywords: ['adotou', 'pet', 'companheiro']
   },
-  pet_level_up: {
-    templates: [
-      "{pet} de {user} tá evoluindo! Level {level}! 🔥",
-      "{user} seu pet {pet} subiu! Level {level}! ✨",
-      "{pet} tá fortescendo! {user} level {level}! 💪"
-    ],
-    keywords: ['pet', 'level up', 'evoluiu']
-  },
-  pet_derrota: {
-    templates: [
-      "Aff... {pet} de {user} perdeu... 😢",
-      "{user}, {pet} foi derrotado! Vai tentar de novo? 💪",
-      "{pet} de {user} não teve sorte hoje... 😅"
-    ],
-    keywords: ['pet', 'derrotado', 'perdeu']
-  },
-  pet_vitoria: {
-    templates: [
-      "{pet} de {user} venceu! 🏆",
-      "Pet Fighter! {user} é o campeão! 🎉",
-      "{pet} de {user} ganhou a batalha! 💪"
-    ],
-    keywords: ['pet', 'venceu', 'vitória', 'batalha']
-  },
+
   dungeon_vitoria: {
     templates: [
       "Incrível! {user} venceu {dungeon}! 🏆",
       "Conquistador! {user} dominou {dungeon}! 💪",
-      "Vencedor! {user} limpou {dungeon}! 🎉"
+      "Vencedor! {user} limpou {dungeon}! 🎉",
+      "{user} cleared {dungeon}! 🏆",
+      "Boss defeated! {user} {dungeon}! ⚔️",
+      "{user} dominou a dungeon! {dungeon}! 🏅",
+      "Herói! {user} venceu {dungeon}! 🗡️",
+      "{user} é lenda! Conquistou {dungeon}! 🏆",
+      "Dungeon limpa! {user} {dungeon}! ✅",
+      "{user} no topo! Venceu {dungeon}! 👑",
+      "Campeão! {user} dominou {dungeon}! 💪",
+      "{user} cleared the dungeon! {dungeon}! 🎯",
+      "Venceu o boss! {user} {dungeon}! 🐉",
+      "{user} é unstoppable! {dungeon}! ⚡",
+      "Dungeon conquistada! {user} {dungeon}! 🏆",
+      "{user} é boss! Venceu {dungeon}! 👑",
+      "Invencível! {user} {dungeon}! 🏆",
+      "Herói da dungeon! {user} {dungeon}! 🗡️",
+      "{user} é lenda! {dungeon}! 🏆",
+      "Venceu o impossível! {user} {dungeon}! ⚡",
+      "{user} no top! {dungeon}! 🏅",
+      "Conquistador máximo! {user} {dungeon}! 🏆",
+      "{user} cleared it! {dungeon}! ✅",
+      "Boss down! {user} {dungeon}! 💀",
+      "{user} é lenda viva! {dungeon}! 🏆",
+      "Dungeon destroyed! {user} {dungeon}! 💥",
+      "{user} é champion! {dungeon}! 🏆",
+      "Venceu todos! {user} {dungeon}! 👑",
+      "Herói máximo! {user} {dungeon}! 🗡️",
+      "{user} é invencível! {dungeon}! ⚡",
+      "Dungeon cleared! {user} {dungeon}! 🏆",
+      "{user} no top da dungeon! {dungeon}! 🏅",
+      "Vencedor absoluto! {user} {dungeon}! 🏆",
+      "{user} é lenda! {dungeon}! 💪",
+      "Conquistou o impossível! {user} {dungeon}! 🏆",
+      "{user} cleared dungeon! {dungeon}! ✅",
+      "Boss destroyed! {user} {dungeon}! 💀",
+      "{user} é top player! {dungeon}! 🏆",
+      "Venceu a dungeon! {user} {dungeon}! 🎉",
+      "{user} é unstoppable! {dungeon}! ⚡",
+      "Herói da dungeon! {user} {dungeon}! 🗡️",
+      "{user} no topo máximo! {dungeon}! 👑",
+      "Dungeon conquistada! {user} {dungeon}! 🏆",
+      "{user} é lenda viva! {dungeon}! 💪",
+      "Venceu o boss! {user} {dungeon}! 🐉",
+      "{user} cleared it all! {dungeon}! 🎯",
+      "Campeão máximo! {user} {dungeon}! 🏆",
+      "{user} é champion! {dungeon}! 👑",
+      "Venceu todos! {user} {dungeon}! ⚡",
+      "Herói invencível! {user} {dungeon}! 🏆",
+      "{user} no topo! {dungeon}! 🏅",
+      "Conquistador! {user} {dungeon}! 💪",
+      "{user} cleared dungeon! {dungeon}! 🏆",
+      "Boss down! {user} {dungeon}! 💀",
+      "{user} é lenda! {dungeon}! 🗡️",
+      "Venceu o impossível! {user} {dungeon}! ⚡",
+      "{user} no top máximo! {dungeon}! 🏆",
+      "Dungeon destroyed! {user} {dungeon}! 💥",
+      "{user} é champion! {dungeon}! 🏆",
+      "Venceu a dungeon! {user} {dungeon}! 🎉",
+      "{user} é unstoppable! {dungeon}! ⚡",
+      "Herói da dungeon! {user} {dungeon}! 🗡️",
+      "{user} no topo! {dungeon}! 👑",
+      "Conquistou o boss! {user} {dungeon}! 🐉",
+      "{user} cleared it! {dungeon}! ✅",
+      "Campeão! {user} {dungeon}! 🏆",
+      "{user} é lenda viva! {dungeon}! 💪",
+      "Venceu todos! {user} {dungeon}! 🏅",
+      "Herói máximo! {user} {dungeon}! 🏆",
+      "{user} é invencível! {dungeon}! ⚡",
+      "Dungeon cleared! {user} {dungeon}! 🏆",
+      "{user} no top da dungeon! {dungeon}! 💪",
+      "Vencedor absoluto! {user} {dungeon}! 🏆",
+      "{user} é lenda! {dungeon}! 👑",
+      "Conquistou o impossível! {user} {dungeon}! 🏆",
+      "{user} cleared dungeon! {dungeon}! ✅",
+      "Boss destroyed! {user} {dungeon}! 💀",
+      "{user} é top player! {dungeon}! 🏆",
+      "Venceu a dungeon! {user} {dungeon}! 🎉",
+      "{user} é unstoppable! {dungeon}! ⚡",
+      "Herói da dungeon! {user} {dungeon}! 🗡️",
+      "{user} no topo máximo! {dungeon}! 👑",
+      "Dungeon conquistada! {user} {dungeon}! 🏆",
+      "{user} é lenda viva! {dungeon}! 💪",
+      "Venceu o boss! {user} {dungeon}! 🐉",
+      "{user} cleared it all! {dungeon}! 🎯",
+      "Campeão máximo! {user} {dungeon}! 🏆",
+      "{user} é champion! {dungeon}! 👑",
+      "Venceu todos! {user} {dungeon}! ⚡",
+      "Herói invencível! {user} {dungeon}! 🏆"
     ],
     keywords: ['dungeon', 'venceu', 'conquistou']
   },
-  dungeon_derrota: {
-    templates: [
-      "{user} foi derrotado em {dungeon}... 💪",
-      "{dungeon} venceu {user} dessa vez! 🔄",
-      "{user} volta pra {dungeon} em breve! 💪"
-    ],
-    keywords: ['dungeon', 'derrotado', 'morreu']
-  },
-  duelo_vitoria: {
-    templates: [
-      "{user} venceu o duelo! +{amount} 🏆",
-      "Campeão! {user} ganhou {amount}! 🎉",
-      "{user} destruiu o oponente! {amount}! 💪"
-    ],
-    keywords: ['duelo', 'venceu', 'vitória']
-  },
-  duelo_derrota: {
-    templates: [
-      "{user} perdeu o duelo para {target}! 💀",
-      "{target} humilhou {user} no duelo! 😅",
-      "{user} foi destruído... perdeu {amount}! 😢"
-    ],
-    keywords: ['duelo', 'perdeu', 'derrota']
-  },
-  quiz_vitoria: {
-    templates: [
-      "{user} acertou o quiz! 🧠",
-      "Gênio! {user} respondeu corretamente! 💡",
-      "{user} é o campeão do quiz! 🏆"
-    ],
-    keywords: ['quiz', 'acertou', 'correto']
-  },
-  quiz_derrota: {
-    templates: [
-      "{user} errou o quiz... 😅",
-      "Quase! {user} errou essa! 🤔",
-      "{user} não sabe essa... próxima vez! 💪"
-    ],
-    keywords: ['quiz', 'errou', 'incorreto']
-  },
-  roleta_vitoria: {
-    templates: [
-      "{user} acertou {result} na roleta! +{amount} 💰",
-      "Sortudo! {result} saiu! {user} ganhou {amount}! 🎰",
-      "{user} tá em alta! {result}! +{amount} ✨"
-    ],
-    keywords: ['roleta', 'acertou', 'sorte']
-  },
-  roleta_perda: {
-    templates: [
-      "{user} perdeu na roleta... apostou em {result} 💸",
-      "A casa venceu! {user} perdeu em {result}! 🎲",
-      "{user} não teve sorte... {result}! 😢"
-    ],
-    keywords: ['roleta', 'perdeu']
-  },
+
   slots_jackpot: {
     templates: [
       "JACKPOT! {user} inúmerou {amount}! 🎰🎰🎰",
       "MEU DEUS! {user} conseguiu {amount}! 💎",
-      "INSANO! {user} ganhou {amount} no jackpot! 🎰💰"
+      "INSANO! {user} ganhou {amount} no jackpot! 🎰💰",
+      "{user} hit the JACKPOT! {amount}! 🎰🎰🎰",
+      "LIT! {user} algunstra {amount}! 🔥🔥🔥",
+      "JACKPOT! {user} está bilionário! {amount}! 💰",
+      "DEU JACKPOT! {user} {amount}! 🎰💎",
+      "{user} é sortudo demais! {amount}! 🎰",
+      "JACKPOT SENTOU! {user} {amount}! 🔥",
+      "MEGA JACKPOT! {user} {amount}! 💰🎰",
+      "{user} rich now! {amount}! 💎💎💎",
+      "JACKPOT! {user} tá milionário! {amount}! 🏆",
+      "DEU TUDO! {user} {amount}! 🎰🔥",
+      "{user} hit big! {amount}! 💰",
+      "JACKPOT! {user} quebrou o cassino! {amount}! 💎",
+      "SENTOU! {user} algunstra {amount}! 🎰🎰",
+      "{user} mega winner! {amount}! 🏆",
+      "JACKPOT LENDÁRIO! {user} {amount}! 💰",
+      "DEU JACKPOT! {user} {amount}! 🎰💎",
+      "{user} é o novo milionário! {amount}! 💎",
+      "MEGA PREMIO! {user} {amount}! 🎰🔥",
+      "JACKPOT! {user} está rico! {amount}! 💰",
+      "DEU TUDO! {user} algunstra {amount}! 🎰",
+      "{user} WINNER! {amount}! 💎💎",
+      "JACKPOT! {user} quebrou tudo! {amount}! 🔥",
+      "SORTE GRANDE! {user} {amount}! 🎰💰",
+      "{user} hit the big one! {amount}! 🏆",
+      "JACKPOT INSANO! {user} {amount}! 💎",
+      "DEU JACKPOT! {user} está rico! {amount}! 🎰",
+      "{user} MEGA WINNER! {amount}! 💰",
+      "JACKPOT! {user} algunstra muito! {amount}! 🎰",
+      "SENTOU O CASSINO! {user} {amount}! 💎",
+      "{user} é o bicho! {amount}! 🎰🔥",
+      "MEGA JACKPOT! {user} {amount}! 💰💰",
+      "DEU TUDO! {user} ganhou {amount}! 🎰",
+      "{user} rich big! {amount}! 💎",
+      "JACKPOT! {user} está milionário! {amount}! 🏆",
+      "SORTE DEMAIS! {user} {amount}! 🎰💎",
+      "{user} hit jackpot! {amount}! 🔥🔥",
+      "JACKPOT LENDÁRIO! {user} {amount}! 💰",
+      "DEU JACKPOT! {user} algunstra! {amount}! 🎰",
+      "{user} é o novo rico! {amount}! 💎",
+      "MEGA PREMIO! {user} {amount}! 🎰🔥",
+      "JACKPOT! {user} tá bilionário! {amount}! 💰",
+      "SENTOU! {user} algunstra muito! {amount}! 🎰",
+      "{user} MEGA WINNER! {amount}! 💎💎",
+      "JACKPOT! {user} quebrou o banco! {amount}! 🔥",
+      "DEU TUDO! {user} {amount}! 🎰💰",
+      "{user} hit big! {amount}! 🏆",
+      "JACKPOT INSANO! {user} {amount}! 💎",
+      "DEU JACKPOT! {user} está rico! {amount}! 🎰",
+      "{user} WINNER! {amount}! 💰",
+      "JACKPOT! {user} algunstra {amount}! 🎰🎰",
+      "SORTE GRANDE! {user} {amount}! 💎🔥",
+      "{user} é sortudo demais! {amount}! 🎰",
+      "MEGA JACKPOT! {user} {amount}! 💰💎",
+      "DEU TUDO! {user} ganhou {amount}! 🎰",
+      "{user} rich now! {amount}! 💎💎",
+      "JACKPOT! {user} quebrou tudo! {amount}! 🔥",
+      "SENTOU O CASSINO! {user} {amount}! 💰",
+      "{user} MEGA WINNER! {amount}! 🏆",
+      "JACKPOT LENDÁRIO! {user} {amount}! 💎",
+      "DEU JACKPOT! {user} algunstra! {amount}! 🎰",
+      "{user} é o novo milionário! {amount}! 💰",
+      "MEGA PREMIO! {user} {amount}! 🎰🔥",
+      "JACKPOT! {user} está rico! {amount}! 💎",
+      "SORTE DEMAIS! {user} {amount}! 🎰💰",
+      "{user} hit jackpot! {amount}! 🔥🔥",
+      "JACKPOT INSANO! {user} {amount}! 🏆",
+      "DEU JACKPOT! {user} tá bilionário! {amount}! 🎰",
+      "{user} WINNER! {amount}! 💎",
+      "JACKPOT! {user} algunstra muito! {amount}! 🎰",
+      "SENTOU! {user} quebrou o banco! {amount}! 💰",
+      "{user} é o bicho! {amount}! 🎰🔥",
+      "MEGA JACKPOT! {user} {amount}! 💎💰",
+      "DEU TUDO! {user} ganhou {amount}! 🎰",
+      "{user} rich big! {amount}! 🏆",
+      "JACKPOT! {user} está milionário! {amount}! 💎",
+      "SORTE GRANDE! {user} {amount}! 🎰🔥",
+      "{user} hit the big one! {amount}! 💰",
+      "JACKPOT LENDÁRIO! {user} {amount}! 🎰",
+      "DEU JACKPOT! {user} está rico! {amount}! 💎",
+      "{user} MEGA WINNER! {amount}! 🏆",
+      "JACKPOT! {user} tênisou! {amount}! 🔥",
+      "SENTOU O CASSINO! {user} {amount}! 💰",
+      "{user} hit jackpot! {amount}! 🎰",
+      "JACKPOT INSANO! {user} {amount}! 💎",
+      "DEU TUDO! {user} algunstra! {amount}! 🏆",
+      "{user} é o novo rico! {amount}! 🎰",
+      "MEGA JACKPOT! {user} {amount}! 💰💎",
+      "JACKPOT! {user} tá bilionário! {amount}! 🔥",
+      "SORTE DEMAIS! {user} {amount}! 🎰",
+      "{user} WINNER! {amount}! 💎💎"
     ],
     keywords: ['jackpot', 'slots', 'premio']
   },
-  slots_vitoria: {
-    templates: [
-      "{user} ganhou {amount} nos slots! 🎰",
-      "Slots sortudo! {user} levou {amount}! ✨",
-      "{user} tá com a mão quente! +{amount} 🎲"
-    ],
-    keywords: ['slots', 'ganhou']
-  },
-  slots_perda: {
-    templates: [
-      "{user} perdeu {amount} nos slots... 💸",
-      "Slots traiçoeiros! {user} perdeu {amount}! 🎱",
-      "{user} tá devendo pro cassino... {amount} 😅"
-    ],
-    keywords: ['slots', 'perdeu']
-  },
-  blackjack_vitoria: {
-    templates: [
-      "{user} venceu no blackjack! +{amount} 🃏",
-      "21! {user} fez blackjack e ganhou {amount}! 🎉",
-      "{user} bateu o dealer! +{amount} 💪"
-    ],
-    keywords: ['blackjack', 'venceu']
-  },
-  blackjack_perda: {
-    templates: [
-      "{user} perdeu no blackjack... 💸",
-      "Estourou! {user} passou de 21! 😢",
-      "{user} não conseguiu contra o dealer! 💀"
-    ],
-    keywords: ['blackjack', 'perdeu', 'estourou']
-  },
-  rps_vitoria: {
-    templates: [
-      "{user} venceu no pedra papel tesoura! ✊",
-      "{user} ganhou a partida! 🪨📄✂️",
-      "Vitória de {user} no RPS! 💪"
-    ],
-    keywords: ['rps', 'pedra', 'papel', 'tesoura']
-  },
-  rps_derrota: {
-    templates: [
-      "{user} perdeu no RPS... 😢",
-      "{user} foi derrotado no pedra papel tesoura! 😅",
-      "Próxima vez {user}! 🪨📄✂️"
-    ],
-    keywords: ['rps', 'perdeu']
-  },
 
-  // ═══════════════════════════════════════════════════════════════
-  // 👑 SOCIAL E HIERARQUIA
-  // ═══════════════════════════════════════════════════════════════
-  novo_alpha: {
-    templates: [
-      "{user} virou Alpha! 🏆",
-      "O novo Alpha é {user}! 👑",
-      "{user} está no topo! Alpha confirmado! ⭐"
-    ],
-    keywords: ['alpha', 'novo líder', 'promovido']
-  },
-  alpha_removido: {
-    templates: [
-      "{user} perdeu o título de Alpha... 👑",
-      "Alpha {user} foi removido do poder! 💔",
-      "{user} não é mais Alpha... ⬇️"
-    ],
-    keywords: ['alpha', 'removido', 'destituido']
-  },
-  eleicao_candidatura: {
-    templates: [
-      "{user} entrou na corrida eleitoral! 🗳️",
-      "Novo candidato! {user} quer ser líder! 📢",
-      "{user} tá na eleição! Vote nele! 🗳️"
-    ],
-    keywords: ['candidatura', 'candidato', 'eleição']
-  },
-  eleicao_vitoria: {
-    templates: [
-      "{user} venceu a eleição! 🏆",
-      "Novo líder! {user} ganhou a eleição! 👑",
-      "{user} é o povo escolhido! 🗳️"
-    ],
-    keywords: ['eleição', 'venceu', 'ganhou']
-  },
-  adm_promovido: {
-    templates: [
-      "{user} virou administrador! 🔥",
-      "{user} tem poder agora! Admin! ⚡",
-      "Novo admin! {user} no comando! 💪"
-    ],
-    keywords: ['admin', 'administrador', 'promoveu']
-  },
-  adm_removido: {
-    templates: [
-      "{user} perdeu o cargo de admin... 💔",
-      "{user} não é mais admin! ⬇️",
-      "{user} foi rebaixado! 😅"
-    ],
-    keywords: ['admin', 'removido', 'rebaixado']
-  },
-  membro_novo: {
-    templates: [
-      "Novo membro! {user} entrou no grupo! 👋",
-      "Alguém novo! {user} chegou! 🌟",
-      "Bem-vindo {user}! 🎉"
-    ],
-    keywords: ['entrou', 'novo membro', 'chegou']
-  },
-  membro_saiu: {
-    templates: [
-      "{user} saiu do grupo... 👋",
-      "Adeus {user}! 😢",
-      "{user} partiu... até mais! 💔"
-    ],
-    keywords: ['saiu', 'partiu', 'foi removido']
-  },
-  bem_vindo: {
-    templates: [
-      "Bem-vindo {user}! 🎊",
-      "{user} tá entre nós! 👋",
-      "Recebendo {user} com carinho! 🌸"
-    ],
-    keywords: ['bem-vindo', 'welcome', 'boas vindas']
-  },
-  votacao_criada: {
-    templates: [
-      "{user} criou uma votação! 🗳️",
-      "Hora de votar! {user} iniciou! 📊",
-      "Enquete de {user}! Participem! 📢"
-    ],
-    keywords: ['votação', 'enquete', 'votar']
-  },
-  voto_positivo: {
-    templates: [
-      "{user} recebeu um upvote! 👍",
-      "Alguém curtiu {user}! 💖",
-      "{user} tá subindo no ranking! 📈"
-    ],
-    keywords: ['upvote', 'curtiu', 'voto']
-  },
-  voto_negativo: {
-    templates: [
-      "{user} recebeu um downvote... 👎",
-      "Alguém não curtiu {user}... 😢",
-      "{user} perdeu pontos... 📉"
-    ],
-    keywords: ['downvote', 'não curtiu']
-  },
-
-  // ═══════════════════════════════════════════════════════════════
-  // 🔧 SISTEMA E COMANDOS
-  // ═══════════════════════════════════════════════════════════════
-  comando_criado: {
-    templates: [
-      "{user} criou um novo comando! ⚙️",
-      "Novo atalho! {user} configurou! 🔧",
-      "{user} adicionou um comando personalizado! ✨"
-    ],
-    keywords: ['comando', 'criou', 'adicionou']
-  },
-  automidia_adicionada: {
-    templates: [
-      "{user} adicionou uma auto-mídia! 🖼️",
-      "Nova mídia automática! {user} configurou! 📷",
-      "{user} criou um trigger de mídia! 🎬"
-    ],
-    keywords: ['automidia', 'auto', 'mídia']
-  },
-  auto_resp_adicionada: {
-    templates: [
-      "{user} adicionou auto-resposta! 💬",
-      "Novo gatilho! {user} configurou resposta! 📝",
-      "{user} criou uma automação! 🤖"
-    ],
-    keywords: ['auto resposta', 'automação', 'trigger']
-  },
-  nickname_alterado: {
-    templates: [
-      "{user} mudou o nickname! ✏️",
-      "Novo nome! {user} alterou! 📝",
-      "{user} é conhecido como {newnick} agora! 👀"
-    ],
-    keywords: ['nickname', 'nome', 'alterou']
-  },
-  perfil_alterado: {
-    templates: [
-      "{user} atualizou o perfil! 📸",
-      "Novo visual! {user} mudou! 💫",
-      "{user} renovou o perfil! ✨"
-    ],
-    keywords: ['perfil', 'alterou', 'atualizou']
-  },
-  bio_alterada: {
-    templates: [
-      "{user} atualizou a bio! ✏️",
-      "Nova descrição! {user} mudou! 📝",
-      "{user} tem uma nova bio! 👀"
-    ],
-    keywords: ['bio', 'descrição', 'alterou']
-  },
-
-  // ═══════════════════════════════════════════════════════════════
-  // 🎉 EVENTOS ESPECIAIS
-  // ═══════════════════════════════════════════════════════════════
-  sorteio_criado: {
-    templates: [
-      "{user} criou um sorteio! 🎁",
-      "Sorteio no ar! {user} está dando {item}! 🎰",
-      "Participem! {user} está sorteando! 🎉"
-    ],
-    keywords: ['sorteio', 'giveaway', 'sorteando']
-  },
-  sorteio_vencedor: {
-    templates: [
-      "{user} venceu o sorteio! 🎉",
-      "Sorteudo! {user} ganhou {item}! 🎁",
-      "{user} foi o escolhido! 🎊"
-    ],
-    keywords: ['sorteio', 'vencedor', 'ganhou']
-  },
-  presente_enviado: {
-    templates: [
-      "{user} enviou um presente para {target}! 🎁",
-      "Generoso! {user} deu {item} para {target}! 💝",
-      "{target} recebeu {item} de {user}! 🎀"
-    ],
-    keywords: ['presente', 'gift', 'enviou']
-  },
-  desafio_concluido: {
-    templates: [
-      "{user} completou o desafio! 🏆",
-      "Desafiante! {user} venceu! 💪",
-      "{user} dominou o desafio! 🎉"
-    ],
-    keywords: ['desafio', 'completou', 'concluiu']
-  },
-  missao_concluida: {
-    templates: [
-      "{user} completou a missão! 🎯",
-      "Agente {user} completou a missão! 🕵️",
-      "{user} finished a missão! ⭐"
-    ],
-    keywords: ['missão', 'completou', 'finished']
-  },
-  evento_especial: {
-    templates: [
-      "{user} participated de evento especial! 🎊",
-      "Evento! {user} tá na vibe! 🎉",
-      "{user} aproveitou o evento! ✨"
-    ],
-    keywords: ['evento', 'especial', 'celebração']
-  },
-  streak_quebrado: {
-    templates: [
-      "{user} quebrou o streak de {streak} dias... 💔",
-      "Aff... {user} perdeu a sequência... 😢",
-      "{user} vai ter que recomeçar... 💪"
-    ],
-    keywords: ['streak', 'quebrou', 'perdeu']
-  },
-  primeira_vez: {
-    templates: [
-      "{user} fez algo pela primeira vez! 🌟",
-      "Novato sortsudo! {user} estreou! 🎉",
-      "{user} experimentou algo novo! ✨"
-    ],
-    keywords: ['primeira vez', 'estreou', 'debut']
-  },
-
-  // ═══════════════════════════════════════════════════════════════
-  // 💎 EVENTOS RAROS E ÚNICOS
-  // ═══════════════════════════════════════════════════════════════
-  raridade_alta: {
-    templates: [
-      "{user} encontrou algo raro! 💎",
-      "SUPER RARO! {user} encontrou {item}! ✨",
-      "{user} teve sorte rara! {item}! 🌟"
-    ],
-    keywords: ['raro', 'raridade', 'raríssima']
-  },
-  crafting_raro: {
-    templates: [
-      "{user} criou algo épico! ⚔️",
-      "Craft de elite! {user} fez {item}! 💫",
-      "{user} legendary crafted {item}! 🔥"
-    ],
-    keywords: ['craft', 'épico', 'lendário']
-  },
-  milestone: {
-    templates: [
-      "{user} alcançou um marco! 🏆",
-      "Marcos alcançados! {user} chegou em {item}! ⭐",
-      "{user} está de parabéns! 🎉"
-    ],
-    keywords: ['marco', 'milestone', 'alcançou']
-  },
-
-  // ═══════════════════════════════════════════════════════════════
-  // 🔥 EVENTOS NEGATIVOS
-  // ═══════════════════════════════════════════════════════════════
-  banido: {
-    templates: [
-      "{user} foi banido do grupo! 🚫",
-      "{user} não pode mais ficar... 💔",
-      "Adeus {user}! 🚷"
-    ],
-    keywords: ['banido', 'removido', 'expulso']
-  },
-  advertencia: {
-    templates: [
-      "{user} recebeu uma advertência! ⚠️",
-      "Cuidado {user}! Está perdendo pontos! 📉",
-      "{user} foi avisado! ⏰"
-    ],
-    keywords: ['advertência', 'aviso', 'warning']
-  },
-  mute: {
-    templates: [
-      "{user} foi mutado! 🤫",
-      "Silêncio! {user} não pode falar! 🔇",
-      "{user} foi calado! 😅"
-    ],
-    keywords: ['mutado', 'silenciado', 'calado']
-  },
-
-  // ═══════════════════════════════════════════════════════════════
-  // 📊 INTERAÇÃO GERAL (fallback para tudo)
-  // ═══════════════════════════════════════════════════════════════
-  mensagem_enviada: {
-    templates: [
-      "{user} está ativo no grupo! 💬",
-      "{user} tá conversando! 👀",
-      "Mensagem de {user}! 💬"
-    ],
-    keywords: []
-  },
-  foto_enviada: {
-    templates: [
-      "{user} enviou uma foto! 📷",
-      "Nova imagem! {user} mandou! 🖼️",
-      "{user} compartilhou algo! 📸"
-    ],
-    keywords: ['foto', 'imagem', 'photo']
-  },
-  video_enviado: {
-    templates: [
-      "{user} enviou um vídeo! 🎬",
-      "Novo vídeo! {user} mandou! 📹",
-      "{user} compartilhou! 🎥"
-    ],
-    keywords: ['vídeo', 'video']
-  },
-  audio_enviado: {
-    templates: [
-      "{user} enviou um áudio! 🎵",
-      "Áudio novo! {user} mandou! 🔊",
-      "{user} compartilhou! 🎙️"
-    ],
-    keywords: ['áudio', 'audio', 'nota de voz']
-  },
-  sticker_enviado: {
-    templates: [
-      "{user} enviou um sticker! 🎭",
-      "Sticker do {user}! 😂",
-      "{user} mandou sticker! 💫"
-    ],
-    keywords: ['sticker', 'figurinha']
-  },
-  link_compartilhado: {
-    templates: [
-      "{user} compartilhou um link! 🔗",
-      "Link de {user}! 🌐",
-      "{user} mandou algo! 🔗"
-    ],
-    keywords: ['link', 'http', 'www']
-  },
-  
   // DEFAULT - para eventos não mapeados
   default: {
     templates: [
       "Hm... {user} fez algo 🌙",
       "Interessante... {user} 👀",
-      "Isso é novo... {event} 👀"
+      "Isso é novo... {event} 👀",
+      "{user} tá ativo! 💬",
+      "Algo aconteceu... 👀",
+      "{user} não para! 💪",
+      "Interessante! 🌙",
+      "{user} está na vibe! ✨",
+      "Algo de interessante... 👀",
+      "{user} tá movimentando! 📈",
+      "Isso é novo... 🌟",
+      "{user} fez acontecer! 💪",
+      "Algo rolou! 👀",
+      "{user} está on fire! 🔥",
+      "Interessante... {user} 👀",
+      "Hm... isso é diferente! 🌙",
+      "{user} tá causando! 😏",
+      "Algo está mudando... 👀",
+      "{user} não para! 💪",
+      "Isso é unik... ✨",
+      "{user} está no comando! 👑",
+      "Interessante perkembangan... 🌟",
+      "{user} tá aktif! 👀",
+      "Algo nouveau! 🌙",
+      "{user} está fazendo algo! 💪",
+      "Isso é diferente... 👀",
+      "{user} tá na correria! 🔥",
+      "Algo está rolando! 🌟",
+      "{user} não se contiene! 💪",
+      "Interessant... 👀",
+      "{user} tá agindo! 💪",
+      "Isso é novo pra mim! 🌙",
+      "{user} está fazendo waves! 📈",
+      "Algo está mudando... 👀",
+      "{user} tá no movimento! ✨",
+      "Interessante... {user} 👀",
+      "{user} não descansa! 💪",
+      "Algo unique... 🌟",
+      "{user} está agindo! 👀",
+      "Isso é novo... 🌙",
+      "{user} tá causando impacto! 💪",
+      "Algo está acontecendo... 👀",
+      "{user} está no game! 🎮",
+      "Interessante... 🌟",
+      "{user} tá movimentando! 👀",
+      "Algo novo... 📈",
+      "{user} está fazendo algo! ✨",
+      "Isso é único... ✨",
+      "{user} tá causando! 💪",
+      "Algo está rolando... 👀",
+      "{user} está ativo! 🌙",
+      "Interessante... {user} 📈",
+      "{user} tá no comando! 💪",
+      "Algo aconteceu! 👀",
+      "{user} não se contém! ✨",
+      "Isso é interessante... 🌟",
+      "{user} tá causando! 👀",
+      "Algo unique! 🌙",
+      "{user} está fazendo waves! 📈",
+      "Interessante... 💪",
+      "{user} tá no fluxo! 👀",
+      "Algo está mudando... 🌟",
+      "{user} não para! ✨",
+      "Isso é novo pra todos! 👀",
+      "{user} tá aktif! 🌙",
+      "Algo aconteceu! 💪",
+      "{user} está causando impacto! 📈",
+      "Interessante muito! 🌟",
+      "{user} tá making moves! 💪",
+      "Algo está rolando... 👀",
+      "{user} está no comando! ✨",
+      "Isso é diferente... 🌙",
+      "{user} tá agindo! 💪",
+      "Interessante... {user} 👀",
+      "{user} não descansa! 🌟",
+      "Algo unique... 📈",
+      "{user} está ativo! 💪",
+      "Isso é interessante... 👀",
+      "{user} tá causando! ✨",
+      "Algo está acontecendo... 🌙",
+      "{user} está no game! 💪",
+      "Interessante... 🌟",
+      "{user} tá movimentando! 👀",
+      "Algo novo... 📈",
+      "{user} está fazendo algo! ✨",
+      "Hm... isso é unik! 🌙",
+      "Interessante muito! 👀",
+      "{user} tá fazendo algo! 💪",
+      "Algo está rolando... 🌟",
+      "{user} não para! ✨",
+      "Isso é diferente... 👀"
     ],
     keywords: []
   }
@@ -711,17 +722,17 @@ const ALL_EVENTS = {
 // ═══════════════════════════════════════════════════════════════
 const DEFAULT_CONFIG = {
   enabled: false,
-  cooldown: 8000, // 8 segundos
+  cooldown: 8000,
   jornalEnabled: false,
   jornalHour: 20,
   jornalMinute: 0,
   activeNPCs: ['kaiser'],
   autoRespond: true,
-  responseChance: 0.5, // 50% de chance
+  responseChance: 0.5,
   useAI: true,
-  logAllEvents: true, // Registrar todos os eventos
-  respondToAll: true, // Responder a qualquer mensagem
-  maxEventsPerMinute: 10, // Limite de eventos por minuto
+  logAllEvents: true,
+  respondToAll: true,
+  maxEventsPerMinute: 10,
   personalities: NPC_PERSONALITIES
 };
 
@@ -775,7 +786,7 @@ const saveEvents = (events) => {
 };
 
 // ═══════════════════════════════════════════════════════════════
-// 🎭 GERENCIADOR DE NPCs - 100% AUTOMÁTICO
+// 🎭 GERENCIADOR DE NPCs
 // ═══════════════════════════════════════════════════════════════
 class NPCManager {
   constructor() {
@@ -786,12 +797,10 @@ class NPCManager {
     this.eventCounts = {};
     this.lastMinuteEvents = [];
     
-    // Inicializa cooldowns
     Object.keys(ALL_EVENTS).forEach(id => {
       this.cooldowns.set(id, 0);
     });
     
-    // Inicializa jornal
     if (this.config.jornalEnabled) {
       this.initJornal();
     }
@@ -810,10 +819,8 @@ class NPCManager {
     this.cooldowns.set(npcId, Date.now());
   }
 
-  // Limita eventos por minuto
   canTrigger() {
     const now = Date.now();
-    // Limpa eventos velhos (mais de 1 minuto)
     this.lastMinuteEvents = this.lastMinuteEvents.filter(t => now - t < 60000);
     
     if (this.lastMinuteEvents.length >= this.config.maxEventsPerMinute) {
@@ -824,20 +831,15 @@ class NPCManager {
     return true;
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // 🎯 MÉTODO PRINCIPAL - Captura qualquer evento automaticamente
-  // ═══════════════════════════════════════════════════════════════
   async trigger(nazu, from, eventType, userId, userName, eventData = {}) {
     if (!this.isEnabled()) return null;
     if (!this.canTrigger()) return null;
     
-    // Chance de resposta
     if (Math.random() > this.config.responseChance) return null;
     
     const npcId = 'kaiser';
     if (!this.canSpeak(npcId)) return null;
 
-    // Prepara replacements
     const replacements = {
       user: userName || userId.split('@')[0],
       target: eventData.targetName || 'alguém',
@@ -854,13 +856,11 @@ class NPCManager {
       newnick: eventData.newnick || '?'
     };
 
-    // Gera resposta
     let response = this.generateResponse(eventType, replacements);
 
     if (response) {
       this.markSpoken(npcId);
       
-      // Salva no histórico
       this.memory.recentNPCMessages = this.memory.recentNPCMessages || [];
       this.memory.recentNPCMessages.push({ type: eventType, userId, time: Date.now() });
       if (this.memory.recentNPCMessages.length > 50) {
@@ -875,7 +875,6 @@ class NPCManager {
       
       saveMemory(this.memory);
       
-      // Registra no log de eventos
       if (this.config.logAllEvents) {
         this.events.allEvents = this.events.allEvents || [];
         this.events.allEvents.push({ type: eventType, userId, userName, time: Date.now() });
@@ -897,13 +896,11 @@ class NPCManager {
     return null;
   }
 
-  // Alias para compatibilidade
   async triggerFromSystem(nazu, from, eventType, userId, description, metadata = {}) {
     const userName = metadata.userName || userId.split('@')[0];
     return await this.trigger(nazu, from, eventType, userId, userName, metadata);
   }
 
-  // Alias antigo para compatibilidade
   recordEvent(type, userId, description, metadata = {}) {
     this.memory.recentEvents = this.memory.recentEvents || [];
     this.memory.recentEvents.push({ type, userId, description, time: Date.now(), data: metadata });
@@ -914,18 +911,12 @@ class NPCManager {
     return { type, userId, description };
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // 💬 GERAR RESPOSTA - Com fallback inteligente
-  // ═══════════════════════════════════════════════════════════════
   generateResponse(eventType, replacements) {
-    // Procura template específico
     let eventConfig = ALL_EVENTS[eventType];
     
-    // Se não encontrou, procura por similaridade
     if (!eventConfig) {
       const eventTypeLower = eventType.toLowerCase();
       
-      // Tenta encontrar por palavras-chave
       for (const [key, config] of Object.entries(ALL_EVENTS)) {
         if (config.keywords && config.keywords.some(k => eventTypeLower.includes(k))) {
           eventConfig = config;
@@ -934,17 +925,14 @@ class NPCManager {
         }
       }
       
-      // Último recurso: usar default
       if (!eventConfig) {
         eventConfig = ALL_EVENTS.default;
       }
     }
     
-    // Seleciona template aleatório
     const templates = eventConfig.templates;
     let template = templates[Math.floor(Math.random() * templates.length)];
     
-    // Substitui placeholders
     let response = template;
     for (const [key, value] of Object.entries(replacements)) {
       response = response.replace(new RegExp(`{${key}}`, 'gi'), value);
@@ -953,48 +941,20 @@ class NPCManager {
     return response;
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // 🔍 DETECTAR EVENTO AUTOMATICAMENTE (por análise de texto)
-  // ═══════════════════════════════════════════════════════════════
   detectEvent(text, userId, userName) {
     const textLower = text.toLowerCase();
     
-    // Mapeamento de texto para evento
     const eventMappings = {
       'subiu de level': 'level_up',
       'level up': 'level_up',
       'subiu para o level': 'level_up',
-      'adicionou': 'comando_criado',
-      'criou comando': 'comando_criado',
       'ganhou': 'work_sucesso',
       'trabalhou': 'work_sucesso',
-      'minerou': 'minerar_sucesso',
-      'pescou': 'pescar_sucesso',
-      'caçou': 'cacada_sucesso',
       'daily': 'daily_reward',
-      'depositou': 'depositou',
-      'sacu': 'saque',
-      'transferiu': 'transferencia_enviada',
-      'comprou': 'compra_loja',
-      'vendeu': 'venda_sucesso',
-      'plantou': 'plantar_sucesso',
-      'colheu': 'fazenda_colheita',
-      'cozinhou': 'cozinhar_sucesso',
-      'forjou': 'forjar_sucesso',
-      'adotou': 'pet_adotado',
+      'diário': 'daily_reward',
       'venceu': 'duelo_vitoria',
       'perdeu': 'duelo_derrota',
-      'assaltou': 'crime_sucesso',
-      'preso': 'crime_falhou',
-      'vitória': 'level_up',
-      'conquista': 'conquista_desbloqueada',
-      'desbloqueou': 'conquista_desbloqueada',
-      'alpha': 'novo_alpha',
-      'eleição': 'eleicao_candidatura',
-      'candidatou': 'eleicao_candidatura',
-      'votou': 'voto_positivo',
-      'jackpot': 'slots_jackpot',
-      'roleta': 'roleta_vitoria'
+      'jackpot': 'slots_jackpot'
     };
     
     for (const [keyword, eventType] of Object.entries(eventMappings)) {
@@ -1006,9 +966,6 @@ class NPCManager {
     return null;
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // 📰 JORNAL DIÁRIO
-  // ═══════════════════════════════════════════════════════════════
   initJornal() {
     const scheduleJornal = () => {
       const now = new Date();
@@ -1054,7 +1011,6 @@ class NPCManager {
     
     if (todayEvents.length === 0) return null;
     
-    // Conta eventos por tipo
     const eventCounts = {};
     todayEvents.forEach(e => {
       eventCounts[e.type] = (eventCounts[e.type] || 0) + 1;
@@ -1077,9 +1033,6 @@ ${eventsSummary}
 Total: ${todayEvents.length} eventos! 🌙`;
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // ⚙️ COMANDOS ADMINISTRATIVOS
-  // ═══════════════════════════════════════════════════════════════
   toggle(enabled) {
     this.config.enabled = enabled;
     saveConfig(this.config);
@@ -1121,7 +1074,6 @@ Total: ${todayEvents.length} eventos! 🌙`;
   }
 }
 
-// Instância única
 const npcManager = new NPCManager();
 export default npcManager;
 export { NPCManager, ALL_EVENTS };
