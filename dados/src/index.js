@@ -334,50 +334,54 @@ const formatMusicPlayer = (title, artist, duration = null, progress = null, volu
   const currentTimeStr = formatTime(currentSeconds);
   const remainingTimeStr = `-${formatTime(remainingSeconds)}`;
   
-  const barWidth = 22;
+  const barWidth = 32;
   const filledBars = Math.floor((currentSeconds / totalSeconds) * barWidth);
   const emptyBars = barWidth - filledBars;
   
-  const progressBar = '█'.repeat(filledBars) + '▓'.repeat(emptyBars);
+  const progressBar = '─'.repeat(filledBars) + '●' + '─'.repeat(emptyBars);
   
   const volPercent = volume !== null ? volume : 75;
-  const volFilled = Math.floor((volPercent / 100) * 23);
-  const volEmpty = 23 - volFilled;
-  const volumeBar = '█'.repeat(volFilled) + '▓'.repeat(volEmpty);
+  const volFilled = Math.floor((volPercent / 100) * 30);
+  const volEmpty = 30 - volFilled;
+  const volumeBar = '─'.repeat(volFilled) + '─'.repeat(volEmpty);
   
   const innerWidth = maxWidth;
   const pad = (str, len) => str + ' '.repeat(Math.max(0, len - str.length));
   const line = (content) => ` ${pad(content, innerWidth)} \n`;
-  const spacer = () => ` ${' '.repeat(innerWidth + 2)}                     \n`;
+  const spacer = () => ` ${' '.repeat(innerWidth + 2)} \n`;
   
-  let player = ` ${'-'.repeat(innerWidth + 2)} \n`;
-  player += ` ${pad('iPhone', innerWidth)} \n`;
-  player += spacer();
+  const emoji = '🅴';
   
-  const emoji = ' 🅴 ';
-  const titleWithEmoji = titleDisplay + emoji;
+  let player = '';
+  
+  // Linha do título com emoji (centralizado com espaços extras à direita)
+  const titleWithEmoji = titleDisplay + ' ' + emoji;
   player += line(titleWithEmoji);
+  
+  // Linha do artista
   player += line(artistDisplay);
+  
+  // Espaço extra
   player += spacer();
   
-  const progressLine = `${currentTimeStr} ${progressBar} ${remainingTimeStr}`;
+  // Barra de progresso
+  const progressLine = progressBar;
   player += line(progressLine);
-  player += spacer();
+  
+  // Espaço extra
   player += spacer();
   
-  // Controles com 4 espaços extras para a direita
-  const controls = '◀◀      ❚❚      ▶▶';
-  const ctrlExtraSpaces = 4;
-  player += `                         ${controls}${' '.repeat(innerWidth - controls.length - ctrlExtraSpaces)}\n`;
-  player += `                                         ◉   \n`;
+  // Controles centralizados
+  const controls = '⇆  ◁  ❚❚  ▷  ↻';
+  const ctrlPadding = Math.max(0, Math.floor((innerWidth - controls.length) / 2));
+  player += `${' '.repeat(ctrlPadding + 1)}${controls}${' '.repeat(innerWidth - ctrlPadding - controls.length + 1)}\n`;
   
-  player += spacer();
-  player += spacer();
-  
-  player += ` 🔊 ${pad(volumeBar, 23)} 🔊 \n`;
+  // Espaço extra
   player += spacer();
   
-  player += ` ${'─'.repeat(innerWidth + 2)} `;
+  // Barra de volume
+  const volumeLine = `🔈  ${volumeBar}  🔊`;
+  player += ` ${pad(volumeLine, innerWidth)} \n`;
   
   return player;
 };
