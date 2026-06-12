@@ -2231,13 +2231,6 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       }
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    // 👑 REAÇÃO AUTOMÁTICA PARA "LEO" / "LSZZY"
-    // ═══════════════════════════════════════════════════════════════
-    if (/leo|lszzy/i.test(body) && !info.key.fromMe) {
-      await nazu.sendMessage(from, { react: { text: '👑', key: info.key } });
-    }
-
     // ☀️ REAÇÃO AUTOMÁTICA PARA "SOL"
     if (/sol/i.test(body) && !info.key.fromMe) {
       await nazu.sendMessage(from, { react: { text: '☀️', key: info.key } });
