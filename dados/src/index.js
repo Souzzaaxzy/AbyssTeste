@@ -32232,6 +32232,14 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           reply("ocorreu um erro 💔");
         }
         break;
+      case 'prefixo':
+        try {
+          return reply(`🔖 *Prefixo atual:*\n\n» *${prefix}*\n\nUse este prefixo para usar os comandos do bot!`);
+        } catch (e) {
+          console.error(e);
+          reply("ocorreu um erro 💔");
+        }
+        break;
       case 'perfil':
         try {
           const target = sender;

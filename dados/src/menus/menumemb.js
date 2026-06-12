@@ -18,6 +18,7 @@ export default async function menuMembros(prefix, botName = "MeuBot", userName =
 ${menuTopBorder}
 │ ${perfilMenuTitle}
 ${middleBorder}
+${middleBorder}${menuItemIcon}${prefix}prefixo
 ${middleBorder}${menuItemIcon}${prefix}perfil
 ${middleBorder}${menuItemIcon}${prefix}meustatus
 ${bottomBorder}
