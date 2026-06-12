@@ -5005,11 +5005,75 @@ if (  isGroup &&  groupData.antistickerplus &&  !isGroupAdmin &&  !isOwner &&  !
           } else {
             // Fallback: sempre gerar uma resposta se a IA não retornou nada válido
             const fallbackRespostas = [
+              // Cumprimentos e saudações
+              'Oi! Tudo bem? 😊',
+              'Hey! Como você tá? 🌙',
+              'Olááá! Tudo certo por aí?',
+              'Eii! Que bom te ver! 😊',
+              'Oi gente! 😊',
+              
+              // Confirmar entendimento
               'Hm... deixa eu pensar... 🌙',
               'Ahn... que silêncio... tá me fazendo pensar aqui! 😅',
-              'N-Não sei o que responder agora... pode perguntar de outra forma?',
               'Tô pensando... dá um tempinho! 😊',
-              'Ué... não tenho uma resposta pronta pra isso... 🤔'
+              'Espera aí... deixa eu processar isso... 🤔',
+              'Hmm... me dá um segundinho pra entender! 😅',
+              
+              // Pedidos de esclarecimento
+              'N-Não sei o que responder agora... pode perguntar de outra forma?',
+              'Ué... não tenho uma resposta pronta pra isso... 🤔',
+              'Pera... pode explicar melhor? 😅',
+              'Ahn... não entendi direito, pode repetir?',
+              'Que isso... nunca ouvi falar... me conta mais! 👀',
+              
+              // Reações neutras
+              'Sério?! 😳',
+              'Pois é... né 😅',
+              'Hmmmmm 🤔',
+              'Entendi... 👀',
+              'Nossa... 😮',
+              
+              // Mostrar interesse
+              'E depois? 👀',
+              'Conta mais! 😊',
+              'Isso é interessante... 🌙',
+              'Tipo assim... 🤔',
+              'Aaah entendi! 😊',
+              
+              // Expressões do dia a dia
+              'Kkkkk que isso 😂',
+              'Affs... 😅',
+              'Mds... 🙄',
+              'Pqp... 😳',
+              'Slk... 😅',
+              
+              // Ações/reação
+              'Tô aí! 👋',
+              'Bora! 🚀',
+              'Pode contar! 😊',
+              'To entendendo! 👀',
+              'Claro! 👍',
+              
+              // Perguntas de retorno
+              'E você? Como tá? 😊',
+              'E aí? Tudo bem? 👀',
+              'Faz o que de bom? 🌙',
+              'O que você achou? 🤔',
+              'Quer falar mais sobre isso? 👀',
+              
+              // Confirmar presença
+              'To aqui! 😊',
+              'Pode mandar! 👍',
+              'Tô ouvindo! 👂',
+              'Pode falar! 😎',
+              'Tô por aqui! 🌙',
+              
+              // Encerramento natural
+              'Flw! 😊',
+              'Até mais! 👋',
+              'Valeu! 👍',
+              'Abs! 🌙',
+              'Tamo junto! 😊'
             ];
             const fallback = fallbackRespostas[Math.floor(Math.random() * fallbackRespostas.length)];
             reply(fallback);
