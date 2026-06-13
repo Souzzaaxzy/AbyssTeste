@@ -9,6 +9,8 @@ import {
   makeCacheableSignalKeyStore
 } from 'baileys';
 
+import { handleFut, handleFutCommand } from './games/futebol/index.js';
+
 import dotenv from 'dotenv';
 // Suprimir warnings de execuções perdidas do node-cron
 const originalWarn = console.warn;
@@ -21128,6 +21130,17 @@ break;
           await reply("❌ Ocorreu um erro ao carregar o menu de administração");
         }
         break;
+      case 'menufut':
+      case 'menufutebol':
+      case 'futmenu':
+        try {
+          const { getMenuFut } = await import('./games/futebol/menu.js');
+          await reply(getMenuFut(pushname));
+        } catch (error) {
+          console.error('Erro ao enviar menu de futebol:', error);
+          await reply("❌ Ocorreu um erro ao carregar o menu de futebol");
+        }
+        break;
       case 'menumembros':
       case 'menumemb':
       case 'menugeral':
@@ -32329,6 +32342,22 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           
         } catch (e) {
           console.error(e);
+          reply("ocorreu um erro 💔");
+        }
+        break;
+      case 'fut':
+      case 'football':
+      case 'futebol':
+        try {
+          await handleFut(args.slice(1), {
+            sender,
+            senderName: pushname,
+            from,
+            nazu,
+            mentionedJid: info.message?.extendedTextMessage?.contextInfo?.mentionedJid || []
+          }, reply);
+        } catch (e) {
+          console.error('Erro no comando fut:', e);
           reply("ocorreu um erro 💔");
         }
         break;
