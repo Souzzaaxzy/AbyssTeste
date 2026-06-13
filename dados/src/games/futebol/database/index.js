@@ -972,6 +972,23 @@ class FootballDB {
       return { success: false, error: 'Atributo inválido' };
     }
     
+    // Verificar cooldown de treino (30 minutos por atributo)
+    if (!player.trainingCooldown) {
+      player.trainingCooldown = {};
+    }
+    
+    const cooldownMs = 30 * 60 * 1000; // 30 minutos
+    const lastTraining = player.trainingCooldown[attribute] || 0;
+    
+    if (Date.now() - lastTraining < cooldownMs) {
+      const remainingMs = cooldownMs - (Date.now() - lastTraining);
+      const remainingMin = Math.ceil(remainingMs / 60000);
+      return { 
+        success: false, 
+        error: `⏳ Cooldown ativo!\n\nAguarde ${remainingMin} minuto(s) para treinar ${attribute.toUpperCase()} novamente.` 
+      };
+    }
+    
     // Verificar energia
     const energyCost = 30;
     if (!player.energy || player.energy.current < energyCost) {
@@ -994,8 +1011,9 @@ class FootballDB {
       return { success: false, error: 'Atributo já está no máximo (99)' };
     }
     
-    // Gastar energia
+    // Gastar energia e atualizar cooldown
     player.energy.current -= energyCost;
+    player.trainingCooldown[attribute] = Date.now();
     player.attributes[attribute] = Math.min(99, player.attributes[attribute] + finalGain);
     
     this.updatePlayerOVR(userId);
