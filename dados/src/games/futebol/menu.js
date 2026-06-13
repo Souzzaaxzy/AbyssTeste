@@ -34,78 +34,186 @@ const ATTR_NAMES_SHORT = {
 // MENU PRINCIPAL
 // ═══════════════════════════════════════════════════════════════
 
+// ═══════════════════════════════════════════════════════════════
+// MENU PRINCIPAL - ESTILIZADO
+// ═══════════════════════════════════════════════════════════════
+
 export function getMenuFut(playerName = 'Jogador') {
   return `
-╔══════════════════════════╗
-║    ⚽ FUTEBOL GLOBAL ⚽    ║
-╚══════════════════════════╝
+⚽ ━━━━━━━━━━━━━━━━━━━━━━━━━━━ ┐
+   *FUTEBOL GLOBAL* 🏆
+⚽ ━━━━━━━━━━━━━━━━━━━━━━━━━━━ ┘
 
-Olá, ${playerName}! 
+🌟 Bem-vindo, *${playerName}*!
 
-━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📋 *PERFIL*
-• !fut perfil - Ver perfil completo
-• !fut stats - Estatísticas detalhadas
-• !fut saldo - Ver FC Coins
-• !fut energia - Ver energia
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 Perfil    → !fut perfil
+📊 Stats     → !fut stats
+💰 Saldo     → !fut saldo
+⚡ Energia   → !fut energia
 
-⚡ *TREINO*
-• !fut tre pac/sho/pas/dri/def/phy [pts]
-• !fut descansar - Recuperar energia
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚽ *TREINO*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏋️ Treinar  → !fut tre pac/sho/pas/dri/def/phy
+😴 Descansar → !fut descansar
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚔️ *PARTIDAS*
-• !fut x1 @usuario - Desafiar
-• !fut ax1 - Aceitar desafio
-• !fut rx1 - Recusar desafio
-• !fut solo [normal/dificil/extremo]
-• !fut rivalidade @user - Ver rivalidade
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎮 X1        → !fut x1 @usuario
+✅ Aceitar   → !fut ax1
+❌ Recusar   → !fut rx1
+🎯 Solo      → !fut solo [normal/dificil/extremo]
+🔥 Rivalidade → !fut rivalidade @user
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🏆 *TORNEIOS*
-• !fut torneio - Ver torneios abertos
-• !fut torneio entrar [ID] - Inscrever-se
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 Ver       → !fut torneio
+🎫 Entrar    → !fut torneio entrar [ID]
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📊 *RANKINGS*
-• !fut divisoes - Ver divisões
-• !fut ranking - Ranking da divisão
-• !fut topglobal - Top Global
-• !fut rankingclubes - Top Clubes
-• !fut soloscore - Ranking Solo
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🥇 Divisões   → !fut divisoes
+📈 Ranking    → !fut ranking
+🌍 Top Global → !fut topglobal
+⚽ Clubes     → !fut rankingclubes
+⭐ Solo       → !fut soloscore
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⭐ *EVOLUÇÃO*
-• !fut xp - Ver nível e XP
-• !fut evoluir [attr] [pts] - Evoluir atributo
-• !fut atributos - Ver atributos
-• !fut hab - Ver/comprar habilidades
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 XP        → !fut xp
+💎 Evoluir   → !fut evoluir [attr] [pts]
+🎯 Atributos → !fut atributos
+🛒 Habilidades → !fut hab
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚙️ *CLUBE*
-• !fut criar [nome] - Criar clube
-• !fut clube - Ver meu clube
-• !fut membros - Ver elenco
-• !fut sair - Sair do clube
-• !fut prop @user [salário] - Fazer proposta
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏗️ Criar     → !fut criar [nome]
+📋 Meu Clube → !fut clube
+👥 Membros   → !fut membros
+🚪 Sair      → !fut sair
+💼 Proposta  → !fut prop @user [salário]
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💼 *NEGOCIAÇÕES*
-• !fut negs - Ver propostas
-• !fut ace [id] - Aceitar
-• !fut repro [id] - Recusar
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📨 Ver       → !fut negs
+✅ Aceitar   → !fut ace [id]
+❌ Recusar   → !fut repro [id]
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎁 *RECOMPENSAS*
-• !fut diaria - Caixa diária (24h)
-• !fut semanal - Missões da semana
-• !fut codigo [CODIGO] - Resgatar código
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📦 Diária    → !fut diaria
+📅 Semanal   → !fut semanal
+🎫 Código    → !fut codigo [CODIGO]
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🏅 *EXTRAS*
-• !fut forma - Ver forma atual
-• !fut conquistas - Minhas conquistas
-• !fut titulos - Ver/trocar títulos
-• !fut temporada - Status da temporada
-• !fut reputacao - Minha reputação
-• !fut rivalidades - Minhas rivalidades
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔥 Forma      → !fut forma
+🏆 Conquistas → !fut conquistas
+👑 Títulos    → !fut titulos
+🏅 Temporada  → !fut temporada
+⭐ Reputação  → !fut reputacao
+⚔️ Rivalidades → !fut rivalidades
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🔧 *ADMIN*
-• !fut admin - Ver comandos admin
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️ Comandos  → !fut admin
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💡 Use *!fut entrar* para começar!`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MENU ADMIN - ESTILIZADO
+// ═══════════════════════════════════════════════════════════════
+
+export function getMenuAdminFut() {
+  return `
+🔧 ━━━━━━━━━━━━━━━━━━━━━━━━━━━ ┐
+   *ADMIN FUTEBOL* ⚙️
+🔧 ━━━━━━━━━━━━━━━━━━━━━━━━━━━ ┘
+
+*⚠️ Apenas admins do grupo*
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 *JOGADORES*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💰 addcoins   → addcoins @user [valor]
+💸 remcoins   → remcoins @user [valor]
+🎮 setovr     → setovr @user [1-99]
+⚡ setenergy  → setenergy @user [0-200]
+🏆 setdiv     → setdiv @user [bronze...]
+👑 resetplayer → resetplayer @user
+⭐ addmvp     → addmvp @user [qtd]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⭐ *XP & EVOLUÇÃO*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📈 addxp     → addxp @user [valor]
+🎯 setlevel  → setlevel @user [1-100]
+💎 setevo    → setevo @user [pontos]
+➕ addevo    → addevo @user [pontos]
+🔄 resetxp   → resetxp @user
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 *ATRIBUTOS*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚡ settreino → settreino @user [attr] [valor]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌟 *REPUTAÇÃO*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 setrep    → setrep @user [0-100]
+➕ addrep    → addrep @user [±valor]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏆 *TEMPORADA*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 season        → Ver status
+🔄 season reset  → Resetar
+⚙️ season config → Configurar
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎁 *CÓDIGOS*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎫 criar      → codigo criar [COD] [C] [X] [U] [H]
+🎲 misterio   → codigo misterioso [min] [max]
+📋 listar     → codigo listar
+📜 log        → codigo log
+❌ desativar  → codigo desativar [COD]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏆 *TORNEIOS*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+➕ criar     → torneio criar [NOME|TIPO|MAX|ENT|PRE|TRO]
+▶️ iniciar   → torneio iniciar [ID]
+⚽ jogar     → torneio jogar [ID]
+👁️ ver       → torneio ver [ID]
+❌ cancelar  → torneio cancelar [ID]
+📋 listar    → torneio listar
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 *FUT SOLO*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔄 setsolo   → setsolo @user reset
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💥 *RESET GERAL*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ resetall   → Resetar tudo
+🏠 clubes     → Resetar clubes
+⚔️ x1reset   → Limpar X1 pendentes`;
 }
 
 // ═══════════════════════════════════════════════════════════════

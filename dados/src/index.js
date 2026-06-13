@@ -21135,10 +21135,33 @@ break;
       case 'futmenu':
         try {
           const { getMenuFut } = await import('./games/futebol/menu.js');
-          await reply(getMenuFut(pushname));
+          // Verifica se existe GIF específico para futebol
+          const futGifPath = __dirname + '/../midias/menufut.gif';
+          const futImagePath = __dirname + '/../midias/menufut.jpg';
+          const futVideoPath = __dirname + '/../midias/menufut.mp4';
+          
+          const useVideo = fs.existsSync(futVideoPath);
+          const mediaPath = useVideo ? futVideoPath : (fs.existsSync(futGifPath) ? futGifPath : (fs.existsSync(futImagePath) ? futImagePath : null));
+          
+          if (mediaPath && fs.existsSync(mediaPath)) {
+            const mediaBuffer = fs.readFileSync(mediaPath);
+            const menuText = getMenuFut(pushname);
+            const lerMaisPrefix = getMenuLerMaisText ? getMenuLerMaisText() : '';
+            
+            await nazu.sendMessage(from, {
+              [useVideo ? 'video' : 'image']: mediaBuffer,
+              caption: lerMaisPrefix + menuText,
+              gifPlayback: useVideo || mediaPath.endsWith('.gif'),
+              mimetype: useVideo ? 'video/mp4' : (mediaPath.endsWith('.gif') ? 'image/gif' : 'image/jpeg')
+            }, {
+              quoted: info
+            });
+          } else {
+            await reply(getMenuFut(pushname));
+          }
         } catch (error) {
           console.error('Erro ao enviar menu de futebol:', error);
-          await reply("❌ Ocorreu um erro ao carregar o menu de futebol");
+          await reply(getMenuFut(pushname));
         }
         break;
       case 'menumembros':
