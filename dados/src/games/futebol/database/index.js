@@ -212,7 +212,26 @@ class FootballDB {
         streak: 0,
         bestStreak: 0,
         totalPlayed: 0
-      }
+      },
+      // Sistema de Forma
+      form: {
+        current: 0, // -5 a +5
+        history: [] // últimas 10 partidas
+      },
+      // Sistema de Conquistas
+      achievements: [],
+      unlockedTitles: ['Novato'],
+      equippedTitle: null,
+      // Sistema de MVP
+      mvpCount: 0,
+      // Sistema de Caixa Diária
+      dailyReward: {
+        lastClaim: 0,
+        streak: 0
+      },
+      // Sistema de Missões Semanais
+      weeklyMissions: null,
+      weeklyReset: 0
     };
     
     this.players[userId] = player;
@@ -389,6 +408,316 @@ class FootballDB {
   }
 
   // ═══════════════════════════════════════════════════════════════
+  // SISTEMA DE FORMA
+  // ═══════════════════════════════════════════════════════════════
+
+  getFormInfo(player) {
+    const form = player.form?.current || 0;
+    let emoji, label, bonus;
+    
+    if (form >= 4) {
+      emoji = '🔥'; label = 'Excelente'; bonus = 0.05;
+    } else if (form >= 2) {
+      emoji = '🙂'; label = 'Boa'; bonus = 0.02;
+    } else if (form >= -1) {
+      emoji = '😐'; label = 'Normal'; bonus = 0;
+    } else if (form >= -3) {
+      emoji = '⚠️'; label = 'Ruim'; bonus = -0.02;
+    } else {
+      emoji = '❄️'; label = 'Péssima'; bonus = -0.05;
+    }
+    
+    return { emoji, label, bonus, value: form };
+  }
+
+  updatePlayerForm(userId, result) {
+    const player = this.players[userId];
+    if (!player) return;
+    
+    // result: 'win', 'draw', 'loss'
+    if (!player.form) {
+      player.form = { current: 0, history: [] };
+    }
+    
+    // Adicionar resultado ao histórico (máximo 10)
+    player.form.history.push(result);
+    if (player.form.history.length > 10) {
+      player.form.history.shift();
+    }
+    
+    // Calcular forma baseada no histórico
+    let wins = 0, draws = 0, losses = 0;
+    player.form.history.forEach(r => {
+      if (r === 'win') wins++;
+      else if (r === 'draw') draws++;
+      else losses++;
+    });
+    
+    // Sequência atual
+    const lastResult = player.form.history[player.form.history.length - 1];
+    let streak = 0;
+    for (let i = player.form.history.length - 1; i >= 0; i--) {
+      if (player.form.history[i] === lastResult) streak++;
+      else break;
+    }
+    
+    // Calcular forma (-5 a +5)
+    let newForm = Math.round((wins * 0.5) - (losses * 0.5) + (draws * 0.1));
+    newForm = Math.max(-5, Math.min(5, newForm));
+    
+    // Bônus por sequência
+    if (streak >= 5 && lastResult === 'win') newForm = Math.min(5, newForm + 1);
+    if (streak >= 4 && lastResult === 'loss') newForm = Math.max(-5, newForm - 1);
+    
+    player.form.current = newForm;
+    this.save();
+    
+    return this.getFormInfo(player);
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // SISTEMA DE CONQUISTAS
+  // ═══════════════════════════════════════════════════════════════
+
+  ACHIEVEMENTS = {
+    // Vitórias
+    first_win: { name: 'Primeira Vitória', desc: 'Ganhe sua primeira partida', type: 'win', target: 1, reward: { coins: 500, xp: 50 } },
+    wins_10: { name: '10 Vitórias', desc: 'Ganhe 10 partidas', type: 'win', target: 10, reward: { coins: 1000, xp: 100 } },
+    wins_100: { name: '100 Vitórias', desc: 'Ganhe 100 partidas', type: 'win', target: 100, reward: { coins: 5000, xp: 500 } },
+    wins_500: { name: '500 Vitórias', desc: 'Ganhe 500 partidas', type: 'win', target: 500, reward: { coins: 20000, xp: 2000 } },
+    
+    // Partidas
+    first_match: { name: 'Primeira Partida', desc: 'Jogue sua primeira partida', type: 'match', target: 1, reward: { coins: 100, xp: 20 } },
+    matches_100: { name: 'Veterano', desc: 'Jogue 100 partidas', type: 'match', target: 100, reward: { coins: 2000, xp: 200 } },
+    matches_500: { name: 'Lenda', desc: 'Jogue 500 partidas', type: 'match', target: 500, reward: { coins: 10000, xp: 1000 } },
+    
+    // Solo
+    solo_first_win: { name: 'Primeira Vitória Solo', desc: 'Ganhe seu primeiro Fut Solo', type: 'solo_win', target: 1, reward: { coins: 300, xp: 30 } },
+    solo_50: { name: '50 Vitórias Solo', desc: 'Ganhe 50 partidas Solo', type: 'solo_win', target: 50, reward: { coins: 3000, xp: 300 } },
+    solo_100: { name: 'Rei do Solo', desc: 'Ganhe 100 partidas Solo', type: 'solo_win', target: 100, reward: { coins: 10000, xp: 1000, title: 'Rei do Solo' } },
+    
+    // Clubes
+    first_club: { name: 'Primeiro Clube', desc: 'Entre em um clube pela primeira vez', type: 'club_join', target: 1, reward: { coins: 500, xp: 50 } },
+    
+    // Divisões
+    promoted: { name: 'Primeira Promoção', desc: 'Suba de divisão pela primeira vez', type: 'promotion', target: 1, reward: { coins: 1000, xp: 100 } },
+    reached_gold: { name: 'Chegou ao Ouro', desc: 'Alcance a divisão Ouro', type: 'division', target: 'ouro', reward: { coins: 2000, xp: 200 } },
+    reached_elite: { name: 'Chegou ao Elite', desc: 'Alcance a divisão Elite', type: 'division', target: 'elite', reward: { coins: 5000, xp: 500 } },
+    reached_lenda: { name: 'Chegou ao Lenda', desc: 'Alcance a divisão Lenda', type: 'division', target: 'lenda', reward: { coins: 10000, xp: 1000 } },
+    reached_mestre: { name: 'Chegou ao Mestre', desc: 'Alcance a divisão Mestre', type: 'division', target: 'mestre', reward: { coins: 25000, xp: 2500 } },
+    reached_pro: { name: 'Chegou ao Pro', desc: 'Alcance a divisão Pro', type: 'division', target: 'pro', reward: { coins: 50000, xp: 5000 } },
+    
+    // XP/Nível
+    level_10: { name: 'Nível 10', desc: 'Alcance o nível 10', type: 'level', target: 10, reward: { coins: 1000, xp: 0 } },
+    level_25: { name: 'Nível 25', desc: 'Alcance o nível 25', type: 'level', target: 25, reward: { coins: 2500, xp: 0 } },
+    level_50: { name: 'Nível 50', desc: 'Alcance o nível 50', type: 'level', target: 50, reward: { coins: 10000, xp: 0 } },
+    level_100: { name: 'Lendário', desc: 'Alcance o nível 100', type: 'level', target: 100, reward: { coins: 50000, xp: 0, title: 'Lendário' } },
+    
+    // MVP
+    mvp_1: { name: 'Primeiro MVP', desc: 'Ganhe seu primeiro MVP', type: 'mvp', target: 1, reward: { coins: 300, xp: 50 } },
+    mvp_50: { name: 'Colecionador de MVPs', desc: 'Ganhe 50 MVPs', type: 'mvp', target: 50, reward: { coins: 5000, xp: 500, title: 'MVP' } },
+    
+    // Sequência
+    streak_5: { name: 'Sequência', desc: 'Ganhe 5 seguidas', type: 'streak', target: 5, reward: { coins: 1000, xp: 100 } },
+    streak_10: { name: 'Invencível', desc: 'Ganhe 10 seguidas', type: 'streak', target: 10, reward: { coins: 5000, xp: 500, title: 'Invencível' } }
+  };
+
+  checkAchievements(userId, type, value) {
+    const player = this.players[userId];
+    if (!player) return [];
+    
+    if (!player.achievements) player.achievements = [];
+    const newAchievements = [];
+    
+    Object.entries(this.ACHIEVEMENTS).forEach(([id, ach]) => {
+      if (ach.type !== type) return;
+      if (player.achievements.includes(id)) return;
+      
+      let unlocked = false;
+      if (ach.target === 'ouro' || ach.target === 'elite' || ach.target === 'lenda' || ach.target === 'mestre' || ach.target === 'pro') {
+        unlocked = player.division?.id?.startsWith(ach.target);
+      } else {
+        unlocked = value >= ach.target;
+      }
+      
+      if (unlocked) {
+        player.achievements.push(id);
+        if (ach.reward?.coins) {
+          player.economy.fcCoins += ach.reward.coins;
+          player.economy.totalEarned += ach.reward.coins;
+        }
+        if (ach.reward?.title) {
+          if (!player.unlockedTitles) player.unlockedTitles = ['Novato'];
+          player.unlockedTitles.push(ach.reward.title);
+        }
+        
+        newAchievements.push(ach);
+      }
+    });
+    
+    if (newAchievements.length > 0) this.save();
+    return newAchievements;
+  }
+
+  getAchievements(userId) {
+    const player = this.players[userId];
+    if (!player) return [];
+    return (player.achievements || []).map(id => this.ACHIEVEMENTS[id]).filter(Boolean);
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // SISTEMA DE MVP
+  // ═══════════════════════════════════════════════════════════════
+
+  calculateMVP(player1, player2, matchResult, player1Goals, player2Goals) {
+    // player1 é quem estamos calculando
+    const p1Score = player1.ovr * 0.5 + player1Goals * 10 + (matchResult === 'win' ? 30 : matchResult === 'draw' ? 15 : 0);
+    const p2Score = player2.ovr * 0.5 + player2Goals * 10 + (matchResult === 'loss' ? 30 : matchResult === 'draw' ? 15 : 0);
+    
+    if (p1Score > p2Score) {
+      return { winner: player1, loser: player2 };
+    } else {
+      return { winner: player2, loser: player1 };
+    }
+  }
+
+  awardMVP(userId) {
+    const player = this.players[userId];
+    if (!player) return null;
+    
+    player.mvpCount = (player.mvpCount || 0) + 1;
+    
+    // Recompensa por MVP
+    const xpReward = 10;
+    const coinsReward = 100;
+    this.addXP(userId, xpReward);
+    player.economy.fcCoins += coinsReward;
+    player.economy.totalEarned += coinsReward;
+    
+    // Verificar conquistas de MVP
+    this.checkAchievements(userId, 'mvp', player.mvpCount);
+    
+    this.save();
+    return { xp: xpReward, coins: coinsReward };
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // SISTEMA DE CAIXA DIÁRIA
+  // ═══════════════════════════════════════════════════════════════
+
+  claimDailyReward(userId) {
+    const player = this.players[userId];
+    if (!player) return { success: false, error: 'Jogador não encontrado' };
+    
+    const now = Date.now();
+    const dailyMs = 24 * 60 * 60 * 1000;
+    
+    if (!player.dailyReward) {
+      player.dailyReward = { lastClaim: 0, streak: 0 };
+    }
+    
+    if (now - player.dailyReward.lastClaim < dailyMs) {
+      const remainingMs = dailyMs - (now - player.dailyReward.lastClaim);
+      const hours = Math.floor(remainingMs / (60 * 60 * 1000));
+      const mins = Math.ceil((remainingMs % (60 * 60 * 1000)) / 60000);
+      return { 
+        success: false, 
+        error: `⏳ Próxima caixa em ${hours}h ${mins}min` 
+      };
+    }
+    
+    // Calcular recompensa baseada na sequência
+    player.dailyReward.streak = (player.dailyReward.streak || 0) + 1;
+    player.dailyReward.lastClaim = now;
+    
+    const streak = player.dailyReward.streak;
+    const baseCoins = 500;
+    const baseXP = 50;
+    const streakBonus = Math.min(streak * 0.1, 1); // até 100% de bônus
+    
+    const coinsReward = Math.floor(baseCoins * (1 + streakBonus));
+    const xpReward = Math.floor(baseXP * (1 + streakBonus));
+    
+    this.addXP(userId, xpReward);
+    player.economy.fcCoins += coinsReward;
+    player.economy.totalEarned += coinsReward;
+    
+    // Verificar conquistas de sequência
+    if (streak === 5) this.checkAchievements(userId, 'streak', 5);
+    if (streak === 10) this.checkAchievements(userId, 'streak', 10);
+    
+    this.save();
+    
+    return { 
+      success: true, 
+      coins: coinsReward, 
+      xp: xpReward, 
+      streak: streak 
+    };
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // SISTEMA DE MISSÕES SEMANAIS
+  // ═══════════════════════════════════════════════════════════════
+
+  generateWeeklyMissions(userId) {
+    const player = this.players[userId];
+    if (!player) return null;
+    
+    const now = Date.now();
+    const weeklyMs = 7 * 24 * 60 * 60 * 1000;
+    
+    // Gerar novas missões se necessário
+    if (!player.weeklyMissions || now - (player.weeklyReset || 0) > weeklyMs) {
+      const missions = [
+        { id: 'win_matches', desc: 'Ganhe 10 partidas', current: 0, target: 10, type: 'win' },
+        { id: 'play_solo', desc: 'Jogue 20 vezes no Fut Solo', current: 0, target: 20, type: 'solo' },
+        { id: 'win_x1', desc: 'Ganhe 5 X1', current: 0, target: 5, type: 'x1' },
+        { id: 'score_goals', desc: 'Marque 30 gols', current: 0, target: 30, type: 'goals' },
+        { id: 'train', desc: 'Treine 15 vezes', current: 0, target: 15, type: 'train' },
+        { id: 'earn_mvp', desc: 'Ganhe 3 MVPs', current: 0, target: 3, type: 'mvp' }
+      ];
+      
+      // Selecionar 3 missões aleatórias
+      const shuffled = missions.sort(() => Math.random() - 0.5);
+      player.weeklyMissions = shuffled.slice(0, 3).map(m => ({ ...m, completed: false }));
+      player.weeklyReset = now;
+      this.save();
+    }
+    
+    return player.weeklyMissions;
+  }
+
+  updateWeeklyMission(userId, type) {
+    const player = this.players[userId];
+    if (!player || !player.weeklyMissions) return [];
+    
+    const completedMissions = [];
+    
+    player.weeklyMissions.forEach(mission => {
+      if (mission.completed || mission.type !== type) return;
+      
+      mission.current++;
+      if (mission.current >= mission.target) {
+        mission.completed = true;
+        completedMissions.push(mission);
+        
+        // Recompensa
+        const reward = {
+          coins: mission.target * 100,
+          xp: mission.target * 20
+        };
+        this.addXP(userId, reward.xp);
+        player.economy.fcCoins += reward.coins;
+        player.economy.totalEarned += reward.coins;
+      }
+    });
+    
+    if (completedMissions.length > 0) this.save();
+    return completedMissions;
+  }
+
+  // ═══════════════════════════════════════════════════════════════
   // FUT SOLO
   // ═══════════════════════════════════════════════════════════════
 
@@ -510,6 +839,21 @@ class FootballDB {
     // Adicionar coins
     player.economy.fcCoins += coinsReward;
     player.economy.totalEarned += coinsReward;
+
+    // Atualizar forma
+    this.updatePlayerForm(userId, result === 'win' ? 'win' : result === 'draw' ? 'draw' : 'loss');
+    
+    // Atualizar conquistas
+    if (result === 'win') {
+      this.checkAchievements(userId, 'solo_win', player.soloStats.victories);
+    }
+    this.checkAchievements(userId, 'match', player.soloStats.totalPlayed);
+    
+    // Atualizar missões semanais
+    this.updateWeeklyMission(userId, 'solo');
+    if (result === 'win') {
+      this.updateWeeklyMission(userId, 'win');
+    }
 
     this.save();
 
@@ -843,6 +1187,34 @@ class FootballDB {
       winner: { xp: xpWinner.xpGained, leveledUp: xpWinner.leveledUp },
       loser: { xp: xpLoser.xpGained, leveledUp: xpLoser.leveledUp }
     };
+    
+    // Atualizar forma
+    this.updatePlayerForm(p1.id, score1 > score2 ? 'win' : score1 === score2 ? 'draw' : 'loss');
+    this.updatePlayerForm(p2.id, score2 > score1 ? 'win' : score2 === score1 ? 'draw' : 'loss');
+    
+    // Atualizar conquistas
+    if (score1 > score2) {
+      this.checkAchievements(p1.id, 'win', this.players[p1.id].stats.wins);
+      this.checkAchievements(p1.id, 'match', this.players[p1.id].stats.matches);
+    } else {
+      this.checkAchievements(p2.id, 'win', this.players[p2.id].stats.wins);
+      this.checkAchievements(p2.id, 'match', this.players[p2.id].stats.matches);
+    }
+    
+    // Atualizar missões semanais
+    if (score1 > score2) {
+      this.updateWeeklyMission(p1.id, 'win');
+      this.updateWeeklyMission(p1.id, 'goals');
+    } else {
+      this.updateWeeklyMission(p2.id, 'win');
+      this.updateWeeklyMission(p2.id, 'goals');
+    }
+    
+    // Escolher MVP
+    const mvpResult = this.calculateMVP(this.players[p1.id], this.players[p2.id], score1 > score2 ? 'win' : 'draw', score1, score2);
+    const mvpId = mvpResult.winner.id;
+    const mvpReward = this.awardMVP(mvpId);
+    match.mvp = { id: mvpId, name: mvpResult.winner.name, reward: mvpReward };
     
     this.save();
     return match;

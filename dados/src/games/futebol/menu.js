@@ -90,6 +90,15 @@ Olá, ${playerName}!
 • !fut rankingclubes
 • !fut soloscore
 
+🎁 *RECOMPENSAS*
+• !fut diaria - Caixa diária
+• !fut semanal - Missões
+
+🏆 *EXTRAS*
+• !fut forma - Ver sua forma
+• !fut conquistas - Suas conquistas
+• !fut titulos - Títulos
+
 🔧 *ADMIN* (apenas admins do grupo)
 • !fut admin - ver comandos
 
@@ -152,14 +161,19 @@ export function getProfileMessage(player) {
   const xpInfo = player.xp || { level: 1, currentXP: 0, evolutionPoints: 0 };
   const xpNeeded = Math.floor(xpInfo.level * 100 + (xpInfo.level - 1) * 20);
   
+  // Info de Forma
+  const formInfo = db.getFormInfo(player);
+  
   return `
 ⚽ *PERFIL DE JOGADOR* ⚽
 
 👤 *Nome:* ${player.name}
-🏆 *Divisão:* ${divEmoji} ${divName}
+${player.equippedTitle ? `🏅 ${player.equippedTitle}\n` : ''}🏆 *Divisão:* ${divEmoji} ${divName}
 📊 *OVR:* ${player.ovr}
 ⭐ *Nível:* ${xpInfo.level}
+${formInfo.emoji} *Forma:* ${formInfo.label}
 💰 *FC Coins:* ${player.economy.fcCoins.toLocaleString()}
+${player.mvpCount > 0 ? `⭐ *MVPs:* ${player.mvpCount}` : ''}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━
 ⚡ PAC: ${player.attributes.pac}

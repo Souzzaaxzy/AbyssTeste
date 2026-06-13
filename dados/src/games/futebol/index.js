@@ -402,6 +402,100 @@ export async function handleFutCommand(args, messageInfo, reply) {
       return reply(attrText);
     
     // ═══════════════════════════════════════════════════════════════
+    // FORMA E CONQUISTAS
+    // ═══════════════════════════════════════════════════════════════
+    case 'forma':
+      if (!player) {
+        return reply('❌ Você não está registrado!');
+      }
+      const formInfo = db.getFormInfo(player);
+      let formText = `${formInfo.emoji} *FORMA: ${formInfo.label}*\n\n`;
+      formText += `📊 Valor: ${formInfo.value > 0 ? '+' : ''}${formInfo.value}\n`;
+      if (formInfo.bonus !== 0) {
+        formText += `${formInfo.bonus > 0 ? '+' : ''}${(formInfo.bonus * 100).toFixed(0)}% desempenho\n`;
+      }
+      formText += `\n📝 Histórico: ${player.form?.history?.length || 0}/10 partidas`;
+      return reply(formText);
+    
+    case 'conquistas':
+    case 'achievements':
+      if (!player) {
+        return reply('❌ Você não está registrado!');
+      }
+      const achievements = db.getAchievements(sender);
+      if (achievements.length === 0) {
+        return reply('🏆 *CONQUISTAS*\n\n📭 Nenhuma conquista ainda!\n\nContinue jogando para desbloquear!');
+      }
+      let achText = `🏆 *CONQUISTAS (${achievements.length})*\n\n`;
+      achievements.forEach(a => {
+        achText += `✅ ${a.name}\n   ${a.desc}\n\n`;
+      });
+      return reply(achText);
+    
+    case 'diaria':
+    case 'daily':
+      if (!player) {
+        return reply('❌ Você não está registrado!');
+      }
+      const dailyResult = db.claimDailyReward(sender);
+      if (!dailyResult.success) {
+        return reply(`❌ ${dailyResult.error}`);
+      }
+      return reply(`🎁 *CAIXA DIÁRIA!* 🎁\n\n`
+        + `💰 +${dailyResult.coins.toLocaleString()} FC Coins\n`
+        + `⭐ +${dailyResult.xp} XP\n`
+        + `🔥 Sequência: ${dailyResult.streak} dias\n\n`
+        + `Volte amanhã para mais!`);
+    
+    case 'semanal':
+    case 'semanal':
+      if (!player) {
+        return reply('❌ Você não está registrado!');
+      }
+      const missions = db.generateWeeklyMissions(sender);
+      if (!missions) {
+        return reply('❌ Erro ao gerar missões!');
+      }
+      let missText = `📋 *MISSÕES SEMANAIS*\n\n`;
+      missions.forEach((m, i) => {
+        const status = m.completed ? '✅' : '⬜';
+        const progress = `${m.current}/${m.target}`;
+        missText += `${status} ${i + 1}. ${m.desc}\n   Progresso: ${progress}\n\n`;
+      });
+      missText += `💡 Use *!fut semanal* para ver novamente`;
+      return reply(missText);
+    
+    case 'titulos':
+      if (!player) {
+        return reply('❌ Você não está registrado!');
+      }
+      const titles = player.unlockedTitles || ['Novato'];
+      let titlesText = `🏅 *TÍTULOS*\n\n`;
+      titles.forEach(t => {
+        const equipped = player.equippedTitle === t ? ' [EQUIPADO]' : '';
+        titlesText += `• ${t}${equipped}\n`;
+      });
+      titlesText += `\n💡 Use *!fut titulo [nome]* para equipar`;
+      return reply(titlesText);
+    
+    case 'titulo':
+      if (!player) {
+        return reply('❌ Você não está registrado!');
+      }
+      const titleName = args.slice(1).join(' ');
+      if (!titleName) {
+        return reply('📌 Use: *!fut titulo [nome]*');
+      }
+      const titles2 = player.unlockedTitles || ['Novato'];
+      const foundTitle = titles2.find(t => t.toLowerCase() === titleName.toLowerCase());
+      if (!foundTitle) {
+        return reply('❌ Você não possui esse título!');
+      }
+      player.equippedTitle = foundTitle;
+      db.save();
+      return reply(`✅ Título *${foundTitle}* equipado!`);
+    
+    // ═══════════════════════════════════════════════════════════════
     // SALDO
     // ═══════════════════════════════════════════════════════════════
     case 'saldo':
