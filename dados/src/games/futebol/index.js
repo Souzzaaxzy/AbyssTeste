@@ -894,6 +894,46 @@ export async function handleFutCommand(args, messageInfo, reply) {
           return reply(`✅ Pontos de Evolução de @${targetUser.split('@')[0]} definidos para *${evoPoints}*!`);
         }
         
+        case 'addevo': {
+          const targetUser = messageInfo.mentionedJid?.[0];
+          const evoPoints = parseInt(args[2]);
+          if (!targetUser || !evoPoints || evoPoints < 1) {
+            return reply('📌 Use: *!fut admin addevo @user [pontos]*');
+          }
+          const addEvoPlayer = db.getPlayer(targetUser);
+          if (!addEvoPlayer) {
+            return reply('❌ Jogador não encontrado!');
+          }
+          if (!addEvoPlayer.xp) {
+            addEvoPlayer.xp = { level: 1, currentXP: 0, evolutionPoints: 0, totalXP: 0 };
+          }
+          addEvoPlayer.xp.evolutionPoints += evoPoints;
+          db.save();
+          return reply(`✅ Adicionados *${evoPoints} Pontos de Evolução* para @${targetUser.split('@')[0]}!\n\n💎 Total: ${addEvoPlayer.xp.evolutionPoints}`);
+        }
+        
+        case 'settreino': {
+          const targetUser = messageInfo.mentionedJid?.[0];
+          const attr = args[2]?.toLowerCase();
+          const valor = parseInt(args[3]);
+          if (!targetUser || !attr || !valor || valor < 1 || valor > 99) {
+            return reply('📌 Use: *!fut admin settreino @user [attr] [1-99]*\n\nAttrs: pac, sho, pas, dri, def, phy');
+          }
+          const treinoPlayer = db.getPlayer(targetUser);
+          if (!treinoPlayer) {
+            return reply('❌ Jogador não encontrado!');
+          }
+          const validAttrs = ['pac', 'sho', 'pas', 'dri', 'def', 'phy'];
+          if (!validAttrs.includes(attr)) {
+            return reply('❌ Atributo inválido! Use: pac, sho, pas, dri, def, phy');
+          }
+          const oldVal = treinoPlayer.attributes[attr];
+          treinoPlayer.attributes[attr] = valor;
+          treinoPlayer.ovr = db.calculateOVR(treinoPlayer.attributes);
+          db.save();
+          return reply(`✅ ${attr.toUpperCase()} de @${targetUser.split('@')[0]}: ${oldVal} → ${valor}\n🎮 Novo OVR: ${treinoPlayer.ovr}`);
+        }
+        
         case 'resetxp': {
           const targetUser = messageInfo.mentionedJid?.[0];
           if (!targetUser) {
@@ -992,7 +1032,11 @@ export async function handleFutCommand(args, messageInfo, reply) {
 • !fut admin addxp @user [valor]
 • !fut admin setlevel @user [1-100]
 • !fut admin setevo @user [pontos]
+• !fut admin addevo @user [pontos]
 • !fut admin resetxp @user
+
+📌 *Treinos:*
+• !fut admin settreino @user [pac/sho/pas/dri/def/phy] [valor]
 
 📌 *Fut Solo:*
 • !fut admin setsolo @user reset
