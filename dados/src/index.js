@@ -6098,6 +6098,31 @@ if (isCmd && command && !isOwnerOrSub) {
         await sendMenuWithMedia('menurpg', menuRPG);
         break;
       }
+      case 'menufut': {
+        try {
+          const { getMenuFut } = await import('./games/futebol/menu.js');
+          const futGifPath = __dirname + '/../midias/menufut.gif';
+          const futImagePath = __dirname + '/../midias/menufut.jpg';
+          const useVideo = fs.existsSync(__dirname + '/../midias/menufut.mp4');
+          const mediaPath = useVideo ? __dirname + '/../midias/menufut.mp4' : (fs.existsSync(futGifPath) ? futGifPath : futImagePath);
+          const mediaBuffer = fs.readFileSync(mediaPath);
+          const menuText = getMenuFut(pushname);
+          const lerMaisPrefix = getMenuLerMaisText();
+
+          await nazu.sendMessage(from, {
+            [useVideo ? 'video' : 'image']: mediaBuffer,
+            caption: lerMaisPrefix + menuText,
+            gifPlayback: useVideo,
+            mimetype: useVideo ? 'video/mp4' : 'image/jpeg'
+          }, {
+            quoted: info
+          });
+        } catch (error) {
+          console.error('Erro ao enviar menufut:', error);
+          reply("❌ Erro ao carregar menufut");
+        }
+        break;
+      }
 
       case 'lembrete':
       case 'lembrar': {
@@ -32334,47 +32359,6 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           reply("ocorreu um erro 💔");
         }
         break;
-      case 'menufut':
-        try {
-          const { getMenuFut } = await import('./games/futebol/menu.js');
-          const futGifPath = __dirname + '/../midias/menufut.gif';
-          const futImagePath = __dirname + '/../midias/menufut.jpg';
-          const futVideoPath = __dirname + '/../midias/menufut.mp4';
-          const isGif = fs.existsSync(futGifPath);
-          const useVideo = fs.existsSync(futVideoPath);
-          const hasImage = fs.existsSync(futImagePath);
-          const mediaPath = useVideo ? futVideoPath : (isGif ? futGifPath : futImagePath);
-          const mediaBuffer = fs.readFileSync(mediaPath);
-          const menuText = getMenuFut(pushname);
-          const lerMaisPrefix = getMenuLerMaisText();
-
-          if (isGif) {
-            // GIFs animados usam video com gifPlayback
-            await nazu.sendMessage(from, {
-              video: mediaBuffer,
-              caption: lerMaisPrefix + menuText,
-              gifPlayback: true,
-              mimetype: 'image/gif'
-            }, {
-              quoted: info
-            });
-          } else {
-            await nazu.sendMessage(from, {
-              [useVideo ? 'video' : 'image']: mediaBuffer,
-              caption: lerMaisPrefix + menuText,
-              gifPlayback: false,
-              mimetype: useVideo ? 'video/mp4' : 'image/jpeg'
-            }, {
-              quoted: info
-            });
-          }
-        } catch (error) {
-          console.error('Erro ao enviar menufut:', error);
-          reply(getMenuFut(pushname));
-        }
-        break;
-      case 'perfil':
-        try {
           const target = sender;
           const targetId = getUserName(target);
           const targetName = `@${targetId}`;
