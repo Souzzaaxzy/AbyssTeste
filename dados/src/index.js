@@ -32339,6 +32339,8 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
       case 'football':
       case 'futebol':
         try {
+          // DEBUG: Log command and args
+          console.log('FUT COMMAND DEBUG:', { command, args, argsLength: args.length });
           // Se for comando !menufut sem subcomando, mostra o menu com GIF
           if (command === 'menufut' && args.length === 0) {
             const { getMenuFut } = await import('./games/futebol/menu.js');
