@@ -36,25 +36,22 @@ const ATTR_NAMES_SHORT = {
 
 export function getMenuFut(playerName = 'Jogador') {
   return `
-🏆 *FUTEBOL GLOBAL* 🏆
+╔══════════════════════════╗
+║    ⚽ FUTEBOL GLOBAL ⚽    ║
+╚══════════════════════════╝
 
-Olá, ${playerName}! Bem-vindo ao sistema de futebol do KaiserBot!
-
-⚽ *COMANDOS:*
+Olá, ${playerName}! 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━
-
 📋 *PERFIL*
 • !fut perfil
 • !fut stats
+• !fut saldo
+• !fut energia
 
-🏋️ *TREINOS*
-• !fut treinar pac
-• !fut treinar sho
-• !fut treinar pas
-• !fut treinar dri
-• !fut treinar def
-• !fut treinar phy
+⚡ *ENERGIA*
+• !fut treinar pac/sho/pas/dri/def/phy
+• !fut descansar
 
 ⚔️ *PARTIDAS*
 • !fut x1 @usuario
@@ -74,24 +71,14 @@ Olá, ${playerName}! Bem-vindo ao sistema de futebol do KaiserBot!
 • !fut criarclube [nome]
 • !fut clube
 • !fut membros
+• !fut proposta @usuario [salário]
 • !fut sairclube
 
-📝 *CONTRATAÇÕES*
-• !fut proposta @usuario [salário]
-• !fut propostas
-• !fut aceitarproposta [id]
-• !fut recusarproposta [id]
-
-💰 *ECONOMIA*
-• !fut saldo
-
-🏆 *GLOBAL*
+🌟 *GLOBAL*
 • !fut topglobal
 • !fut rankingclubes
 
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-Use *!fut entrar* para começar sua jornada!`;
+💡 Use *!fut entrar* para começar!`;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -106,22 +93,20 @@ Parabéns, ${playerName}! Você entrou no mundo do futebol!
 
 📊 *SEUS ATRIBUTOS INICIAIS:*
 ━━━━━━━━━━━━━━━━━━━━━━━━
-⚡ PAC: 60
-🎯 SHO: 60
-📤 PAS: 60
-⚽ DRI: 60
-🛡️ DEF: 60
-💪 PHY: 60
+⚡ PAC: 60 | 🎯 SHO: 60
+📤 PAS: 60 | ⚽ DRI: 60
+🛡️ DEF: 60 | 💪 PHY: 60
 ━━━━━━━━━━━━━━━━━━━━━━━━
 🎮 OVR: 60
 
 💰 FC Coins: 50.000
+⚡ Energia: 200/200
 
-📌 *PRÓXIMOS PASSOS:*
-• Use *!fut treinar* para melhorar atributos
-• Use *!fut x1 @usuario* para jogar partidas
-• Use *!fut criarclube* para formar um time
-• Suba de divisão e entre no Top Global!
+📌 *COMANDOS:*
+• !fut treinar [atributo] - Treinar
+• !fut descansar - Recuperar energia
+• !fut x1 @usuario - Jogar partida
+• !fut criarclube - Criar um clube
 
 Boa sorte! 🏆`;
 }

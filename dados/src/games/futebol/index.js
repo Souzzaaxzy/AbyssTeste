@@ -204,34 +204,30 @@ export async function handleFutCommand(args, messageInfo, reply) {
       return reply(getX1ChallengeMessage(player, targetPlayer, match.id));
     
     case 'aceitarx1':
-      // Encontrar desafio pendente para este usuário
-      const challengeKey = `${sender}_${Object.keys(pendingX1).find(k => k.endsWith(`_${sender}`))}`;
-      const challengeId = pendingX1.get(challengeKey);
+      // Buscar desafio pendente usando o banco de dados
+      const pendingChallenge = db.getPendingChallengeForPlayer(sender);
       
-      if (!challengeId) {
-        return reply('❌ Nenhum desafio pendente para você!');
+      if (!pendingChallenge) {
+        return reply('❌ Nenhum desafio pendente para você!\n\nUse *!fut x1 @usuario* para desafiar alguém.');
       }
       
-      const matchData = db.matches.find(m => m.id === challengeId);
-      if (!matchData) {
-        return reply('❌ Desafio não encontrado ou expirado!');
-      }
+      // Atualizar status para accepted
+      pendingChallenge.status = 'accepted';
+      db.save();
       
       // Simular partida
-      const matchResult = db.simulateX1Match(challengeId);
+      const matchResult = db.simulateX1Match(pendingChallenge.id);
       if (!matchResult) {
         return reply('❌ Erro ao processar partida!');
       }
       
-      // Limpar desafio pendente
-      pendingX1.delete(challengeKey);
-      
       return reply(getX1ResultMessage(matchResult));
     
     case 'recusarx1':
-      const refuseKey = `${sender}_${Object.keys(pendingX1).find(k => k.endsWith(`_${sender}`))}`;
-      if (pendingX1.has(refuseKey)) {
-        pendingX1.delete(refuseKey);
+      const refuseChallenge = db.getPendingChallengeForPlayer(sender);
+      if (refuseChallenge) {
+        refuseChallenge.status = 'declined';
+        db.save();
         return reply('❌ Você recusou o desafio de X1.');
       }
       return reply('❌ Você não tem desafios pendentes.');
@@ -245,7 +241,25 @@ export async function handleFutCommand(args, messageInfo, reply) {
       if (!player) {
         return reply('❌ Você não está registrado!\nUse *!fut entrar* para começar.');
       }
-      return reply(`💰 *SEU SALDO*\n\n💎 FC Coins: ${player.economy.fcCoins.toLocaleString()}`);
+      return reply(`💰 *SEU SALDO*\n\n💎 FC Coins: ${player.economy.fcCoins.toLocaleString()}\n⚡ Energia: ${player.energy.current}/${player.energy.max}`);
+    
+    case 'energia':
+    case 'energy':
+      if (!player) {
+        return reply('❌ Você não está registrado!');
+      }
+      return reply(`⚡ *SUA ENERGIA*\n\n${player.energy.current}/${player.energy.max}\n\n💡 Use *!fut descansar* para recuperar energia!`);
+    
+    case 'descansar':
+    case 'rest':
+      if (!player) {
+        return reply('❌ Você não está registrado!');
+      }
+      const restResult = db.quickRest(sender);
+      if (!restResult.success) {
+        return reply(`❌ ${restResult.error}`);
+      }
+      return reply(`😴 *DESCANSO*\n\n⚡ Energia recuperada: +${restResult.energyGained}\n⚡ Energia atual: ${restResult.currentEnergy}/${restResult.maxEnergy}`);
     
     // ═══════════════════════════════════════════════════════════════
     // CLUBE

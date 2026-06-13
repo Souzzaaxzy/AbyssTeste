@@ -187,6 +187,11 @@ class FootballDB {
         totalEarned: 50000,
         totalSpent: 0
       },
+      energy: {
+        current: 200,
+        max: 200,
+        lastRest: Date.now()
+      },
       skills: [],
       achievements: [],
       history: [],
@@ -410,13 +415,22 @@ class FootballDB {
       },
       status: 'pending',
       challengedAt: Date.now(),
-      expiresAt: Date.now() + (30 * 60 * 1000), // 30 minutos para aceitar
+      expiresAt: Date.now() + (10 * 60 * 1000), // 10 minutos para aceitar
       result: null
     };
     
     this.matches.push(match);
     this.save();
     return match;
+  }
+  
+  getPendingChallengeForPlayer(playerId) {
+    return this.matches.find(m => 
+      m.type === 'x1' && 
+      m.status === 'pending' && 
+      m.player2.id === playerId &&
+      m.expiresAt > Date.now()
+    );
   }
 
   simulateX1Match(matchId) {
@@ -609,8 +623,15 @@ class FootballDB {
       return { success: false, error: 'Atributo inválido' };
     }
     
-    const trainingCost = 5000; // FC Coins por treino
-    const gain = Math.floor(Math.random() * 3) + 1; // 1-3 pontos
+    // Verificar energia
+    const energyCost = 30;
+    if (!player.energy || player.energy.current < energyCost) {
+      const currentEnergy = player.energy?.current || 0;
+      const maxEnergy = player.energy?.max || 200;
+      return { success: false, error: `⚡ Energia insuficiente!\nNecesário: ${energyCost}\nSua energia: ${currentEnergy}/${maxEnergy}\n\nUse !fut descansar para recuperar.` };
+    }
+    
+    const gain = Math.floor(Math.random() * 3) + 1;
     
     // Verificar bônus de aprendizado rápido
     let finalGain = gain;
@@ -624,19 +645,8 @@ class FootballDB {
       return { success: false, error: 'Atributo já está no máximo (99)' };
     }
     
-    // Verificar custo com desconto
-    let actualCost = trainingCost;
-    const recuperacaoFisica = player.skills.find(s => s.id === 'recuperacao_fisica');
-    if (recuperacaoFisica) {
-      actualCost = Math.floor(trainingCost * (1 - (recuperacaoFisica.level * 0.15)));
-    }
-    
-    if (player.economy.fcCoins < actualCost) {
-      return { success: false, error: `FC Coins insuficientes. Necesário: ${actualCost}` };
-    }
-    
-    player.economy.fcCoins -= actualCost;
-    player.economy.totalSpent += actualCost;
+    // Gastar energia
+    player.energy.current -= energyCost;
     player.attributes[attribute] = Math.min(99, player.attributes[attribute] + finalGain);
     
     this.updatePlayerOVR(userId);
@@ -648,8 +658,30 @@ class FootballDB {
       gain: finalGain,
       newValue: player.attributes[attribute],
       newOVR: player.ovr,
-      cost: actualCost
+      energySpent: energyCost,
+      remainingEnergy: player.energy.current
     };
+  }
+  
+  quickRest(userId) {
+    const player = this.players[userId];
+    if (!player) return { success: false, error: 'Jogador não encontrado' };
+    
+    const energyGain = Math.floor((player.energy?.max || 200) * 0.5);
+    const currentEnergy = player.energy?.current || 0;
+    const maxEnergy = player.energy?.max || 200;
+    const actualGain = Math.min(energyGain, maxEnergy - currentEnergy);
+    
+    if (!player.energy) {
+      player.energy = { current: 200, max: 200, lastRest: Date.now() };
+    }
+    
+    player.energy.current = Math.min(maxEnergy, currentEnergy + actualGain);
+    player.energy.lastRest = Date.now();
+    
+    this.save();
+    
+    return { success: true, energyGained: actualGain, currentEnergy: player.energy.current, maxEnergy };
   }
 
   // ═══════════════════════════════════════════════════════════════
