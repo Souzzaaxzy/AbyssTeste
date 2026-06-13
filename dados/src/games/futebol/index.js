@@ -26,9 +26,9 @@ import {
 const pendingX1 = new Map();
 
 export async function handleFutCommand(args, messageInfo, reply) {
-  console.log("[FUT] Comando recebido:", command, "Args:", args);
   const { sender, senderName, from, nazu } = messageInfo;
   const command = args[0]?.toLowerCase() || '';
+  console.log('[FUT] Comando:', command, 'Args:', args);
   const subCommand = args[1]?.toLowerCase();
   
   const player = db.getPlayer(sender);
@@ -450,7 +450,7 @@ export async function handleFutCommand(args, messageInfo, reply) {
         + `Volte amanhã para mais!`);
     
     case 'semanal':
-    case 'semanal':
+    case 'weekly':
       if (!player) {
         return reply('❌ Você não está registrado!');
       }
@@ -1710,6 +1710,7 @@ export async function handleFut(args, messageInfo, reply) {
   const player = db.getPlayer(sender);
   
   const command = args[0]?.toLowerCase() || '';
+  console.log('[FUT] Comando:', command, 'Args:', args);
   
   if (!player && command !== 'entrar' && command !== 'registrar') {
     // Redirecionar para comando de entrada
