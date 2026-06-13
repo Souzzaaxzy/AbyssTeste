@@ -218,15 +218,15 @@ export async function handleFutCommand(args, messageInfo, reply) {
       }
       
       // Simular partida
-      const result = db.simulateX1Match(challengeId);
-      if (!result) {
+      const matchResult = db.simulateX1Match(challengeId);
+      if (!matchResult) {
         return reply('❌ Erro ao processar partida!');
       }
       
       // Limpar desafio pendente
       pendingX1.delete(challengeKey);
       
-      return reply(getX1ResultMessage(result));
+      return reply(getX1ResultMessage(matchResult));
     
     case 'recusarx1':
       const refuseKey = `${sender}_${Object.keys(pendingX1).find(k => k.endsWith(`_${sender}`))}`;
@@ -326,9 +326,9 @@ export async function handleFutCommand(args, messageInfo, reply) {
         return reply('❌ Você não está em nenhum clube!');
       }
       
-      const result = db.removePlayerFromClub(player.currentClub, sender);
-      if (!result.success) {
-        return reply(`❌ ${result.error}`);
+      const leaveResult = db.removePlayerFromClub(player.currentClub, sender);
+      if (!leaveResult.success) {
+        return reply(`❌ ${leaveResult.error}`);
       }
       
       return reply('✅ Você saiu do clube!');
