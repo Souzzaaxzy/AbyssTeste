@@ -32335,45 +32335,9 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
         }
         break;
       case 'fut':
-      case 'menufut':
       case 'football':
       case 'futebol':
         try {
-          // Se não tem argumentos, mostra o menu de futebol
-          if (args.length === 0) {
-            const { getMenuFut } = await import('./games/futebol/menu.js');
-            
-            // Só envia GIF se for especificamente o comando !menufut
-            if (command === 'menufut') {
-              const futGifPath = __dirname + '/../midias/menufut.gif';
-              const futImagePath = __dirname + '/../midias/menufut.jpg';
-              const futVideoPath = __dirname + '/../midias/menufut.mp4';
-
-              const useVideo = fs.existsSync(futVideoPath);
-              const mediaPath = useVideo ? futVideoPath : (fs.existsSync(futGifPath) ? futGifPath : (fs.existsSync(futImagePath) ? futImagePath : null));
-
-              if (mediaPath && fs.existsSync(mediaPath)) {
-                const mediaBuffer = fs.readFileSync(mediaPath);
-                const menuText = getMenuFut(pushname);
-                const lerMaisPrefix = getMenuLerMaisText ? getMenuLerMaisText() : '';
-
-                await nazu.sendMessage(from, {
-                  [useVideo ? 'video' : 'image']: mediaBuffer,
-                  caption: lerMaisPrefix + menuText,
-                  gifPlayback: useVideo || mediaPath.endsWith('.gif'),
-                  mimetype: useVideo ? 'video/mp4' : (mediaPath.endsWith('.gif') ? 'image/gif' : 'image/jpeg')
-                }, {
-                  quoted: info
-                });
-                return;
-              }
-            }
-            
-            // Mostra menu texto
-            return reply(getMenuFut(pushname));
-          }
-          
-          // Se tem argumentos, passa para o handler normal
           await handleFut(args, {
             sender,
             senderName: pushname,
@@ -32383,6 +32347,37 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
           }, reply);
         } catch (e) {
           console.error('Erro no comando fut:', e);
+          reply("ocorreu um erro 💔");
+        }
+        break;
+      case 'menufut':
+        try {
+          const { getMenuFut } = await import('./games/futebol/menu.js');
+          const futGifPath = __dirname + '/../midias/menufut.gif';
+          const futImagePath = __dirname + '/../midias/menufut.jpg';
+          const futVideoPath = __dirname + '/../midias/menufut.mp4';
+
+          const useVideo = fs.existsSync(futVideoPath);
+          const mediaPath = useVideo ? futVideoPath : (fs.existsSync(futGifPath) ? futGifPath : (fs.existsSync(futImagePath) ? futImagePath : null));
+
+          if (mediaPath && fs.existsSync(mediaPath)) {
+            const mediaBuffer = fs.readFileSync(mediaPath);
+            const menuText = getMenuFut(pushname);
+            const lerMaisPrefix = getMenuLerMaisText ? getMenuLerMaisText() : '';
+
+            await nazu.sendMessage(from, {
+              [useVideo ? 'video' : 'image']: mediaBuffer,
+              caption: lerMaisPrefix + menuText,
+              gifPlayback: useVideo || mediaPath.endsWith('.gif'),
+              mimetype: useVideo ? 'video/mp4' : (mediaPath.endsWith('.gif') ? 'image/gif' : 'image/jpeg')
+            }, {
+              quoted: info
+            });
+          } else {
+            reply(getMenuFut(pushname));
+          }
+        } catch (e) {
+          console.error('Erro no comando menufut:', e);
           reply("ocorreu um erro 💔");
         }
         break;
