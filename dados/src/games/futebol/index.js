@@ -1577,7 +1577,19 @@ Exemplo: *!fut codigo ELITE2026*
     // COMANDOS ADMIN INDEPENDENTES
     // ═══════════════════════════════════════════════════════════════
     
-    case 'futadmin':
+    case 'futadmin': {
+      // Mostrar menu admin diretamente
+      const isAdmin = await checkAdmin();
+      if (!isAdmin) {
+        return sendReply(getAccessDeniedMessage());
+      }
+      const category = args[1]?.toLowerCase();
+      if (category) {
+        return sendReply(getAdminCategoryMenu(category, senderName));
+      }
+      return sendReply(getAdminMenuFut(senderName));
+    }
+
     case 'futaddcoins':
     case 'futremcoins':
     case 'futsetdiv':
@@ -1614,7 +1626,7 @@ Exemplo: *!fut codigo ELITE2026*
     case 'futtorneiocancelar':
     case 'futtorneiolistar':
       return processAdminCommand(command, args);
-    
+
     // ═══════════════════════════════════════════════════════════════
     // COMANDO INVÁLIDO
     // ═══════════════════════════════════════════════════════════════
