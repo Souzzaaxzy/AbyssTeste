@@ -33377,6 +33377,7 @@ break;
       case 'lambida':
       case 'explodir':
       case 'sexo':
+      case 'punheta':
       case 'tomate':
         try {
           const comandosImpróprios = ['sexo', 'surubao', 'goza', 'gozar', 'mamar', 'mamada', 'beijob', 'beijarb', 'tapar'];
@@ -33392,7 +33393,15 @@ break;
           let GamezinData = fs.existsSync(__dirname + '/funcs/json/markgame.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/markgame.json')) : {
             ranks: {}
           };
-          let responseText = GamezinData[command].replaceAll('#nome#', `@${getUserName(menc_os2)}`) || `Voce acabou de dar um(a) ${command} no(a) @${getUserName(menc_os2)}`;
+          
+          // Handle punheta - random message from array
+          let responseText;
+          if (command === 'punheta' && Array.isArray(GamezinData[command])) {
+            const randomMsg = GamezinData[command][Math.floor(Math.random() * GamezinData[command].length)];
+            responseText = randomMsg.replaceAll('@{nome}', `@${getUserName(menc_os2)}`);
+          } else {
+            responseText = GamezinData[command]?.replaceAll('#nome#', `@${getUserName(menc_os2)}`) || `Voce acabou de dar um(a) ${command} no(a) @${getUserName(menc_os2)}`;
+          }
           let media = gamesData.games2[command];
           if (media?.image) {
             await nazu.sendMessage(from, {
