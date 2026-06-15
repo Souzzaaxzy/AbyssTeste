@@ -1364,25 +1364,6 @@ Exemplo: *!fut codigo ELITE2026*
     
     case 'admin':
     case 'futadmin':
-    case 'futaddcoins':
-    case 'futremcoins':
-    case 'futsetdiv':
-    case 'futsetovr':
-    case 'futsetenergy':
-    case 'futaddxp':
-    case 'futsetlevel':
-    case 'futsetevo':
-    case 'futaddevo':
-    case 'futsettreino':
-    case 'futresetxp':
-    case 'futsetsolo':
-    case 'futresetplayer':
-    case 'futresetall':
-    case 'futclubereset':
-    case 'futresetx1':
-    case 'futaddmvp':
-    case 'futsetrep':
-    case 'futaddrep':
       return processAdminCommand('admin', args);
     
     // ═══════════════════════════════════════════════════════════════
