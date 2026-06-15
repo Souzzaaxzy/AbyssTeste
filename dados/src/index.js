@@ -33406,14 +33406,14 @@ break;
           let media = gamesData.games2[command];
           // Resolver caminho absoluto para mídias locais
           const resolveMediaPath = (url) => {
-            if (url.startsWith('./')) {
+            if (typeof url === 'string' && url.startsWith('./')) {
               return path.join(__dirname, '../../', url.substring(2));
             }
             return url;
           };
 
           if (media?.image) {
-            const imagePath = resolveMediaPath(media.image);
+            const imagePath = resolveMediaPath(typeof media.image === 'object' ? media.image.url : media.image);
             const imageBuffer = fs.readFileSync(imagePath);
             await nazu.sendMessage(from, {
               image: imageBuffer,
@@ -33421,7 +33421,7 @@ break;
               mentions: [targetUser]
             });
           } else if (media?.video) {
-            const videoPath = resolveMediaPath(media.video);
+            const videoPath = resolveMediaPath(typeof media.video === 'object' ? media.video.url : media.video);
             const videoBuffer = fs.readFileSync(videoPath);
             await nazu.sendMessage(from, {
               video: videoBuffer,
