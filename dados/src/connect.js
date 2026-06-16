@@ -1380,6 +1380,7 @@ async function createBotSocket(authDir) {
         // Detectar canais em atualizacoes de chats
         KaiserSock.ev.on('chats.update', async (updates) => {
             console.log('[DEBUG] chats.update chamado, updates:', updates?.length || 0);
+            console.log('[DEBUG] Updates:', JSON.stringify(updates));
             if (!updates || updates.length === 0) return;
             
             for (const chat of updates) {
