@@ -259,7 +259,7 @@ const messageQueue = new MessageQueue(8, 10, 2); // 8 workers, 10 lotes, 2 mensa
 
 const configPath = path.join(__dirname, "config.json");
 let config;
-let DEBUG_MODE = false; // Modo debug para logs detalhados
+let DEBUG_MODE = true; // Modo debug para logs detalhados
 
 
 
