@@ -536,9 +536,18 @@ async function createGroupMessage(KaiserSock, groupMetadata, participants, setti
   return message;
 }
 
+  // Adicionar contextInfo com newsletterJid para botão "Ver Canal" nativo
+  const canalJid = settings?.canal;
+  if (canalJid && isWelcome) {
+    message.contextInfo = {
+      ...message.contextInfo,
+      newsletterJid: canalJid,
+      newsletterServerJid: canalJid
+    };
+  }
 
-
-
+  return message;
+}
 
 async function handleGroupParticipantsUpdate(KaiserSock, inf) {
     try {
@@ -716,11 +725,12 @@ async function handleGroupParticipantsUpdate(KaiserSock, inf) {
 
 
                 if (membersToWelcome.length) {
+                    const welcomeSettings = { ...(groupSettings.welcome || {}), textbv: groupSettings.textbv, canal: groupSettings.canal };
                     const message = await createGroupMessage(
                         KaiserSock,
                         groupMetadata,
                         membersToWelcome,
-                        { ...(groupSettings.welcome || {}), textbv: groupSettings.textbv }
+                        welcomeSettings
                     );
 
                     await KaiserSock.sendMessage(from, message);
@@ -754,10 +764,12 @@ async function handleGroupParticipantsUpdate(KaiserSock, inf) {
                 // ═══════════════════════════════════════════════════════════════
 
                 if (groupSettings.exit?.enabled) {
+                    const exitSettings = { canal: groupSettings.canal };
                     const message = await createGroupMessage(
                         KaiserSock,
                         groupMetadata,
                         inf.participants,
+                        exitSettings,
                         groupSettings.exit,
                         false
                     );

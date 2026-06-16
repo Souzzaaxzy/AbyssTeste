@@ -678,19 +678,15 @@ async function createGroupMessage(KaiserSock, groupMetadata, participants, setti
     delete message.text;
   }
 
-  // Adicionar link do canal na mensagem
-  const channelUrl = globalJson.channel?.welcomeUrl || globalJson.channelLink;
-  if (channelUrl && isWelcome) {
-    const originalText = message.text || message.caption || '';
-    const channelLink = '\\n\\n📢 *Ver Canal:* ' + channelUrl;
-
-    if (message.caption) {
-      message.caption = originalText + channelLink;
-    } else {
-      message.text = originalText + channelLink;
-    }
+  // Adicionar contextInfo com newsletterJid para botão "Ver Canal" nativo
+  const canalJid = settings?.canal || groupMetadata?.canal;
+  if (canalJid && isWelcome) {
+    message.contextInfo = {
+      ...message.contextInfo,
+      newsletterJid: canalJid,
+      newsletterServerJid: canalJid
+    };
   }
-
   return message;
 }
 
@@ -777,11 +773,13 @@ const handleCaptchaResponse = async (nazu, info, from, sender, text) => {
           const groupSettings = await loadGroupSettings(isCapUser.groupId);
 
           if (groupSettings.bemvindo) {
+            const welcomeSettings = groupSettings.welcome || { text: groupSettings.textbv };
+            welcomeSettings.canal = groupSettings.canal;
             const message = await createGroupMessage(
               nazu,
               groupMetadata,
               [isCapUser.idOrigin],
-              groupSettings.welcome || { text: groupSettings.textbv }
+              welcomeSettings
             );
             await nazu.sendMessage(isCapUser.groupId, message);
           } else {
