@@ -178,6 +178,14 @@ ${middleBorder} ${menuItemIcon}${prefix}setprefix
 ${bottomBorder}
 
 ${menuTopBorder}
+│ 📢 CANAL (NEWSLETTER)
+${middleBorder}
+${middleBorder} ${menuItemIcon}${prefix}setcanal <JID>
+${middleBorder} ${menuItemIcon}${prefix}vercanal
+${middleBorder} ${menuItemIcon}${prefix}delcanal
+${bottomBorder}
+
+${menuTopBorder}
 │ 💬 AUTO-RESPOSTAS
 ${middleBorder}
 ${middleBorder} ${menuItemIcon}${prefix}addautoadm
