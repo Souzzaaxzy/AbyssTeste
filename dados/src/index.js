@@ -13,6 +13,9 @@ import { handleFut, handleFutCommand } from './games/futebol/index.js';
 
 import dotenv from 'dotenv';
 
+// URL do GIF oficial do Abyss
+const ABYSS_MENU_GIF_URL = 'https://files.catbox.moe/ruuz3h.gif';
+
 // Suprimir warnings de execuções perdidas do node-cron
 const originalWarn = console.warn;
 console.warn = (...args) => {
@@ -22095,7 +22098,7 @@ Precisa de ajuda? Entre em contato:
           }
 
           // Define a mídia a ser usada
-          let mediaPath, useVideo, mediaBuffer;
+          let mediaPath, useVideo, mediaBuffer, useUrl = false;
 
           if (customMediaPath) {
             // Usa a foto personalizada do grupo
@@ -22103,12 +22106,8 @@ Precisa de ajuda? Entre em contato:
             useVideo = false;
             mediaBuffer = fs.readFileSync(mediaPath);
           } else {
-            // Usa a mídia padrão
-            const menuVideoPath = __dirname + '/../midias/menu.mp4';
-            const menuImagePath = __dirname + '/../midias/menu.jpg';
-            useVideo = fs.existsSync(menuVideoPath);
-            mediaPath = useVideo ? menuVideoPath : menuImagePath;
-            mediaBuffer = fs.readFileSync(mediaPath);
+            // Usa URL do GIF oficial do Abyss
+            useUrl = true;
           }
 
           // Obtém o design personalizado do menu
@@ -22123,14 +22122,24 @@ Precisa de ajuda? Entre em contato:
 
           const lerMaisPrefix = getMenuLerMaisText();
 
-          await nazu.sendMessage(from, {
-            [useVideo ? 'video' : 'image']: mediaBuffer,
-            caption: lerMaisPrefix + menuText,
-            gifPlayback: useVideo,
-            mimetype: useVideo ? 'video/mp4' : 'image/jpeg'
-          }, {
-            quoted: info
-          });
+          if (useUrl) {
+            await nazu.sendMessage(from, {
+              video: { url: ABYSS_MENU_GIF_URL },
+              caption: lerMaisPrefix + menuText,
+              gifPlayback: true
+            }, {
+              quoted: info
+            });
+          } else {
+            await nazu.sendMessage(from, {
+              [useVideo ? 'video' : 'image']: mediaBuffer,
+              caption: lerMaisPrefix + menuText,
+              gifPlayback: useVideo,
+              mimetype: useVideo ? 'video/mp4' : 'image/jpeg'
+            }, {
+              quoted: info
+            });
+          }
         }
       case 'antipv3':
         try {
