@@ -1,68 +1,61 @@
-export default async function menuLogos(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭──────────────────────────────────────────────╮⊰ 🌸 『 *${botName}* 』\n│Olá, #user#!\n╰──────────────────────────────────────────────╯`,
-    menuTopBorder = "╭──────────────────────────────────────────────╮",
-    bottomBorder = "╰──────────────────────────────────────────────╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗🍓⭟",
-    separatorIcon = "❁",
-    middleBorder = "│",
-    Logos1txtTitle = "🎨 LOGOTIPOS 1TXT",
-    Logos2txtTitle = "🖼 LOGOTIPOS 2TXT"
+export default async function menulogo(prefix, botName = "Abyss", userName = "Viajante", {
+    header = `╔══════════════════════════════════════════════╗
+║        🎨 ${botName} - CRIADOR DE LOGOS 🎨      ║
+║  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ║
+║            Olá, ${userName}!                     ║
+║        Crie arte das profundezas do void.        ║
+╚══════════════════════════════════════════════╝`,
+    menuTopBorder = "═══════════════════════════════════════════════",
+    bottomBorder = "═══════════════════════════════════════════════",
 } = {}) {
-    const formattedHeader = header.replace(/#user#/g, userName);
-    return `${formattedHeader}
+    return `
 
 ${menuTopBorder}
-│ ${Logos1txtTitle}
-${middleBorder}
-${middleBorder}${menuItemIcon}${prefix}amongus
-${middleBorder}${menuItemIcon}${prefix}royal
-${middleBorder}${menuItemIcon}${prefix}mascotemetal
-${middleBorder}${menuItemIcon}${prefix}firework
-${middleBorder}${menuItemIcon}${prefix}summerbeach
-${middleBorder}${menuItemIcon}${prefix}cloudsky
-${middleBorder}${menuItemIcon}${prefix}techstyle
-${middleBorder}${menuItemIcon}${prefix}watercolor
-${middleBorder}${menuItemIcon}${prefix}ligatures
-${middleBorder}${menuItemIcon}${prefix}graffitistyle
-${middleBorder}${menuItemIcon}${prefix}frozen
-${middleBorder}${menuItemIcon}${prefix}colorful
-${middleBorder}${menuItemIcon}${prefix}balloon
-${middleBorder}${menuItemIcon}${prefix}multicolor
-${middleBorder}${menuItemIcon}${prefix}metal
-${middleBorder}${menuItemIcon}${prefix}doubleexposure
-${middleBorder}${menuItemIcon}${prefix}mascoteneon
-${middleBorder}${menuItemIcon}${prefix}eraser
-${middleBorder}${menuItemIcon}${prefix}america
-${middleBorder}${menuItemIcon}${prefix}snow
-${middleBorder}${menuItemIcon}${prefix}sunset
-${middleBorder}${menuItemIcon}${prefix}halloween
-${middleBorder}${menuItemIcon}${prefix}blood
-${middleBorder}${menuItemIcon}${prefix}hallobat
-${middleBorder}${menuItemIcon}${prefix}cemiterio
-${middleBorder}${menuItemIcon}${prefix}ffavatar
-${middleBorder}${menuItemIcon}${prefix}vintage3d
-${middleBorder}${menuItemIcon}${prefix}hollywood
-${middleBorder}${menuItemIcon}${prefix}glitch
-${middleBorder}${menuItemIcon}${prefix}galaxy
-${middleBorder}${menuItemIcon}${prefix}glossy
-${middleBorder}${menuItemIcon}${prefix}dragonfire
-${middleBorder}${menuItemIcon}${prefix}pubgavatar
-${middleBorder}${menuItemIcon}${prefix}comics
+🎨 *CRIADOR DE LOGOS*
+${menuTopBorder}
+
+◈ LOGOS DE TEXTO
+▸ ${prefix}naruto <texto>       - Logo estilo Naruto
+▸ ${prefix}deathnote <texto>    - Logo estilo Death Note
+▸ ${prefix}glitch <texto>       - Efeito glitch
+▸ ${prefix}carbon <texto>       - Estilo carbono
+▸ ${prefix}neon <texto>         - Texto neon
+▸ ${prefix}matrix <texto>       - Estilo Matrix
+▸ ${prefix}pubg <texto>         - Estilo PUBG
+▸ ${prefix}romantic <texto>     - Estilo romântico
+▸ ${prefix}metallic <texto>     - Efeito metálico
+▸ ${prefix}avengers <texto>     - Estilo Vingadores
+▸ ${prefix}marvel <texto>       - Estilo Marvel
+▸ ${prefix}wolf <texto>         - Logo com lobo
+▸ ${prefix}ph <texto>           - Estilo left
+▸ ${prefix}transformer <texto>  - Estilo Transformer
+▸ ${prefix}business <texto>     - Estilo empresarial
+▸ ${prefix}shadow <texto>       - Sombra sombria
+▸ ${prefix}dragon <texto>       - Logo dragão
+▸ ${prefix}warrior <texto>      - Guerreiro
+▸ ${prefix}steel <texto>        - Aço
+▸ ${prefix}fire <texto>         - Fogo
+▸ ${prefix}gold <texto>         - Ouro
+▸ ${prefix}bluefire <texto>     - Fogo azul
+▸ ${prefix}toxic <texto>        - Tóxico
+▸ ${prefix}thunder <texto>      - Trovão
+▸ ${prefix}galaxy <texto>       - Galáxia
+▸ ${prefix}halloween <texto>    - Halloween
+▸ ${prefix}magma <texto>        - Magma
+▸ ${prefix}horror <texto>       - Horror
+▸ ${prefix}art <texto>          - Arte
+▸ ${prefix}skeleton <texto>     - Esqueleto
+▸ ${prefix}3d <texto>           - 3D
+▸ ${prefix}cemetery <texto>     - Cemitério
+▸ ${prefix}cloud <texto>        - Nuvem
+▸ ${prefix}flower <texto>       - Flor
+▸ ${prefix}crossfire <texto>    - Crossfire
+
+◈ LOGOS COM NOME DO BOT
+▸ ${prefix}logokaiser <texto>   - Logo Kaiser
+
 ${bottomBorder}
 
-${menuTopBorder}
-│ ${Logos2txtTitle}
-${middleBorder}
-${middleBorder}${menuItemIcon}${prefix}pornhub
-${middleBorder}${menuItemIcon}${prefix}avengers
-${middleBorder}${menuItemIcon}${prefix}graffiti
-${middleBorder}${menuItemIcon}${prefix}captainamerica
-${middleBorder}${menuItemIcon}${prefix}stone3d
-${middleBorder}${menuItemIcon}${prefix}neon2
-${middleBorder}${menuItemIcon}${prefix}thor
-${middleBorder}${menuItemIcon}${prefix}amongus
-${middleBorder}${menuItemIcon}${prefix}deadpool
-${middleBorder}${menuItemIcon}${prefix}blackpink
-${bottomBorder}`;
+◈ *Crie arte das sombras* ◈
+_"O void inspira tua criatividade..."_`;
 }

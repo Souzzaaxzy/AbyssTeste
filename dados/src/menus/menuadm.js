@@ -1,11 +1,16 @@
-export default async function menuadm(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╔══════════════════════════════════════════════╗\n║              🤖 ${botName}              ║\n║              Olá, ${userName}!              ║\n╚══════════════════════════════════════════════╝`,
-    menuTopBorder = "╭──────────────────────────────────────────────╮",
-    bottomBorder = "╰──────────────────────────────────────────────╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗🍓⭟",
-    separatorIcon = "❁",
-    middleBorder = "│",
+export default async function menuadm(prefix, botName = "Abyss", userName = "Viajante", {
+    header = `╔══════════════════════════════════════════════╗
+║        🌌 ${botName} - PAINEL DO VOID 🌌        ║
+║  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ║
+║            Olá, ${userName}!                     ║
+║        Você comanda as sombras...                ║
+╚══════════════════════════════════════════════╝`,
+    menuTopBorder = "═══════════════════════════════════════════════",
+    bottomBorder = "═══════════════════════════════════════════════",
+    menuTitleIcon = "◈",
+    menuItemIcon = "▸",
+    separatorIcon = "─",
+    middleBorder = "",
     adminMenuTitle = "🛡️ GESTÃO DE USUÁRIOS",
     managementMenuTitle = "💬 GESTÃO DO GRUPO",
     securityMenuTitle = "🔒 SEGURANÇA",
@@ -16,218 +21,98 @@ export default async function menuadm(prefix, botName = "MeuBot", userName = "Us
     electionMenuTitle = "🏛️ SISTEMA DE ELEIÇÃO",
     alphasMenuTitle = "🐺 CARGO ALPHA"
 } = {}) {
-    return `${header}
+    return `
 
 ${menuTopBorder}
-│ ${electionMenuTitle}
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}eleicao (iniciar eleição)
-${middleBorder} ${menuItemIcon}${prefix}cand (se candidatar)
-${middleBorder} ${menuItemIcon}${prefix}tempeleicao (configurar tempos)
+⚙️ *PAINEL DE ADMINISTRAÇÃO*
+${menuTopBorder}
+
+◈ ${electionMenuTitle}
+▸ ${prefix}eleicao         - Iniciar eleição
+▸ ${prefix}cand            - Candidatar-se
+▸ ${prefix}tempeleicao     - Configurar tempos
+
+◈ ${adminMenuTitle}
+▸ ${prefix}ban             - Banir usuário
+▸ ${prefix}roletaban       - Roleta de ban
+▸ ${prefix}ban2            - Ban alternativo
+▸ ${prefix}enquete         - Criar enquete
+▸ ${prefix}chamar @user    - Chamar usuário
+▸ ${prefix}bam             - Ban falso
+▸ ${prefix}promover        - Promover a admin
+▸ ${prefix}rebaixar        - Rebaixar
+▸ ${prefix}mute            - Silenciar
+▸ ${prefix}desmute         - Desilenciar
+▸ ${prefix}adv             - Dar advertência
+▸ ${prefix}rmadv           - Remover advertência
+▸ ${prefix}listadv         - Listar avisos
+▸ ${prefix}checkativo      - Verificar atividade
+
+◈ 🔒 CONTROLE DE ACESSO
+▸ ${prefix}blockuser       - Bloquear usuário
+▸ ${prefix}unblockuser     - Desbloquear
+▸ ${prefix}addblacklist    - Adicionar à blacklist
+▸ ${prefix}blockcmd        - Bloquear comando
+▸ ${prefix}unblockcmd      - Desbloquear comando
+
+◈ ${managementMenuTitle}
+▸ ${prefix}del             - Deletar mensagem
+▸ ${prefix}limpar          - Limpar chat
+▸ ${prefix}marcar          - Marcar todos
+▸ ${prefix}hidetag         - Marcar隐秘
+▸ ${prefix}sorteio         - Sortear
+▸ ${prefix}fotogrupo       - Mudar foto
+▸ ${prefix}addregra        - Adicionar regra
+▸ ${prefix}role.criar      - Criar cargo
+
+◈ ⚙️ GRUPO & PERMISSÕES
+▸ ${prefix}linkgp          - Ver link
+▸ ${prefix}grupo A/F       - Abrir/fechar
+▸ ${prefix}opengp HH:MM    - Agendar abertura
+▸ ${prefix}closegp HH:MM   - Agendar fechamento
+▸ ${prefix}solicitacoes    - Ver solicitudes
+▸ ${prefix}aprovar         - Aprovar entrada
+
+◈ ${moderatorsMenuTitle}
+▸ ${prefix}addmod          - Adicionar mod
+▸ ${prefix}delmod          - Remover mod
+▸ ${prefix}listmods        - Listar mods
+
+◈ ${alphasMenuTitle}
+▸ ${prefix}addalpha        - Adicionar Alpha
+▸ ${prefix}delalpha        - Remover Alpha
+▸ ${prefix}listalphas      - Listar Alphas
+
+◈ 🔒 SEGURANÇA & PROTEÇÃO
+▸ ${prefix}antiflood       - Anti-flood
+▸ ${prefix}antidoc         - Anti-documento
+▸ ${prefix}antiloc         - Anti-localização
+▸ ${prefix}antifig         - Anti-figurinha
+▸ ${prefix}antilinkgp      - Anti-link de grupo
+▸ ${prefix}antiporn        - Anti-pornografia
+▸ ${prefix}antitoxic       - Anti-toxicidade
+▸ ${prefix}antipalavra     - Anti-palavras
+
+◈ ${settingsMenuTitle}
+▸ ${prefix}legendabv       - Configurar boas-vindas
+▸ ${prefix}fotobv          - Foto de boas-vindas
+▸ ${prefix}saida           - Configurar saída
+▸ ${prefix}setprefix       - Definir prefixo
+
+◈ ⚡ ATIVAÇÕES
+▸ ${prefix}autodl          - Auto-download
+▸ ${prefix}modorpg         - Ativar RPG
+▸ ${prefix}modobn          - Modo boas-vindas
+▸ ${prefix}bemvindo        - Sistema de BV
+▸ ${prefix}autosticker     - Auto-sticker
+▸ ${prefix}modolite        - ModoLite
+
+◈ 🤖 SISTEMA DE NPCs
+▸ ${prefix}npc on/off      - Ligar/desligar NPC
+▸ ${prefix}npc config      - Configurar NPC
+
 ${bottomBorder}
 
-${menuTopBorder}
-│ ${adminMenuTitle}
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}ban
-${middleBorder} ${menuItemIcon}${prefix}roletaban
-${middleBorder} ${menuItemIcon}${prefix}ban2
-	${middleBorder} ${menuItemIcon}${prefix}enquete
-	${middleBorder} ${menuItemIcon}${prefix}chamar @user <qtd>
-	${middleBorder} ${menuItemIcon}${prefix}tester (marcar enquete)
-${middleBorder} ${menuItemIcon}${prefix}bam (ban fake)
-${middleBorder} ${menuItemIcon}${prefix}setbammsg
-${middleBorder} ${menuItemIcon}${prefix}promover
-${middleBorder} ${menuItemIcon}${prefix}rebaixar
-${middleBorder} ${menuItemIcon}${prefix}mute
-${middleBorder} ${menuItemIcon}${prefix}desmute
-${middleBorder} ${menuItemIcon}${prefix}mute2
-${middleBorder} ${menuItemIcon}${prefix}desmute2
-${middleBorder} ${menuItemIcon}${prefix}adv
-${middleBorder} ${menuItemIcon}${prefix}rmadv
-${middleBorder} ${menuItemIcon}${prefix}listadv
-${middleBorder} ${menuItemIcon}${prefix}limparrank
-${middleBorder} ${menuItemIcon}${prefix}resetrank
-${middleBorder} ${menuItemIcon}${prefix}mantercontador
-${middleBorder} ${menuItemIcon}${prefix}atividade
-${middleBorder} ${menuItemIcon}${prefix}checkativo
-${bottomBorder}
-
-${menuTopBorder}
-│ 🔒 CONTROLE DE ACESSO
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}blockuser
-${middleBorder} ${menuItemIcon}${prefix}unblockuser
-${middleBorder} ${menuItemIcon}${prefix}listblocksgp
-${middleBorder} ${menuItemIcon}${prefix}addblacklist
-${middleBorder} ${menuItemIcon}${prefix}delblacklist
-${middleBorder} ${menuItemIcon}${prefix}listblacklist
-${middleBorder} ${menuItemIcon}${prefix}blockcmd
-${middleBorder} ${menuItemIcon}${prefix}unblockcmd
-${bottomBorder}
-
-${menuTopBorder}
-│ ${managementMenuTitle}
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}del
-${middleBorder} ${menuItemIcon}${prefix}limpar
-${middleBorder} ${menuItemIcon}${prefix}marcar
-${middleBorder} ${menuItemIcon}${prefix}hidetag
-${middleBorder} ${menuItemIcon}${prefix}sorteio
-${middleBorder} ${menuItemIcon}${prefix}nomegp
-${middleBorder} ${menuItemIcon}${prefix}descgrupo
-${middleBorder} ${menuItemIcon}${prefix}fotogrupo
-${middleBorder} ${menuItemIcon}${prefix}addregra
-${middleBorder} ${menuItemIcon}${prefix}delregra
-${middleBorder} ${menuItemIcon}${prefix}role.criar
-${middleBorder} ${menuItemIcon}${prefix}role.alterar
-${middleBorder} ${menuItemIcon}${prefix}role.excluir
-${bottomBorder}
-
-${menuTopBorder}
-│ ⚙️ GRUPO & PERMISSÕES
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}linkgp
-${middleBorder} ${menuItemIcon}${prefix}grupo A/F
-${middleBorder} ${menuItemIcon}${prefix}opengp HH:MM|off
-${middleBorder} ${menuItemIcon}${prefix}closegp HH:MM|off
-${middleBorder} ${menuItemIcon}${prefix}automsg
-${middleBorder} ${menuItemIcon}${prefix}banghost
-${middleBorder} ${menuItemIcon}${prefix}limitmessage
-${middleBorder} ${menuItemIcon}${prefix}dellimitmessage
-${middleBorder}
-${middleBorder} ${menuTitleIcon} SOLICITAÇÕES ${menuTitleIcon}
-${middleBorder} ${menuItemIcon}${prefix}solicitacoes
-${middleBorder} ${menuItemIcon}${prefix}aprovar
-${middleBorder} ${menuItemIcon}${prefix}aprovar all
-${middleBorder} ${menuItemIcon}${prefix}recusarsolic
-${bottomBorder}
-
-${menuTopBorder}
-│ ${moderatorsMenuTitle}
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}addmod
-${middleBorder} ${menuItemIcon}${prefix}delmod
-${middleBorder} ${menuItemIcon}${prefix}listmods
-${middleBorder} ${menuItemIcon}${prefix}grantmodcmd
-${middleBorder} ${menuItemIcon}${prefix}revokemodcmd
-${middleBorder} ${menuItemIcon}${prefix}listmodcmds
-${bottomBorder}
-
-${menuTopBorder}
-│ ${alphasMenuTitle}
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}addalpha
-${middleBorder} ${menuItemIcon}${prefix}delalpha
-${middleBorder} ${menuItemIcon}${prefix}listalphas
-${middleBorder} ${menuItemIcon}${prefix}grantalphacmd
-${middleBorder} ${menuItemIcon}${prefix}revokealphacmd
-${middleBorder} ${menuItemIcon}${prefix}listalphacmds
-${bottomBorder}
-
-${menuTopBorder}
-│ 🛡️ WHITELIST DE ANTIS
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}wladd
-${middleBorder} ${menuItemIcon}${prefix}wl.remove
-${middleBorder} ${menuItemIcon}${prefix}wl.lista
-${bottomBorder}
-
-${menuTopBorder}
-│ ${partnershipsMenuTitle}
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}parcerias
-${middleBorder} ${menuItemIcon}${prefix}addparceria
-${middleBorder} ${menuItemIcon}${prefix}delparceria
-${bottomBorder}
-
-${menuTopBorder}
-│ 🔒 SEGURANÇA & PROTEÇÃO
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}antiflood
-${middleBorder} ${menuItemIcon}${prefix}x9
-${middleBorder} ${menuItemIcon}${prefix}antidoc
-${middleBorder} ${menuItemIcon}${prefix}antiloc
-${middleBorder} ${menuItemIcon}${prefix}antifig
-${middleBorder} ${menuItemIcon}${prefix}antibtn
-${middleBorder} ${menuItemIcon}${prefix}antistickerplus
-${middleBorder} ${menuItemIcon}${prefix}antilinkgp
-${middleBorder} ${menuItemIcon}${prefix}antilinkcanal
-${middleBorder} ${menuItemIcon}${prefix}antilinkhard
-${middleBorder} ${menuItemIcon}${prefix}antilinksoft
-${middleBorder} ${menuItemIcon}${prefix}antiporn
-${middleBorder} ${menuItemIcon}${prefix}antistatus
-${middleBorder} ${menuItemIcon}${prefix}antitoxic <on/off>
-${middleBorder} ${menuItemIcon}${prefix}antitoxic config <ação>
-${middleBorder} ${menuItemIcon}${prefix}antitoxic sensibilidade <0-100>
-${middleBorder} ${menuItemIcon}${prefix}antipalavra <on/off/add/del/list>
-${bottomBorder}
-
-${menuTopBorder}
-│ ${settingsMenuTitle}
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}legendasaiu
-${middleBorder} ${menuItemIcon}${prefix}legendabv
-${middleBorder} ${menuItemIcon}${prefix}fotobv
-${middleBorder} ${menuItemIcon}${prefix}set-fotobv
-${middleBorder} ${menuItemIcon}${prefix}set-bannerbv
-${middleBorder} ${menuItemIcon}${prefix}rmfotobv
-${middleBorder} ${menuItemIcon}${prefix}fotosaiu
-${middleBorder} ${menuItemIcon}${prefix}rmfotosaiu
-${middleBorder} ${menuItemIcon}${prefix}setprefix
-${bottomBorder}
-
-${menuTopBorder}
-│ 📢 CANAL (NEWSLETTER)
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}setcanal <JID>
-${middleBorder} ${menuItemIcon}${prefix}vercanal
-${middleBorder} ${menuItemIcon}${prefix}delcanal
-${bottomBorder}
-
-${menuTopBorder}
-│ 💬 AUTO-RESPOSTAS
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}addautoadm
-${middleBorder} ${menuItemIcon}${prefix}addautoadmidia
-${middleBorder} ${menuItemIcon}${prefix}listautoadm
-${middleBorder} ${menuItemIcon}${prefix}delautoadm
-${middleBorder} ${menuItemIcon}${prefix}autorespostas
-${middleBorder} ${menuItemIcon}${prefix}autorepo
-${bottomBorder}
-
-${menuTopBorder}
-│ ⚡ MODO & ATIVAÇÕES
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}autodl
-${middleBorder} ${menuItemIcon}${prefix}minmessage
-${middleBorder} ${menuItemIcon}${prefix}assistente
-${middleBorder} ${menuItemIcon}${prefix}modobn
-${middleBorder} ${menuItemIcon}${prefix}modoparceria
-${middleBorder} ${menuItemIcon}${prefix}modorpg
-${middleBorder} ${menuItemIcon}${prefix}modofut
-${middleBorder} ${menuItemIcon}${prefix}modolite
-${middleBorder} ${menuItemIcon}${prefix}bemvindo
-${middleBorder} ${menuItemIcon}${prefix}bemvindo2
-${middleBorder} ${menuItemIcon}${prefix}saida
-${middleBorder} ${menuItemIcon}${prefix}autosticker
-${middleBorder} ${menuItemIcon}${prefix}soadm
-${middleBorder} ${menuItemIcon}${prefix}cmdlimit
-${middleBorder} ${menuItemIcon}${prefix}fotomenugrupo
-${middleBorder} ${menuItemIcon}${prefix}nomegp
-${middleBorder} ${menuItemIcon}${prefix}infoperso
-${bottomBorder}
-
-${menuTopBorder}
-│ 🤖 SISTEMA DE NPCs
-${middleBorder}
-${middleBorder} ${menuItemIcon}${prefix}npc on
-${middleBorder} ${menuItemIcon}${prefix}npc off
-${middleBorder} ${menuItemIcon}${prefix}npc status
-${middleBorder} ${menuItemIcon}${prefix}npc cooldown <segundos>
-${middleBorder} ${menuItemIcon}${prefix}npc jornal on
-${middleBorder} ${menuItemIcon}${prefix}npc jornal off
-${middleBorder} ${menuItemIcon}${prefix}npc config
-${bottomBorder}
-`;
+◈ *O Void te dá poder absoluto* ◈
+_"Você agora comanda as sombras..."_`;
 }
