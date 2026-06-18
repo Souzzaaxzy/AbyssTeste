@@ -734,7 +734,7 @@ async function createGroupMessage(KaiserSock, groupMetadata, participants, setti
   };
 
   const defaultText = isWelcome
-    ? (globalJson.textbv || "╭━━━⊱ 🌟 *BEM-VINDO(A/S)!* 🌟 ⊱━━━╮\n│\n│ 👤 #numerodele#\n│\n│ 🏠 Grupo: *#nomedogp#*\n│ 👥 Membros: *#membros#*\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━╯\n\n✨ *Seja bem-vindo(a/s) ao grupo!* ✨")
+    ? (globalJson.textbv || "╭━━━⊱ 🌟 **BEM-VINDO AO VOID*!* 🌟 ⊱━━━╮\n│\n│ 👤 #numerodele#\n│\n│ 🏠 Grupo: *#nomedogp#*\n│ 👥 Membros: *#membros#*\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━╯\n\n◈ *Seja bem-vindo ao abismo!* ◈")
     : (globalJson.exit?.text || "╭━━━⊱ 👋 *ATÉ LOGO!* 👋 ⊱━━━╮\n│\n│ 👤 #numerodele#\n│\n│ 🚪 Saiu do grupo\n│ *#nomedogp#*\n│\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n💫 *Até a próxima!* 💫");
 
   const text = formatMessageText(settings.text || defaultText, replacements);
@@ -1472,7 +1472,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
           `┃ 👤 ${result.user?.username || 'Usuário'}\n` +
           `┃\n` +
           `╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n` +
-          `✨ Conteúdo baixado com sucesso!`;
+          `◈ Conteúdo baixado com sucesso!`;
         if (media.type === 'video') {
           await nazu.sendMessage(from, {
             video: { url: media.url },
@@ -1550,7 +1550,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
             `│ 🔗 Link » ${url}\n` +
             `│\n` +
             `╰─────────────────────⭓\n\n` +
-            `✨ 𝗠𝗶́𝗱𝗶𝗮 𝗯𝗮𝗶𝘅𝗮𝗱𝗮!`;
+            `◈ 𝗠𝗶́𝗱𝗶𝗮 𝗯𝗮𝗶𝘅𝗮𝗱𝗮!`;
           if (result.type === 'video') {
             await nazu.sendMessage(from, {
               video: { url: mediaUrl },
@@ -1998,7 +1998,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       lines.push(`🎫 Código: *${code}*`);
       if (roleData.title) lines.push(`📛 Título: ${roleData.title}`);
       if (roleData.when) lines.push(`🗓️ Quando: ${roleData.when}`);
-      if (roleData.where) lines.push(`📍 Onde: ${roleData.where}`);
+      if (roleData.where) lines.push(`▸ Onde: ${roleData.where}`);
       if (roleData.description) lines.push(`📝 Descrição: ${roleData.description}`);
       lines.push('');
       const goingCount = going.length;
@@ -2360,7 +2360,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         return;
       };
       if (antipvData.mode === 'antipv2' && isCmd && !isOwner && !isPremium && !isTm2Command) {
-        await reply(antipvData.message || '🚫 Este comando só funciona em grupos!');
+        await reply(antipvData.message || '🚫 ◈ Este comando só funciona em grupos!');
         return;
       };
       if (antipvData.mode === 'antipv3' && isCmd && !isOwner && !isPremium && !isTm2Command) {
@@ -2369,7 +2369,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         return;
       };
       if (antipvData.mode === 'antipv4' && !isOwner && !isPremium && !isTm2Command) {
-        await reply(antipvData.message || '🚫 Este comando só funciona em grupos!');
+        await reply(antipvData.message || '🚫 ◈ Este comando só funciona em grupos!');
         return;
       };
     };
@@ -2776,7 +2776,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
           cfg.blocks[sender] = { until: now + blockMs, at: new Date().toISOString(), count: arr.length };
           writeJsonFile(DATABASE_DIR + '/antispam.json', cfg);
           return reply(`🚫 Anti-spam: você excedeu o limite de ${limit} comandos em ${cfg.interval}s.
-🔒 Bloqueado por ${Math.floor(blockMs / 60000)} min.`);
+⚙️ Bloqueado por ${Math.floor(blockMs / 60000)} min.`);
         }
         writeJsonFile(DATABASE_DIR + '/antispam.json', cfg);
       } catch (e) {
@@ -3130,7 +3130,7 @@ Código: *${roleCode}*`,
         lines.push(`🗓️ *Quando:* ${roleData.when}`);
       }
       if (roleData.where) {
-        lines.push(`📍 *Onde:* ${roleData.where}`);
+        lines.push(`▸ *Onde:* ${roleData.where}`);
       }
       if (roleData.description) {
         lines.push(`📝 *Descrição:* ${roleData.description}`);
@@ -3420,7 +3420,7 @@ Código: *${roleCode}*`,
             } else {
               try {
                 await nazuInstance.groupSettingUpdate(groupId, 'announcement');
-                await nazuInstance.sendMessage(groupId, { text: '🔒 Grupo fechado automaticamente pelo agendamento diário.' });
+                await nazuInstance.sendMessage(groupId, { text: '⚙️ Grupo fechado automaticamente pelo agendamento diário.' });
                 console.log(`[Cron] ✅ Grupo FECHADO automaticamente: ${groupId.substring(0, 15)}... às ${normalized}`);
               } catch (e) {
                 console.error(`[Cron Error] close ${groupId}:`, e);
@@ -4621,7 +4621,7 @@ if (  isGroup &&  groupData.antistickerplus &&  !isGroupAdmin &&  !isOwner &&  !
 
         // Responder quando alguém manda só "prefixo" no chat
         if (isGroup && !isCmd && budy2 && budy2.trim().toLowerCase() === 'prefixo') {
-          await reply(`Olá! Esse é o meu prefixo atual: *${prefix}*\n\nUse ele antes de qualquer comando! 😊`);
+          await reply(`🌌 Esse é o meu prefixo atual: *${prefix}*\n\nUse o poder do void! 😊`);
         }
 
         if (isGroup && antipalavra && body && !isCmd) {
@@ -5064,11 +5064,11 @@ if (  isGroup &&  groupData.antistickerplus &&  !isGroupAdmin &&  !isOwner &&  !
             // Fallback: sempre gerar uma resposta se a IA não retornou nada válido
             const fallbackRespostas = [
               // Cumprimentos e saudações
-              'Oi! Tudo bem? 😊',
-              'Hey! Como você tá? 🌙',
-              'Olááá! Tudo certo por aí?',
+              '🌌 Tudo bem nas sombras?',
+              '🌌 Como você está no void? 🌙',
+              '🌌 Tudo certo no abismo?',
               'Eii! Que bom te ver! 😊',
-              'Oi gente! 😊',
+              '🌌 Olá, viajantes!',
               
               // Confirmar entendimento
               'Hm... deixa eu pensar... 🌙',
@@ -5310,19 +5310,19 @@ if (  isGroup &&  groupData.antistickerplus &&  !isGroupAdmin &&  !isOwner &&  !
 
           // Verificações de permissão/contexto
           if (settings.ownerOnly && !isOwner) {
-            return reply('🚫 Este comando só pode ser usado pelo dono do bot.');
+            return reply('🚫 ◈ Este comando é só para o dono do bot.');
           }
           if (settings.adminOnly && !isGroup) {
-            return reply('🚫 Este comando só pode ser usado por admins do grupo (em grupos apenas).');
+            return reply('🚫 ◈ Este comando é só para admins do grupo (em grupos apenas).');
           }
           if (settings.adminOnly && isGroup && !isGroupAdmin) {
-            return reply('🚫 Este comando só pode ser usado por admins do grupo.');
+            return reply('🚫 ◈ Este comando é só para admins do grupo.');
           }
           if (settings.context === 'group' && !isGroup) {
-            return reply('⚠️ Este comando está restrito a grupos.');
+            return reply('⚠️ ◈ Este comando é só para grupos.');
           }
           if (settings.context === 'private' && isGroup) {
-            return reply('⚠️ Este comando está restrito ao privado.');
+            return reply('⚠️ ◈ Este comando é só no privado.');
           }
 
           // Verificar parâmetros obrigatórios e tipos (baseado na ordem)
@@ -5638,7 +5638,7 @@ if (  isGroup &&  groupData.antistickerplus &&  !isGroupAdmin &&  !isOwner &&  !
     // Verificação de comandos VIP
     if (isCmd && vipCommandsManager.isVipCommand(command)) {
       if (!isPremium) {
-        await reply(`🔒 *Comando VIP Exclusivo*
+        await reply(`⚙️ *Comando VIP Exclusivo*
 
 Este comando está disponível apenas para usuários VIP/Premium!
 
@@ -5652,7 +5652,7 @@ Este comando está disponível apenas para usuários VIP/Premium!
 Entre em contato com o dono do bot:
 • Use: ${prefix}dono
 
-✨ Use ${prefix}menuvip para ver todos os comandos VIP disponíveis!`);
+◈ Use ${prefix}menuvip para ver todos os comandos VIP disponíveis!`);
         return;
       }
     }
@@ -5684,7 +5684,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'listaroles': {
         try {
           if (!isGroup) {
-            await reply('⚠️ Este comando só pode ser usado em grupos.');
+            await reply('⚠️ ◈ Este comando é só para grupos.');
             break;
           }
 
@@ -5719,7 +5719,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'role.criar': {
         try {
           if (!isGroup) {
-            await reply('⚠️ Este comando só pode ser usado em grupos.');
+            await reply('⚠️ ◈ Este comando é só para grupos.');
             break;
           }
           if (!isGroupAdmin) {
@@ -5769,7 +5769,7 @@ if (isCmd && command && !isOwnerOrSub) {
           ];
           if (title) lines.push(`📛 Título: ${title}`);
           if (when) lines.push(`🗓️ Quando: ${when}`);
-          if (where) lines.push(`📍 Onde: ${where}`);
+          if (where) lines.push(`▸ Onde: ${where}`);
           if (description) lines.push(`📝 Descrição: ${description}`);
           lines.push('');
           lines.push(`🙋 Reaja com ${ROLE_GOING_BASE} ou use ${groupPrefix}role.vou ${code}`);
@@ -5842,7 +5842,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'role.alterar': {
         try {
           if (!isGroup) {
-            await reply('⚠️ Este comando só pode ser usado em grupos.');
+            await reply('⚠️ ◈ Este comando é só para grupos.');
             break;
           }
           if (!isGroupAdmin) {
@@ -5907,7 +5907,7 @@ if (isCmd && command && !isOwnerOrSub) {
           ];
           if (roleData.title) lines.push(`📛 Título: ${roleData.title}`);
           if (roleData.when) lines.push(`🗓️ Quando: ${roleData.when}`);
-          if (roleData.where) lines.push(`📍 Onde: ${roleData.where}`);
+          if (roleData.where) lines.push(`▸ Onde: ${roleData.where}`);
           if (roleData.description) lines.push(`📝 Descrição: ${roleData.description}`);
           lines.push('');
           lines.push(`🙋 Reaja com ${ROLE_GOING_BASE} ou use ${groupPrefix}role.vou ${code}`);
@@ -5963,7 +5963,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'role.excluir': {
         try {
           if (!isGroup) {
-            await reply('⚠️ Este comando só pode ser usado em grupos.');
+            await reply('⚠️ ◈ Este comando é só para grupos.');
             break;
           }
           if (!isGroupAdmin) {
@@ -6012,7 +6012,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'role.vou': {
         try {
           if (!isGroup) {
-            await reply('⚠️ Este comando só pode ser usado em grupos.');
+            await reply('⚠️ ◈ Este comando é só para grupos.');
             break;
           }
 
@@ -6054,7 +6054,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'role.nvou': {
         try {
           if (!isGroup) {
-            await reply('⚠️ Este comando só pode ser usado em grupos.');
+            await reply('⚠️ ◈ Este comando é só para grupos.');
             break;
           }
 
@@ -6098,7 +6098,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'role.info': {
         try {
           if (!isGroup) {
-            await reply('⚠️ Este comando só pode ser usado em grupos.');
+            await reply('⚠️ ◈ Este comando é só para grupos.');
             break;
           }
           const code = sanitizeRoleCode(args[0] || '');
@@ -6118,7 +6118,7 @@ if (isCmd && command && !isOwnerOrSub) {
           lines.push(`🪩 *${roleData.title || code}*`);
           lines.push(`🎫 Código: ${code}`);
           if (roleData.when) lines.push(`🗓️ Quando: ${roleData.when}`);
-          if (roleData.where) lines.push(`📍 Onde: ${roleData.where}`);
+          if (roleData.where) lines.push(`▸ Onde: ${roleData.where}`);
           if (roleData.description) lines.push(`📝 Descrição: ${roleData.description}`);
           lines.push('');
           lines.push(`🙋 Confirmados (${going.length}):`);
@@ -6235,7 +6235,7 @@ if (isCmd && command && !isOwnerOrSub) {
         try {
           // Verificar se o modo fut está desativado
           if (groupData.modofut === false) {
-            return reply('🔒 *Modo Futebol desativado neste grupo.*\n\n📌 Administradores: use *!modofut* para ativar.');
+            return reply('⚙️ *Modo Futebol desativado neste grupo.*\n\n📌 Administradores: use *!modofut* para ativar.');
           }
           
           // Corrigir args para comandos como !futadmin (sem espaço)
@@ -6379,7 +6379,7 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'modorpg':
       case 'rpgmode': {
-        if (!isGroup) return reply('Este comando só funciona em grupos.');
+        if (!isGroup) return reply('◈ Este comando só funciona em grupos.');
         if (!isGroupAdmin) return reply('Apenas administradores podem usar este comando.');
         groupData.modorpg = !groupData.modorpg;
         writeJsonFile(groupFile, groupData);
@@ -6387,7 +6387,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (isGroup) {
           optimizer.invalidateGroup(from);
         }
-        await reply(`⚔️ Modo RPG ${groupData.modorpg ? 'ATIVADO' : 'DESATIVADO'} neste grupo.\n\n${groupData.modorpg ? '🎮 Agora os membros podem usar todos os comandos RPG!' : '🔒 Comandos RPG desativados.'}`);
+        await reply(`◈ Modo RPG ${groupData.modorpg ? 'ATIVADO' : 'DESATIVADO'} neste grupo.\n\n${groupData.modorpg ? '🌌 Agora os membros podem usar todos os comandos RPG!' : '⚙️ Comandos RPG desativados.'}`);
         break;
       }
 
@@ -6477,8 +6477,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'daily':
       case 'resetrpg':
         {
-          if (!isGroup) return reply('⚔️ Os comandos RPG funcionam apenas em grupos.');
-          if (!groupData.modorpg) return reply(`⚔️ *Modo RPG desativado!*\n\n🔒 Este recurso está disponível apenas quando o Modo RPG está ativado.\n🔐 *Administradores* podem ativar com: ${prefix}modorpg\n\n💡 Use ${prefix}menurpg para ver todos os comandos!`);
+          if (!isGroup) return reply('◈ Os comandos RPG funcionam apenas em grupos.');
+          if (!groupData.modorpg) return reply(`◈ *Modo RPG desativado!*\n\n⚙️ Este recurso está disponível apenas quando o Modo RPG está ativado.\n🔐 *Administradores* podem ativar com: ${prefix}modorpg\n\n💡 Use ${prefix}menurpg para ver todos os comandos!`);
           const econ = loadEconomy();
           const changedEconomy = ensureEconomyDefaults(econ);
           const me = getEcoUser(econ, sender);
@@ -6492,7 +6492,7 @@ if (isCmd && command && !isOwnerOrSub) {
           if (['ranklevel', 'ranklvl', 'rankinglevel', 'levels', 'toplevels'].includes(sub)) {
             // Se estiver em grupo, usamos o ranking do grupo (RPG)
             if (isGroup) {
-              if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+              if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
               const levelingData = loadLevelingSafe();
               const userEntries = Object.entries(levelingData.users || {});
               const groupUsers = userEntries.filter(([id, data]) => AllgroupMembers.includes(id));
@@ -6514,7 +6514,7 @@ if (isCmd && command && !isOwnerOrSub) {
                 text += `   🏅 ${user.patent} | 💬 ${user.messages} msgs | ⚡ ${user.commands} cmds\n`;
                 mentions.push(user.id);
               });
-              text += '\n✨ Continue jogando e interagindo para subir no ranking!';
+              text += '\n◈ Continue jogando e interagindo para subir no ranking!';
               return reply(text, { mentions });
             }
 
@@ -6588,12 +6588,12 @@ if (isCmd && command && !isOwnerOrSub) {
 
             // Classe
             const classes = {
-              'spartano': { emoji: '⚔️', name: 'Spartano' },
+              'spartano': { emoji: '◈', name: 'Spartano' },
               'mago': { emoji: '🧙', name: 'Mago' },
               'arqueiro': { emoji: '🏹', name: 'Arqueiro' },
               'curandeiro': { emoji: '💚', name: 'Curandeiro' },
               'ladino': { emoji: '🗡️', name: 'Ladino' },
-              'paladino': { emoji: '🛡️', name: 'Paladino' }
+              'paladino': { emoji: '⚙️', name: 'Paladino' }
             };
             const classeInfo = me.classe ? `${classes[me.classe]?.emoji} ${classes[me.classe]?.name}` : 'Nenhuma';
 
@@ -6647,18 +6647,18 @@ if (isCmd && command && !isOwnerOrSub) {
             const combatStats = calculateCombatStats(me, econ);
             
             let text = `╭─────────────────────⭓\n` +
-              `│      ⚔️ 𝗞𝗔𝗜𝗦𝗘𝗥 𝗔𝗩𝗘𝗡𝗧𝗨𝗥𝗘𝗜𝗥𝗢 ⚔️\n` +
+              `│      ◈ 𝗞𝗔𝗜𝗦𝗘𝗥 𝗔𝗩𝗘𝗡𝗧𝗨𝗥𝗘𝗜𝗥𝗢 ◈\n` +
               `├─────────────────────⭓\n` +
               `│\n` +
               `│ 👤 Usuário » @${sender.split('@')[0]}\n` +
               `│ 🎖️ Patente » ${me.patent || 'Iniciante'}\n` +
               `│ 🆙 Nível » ${level} (XP: ${expProgress})\n` +
-              `│ 💎 Prestige » ${prestigeLevel}x  🛡️ Streak » ${streak} dias\n` +
+              `│ 💎 Prestige » ${prestigeLevel}x  ⚙️ Streak » ${streak} dias\n` +
               `│\n` +
               `├──────── **𝗦𝗧𝗔𝗧𝗦** ────────⭓\n` +
               `│\n` +
-              `│ ⚔️ ATK » ${combatStats.attack} (+${me.attackBonus || 0})\n` +
-              `│ 🛡️ DEF » ${combatStats.defense} (+${me.defenseBonus || 0})\n` +
+              `│ ◈ ATK » ${combatStats.attack} (+${me.attackBonus || 0})\n` +
+              `│ ⚙️ DEF » ${combatStats.defense} (+${me.defenseBonus || 0})\n` +
               `│ ❤️ HP  » ${combatStats.hp} / ${combatStats.maxHp || 1000}\n` +
               `│ ⚡ Poder Total » ${combatStats.power}\n` +
               `│\n` +
@@ -6666,7 +6666,7 @@ if (isCmd && command && !isOwnerOrSub) {
               `│\n` +
               `│ 💍 Status » ${relationshipEmoji ? `${relationshipType} com ${familySpouse}` : 'Solteiro(a)'}\n` +
               `│ 🏠 Moradia » ${houseInfo}\n` +
-              `│ 🛡️ Clã » ${clanInfo}\n` +
+              `│ ⚙️ Clã » ${clanInfo}\n` +
               `│ 👨‍👩‍👧‍👦 Filhos » ${familyChildren}\n` +
               `│\n` +
               `├────── **𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔** ──────⭓\n` +
@@ -6677,7 +6677,7 @@ if (isCmd && command && !isOwnerOrSub) {
               `│\n` +
               `├────── **𝗖𝗢𝗠𝗕𝗔𝗧𝗘** ──────⭓\n` +
               `│\n` +
-              `│ 🏆 Vitórias » ${battlesWon}  💀 Derrotas » ${battlesLost}\n` +
+              `│ 🏆 Vitórias » ${battlesWon}  🌌 Derrotas » ${battlesLost}\n` +
               `│ 📈 Win Rate » ${winRate}%\n` +
               `│\n` +
               `├───── **𝗛𝗔𝗕𝗜𝗟𝗜𝗗𝗔𝗗𝗘𝗦** ─────⭓\n` +
@@ -6696,7 +6696,7 @@ if (isCmd && command && !isOwnerOrSub) {
               `│ ⭐ Reputação: ${reputation}  ☯️ Karma: ${karma}\n` +
               `│\n` +
               `╰─────────────────────⭓\n\n` +
-              `✨ *Use !meustats para detalhes técnicos.*`;
+              `◈ *Use !meustats para detalhes técnicos.*`;
 
             return reply(text, { mentions: [sender, ...mentions] });
           }
@@ -6823,9 +6823,9 @@ if (isCmd && command && !isOwnerOrSub) {
           if (sub === 'loja' || sub === 'lojarps') {
             const shop = econ.shop || {};
             const categories = {
-              weapon: { emoji: '⚔️', name: 'ARMAS' },
-              armor: { emoji: '🛡️', name: 'ARMADURAS' },
-              shield: { emoji: '🛡️', name: 'ESCUDOS' },
+              weapon: { emoji: '◈', name: 'ARMAS' },
+              armor: { emoji: '⚙️', name: 'ARMADURAS' },
+              shield: { emoji: '⚙️', name: 'ESCUDOS' },
               helmet: { emoji: '🩸', name: 'ELMOS' },
               accessory: { emoji: '💍', name: 'ACESSÓRIOS' },
               boots: { emoji: '👢', name: 'BOTAS' },
@@ -6836,10 +6836,10 @@ if (isCmd && command && !isOwnerOrSub) {
             const catArg = args[0];
             if (!catArg || !['armas', 'armaduras', 'escudos', 'elmos', 'acessorios', 'botas', 'ferramentas', 'consumiveis'].includes(catArg)) {
               let text = `╭━━━⊱ 🛍️ *LOJA KAISERBOT* 🛍️ ⊱━━━╮\n│\n`;
-              text += `│ Olá *${pushname}*! Escolha uma categoria:\n│\n`;
-              text += `│ ⚔️ *${prefix}loja armas*\n`;
-              text += `│ 🛡️ *${prefix}loja armaduras*\n`;
-              text += `│ 🛡️ *${prefix}loja escudos*\n`;
+              text += `│ 🌌 *${pushname}*! Escolha uma categoria:\n│\n`;
+              text += `│ ◈ *${prefix}loja armas*\n`;
+              text += `│ ⚙️ *${prefix}loja armaduras*\n`;
+              text += `│ ⚙️ *${prefix}loja escudos*\n`;
               text += `│ 🩸 *${prefix}loja elmos*\n`;
               text += `│ 💍 *${prefix}loja acessorios*\n`;
               text += `│ 👢 *${prefix}loja botas*\n`;
@@ -6879,10 +6879,10 @@ if (isCmd && command && !isOwnerOrSub) {
               text += `│ ${rarityEmoji} *${it.name}*\n`;
               text += `│ 💰 Preço: ${fmt(it.price)}\n`;
               if (it.effect) {
-                if (it.effect.attack) text += `│ ⚔️ ATK: +${it.effect.attack}\n`;
-                if (it.effect.defense) text += `│ 🛡️ DEF: +${it.effect.defense}\n`;
+                if (it.effect.attack) text += `│ ◈ ATK: +${it.effect.attack}\n`;
+                if (it.effect.defense) text += `│ ⚙️ DEF: +${it.effect.defense}\n`;
                 if (it.effect.hp) text += `│ ❤️ HP: +${it.effect.hp}\n`;
-                if (it.effect.special) text += `│ ✨: ${it.effect.special}\n`;
+                if (it.effect.special) text += `│ ◈: ${it.effect.special}\n`;
                 if (it.effect.bonus) text += `│ 🎁: ${it.effect.bonus}\n`;
               }
               if (it.powerReq) text += `│ 📋 Poder Req.: ${it.powerReq}\n`;
@@ -6907,7 +6907,7 @@ if (isCmd && command && !isOwnerOrSub) {
             
             // Verificar requisição de poder
             if (it.powerReq && me.power < it.powerReq) {
-              return reply(`❌ Poder insuficiente!\n\n⚔️ Seu poder: ${me.power || 0}\n📋 Poder requisitado: ${it.powerReq}\n\n💪 Você precisa de mais ${it.powerReq - (me.power || 0)} de poder para comprar este item.`);
+              return reply(`❌ Poder insuficiente!\n\n◈ Seu poder: ${me.power || 0}\n📋 Poder requisitado: ${it.powerReq}\n\n💪 Você precisa de mais ${it.powerReq - (me.power || 0)} de poder para comprar este item.`);
             }
             
             me.wallet -= it.price;
@@ -6936,7 +6936,7 @@ if (isCmd && command && !isOwnerOrSub) {
               recalcEquipmentBonuses(me, econ.shop);
               
               saveEconomy(econ);
-              return reply(`╭━━━⊱ ✅ *COMPRA & EQUIPE* ✅ ⊱━━━╮\n│\n│ ✨ Item: *${it.name}*\n│ 💰 Valor: *${fmt(it.price)}*\n│ 🛡️ Slot: *${slot.toUpperCase()}*\n│\n│ ✅ Comprado e equipado com sucesso!\n│ 📊 Seu poder agora é: *${me.power || 0}*\n│\n╰━━━━━━━━━━━━━━━━━━━━━━╯`);
+              return reply(`╭━━━⊱ ✅ *COMPRA & EQUIPE* ✅ ⊱━━━╮\n│\n│ ◈ Item: *${it.name}*\n│ 💰 Valor: *${fmt(it.price)}*\n│ ⚙️ Slot: *${slot.toUpperCase()}*\n│\n│ ✅ Comprado e equipado com sucesso!\n│ 📊 Seu poder agora é: *${me.power || 0}*\n│\n╰━━━━━━━━━━━━━━━━━━━━━━╯`);
             }
 
             // Ferramentas (Picaretas)
@@ -6960,7 +6960,7 @@ if (isCmd && command && !isOwnerOrSub) {
               `│      🎒 𝗞𝗔𝗜𝗦𝗘𝗥 𝗜𝗡𝗩 🎒\n` +
               `├─────────────────────⭓\n` +
               `│ 👤 Aventureiro » @${pushname}\n` +
-              `│ ⚔️ Poder » ${me.power || 0}\n` +
+              `│ ◈ Poder » ${me.power || 0}\n` +
               `├──────── 𝗜𝗧𝗘𝗡𝗦 ────────⭓\n`;
             if (entries.length > 0) {
               for (const [k, q] of entries) {
@@ -7290,7 +7290,7 @@ if (isCmd && command && !isOwnerOrSub) {
             fishText += `│\n`;
             fishText += `│ 💰 Ganhou: *${fmt(total)}*\n`;
             if (bonus > 0) {
-              fishText += `│ ✨ Bônus: *+${fmt(bonus)}*\n`;
+              fishText += `│ ◈ Bônus: *+${fmt(bonus)}*\n`;
             }
             fishText += `│ 🐟 Peixe: *+${fishQty}*\n`;
             fishText += `│\n`;
@@ -7331,7 +7331,7 @@ if (isCmd && command && !isOwnerOrSub) {
             exploreText += `│\n`;
             exploreText += `│ 💰 Ganhou: *${fmt(total)}*\n`;
             if (bonus > 0) {
-              exploreText += `│ ✨ Bônus: *+${fmt(bonus)}*\n`;
+              exploreText += `│ ◈ Bônus: *+${fmt(bonus)}*\n`;
             }
             if (Object.keys(matsGain).length > 0) {
               exploreText += `│ 📦 Materiais: ` + Object.entries(matsGain).map(([k, q]) => `${k} x${q}`).join(', ') + `\n`;
@@ -7367,7 +7367,7 @@ if (isCmd && command && !isOwnerOrSub) {
             huntText += `│\n`;
             huntText += `│ 💰 Ganhou: *${fmt(total)}*\n`;
             if (bonus > 0) {
-              huntText += `│ ✨ Bônus: *+${fmt(bonus)}*\n`;
+              huntText += `│ ◈ Bônus: *+${fmt(bonus)}*\n`;
             }
             huntText += `│ 🥩 Carne: *+${meatQty}*\n`;
             if (Object.keys(huntMats).length > 0) {
@@ -7948,7 +7948,7 @@ if (isCmd && command && !isOwnerOrSub) {
               `│\n` +
               `│ ✅ Trabalho concluído!\n` +
               `│ 💰 Salário » ${fmt(base)}\n` +
-              `│ ✨ Bônus » +${fmt(bonus)}\n` +
+              `│ ◈ Bônus » +${fmt(bonus)}\n` +
               `│ 📊 Total » ${fmt(total)}\n` +
               `│\n` +
               `╰─────────────────────⭓`);
@@ -8224,7 +8224,7 @@ if (isCmd && command && !isOwnerOrSub) {
               `│ 💰 Base » +${fmt(baseReward)}\n` +
               `│ 🔥 Streak » +${fmt(streakBonus)}\n`;
             if (extraBonus > 0) {
-              text += `│ ✨ Bônus » +${fmt(extraBonus)}\n`;
+              text += `│ ◈ Bônus » +${fmt(extraBonus)}\n`;
             }
             text += `├─────────────────────⭓\n` +
               `│ 💵 Total » *${fmt(finalReward)}*\n` +
@@ -8253,14 +8253,14 @@ if (isCmd && command && !isOwnerOrSub) {
           if (sub === 'toprpg') {
             const arr = Object.entries(econ.users).map(([id, u]) => [id, (u.wallet || 0) + (u.bank || 0)]).sort((a, b) => b[1] - a[1]).slice(0, 10);
             if (arr.length === 0) return reply('Sem dados suficientes para ranking.');
-            let text = '⚔️ 🏆 *RANKING RPG* 🏆 ⚔️\n\n';
+            let text = '◈ 🏆 *RANKING DO VOID* 🏆 ◈\n\n';
             const mentions = [];
             arr.forEach(([id, total], i) => {
               const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
               text += `${medal} @${id.split('@')[0]} — 💰 ${fmt(total)}\n`;
               mentions.push(id);
             });
-            text += `\n✨ Continue jogando para subir no rank!`;
+            text += `\n◈ Continue jogando para subir no rank!`;
             return reply(text, { mentions });
           }
 
@@ -8275,8 +8275,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'equipamentos':
       case 'gear':
       case 'equip': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8288,20 +8288,20 @@ if (isCmd && command && !isOwnerOrSub) {
         recalcEquipmentBonuses(me, econ.shop);
 
         let text = `╭─────────────────────⭓\n` +
-          `│      ⚔️ 𝗞𝗔𝗜𝗦𝗘𝗥 𝗚𝗘𝗔𝗥 ⚔️\n` +
+          `│      ◈ 𝗞𝗔𝗜𝗦𝗘𝗥 𝗚𝗘𝗔𝗥 ◈\n` +
           `├─────────────────────⭓\n` +
           `│ 👤 Aventureiro » @${pushname}\n` +
           `├─────────────────────⭓\n` +
           `│ 🗡️ Arma » ${eq.weapon || '❌ Nenhuma'}\n` +
-          `│ 🛡️ Armadura » ${eq.armor || '❌ Nenhuma'}\n` +
+          `│ ⚙️ Armadura » ${eq.armor || '❌ Nenhuma'}\n` +
           `│ ⛑️ Elmo » ${eq.helmet || '❌ Nenhum'}\n` +
           `│ 👢 Botas » ${eq.boots || '❌ Nenhuma'}\n` +
-          `│ 🛡️ Escudo » ${eq.shield || '❌ Nenhum'}\n` +
+          `│ ⚙️ Escudo » ${eq.shield || '❌ Nenhum'}\n` +
           `│ 💍 Acessório » ${eq.accessory || '❌ Nenhum'}\n` +
           `├──────── 𝗦𝗧𝗔𝗧𝗦 ────────⭓\n` +
-          `│ ⚔️ Ataque » +${me.attackBonus || 0}\n` +
-          `│ 🛡️ Defesa » +${me.defenseBonus || 0}\n` +
-          `│ ✨ Poder Total » ${me.power || 100}\n` +
+          `│ ◈ Ataque » +${me.attackBonus || 0}\n` +
+          `│ ⚙️ Defesa » +${me.defenseBonus || 0}\n` +
+          `│ ◈ Poder Total » ${me.power || 100}\n` +
           `╰─────────────────────⭓\n\n` +
           `💡 *Dicas:*\n` +
           `• Use ${prefix}forjar para criar equipamentos\n` +
@@ -8315,8 +8315,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'conquistas':
       case 'achievements':
       case 'medalhas': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8330,7 +8330,7 @@ if (isCmd && command && !isOwnerOrSub) {
           { id: 'pescador', name: '🎣 Pescador', desc: 'Pesque 75 vezes', req: me.stats.totalFish >= 75, progress: `${me.stats.totalFish || 0}/75` },
           { id: 'cacador', name: '🏹 Caçador', desc: 'Cace 50 vezes', req: me.stats.totalHunt >= 50, progress: `${me.stats.totalHunt || 0}/50` },
           { id: 'explorador', name: '🗺️ Explorador', desc: 'Explore 100 vezes', req: me.stats.totalExplore >= 100, progress: `${me.stats.totalExplore || 0}/100` },
-          { id: 'gladiador', name: '⚔️ Gladiador', desc: 'Vença 25 batalhas', req: me.stats.totalWins >= 25, progress: `${me.stats.totalWins || 0}/25` },
+          { id: 'gladiador', name: '◈ Gladiador', desc: 'Vença 25 batalhas', req: me.stats.totalWins >= 25, progress: `${me.stats.totalWins || 0}/25` },
           { id: 'milionario', name: '💰 Milionário', desc: 'Tenha 500K no banco', req: (me.bank || 0) >= 500000, progress: `${(me.bank || 0).toLocaleString()}/500.000` },
           { id: 'veterano', name: '🏆 Veterano', desc: 'Alcance nível 50', req: (me.level || 1) >= 50, progress: `${me.level || 1}/50` },
           { id: 'colecionador', name: '🐾 Colecionador', desc: 'Tenha 5 pets', req: (me.pets?.length || 0) >= 5, progress: `${me.pets?.length || 0}/5` },
@@ -8351,7 +8351,7 @@ if (isCmd && command && !isOwnerOrSub) {
           }
           if (unlocked) unlockedCount++;
 
-          const status = unlocked ? '✅' : '🔒';
+          const status = unlocked ? '✅' : '⚙️';
           text += `${status} ${ach.name}\n`;
           text += `   ${ach.desc}\n`;
           text += `   📊 Progresso: ${ach.progress}\n\n`;
@@ -8368,8 +8368,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Sistema de Pets
       case 'pets':
       case 'meuspets': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8432,9 +8432,9 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `${i + 1}. ${pet.emoji} **${pet.name}**${evolutionText}${statusEmoji}\n` +
                    `   📊 Level ${pet.level} | 💫 ${pet.exp}/${pet.level * 100} EXP\n` +
                    `   ❤️ HP » ${pet.hp}/${pet.maxHp}\n` +
-                   `   ⚔️ ATK » ${pet.attack} | 🛡️ DEF » ${pet.defense}\n`;
+                   `   ◈ ATK » ${pet.attack} | ⚙️ DEF » ${pet.defense}\n`;
           if (pet.speed) text += `   ⚡ SPD » ${pet.speed}\n`;
-          text += `   🏆 ${pet.wins || 0}V | 💀 ${pet.losses || 0}D\n`;
+          text += `   🏆 ${pet.wins || 0}V | 🌌 ${pet.losses || 0}D\n`;
 
           // Mostra equipamentos
           if (pet.equipment && Object.keys(pet.equipment).length > 0) {
@@ -8442,7 +8442,7 @@ if (isCmd && command && !isOwnerOrSub) {
             Object.entries(pet.equipment).forEach(([slot, itemId]) => {
               const item = SHOP_ITEMS[itemId];
               if (item) {
-                const slotIcon = slot === 'weapon' ? '⚔️' : slot === 'armor' ? '🛡️' : slot === 'shield' ? '🛡️' : slot === 'accessory' ? '💍' : '🧪';
+                const slotIcon = slot === 'weapon' ? '◈' : slot === 'armor' ? '⚙️' : slot === 'shield' ? '⚙️' : slot === 'accessory' ? '💍' : '🧪';
                 text += `     ${slotIcon} ${item.name}\n`;
               }
             });
@@ -8456,7 +8456,7 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `⚠️ *ATENÇÃO:* Alguns pets precisam de cuidados!\n\n`;
         }
 
-        text += `🎮 *COMANDOS DISPONÍVEIS:*\n`;
+        text += `🌌 *COMANDOS DISPONÍVEIS:*\n`;
         text += `• ${prefix}alimentar <número>\n`;
         text += `• ${prefix}treinar <número>\n`;
         text += `• ${prefix}evoluir <número>\n`;
@@ -8470,8 +8470,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'adotar':
       case 'adopt': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8506,7 +8506,7 @@ if (isCmd && command && !isOwnerOrSub) {
 	          text += `│ ${pet.emoji} **${pet.name}**${rarityText}\n` +
 	                    `│ 📝 ${pet.desc}\n` +
 	                    `│ 💰 Preço: ${pet.cost.toLocaleString()}\n` +
-	                    `│ ❤️ HP: ${pet.hp} | ⚔️ ATK: ${pet.attack} | 🛡️ DEF: ${pet.defense}\n│\n`;
+	                    `│ ❤️ HP: ${pet.hp} | ◈ ATK: ${pet.attack} | ⚙️ DEF: ${pet.defense}\n│\n`;
           });
 
           text += `╰─────────────────────⭓\n\n💡 *Use !adotar <nome> para adotar*`;
@@ -8554,8 +8554,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'alimentar':
       case 'feed': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8617,8 +8617,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'treinar':
       case 'train': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8672,18 +8672,18 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `│\n`;
           text += `│ 📊 *Nível:* ${pet.level - 1} ➜ *${pet.level}*\n`;
           text += `│\n`;
-          text += `│ ⚔️ *ATK:* ${pet.attack - atkGain} ➜ *${pet.attack}* *(+${atkGain})*\n`;
-          text += `│ 🛡️ *DEF:* ${pet.defense - defGain} ➜ *${pet.defense}* *(+${defGain})*\n`;
+          text += `│ ◈ *ATK:* ${pet.attack - atkGain} ➜ *${pet.attack}* *(+${atkGain})*\n`;
+          text += `│ ⚙️ *DEF:* ${pet.defense - defGain} ➜ *${pet.defense}* *(+${defGain})*\n`;
           text += `│ ❤️ *HP:* ${pet.maxHp - hpGain} ➜ *${pet.maxHp}* *(+${hpGain})*\n`;
           text += `│\n`;
           text += `╰━━━━━━━━━━━━━━━━━━━━━━━╯\n`;
-          text += `\n✨ *Seu pet ficou mais forte!* ✨`;
+          text += `\n◈ *Seu pet ficou mais forte!* ◈`;
 
           saveEconomy(econ);
           return reply(text);
         }
 
-        text += `✨ EXP: +${expGain}\n`;
+        text += `◈ EXP: +${expGain}\n`;
         text += `📊 Progresso: ${pet.exp}/${pet.level * 100}\n`;
         text += `🍖 Fome: ${pet.hunger}/100\n\n`;
         text += `💡 ${pet.exp} de ${pet.level * 100} para o próximo nível`;
@@ -8695,8 +8695,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'evoluirpet':
       case 'evolve': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8727,16 +8727,16 @@ if (isCmd && command && !isOwnerOrSub) {
           fenix: [
             { name: 'Fênix Flamejante', emoji: '🔥⭐', reqLevel: 12, atkBonus: 20, defBonus: 10, hpBonus: 60, spdBonus: 15 },
             { name: 'Fênix Imortal', emoji: '🔥💫', reqLevel: 28, atkBonus: 40, defBonus: 25, hpBonus: 150, spdBonus: 35 },
-            { name: 'Fênix Celestial', emoji: '🔥👑', reqLevel: 55, atkBonus: 80, defBonus: 50, hpBonus: 320, spdBonus: 70 }
+            { name: 'Fênix Celestial', emoji: '🔥🌌', reqLevel: 55, atkBonus: 80, defBonus: 50, hpBonus: 320, spdBonus: 70 }
           ],
           tigre: [
-            { name: 'Tigre Real', emoji: '🐯👑', reqLevel: 10, atkBonus: 18, defBonus: 10, hpBonus: 55, spdBonus: 12 },
+            { name: 'Tigre Real', emoji: '🐯🌌', reqLevel: 10, atkBonus: 18, defBonus: 10, hpBonus: 55, spdBonus: 12 },
             { name: 'Tigre de Jade', emoji: '🐯💚', reqLevel: 25, atkBonus: 35, defBonus: 22, hpBonus: 130, spdBonus: 28 },
             { name: 'Tigre Divino', emoji: '🐯⚡', reqLevel: 50, atkBonus: 70, defBonus: 45, hpBonus: 280, spdBonus: 55 }
           ],
           aguia: [
             { name: 'Águia Majestosa', emoji: '🦅⭐', reqLevel: 10, atkBonus: 22, defBonus: 7, hpBonus: 45, spdBonus: 20 },
-            { name: 'Águia Dourada', emoji: '🦅👑', reqLevel: 25, atkBonus: 45, defBonus: 15, hpBonus: 110, spdBonus: 45 },
+            { name: 'Águia Dourada', emoji: '🦅🌌', reqLevel: 25, atkBonus: 45, defBonus: 15, hpBonus: 110, spdBonus: 45 },
             { name: 'Grifo Lendário', emoji: '🦅💫', reqLevel: 50, atkBonus: 90, defBonus: 35, hpBonus: 240, spdBonus: 90 }
           ]
         };
@@ -8788,7 +8788,7 @@ if (isCmd && command && !isOwnerOrSub) {
 
         saveEconomy(econ);
 
-        let text = `╭━━━⊱ ✨ *EVOLUÇÃO CONCLUÍDA!* ✨ ⊱━━━╮\n`;
+        let text = `╭━━━⊱ ◈ *EVOLUÇÃO CONCLUÍDA!* ◈ ⊱━━━╮\n`;
         text += `│\n`;
         text += `│ ${oldEmoji} ➜ ${pet.emoji}\n`;
         text += `│\n`;
@@ -8797,8 +8797,8 @@ if (isCmd && command && !isOwnerOrSub) {
         text += `│\n`;
         text += `╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
         text += `📊 *NOVOS ATRIBUTOS:*\n\n`;
-        text += `⚔️ *ATK:* ${oldStats.attack} ➜ ${pet.attack} *(+${nextEvolution.atkBonus})*\n`;
-        text += `🛡️ *DEF:* ${oldStats.defense} ➜ ${pet.defense} *(+${nextEvolution.defBonus})*\n`;
+        text += `◈ *ATK:* ${oldStats.attack} ➜ ${pet.attack} *(+${nextEvolution.atkBonus})*\n`;
+        text += `⚙️ *DEF:* ${oldStats.defense} ➜ ${pet.defense} *(+${nextEvolution.defBonus})*\n`;
         text += `❤️ *HP:* ${oldStats.maxHp} ➜ ${pet.maxHp} *(+${nextEvolution.hpBonus})*\n`;
         text += `⚡ *SPD:* ${oldStats.speed} ➜ ${pet.speed} *(+${nextEvolution.spdBonus})*\n\n`;
 
@@ -8807,7 +8807,7 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `🔮 *Próxima Evolução:* ${next.name} ${next.emoji}\n`;
           text += `📊 *Requisito:* Nível ${next.reqLevel}\n`;
         } else {
-          text += `👑 *${pet.name}* atingiu sua FORMA FINAL!`;
+          text += `🌌 *${pet.name}* atingiu sua FORMA FINAL!`;
         }
 
         return reply(text);
@@ -8816,8 +8816,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'renomearpet':
       case 'renamepet': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8858,8 +8858,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'batalhapet':
       case 'petbattle': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -8935,14 +8935,14 @@ if (isCmd && command && !isOwnerOrSub) {
         let turn = 0;
         const maxTurns = 15;
 
-        let battleLog = `╭━━━⊱ ⚔️ *BATALHA DE PETS!* ⚔️ ⊱━━━╮\n\n`;
+        let battleLog = `╭━━━⊱ ◈ *BATALHA DE PETS!* ◈ ⊱━━━╮\n\n`;
         battleLog += `${myPet.emoji} *${myPet.name}* (Lv.${myPet.level})\n`;
-        battleLog += `❤️ ${myHp}/${myPet.maxHp} | ⚔️ ${myStats.totalAtk} | 🛡️ ${myStats.totalDef} | ⚡ ${myStats.totalSpd}\n`;
-        if (hasAdvantage) battleLog += `✨ *VANTAGEM DE TIPO!*\n`;
+        battleLog += `❤️ ${myHp}/${myPet.maxHp} | ◈ ${myStats.totalAtk} | ⚙️ ${myStats.totalDef} | ⚡ ${myStats.totalSpd}\n`;
+        if (hasAdvantage) battleLog += `◈ *VANTAGEM DE TIPO!*\n`;
         battleLog += `\n🆚\n\n`;
         battleLog += `${oppPet.emoji} *${oppPet.name}* (Lv.${oppPet.level})\n`;
-        battleLog += `❤️ ${oppHp}/${oppPet.maxHp} | ⚔️ ${oppStats.totalAtk} | 🛡️ ${oppStats.totalDef} | ⚡ ${oppStats.totalSpd}\n`;
-        if (oppHasAdvantage) battleLog += `✨ *VANTAGEM DE TIPO!*\n`;
+        battleLog += `❤️ ${oppHp}/${oppPet.maxHp} | ◈ ${oppStats.totalAtk} | ⚙️ ${oppStats.totalDef} | ⚡ ${oppStats.totalSpd}\n`;
+        if (oppHasAdvantage) battleLog += `◈ *VANTAGEM DE TIPO!*\n`;
         battleLog += `\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
         battleLog += `⚡ *INÍCIO DA BATALHA!*\n\n`;
 
@@ -8983,15 +8983,15 @@ if (isCmd && command && !isOwnerOrSub) {
             // Aplica dano
             if (attacker.isMe) {
               oppHp -= baseDmg;
-              battleLog += `⚔️ ${attacker.pet.emoji} ${attacker.pet.name} atacou!\n`;
-              if (advantage) battleLog += `   ✨ *SUPER EFETIVO!*\n`;
+              battleLog += `◈ ${attacker.pet.emoji} ${attacker.pet.name} atacou!\n`;
+              if (advantage) battleLog += `   ◈ *SUPER EFETIVO!*\n`;
               if (isCrit) battleLog += `   💥 *CRÍTICO!*\n`;
               battleLog += `   💔 Dano: ${baseDmg}\n`;
               battleLog += `   ❤️ HP Oponente: ${Math.max(0, oppHp)}/${oppPet.maxHp}\n`;
             } else {
               myHp -= baseDmg;
-              battleLog += `🛡️ ${attacker.pet.emoji} ${attacker.pet.name} contra-atacou!\n`;
-              if (advantage) battleLog += `   ✨ *SUPER EFETIVO!*\n`;
+              battleLog += `⚙️ ${attacker.pet.emoji} ${attacker.pet.name} contra-atacou!\n`;
+              if (advantage) battleLog += `   ◈ *SUPER EFETIVO!*\n`;
               if (isCrit) battleLog += `   💥 *CRÍTICO!*\n`;
               battleLog += `   💔 Dano: ${baseDmg}\n`;
               battleLog += `   ❤️ Seu HP: ${Math.max(0, myHp)}/${myPet.maxHp}\n`;
@@ -9035,7 +9035,7 @@ if (isCmd && command && !isOwnerOrSub) {
           battleLog += `╰━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
           battleLog += `📊 *RECOMPENSAS:*\n`;
           battleLog += `💰 Moedas: +${reward.toLocaleString()}\n`;
-          battleLog += `✨ EXP: +${expGain}\n`;
+          battleLog += `◈ EXP: +${expGain}\n`;
           if (itemDropped) {
             battleLog += `🎁 Item dropado: *${itemDropped}*\n`;
           }
@@ -9055,7 +9055,7 @@ if (isCmd && command && !isOwnerOrSub) {
 
             battleLog += `\n╭━━━⊱ ⭐ *LEVEL UP!* ⭐ ⊱━━━╮\n`;
             battleLog += `│ ${myPet.emoji} ${myPet.name} → Lv.${myPet.level}\n`;
-            battleLog += `│ ⚔️ ATK +${atkGain} | 🛡️ DEF +${defGain} | ❤️ HP +${hpGain}\n`;
+            battleLog += `│ ◈ ATK +${atkGain} | ⚙️ DEF +${defGain} | ❤️ HP +${hpGain}\n`;
             battleLog += `╰━━━━━━━━━━━━━━━━━━━━━━━╯`;
             // 🤖 EVENTO NPC - PET LEVEL UP
             await npcManager?.trigger(nazu, from, 'pet_level_up', sender, pushname, { petName: myPet.emoji + ' ' + myPet.name, level: myPet.level });
@@ -9064,7 +9064,7 @@ if (isCmd && command && !isOwnerOrSub) {
           oppPet.wins = (oppPet.wins || 0) + 1;
           myPet.losses = (myPet.losses || 0) + 1;
 
-          battleLog += `╭━━━⊱ 💀 *DERROTA!* 💀 ⊱━━━╮\n`;
+          battleLog += `╭━━━⊱ 🌌 *DERROTA!* 🌌 ⊱━━━╮\n`;
           battleLog += `│ ${oppPet.emoji} *${oppPet.name}* venceu!\n`;
           battleLog += `╰━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
           battleLog += `💪 Continue treinando para melhorar!`;
@@ -9081,8 +9081,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Apostar com Pets
       case 'apostarpet':
       case 'petbet': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9137,7 +9137,7 @@ if (isCmd && command && !isOwnerOrSub) {
         } else {
           me.wallet -= betAmount;
           opponent.wallet += betAmount;
-          resultMsg += `💀 *VOCÊ PERDEU!*\n💸 Perdeu: -${betAmount.toLocaleString()}`;
+          resultMsg += `🌌 *VOCÊ PERDEU!*\n💸 Perdeu: -${betAmount.toLocaleString()}`;
         }
 
         resultMsg += `\n╰━━━━━━━━━━━━━━━━━━━━━━╯`;
@@ -9149,8 +9149,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Equipar item no Pet
       case 'equippet':
       case 'equiparpet': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9201,18 +9201,18 @@ if (isCmd && command && !isOwnerOrSub) {
         saveEconomy(econ);
 
         let text = `✅ ${pet.emoji} *${pet.name}* equipou *${item.name}*!\n\n`;
-        text += `📦 *Slot:* ${slot === 'weapon' ? '⚔️ Arma' : slot === 'armor' ? '🛡️ Armadura' : slot === 'shield' ? '🛡️ Escudo' : slot === 'accessory' ? '💍 Acessório' : '🧪 Poção'}\n\n`;
+        text += `📦 *Slot:* ${slot === 'weapon' ? '◈ Arma' : slot === 'armor' ? '⚙️ Armadura' : slot === 'shield' ? '⚙️ Escudo' : slot === 'accessory' ? '💍 Acessório' : '🧪 Poção'}\n\n`;
 
         if (item.stats) {
           text += `📊 *Bônus:*\n`;
-          if (item.stats.attack) text += `⚔️ ATK +${item.stats.attack}\n`;
-          if (item.stats.defense) text += `🛡️ DEF +${item.stats.defense}\n`;
+          if (item.stats.attack) text += `◈ ATK +${item.stats.attack}\n`;
+          if (item.stats.defense) text += `⚙️ DEF +${item.stats.defense}\n`;
           if (item.stats.speed) text += `⚡ SPD +${item.stats.speed}\n`;
           if (item.stats.critBonus) text += `💥 CRIT +${item.stats.critBonus}%\n`;
         }
 
         if (item.advantage) {
-          text += `\n✨ *Vantagem contra:* ${item.advantage}`;
+          text += `\n◈ *Vantagem contra:* ${item.advantage}`;
         }
 
         return reply(text);
@@ -9221,8 +9221,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Desequipar item do Pet
       case 'unequippet':
       case 'desequiparpet': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9251,8 +9251,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Equipar item para o Jogador
       case 'equipar':
       case 'equip': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9302,10 +9302,10 @@ if (isCmd && command && !isOwnerOrSub) {
         saveEconomy(econ);
 
         let text = `✅ Você equipou *${item.name}*!\n\n`;
-        text += `📦 *Slot:* ${slot === 'weapon' ? '⚔️ Arma' : slot === 'armor' ? '🛡️ Armadura' : slot === 'helmet' ? '🎩 Elmo' : slot === 'boots' ? '👢 Botas' : slot === 'shield' ? '🛡️ Escudo' : '💍 Acessório'}\n\n`;
+        text += `📦 *Slot:* ${slot === 'weapon' ? '◈ Arma' : slot === 'armor' ? '⚙️ Armadura' : slot === 'helmet' ? '🎩 Elmo' : slot === 'boots' ? '👢 Botas' : slot === 'shield' ? '⚙️ Escudo' : '💍 Acessório'}\n\n`;
 
-        if (item.attackBonus) text += `⚔️ Ataque: +${item.attackBonus}\n`;
-        if (item.defenseBonus) text += `🛡️ Defesa: +${item.defenseBonus}\n`;
+        if (item.attackBonus) text += `◈ Ataque: +${item.attackBonus}\n`;
+        if (item.defenseBonus) text += `⚙️ Defesa: +${item.defenseBonus}\n`;
         if (item.hpBonus) text += `❤️ Vida: +${item.hpBonus}\n`;
 
         return reply(text);
@@ -9314,8 +9314,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Desequipar item do Jogador
       case 'desequipar':
       case 'unequip': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9365,8 +9365,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'masmorrasolo':
       case 'dungeonsolo':
       case 'dg': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9398,7 +9398,7 @@ if (isCmd && command && !isOwnerOrSub) {
             text += `┌─────────────────\n`;
             text += `│ 🎯 Dificuldade: ${'⭐'.repeat(d.diff)}\n`;
             text += `│ 💰 Recompensa: ${d.reward[0].toLocaleString()}-${d.reward[1].toLocaleString()}\n`;
-            text += `│ ✨ EXP: ${d.exp}\n`;
+            text += `│ ◈ EXP: ${d.exp}\n`;
             text += `└─────────────────\n\n`;
           });
 
@@ -9445,7 +9445,7 @@ if (isCmd && command && !isOwnerOrSub) {
           // Atualiza missão de dungeon
           updateQuestProgress(me, 'dungeon', 1);
 
-          let text = `╭━━━⊱ ⚔️ *VITÓRIA!* ⚔️ ⊱━━━╮\n`;
+          let text = `╭━━━⊱ ◈ *VITÓRIA!* ◈ ⊱━━━╮\n`;
           text += `│\n`;
           text += `│ ${dungeon.emoji} *${dungeon.name}*\n`;
           text += `│\n`;
@@ -9454,7 +9454,7 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `┌─⊱ 💰 *RECOMPENSAS* ⊰─┐\n`;
           text += `│\n`;
           text += `│ 💵 Moedas: *+${reward.toLocaleString()}*\n`;
-          text += `│ ✨ EXP: *+${dungeon.exp}*\n`;
+          text += `│ ◈ EXP: *+${dungeon.exp}*\n`;
 
           if (leveledUp) {
             text += `│\n`;
@@ -9485,7 +9485,7 @@ if (isCmd && command && !isOwnerOrSub) {
           const loss = Math.floor(me.wallet * 0.1);
           me.wallet = Math.max(0, me.wallet - loss);
 
-          let text = `╭━━━⊱ 💀 *DERROTA!* 💀 ⊱━━━╮\n`;
+          let text = `╭━━━⊱ 🌌 *DERROTA!* 🌌 ⊱━━━╮\n`;
           text += `│\n`;
           text += `│ ${dungeon.emoji} *${dungeon.name}*\n`;
           text += `│\n`;
@@ -9510,8 +9510,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'cheferpg':
       case 'bossrpg':
       case 'bossfight': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9544,9 +9544,9 @@ if (isCmd && command && !isOwnerOrSub) {
 
         let battleLog = `╭━━━⊱ 👹 *BOSS FIGHT!* ⊱━━━╮\n\n`;
         battleLog += `${boss.emoji} *${boss.name}*\n`;
-        battleLog += `❤️ HP: ${boss.hp} | ⚔️ ATK: ${boss.attack} | 🛡️ DEF: ${boss.defense}\n\n`;
+        battleLog += `❤️ HP: ${boss.hp} | ◈ ATK: ${boss.attack} | ⚙️ DEF: ${boss.defense}\n\n`;
         battleLog += `VS\n\n`;
-        battleLog += `⚔️ *${pushname}* (Poder: ${playerPower})\n\n`;
+        battleLog += `◈ *${pushname}* (Poder: ${playerPower})\n\n`;
         battleLog += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
 
         while (bossHp > 0 && playerHp > 0 && turns < maxTurns) {
@@ -9555,7 +9555,7 @@ if (isCmd && command && !isOwnerOrSub) {
           bossHp -= playerDmg;
 
           if (bossHp <= 0) {
-            battleLog += `⚔️ Você desferiu o golpe final! (-${playerDmg} HP)\n`;
+            battleLog += `◈ Você desferiu o golpe final! (-${playerDmg} HP)\n`;
             break;
           }
 
@@ -9577,11 +9577,11 @@ if (isCmd && command && !isOwnerOrSub) {
           battleLog += `│ Você derrotou ${boss.emoji} *${boss.name}*!\n`;
           battleLog += `│\n`;
           battleLog += `│ 💰 Recompensa: +${boss.reward.toLocaleString()}\n`;
-          battleLog += `│ ✨ XP: +${boss.xp}\n`;
+          battleLog += `│ ◈ XP: +${boss.xp}\n`;
           battleLog += `│ 🏅 Bosses derrotados: ${me.stats.bossesDefeated}\n`;
           battleLog += `╰━━━━━━━━━━━━━━━━━━━━╯`;
         } else {
-          battleLog += `\n╭━━━⊱ 💀 *DERROTA!* ⊱━━━╮\n`;
+          battleLog += `\n╭━━━⊱ 🌌 *DERROTA!* ⊱━━━╮\n`;
           battleLog += `│ ${boss.emoji} *${boss.name}* foi mais forte!\n`;
           battleLog += `│\n`;
           battleLog += `│ 💡 Fique mais forte e tente novamente!\n`;
@@ -9597,8 +9597,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'eventos':
       case 'events':
       case 'eventosrpg': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const now = new Date();
         const dayOfWeek = now.getDay();
@@ -9610,7 +9610,7 @@ if (isCmd && command && !isOwnerOrSub) {
           { day: 2, name: '🎣 Terça da Pescaria', desc: 'Chances de peixes raros aumentadas!', active: dayOfWeek === 2 },
           { day: 3, name: '🏹 Quarta da Caça', desc: 'Encontre presas lendárias!', active: dayOfWeek === 3 },
           { day: 4, name: '💰 Quinta do Trabalho', desc: 'Salários aumentados em +75%!', active: dayOfWeek === 4 },
-          { day: 5, name: '⚔️ Sexta de Batalha', desc: 'XP dobrado em duelos e arenas!', active: dayOfWeek === 5 },
+          { day: 5, name: '◈ Sexta de Batalha', desc: 'XP dobrado em duelos e arenas!', active: dayOfWeek === 5 },
           { day: 6, name: '🎰 Sábado do Cassino', desc: 'Chances de ganhar melhoradas!', active: dayOfWeek === 6 }
         ];
 
@@ -9628,7 +9628,7 @@ if (isCmd && command && !isOwnerOrSub) {
         text += `🗓️ *EVENTO DO DIA:*\n`;
         const todayEvent = weeklyEvents.find(e => e.active);
         if (todayEvent) {
-          text += `✨ ${todayEvent.name}\n`;
+          text += `◈ ${todayEvent.name}\n`;
           text += `   ${todayEvent.desc}\n\n`;
         }
 
@@ -9656,8 +9656,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'duelarrpg':
       case 'duelorpg':
       case 'duelrpg': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9686,7 +9686,7 @@ if (isCmd && command && !isOwnerOrSub) {
         let myHp = myStats.hp;
         let oppHp = oppStats.hp;
 
-        let text = `╭━━━⊱ ⚔️ *DUELO* ⊱━━━╮\n`;
+        let text = `╭━━━⊱ ◈ *DUELO* ⊱━━━╮\n`;
         text += `│ ${pushname} VS @${target.split('@')[0]}\n`;
         text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
 
@@ -9699,14 +9699,14 @@ if (isCmd && command && !isOwnerOrSub) {
           // Meu ataque
           const myDmg = Math.max(5, myPower - Math.floor(Math.random() * oppDefense));
           oppHp -= myDmg;
-          battle += `⚔️ ${pushname}: -${myDmg} HP\n`;
+          battle += `◈ ${pushname}: -${myDmg} HP\n`;
 
           if (oppHp <= 0) break;
 
           // Ataque oponente
           const oppDmg = Math.max(5, oppPower - Math.floor(Math.random() * myDefense));
           myHp -= oppDmg;
-          battle += `🛡️ Oponente: -${oppDmg} HP\n\n`;
+          battle += `⚙️ Oponente: -${oppDmg} HP\n\n`;
         }
 
         me.lastDuel = now;
@@ -9748,7 +9748,7 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `\n╭━━━⊱ 🏆 *VITÓRIA!* 🏆 ⊱━━━╮\n`;
           text += `│\n`;
           text += `│ 💰 Recompensa: *+${reward.toLocaleString()}*\n`;
-          text += `│ ✨ EXP: *+150*\n`;
+          text += `│ ◈ EXP: *+150*\n`;
 
           if (leveledUp) {
             text += `│\n`;
@@ -9783,7 +9783,7 @@ if (isCmd && command && !isOwnerOrSub) {
           updateQuestProgress(me, 'duel', 1);
 
           text += battle;
-          text += `\n╭━━━⊱ 💀 *DERROTA!* 💀 ⊱━━━╮\n`;
+          text += `\n╭━━━⊱ 🌌 *DERROTA!* 🌌 ⊱━━━╮\n`;
           text += `│\n`;
           text += `│ 💸 Perdeu: *-${loss.toLocaleString()}*\n`;
           text += `│\n`;
@@ -9798,8 +9798,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       // Sistema de Arena
       case 'arena': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9831,7 +9831,7 @@ if (isCmd && command && !isOwnerOrSub) {
             text += `┌─────────────────\n`;
             text += `│ 🎯 Nível Mínimo: ${l.minLevel}\n`;
             text += `│ 💰 Prêmio: ${l.reward[0].toLocaleString()}-${l.reward[1].toLocaleString()}\n`;
-            text += `│ ⚔️ Inimigos: ${l.enemies}\n`;
+            text += `│ ◈ Inimigos: ${l.enemies}\n`;
             text += `└─────────────────\n\n`;
           });
 
@@ -9864,11 +9864,11 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `│ 🏟️ Arena: *${arena.name}*\n`;
           text += `│\n`;
           text += `╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
-          text += `⚔️ *Derrotou:* ${wins}/${arena.enemies} inimigos\n\n`;
+          text += `◈ *Derrotou:* ${wins}/${arena.enemies} inimigos\n\n`;
           text += `┌─⊱ 🎁 *RECOMPENSAS* ⊰─┐\n`;
           text += `│\n`;
           text += `│ 💰 Prêmio: *+${reward.toLocaleString()}*\n`;
-          text += `│ ✨ EXP: *+${arena.enemies * 50}*\n`;
+          text += `│ ◈ EXP: *+${arena.enemies * 50}*\n`;
           text += `│\n`;
           text += `└━━━━━━━━━━━━━━━━━━━━━┘\n\n`;
           text += `🎉 *A multidão te aclama!*`;
@@ -9883,12 +9883,12 @@ if (isCmd && command && !isOwnerOrSub) {
           if (!me.battlesLost) me.battlesLost = 0;
           me.battlesLost++;
 
-          let text = `╭━━━⊱ 💀 *DERROTA NA ARENA* 💀 ⊱━━━╮\n`;
+          let text = `╭━━━⊱ 🌌 *DERROTA NA ARENA* 🌌 ⊱━━━╮\n`;
           text += `│\n`;
           text += `│ 🏟️ Arena: *${arena.name}*\n`;
           text += `│\n`;
           text += `╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`;
-          text += `⚔️ *Derrotou:* ${wins}/${arena.enemies} inimigos\n\n`;
+          text += `◈ *Derrotou:* ${wins}/${arena.enemies} inimigos\n\n`;
           text += `┌─⊱ 💸 *PERDAS* ⊰─┐\n`;
           text += `│\n`;
           text += `│ 💵 Moedas: *-${loss.toLocaleString()}*\n`;
@@ -9905,8 +9905,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Sistema de Encantamento
       case 'encantar':
       case 'enchant': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -9918,13 +9918,13 @@ if (isCmd && command && !isOwnerOrSub) {
         const weapon = me.equipment.weapon;
         const enchantLevel = weapon.enchant || 0;
 
-        if (enchantLevel >= 10) return reply('✨ Sua arma já está no encantamento máximo (+10)!');
+        if (enchantLevel >= 10) return reply('◈ Sua arma já está no encantamento máximo (+10)!');
 
         const cost = (enchantLevel + 1) * 5000;
         const crystals = (enchantLevel + 1) * 3;
 
         if (!q) {
-          let text = `╭━━━⊱ ✨ *ENCANTAR* ⊱━━━╮\n`;
+          let text = `╭━━━⊱ ◈ *ENCANTAR* ⊱━━━╮\n`;
           text += `│ Arma: ${weapon.emoji} *${weapon.name}*\n`;
           text += `│ Encantamento: +${enchantLevel}\n`;
           text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
@@ -9932,7 +9932,7 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `┌─────────────────\n`;
           text += `│ 💰 Custo: ${cost.toLocaleString()}\n`;
           text += `│ 💎 Cristais: ${crystals}x\n`;
-          text += `│ ⚔️ ATK: +${(enchantLevel + 1) * 5}\n`;
+          text += `│ ◈ ATK: +${(enchantLevel + 1) * 5}\n`;
           text += `│ 🎲 Chance: ${Math.max(30, 90 - (enchantLevel * 6))}%\n`;
           text += `└─────────────────\n\n`;
           text += `⚠️ Falha pode destruir a arma!\n\n`;
@@ -9957,12 +9957,12 @@ if (isCmd && command && !isOwnerOrSub) {
           weapon.enchant = (weapon.enchant || 0) + 1;
           weapon.attack = (weapon.attack || 0) + 5;
 
-          let text = `╭━━━⊱ ✨ *SUCESSO!* ⊱━━━╮\n`;
+          let text = `╭━━━⊱ ◈ *SUCESSO!* ⊱━━━╮\n`;
           text += `│ ${weapon.emoji} ${weapon.name} +${weapon.enchant}\n`;
           text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
           text += `🎉 Encantamento realizado!\n\n`;
-          text += `⚔️ ATK: ${weapon.attack}\n`;
-          text += `✨ Bônus: +${weapon.enchant * 5}\n\n`;
+          text += `◈ ATK: ${weapon.attack}\n`;
+          text += `◈ Bônus: +${weapon.enchant * 5}\n\n`;
           text += `🌟 Sua arma está mais poderosa!`;
 
           saveEconomy(econ);
@@ -9983,8 +9983,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Sistema de Desmontar
       case 'desmontar':
       case 'dismantle': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10046,36 +10046,36 @@ if (isCmd && command && !isOwnerOrSub) {
       }
 
       // ═══════════════════════════════════════════════════════════════
-      // ⚔️ SISTEMA DE CLASSES/PROFISSÕES
+      // ◈ SISTEMA DE CLASSES/PROFISSÕES
       // ═══════════════════════════════════════════════════════════════
       case 'classe':
       case 'class':
       case 'profissao': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
         const classes = {
-          'spartano': { emoji: '⚔️', name: 'Spartano', bonus: { attack: 20, defense: 10 }, skill: 'Fúria', skillDesc: '+30% dano em duelos' },
+          'spartano': { emoji: '◈', name: 'Spartano', bonus: { attack: 20, defense: 10 }, skill: 'Fúria', skillDesc: '+30% dano em duelos' },
           'mago': { emoji: '🧙', name: 'Mago', bonus: { attack: 25, defense: 20, regen: 20, rangeAtk: 5 }, skill: 'Magia Ark', skillDesc: '+20 de regeneração e +5 de ataques a distância' },
           'arqueiro': { emoji: '🏹', name: 'Arqueiro', bonus: { attack: 18, speed: 15 }, skill: 'Precisão', skillDesc: '+20% chance de crítico' },
           'curandeiro': { emoji: '💚', name: 'Curandeiro', bonus: { defense: 15, healing: 25 }, skill: 'Cura', skillDesc: 'Cura 20% HP após batalhas' },
           'ladino': { emoji: '🗡️', name: 'Ladino', bonus: { attack: 12, luck: 20 }, skill: 'Roubo', skillDesc: '+15% ganho em crimes' },
-          'paladino': { emoji: '🛡️', name: 'Paladino', bonus: { defense: 25, attack: 10 }, skill: 'Proteção', skillDesc: '-20% dano recebido' }
+          'paladino': { emoji: '⚙️', name: 'Paladino', bonus: { defense: 25, attack: 10 }, skill: 'Proteção', skillDesc: '-20% dano recebido' }
         };
 
         if (!q) {
-          let text = `╭━━━⊱ ⚔️ *CLASSES* ⊱━━━╮\n`;
+          let text = `╭━━━⊱ ◈ *CLASSES* ⊱━━━╮\n`;
           text += `│ Sua classe: ${me.classe ? `${classes[me.classe]?.emoji} ${classes[me.classe]?.name}` : '❌ Nenhuma'}\n`;
           text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
           text += `📜 *CLASSES DISPONÍVEIS:*\n\n`;
 
           for (const [id, data] of Object.entries(classes)) {
             text += `${data.emoji} *${data.name}*\n`;
-            text += `   ⚔️ ATK +${data.bonus.attack || 0} | 🛡️ DEF +${data.bonus.defense || 0}\n`;
-            text += `   ✨ ${data.skill}: ${data.skillDesc}\n\n`;
+            text += `   ◈ ATK +${data.bonus.attack || 0} | ⚙️ DEF +${data.bonus.defense || 0}\n`;
+            text += `   ◈ ${data.skill}: ${data.skillDesc}\n\n`;
           }
 
           text += `💡 Use: ${prefix}classe <nome>\n`;
@@ -10103,7 +10103,7 @@ if (isCmd && command && !isOwnerOrSub) {
         const classData = classes[classeEscolhida];
 
         saveEconomy(econ);
-        return reply(`╭━━━⊱ ✨ *CLASSE ESCOLHIDA* ⊱━━━╮\n\n${classData.emoji} Você agora é um *${classData.name}*!\n\n📊 *Bônus:*\n⚔️ ATK +${classData.bonus.attack || 0}\n🛡️ DEF +${classData.bonus.defense || 0}\n\n✨ *Habilidade:* ${classData.skill}\n${classData.skillDesc}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ ◈ *CLASSE ESCOLHIDA* ⊱━━━╮\n\n${classData.emoji} Você agora é um *${classData.name}*!\n\n📊 *Bônus:*\n◈ ATK +${classData.bonus.attack || 0}\n⚙️ DEF +${classData.bonus.defense || 0}\n\n◈ *Habilidade:* ${classData.skill}\n${classData.skillDesc}\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -10112,8 +10112,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'casa':
       case 'house':
       case 'lar': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10129,7 +10129,7 @@ if (isCmd && command && !isOwnerOrSub) {
         const decoracoes = {
           'altar': { emoji: '⛩️', name: 'Altar Místico', price: 10000, bonus: 'xp', value: 10 },
           'bau': { emoji: '📦', name: 'Baú Reforçado', price: 15000, bonus: 'storage', value: 20 },
-          'jardim': { emoji: '🌸', name: 'Jardim Encantado', price: 20000, bonus: 'regen', value: 2 },
+          'jardim': { emoji: '🌌', name: 'Jardim Encantado', price: 20000, bonus: 'regen', value: 2 },
           'forja': { emoji: '🔥', name: 'Forja Caseira', price: 30000, bonus: 'craft', value: 15 },
           'biblioteca': { emoji: '📚', name: 'Biblioteca', price: 25000, bonus: 'xp', value: 15 }
         };
@@ -10246,7 +10246,7 @@ if (isCmd && command && !isOwnerOrSub) {
           me.house.decorations.push(decId);
 
           saveEconomy(econ);
-          return reply(`🎨 *DECORAÇÃO ADICIONADA*\n\n${dec.emoji} ${dec.name}\n✨ +${dec.value} ${dec.bonus}`);
+          return reply(`🎨 *DECORAÇÃO ADICIONADA*\n\n${dec.emoji} ${dec.name}\n◈ +${dec.value} ${dec.bonus}`);
         }
 
         return reply(`💡 Use: ${prefix}casa para ver opções`);
@@ -10258,8 +10258,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'dungeon':
       case 'masmorra':
       case 'raid': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10271,10 +10271,10 @@ if (isCmd && command && !isOwnerOrSub) {
         const dungeons = {
           'floresta': { emoji: '🌲', name: 'Floresta Sombria', level: 1, players: 2, reward: 5000, xp: 200, boss: '🐺 Lobo Alfa', bossId: 'lobo_alfa' },
           'caverna': { emoji: '🕳️', name: 'Caverna Cristalina', level: 5, players: 3, reward: 15000, xp: 500, boss: '🦇 Morcego Gigante', bossId: 'morcego_gigante' },
-          'ruinas': { emoji: '🏚️', name: 'Ruínas Antigas', level: 10, players: 3, reward: 35000, xp: 1000, boss: '💀 Esqueleto Rei', bossId: 'esqueleto_rei' },
+          'ruinas': { emoji: '🏚️', name: 'Ruínas Antigas', level: 10, players: 3, reward: 35000, xp: 1000, boss: '🌌 Esqueleto Rei', bossId: 'esqueleto_rei' },
           'vulcao': { emoji: '🌋', name: 'Vulcão Ardente', level: 20, players: 4, reward: 80000, xp: 2500, boss: '🔥 Dragão de Fogo', bossId: 'dragao_fogo' },
           'abismo': { emoji: '🕳️', name: 'Abismo Profundo', level: 35, players: 4, reward: 200000, xp: 6000, boss: '👹 Demônio Ancião', bossId: 'demonio_anciao' },
-          'rei_sem_face': { emoji: '🎭', name: 'O Rei Sem Face', level: 50, players: 4, reward: 600000, xp: 18000, boss: '👑 Monarca Aamaldiçoado', bossId: 'monarca_amaldicoado', desc: 'Trono abandonado cheio de espelhos rachados. Poderes: roubar habilidades, criar clones ilusórios, desaparecer na fumaça negra.' },
+          'rei_sem_face': { emoji: '🎭', name: 'O Rei Sem Face', level: 50, players: 4, reward: 600000, xp: 18000, boss: '🌌 Monarca Aamaldiçoado', bossId: 'monarca_amaldicoado', desc: 'Trono abandonado cheio de espelhos rachados. Poderes: roubar habilidades, criar clones ilusórios, desaparecer na fumaça negra.' },
           'leviata_ferro': { emoji: '⚙️', name: 'Leviatã de Ferro', level: 75, players: 5, reward: 3600000, xp: 100000, boss: '🐋 Máquina Marinha', bossId: 'maquina_marinha', desc: 'Porto industrial inundado. Poderes: laser pelo olho, ondas de choque, invocar drones enferrujados, puxar jogadores com correntes.' },
           'marionetista': { emoji: '🧶', name: 'A Marionetista Carmesim', level: 100, players: 5, reward: 36000000, xp: 1000000, boss: '🩸 Marionetista Carmesim', bossId: 'marionetista_carmesim', desc: 'Teatro antigo iluminado apenas por velas vermelhas. Poderes: controlar NPCs, prender jogadores em fios, alterar a gravidade da sala, transformar a própria sombra em monstros.' }
         };
@@ -10288,10 +10288,10 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
 
           for (const [id, data] of Object.entries(dungeons)) {
-            const available = (me.level || 1) >= data.level ? '✅' : '🔒';
+            const available = (me.level || 1) >= data.level ? '✅' : '⚙️';
             text += `${data.emoji} *${data.name}* ${available}\n`;
             text += `   📊 Nv.${data.level}+ | 👥 ${data.players} jogadores\n`;
-            text += `   💰 ${data.reward.toLocaleString()} | ✨ ${data.xp} XP\n`;
+            text += `   💰 ${data.reward.toLocaleString()} | ◈ ${data.xp} XP\n`;
             text += `   👹 Boss: ${data.boss}\n`;
             if (data.desc) text += `   📝 ${data.desc}\n`;
             text += `\n`;
@@ -10327,7 +10327,7 @@ if (isCmd && command && !isOwnerOrSub) {
             return reply(`❌ Boss não encontrado!\n\n🏰 IDs: lobo_alfa, morcego_gigante, esqueleto_rei, dragao_fogo, demonio_anciao, monarca_amaldicoado, maquina_marinha, marionetista_carmesim`);
           }
           if ((me.level || 1) < dg.level) {
-            return reply(`🔒 Você precisa ser nível ${dg.level}+ para esta dungeon!`);
+            return reply(`⚙️ Você precisa ser nível ${dg.level}+ para esta dungeon!`);
           }
 
           // Verificar se já está em uma party
@@ -10396,13 +10396,13 @@ if (isCmd && command && !isOwnerOrSub) {
           }
 
           if ((me?.level || 1) < (dg?.level || 1)) {
-            return reply(`🔒 Você precisa ser nível ${dg?.level || 1}+!`);
+            return reply(`⚙️ Você precisa ser nível ${dg?.level || 1}+!`);
           }
 
           party.members.push(sender);
 
           saveEconomy(econ);
-          return reply(`✅ Você entrou na party!\n\n${dg.emoji} *${dg.name}*\n👥 Membros: ${party.members.length}/${party.maxMembers}\n\n${party.members.length >= party.maxMembers ? `🎮 Party completa! Líder pode usar ${prefix}dungeon iniciar` : '⏳ Aguardando mais membros...'}`);
+          return reply(`✅ Você entrou na party!\n\n${dg.emoji} *${dg.name}*\n👥 Membros: ${party.members.length}/${party.maxMembers}\n\n${party.members.length >= party.maxMembers ? `🌌 Party completa! Líder pode usar ${prefix}dungeon iniciar` : '⏳ Aguardando mais membros...'}`);
         }
 
         // Iniciar dungeon
@@ -10465,7 +10465,7 @@ if (isCmd && command && !isOwnerOrSub) {
             const level = u?.level || 1;
             text += `• @${m.split('@')[0]} (Nv.${level})\n`;
           });
-          text += `\n⚔️ Poder Total: ${poderTotal}\n`;
+          text += `\n◈ Poder Total: ${poderTotal}\n`;
           text += `👹 Boss: ${dg.boss}\n\n`;
 
           if (vitoria) {
@@ -10510,7 +10510,7 @@ if (isCmd && command && !isOwnerOrSub) {
             // Remove a party após derrota (opcional, mas evita travar os jogadores)
             delete econ.dungeonParties[myParty.id];
             saveEconomy(econ);
-            text += `💀 *DERROTA!*\n\n`;
+            text += `🌌 *DERROTA!*\n\n`;
             text += `😔 O boss ${dg.boss} foi muito forte...\n`;
             text += `💡 Tente novamente com mais poder!`;
           }
@@ -10551,8 +10551,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'mercadoplayer':
       case 'auction':
       case 'leilaoplayer': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10701,8 +10701,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'missoes':
       case 'quests':
       case 'missao': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10724,7 +10724,7 @@ if (isCmd && command && !isOwnerOrSub) {
         // Gerar missões diárias
         if (me.quests.daily.length === 0) {
           const allQuests = [
-            { id: 'duel_3', name: '⚔️ Duelar 3 vezes', reward: 5000, exp: 200, progress: 0, goal: 3, claimed: false },
+            { id: 'duel_3', name: '◈ Duelar 3 vezes', reward: 5000, exp: 200, progress: 0, goal: 3, claimed: false },
             { id: 'dungeon_2', name: '🗺️ Completar 2 dungeons', reward: 8000, exp: 300, progress: 0, goal: 2, claimed: false },
             { id: 'gather_10', name: '🌾 Coletar 10 recursos', reward: 3000, exp: 150, progress: 0, goal: 10, claimed: false },
             { id: 'cook_5', name: '👨‍🍳 Cozinhar 5 receitas', reward: 4000, exp: 180, progress: 0, goal: 5, claimed: false },
@@ -10754,7 +10754,7 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `┌─────────────────\n`;
           text += `│ 📊 Progresso: ${quest.progress}/${quest.goal}\n`;
           text += `│ 💰 Recompensa: ${quest.reward.toLocaleString()}\n`;
-          text += `│ ✨ EXP: ${quest.exp}\n`;
+          text += `│ ◈ EXP: ${quest.exp}\n`;
           if (claimed) {
             text += `│ ✅ Reivindicado!\n`;
           } else if (completed) {
@@ -10778,8 +10778,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'guerra':
       case 'war':
       case 'guerracla': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10787,10 +10787,10 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!me.clan) return reply('🏰 Você precisa estar em um clã para declarar guerra!');
 
         const myClan = econ.clans[me.clan];
-        if (myClan.leader !== sender) return reply('👑 Apenas o líder pode declarar guerra!');
+        if (myClan.leader !== sender) return reply('🌌 Apenas o líder pode declarar guerra!');
 
         if (!q) {
-          let text = `╭━━━⊱ ⚔️ *GUERRA DE CLÃS* ⊱━━━╮\n`;
+          let text = `╭━━━⊱ ◈ *GUERRA DE CLÃS* ⊱━━━╮\n`;
           text += `│ Seu Clã: *${myClan.name}*\n`;
           text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
           text += `💡 Em breve: Sistema de guerras entre clãs!\n\n`;
@@ -10810,8 +10810,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Criar clã
       case 'criarcla':
       case 'criarclã': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10847,8 +10847,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Info de Clã
       case 'cla':
       case 'claninfo': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10890,8 +10890,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'convidar':
       case 'invite':
       case 'convite': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -10902,7 +10902,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!clan) { me.clan = null; saveEconomy(econ); return reply('❌ Seu clã não foi encontrado.'); }
 
         // Apenas líder pode convidar por enquanto
-        if (clan.leader !== sender) return reply('👑 Apenas o líder do clã pode convidar novos membros!');
+        if (clan.leader !== sender) return reply('🌌 Apenas o líder do clã pode convidar novos membros!');
         const target = (menc_jid2 && menc_jid2[0]) || null;
         if (!target) return reply(`❗ Marque um membro para convidar. Ex: ${prefix}convidar @user`);
         if (target === sender) return reply('❌ Você não pode convidar você mesmo!');
@@ -10925,14 +10925,14 @@ if (isCmd && command && !isOwnerOrSub) {
       // Remover convite pendente (apenas líder)
       case 'rmconvite':
       case 'removerconvite': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
         const econ2 = loadEconomy();
         const me2 = getEcoUser(econ2, sender);
         if (!me2.clan) return reply('❌ Você não faz parte de nenhum clã.');
         const clan2 = econ2.clans[me2.clan];
         if (!clan2) { me2.clan = null; saveEconomy(econ2); return reply('❌ Seu clã não foi encontrado.'); }
-        if (clan2.leader !== sender) return reply('👑 Apenas o líder pode remover convites.');
+        if (clan2.leader !== sender) return reply('🌌 Apenas o líder pode remover convites.');
         const target2 = (menc_jid2 && menc_jid2[0]) || null;
         if (!target2) return reply(`❗ Marque um usuário para remover o convite. Ex: ${prefix}rmconvite @user`);
         if (!Array.isArray(clan2.pendingInvites) || !clan2.pendingInvites.includes(target2)) return reply('❌ Este usuário não tem um convite pendente para o seu clã.');
@@ -10945,8 +10945,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       // Sair do clã
       case 'sair': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11000,8 +11000,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Aceitar convite de clã
       case 'aceitarconvite':
       case 'aceitarrpg': {
-        if (!isGroup) return reply('⚔️ Comandos de clã só funcionam em grupos com Modo RPG.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Comandos de clã só funcionam em grupos com Modo RPG.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11031,8 +11031,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Recusar convite
       case 'recusarconvite':
       case 'recusar': {
-        if (!isGroup) return reply('⚔️ Comandos de clã só funcionam em grupos com Modo RPG.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Comandos de clã só funcionam em grupos com Modo RPG.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
         const clansWithInvite = Object.values(econ.clans || {}).filter(c => Array.isArray(c.pendingInvites) && c.pendingInvites.includes(sender));
@@ -11054,14 +11054,14 @@ if (isCmd && command && !isOwnerOrSub) {
       // Expulsar membro do clã (apenas líder)
       case 'expulsar':
       case 'kickcla': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
         if (!me.clan) return reply('❌ Você não faz parte de nenhum clã.');
         const clan = econ.clans[me.clan];
         if (!clan) { me.clan = null; saveEconomy(econ); return reply('❌ Seu clã não foi encontrado.'); }
-        if (clan.leader !== sender) return reply('👑 Apenas o líder pode expulsar membros.');
+        if (clan.leader !== sender) return reply('🌌 Apenas o líder pode expulsar membros.');
         const target = (menc_jid2 && menc_jid2[0]) || null;
         if (!target) return reply(`❗ Marque um membro para expulsar. Ex: ${prefix}expulsar @user`);
         if (target === sender) return reply('❌ Você não pode se expulsar como líder. Use sair para demitir-se e transferir liderança.');
@@ -11080,8 +11080,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Sistema de Família
       case 'familia':
       case 'family': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11172,8 +11172,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'adotaruser':
       case 'adotarfilho': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11238,8 +11238,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'deserdar':
       case 'desherdar':
       case 'removerfilho': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11291,8 +11291,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'arvore':
       case 'familytree': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11394,8 +11394,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Sistema de Torneio
       case 'torneio':
       case 'tournament': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11420,7 +11420,7 @@ if (isCmd && command && !isOwnerOrSub) {
             tournament.prize = 50000;
 
             saveEconomy(econ);
-            return reply(`╭━━━⊱ 🏆 *TORNEIO ABERTO!* ⊱━━━╮\n╰━━━━━━━━━━━━━━━━━━━━╯\n\n⚔️ Um torneio foi iniciado!\n\n💰 Prêmio: ${tournament.prize.toLocaleString()}\n⏰ Inscrições abertas!\n\n💡 Use ${prefix}torneio entrar`);
+            return reply(`╭━━━⊱ 🏆 *TORNEIO ABERTO!* ⊱━━━╮\n╰━━━━━━━━━━━━━━━━━━━━╯\n\n◈ Um torneio foi iniciado!\n\n💰 Prêmio: ${tournament.prize.toLocaleString()}\n⏰ Inscrições abertas!\n\n💡 Use ${prefix}torneio entrar`);
           }
 
           return reply(`❌ Não há torneio ativo!\n\n💡 Admins: Use ${prefix}torneio criar`);
@@ -11457,7 +11457,7 @@ if (isCmd && command && !isOwnerOrSub) {
           let results = `╭━━━⊱ 🏆 *TORNEIO* ⊱━━━╮\n╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
 
           while (fighters.length > 1) {
-            results += `⚔️ *RODADA ${round}*\n\n`;
+            results += `◈ *RODADA ${round}*\n\n`;
             const nextRound = [];
 
             for (let i = 0; i < fighters.length; i += 2) {
@@ -11513,8 +11513,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Interações Sociais RPG
       case 'abracarrpg':
       case 'hugrpg': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
         if (!target) return reply(`❌ Marque alguém para abraçar!\n\n💡 Exemplo: ${prefix}abracar @user`);
@@ -11533,8 +11533,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'beijarrpg':
       case 'kissrpg': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
         if (!target) return reply(`❌ Marque alguém para beijar!\n\n💡 Exemplo: ${prefix}beijarrpg @user`);
@@ -11554,8 +11554,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'baterrpg':
       case 'taparpg':
       case 'slaprpg': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const target = (menc_jid2 && menc_jid2[0]) || null;
         if (!target) return reply(`❌ Marque alguém para dar um tapa!\n\n💡 Exemplo: ${prefix}baterrpg @user`);
@@ -11574,8 +11574,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'proteger':
       case 'protect': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11598,7 +11598,7 @@ if (isCmd && command && !isOwnerOrSub) {
 
         saveEconomy(econ);
 
-        let text = `╭━━━⊱ 🛡️ *PROTEÇÃO ATIVA* ⊱━━━╮\n`;
+        let text = `╭━━━⊱ ⚙️ *PROTEÇÃO ATIVA* ⊱━━━╮\n`;
         text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
         text += `${pushname} está protegendo @${target.split('@')[0]}!\n\n`;
         text += `⏰ Duração: 1 hora\n`;
@@ -11613,8 +11613,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'reputacao':
       case 'rep':
       case 'reputation': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11652,8 +11652,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'votar':
       case 'vote': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -11740,7 +11740,7 @@ if (isCmd && command && !isOwnerOrSub) {
           const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
           const userName = user.id.split('@')[0];
           text += `${medal} @${userName}\n`;
-          text += `   💰 ${user.totalWealth.toLocaleString()} | Lv.${user.level} | ⚔️ ${user.power}\n`;
+          text += `   💰 ${user.totalWealth.toLocaleString()} | Lv.${user.level} | ◈ ${user.power}\n`;
           text += `   📊 Score: ${user.score.toLocaleString()}\n\n`;
           mentions.push(user.id);
         });
@@ -11819,7 +11819,7 @@ if (isCmd && command && !isOwnerOrSub) {
         targetData.power = stats.power;
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ✅ *NÍVEL DEFINIDO* ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 📊 Nível: ${newLevel}\n│ ⚔️ Poder: ${targetData.power}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
+        return reply(`╭━━━⊱ ✅ *NÍVEL DEFINIDO* ⊱━━━╮\n│\n│ 👤 @${target.split('@')[0]}\n│ 📊 Nível: ${newLevel}\n│ ◈ Poder: ${targetData.power}\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
       }
 
       // Adicionar item ao jogador
@@ -11960,8 +11960,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'lojapremium':
       case 'premiumshop':
       case 'lojadeluxo': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const premiumItems = [
           { id: 'titulo_lendario', name: '🏅 Título Lendário', price: 500000, desc: 'Título exclusivo no perfil' },
@@ -11970,10 +11970,10 @@ if (isCmd && command && !isOwnerOrSub) {
           { id: 'yate', name: '🛥️ Iate', price: 1500000, desc: 'Barco de luxo (+bônus pesca)' },
           { id: 'jet_privado', name: '✈️ Jato Privado', price: 5000000, desc: 'Viaje instantaneamente' },
           { id: 'diamante_eterno', name: '💎 Diamante Eterno', price: 10000000, desc: 'Item colecionável raro' },
-          { id: 'coroa_rei', name: '👑 Coroa Real', price: 25000000, desc: 'Símbolo máximo de poder' },
+          { id: 'coroa_rei', name: '🌌 Coroa Real', price: 25000000, desc: 'Símbolo máximo de poder' },
           { id: 'boost_permanente', name: '⚡ Boost Permanente', price: 3000000, desc: '+50% em todas atividades' },
-          { id: 'protecao_vip', name: '🛡️ Proteção VIP', price: 1000000, desc: 'Proteção eterna contra roubos' },
-          { id: 'multiplicador_xp', name: '✨ Multiplicador XP', price: 2500000, desc: '2x XP permanente' }
+          { id: 'protecao_vip', name: '⚙️ Proteção VIP', price: 1000000, desc: 'Proteção eterna contra roubos' },
+          { id: 'multiplicador_xp', name: '◈ Multiplicador XP', price: 2500000, desc: '2x XP permanente' }
         ];
 
         let text = `╭━━━⊱ 💎 *LOJA PREMIUM* ⊱━━━╮\n`;
@@ -11993,8 +11993,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Comprar item premium
       case 'comprarpremium':
       case 'buypremium': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const rawItemId = (args[0] || '');
         if (!rawItemId) return reply(`❌ Informe o item!\n\n💡 Uso: ${prefix}comprarpremium <item>\n🛒 Veja a loja: ${prefix}lojapremium`);
@@ -12006,10 +12006,10 @@ if (isCmd && command && !isOwnerOrSub) {
           'yate': { name: '🛥️ Iate', price: 1500000 },
           'jet_privado': { name: '✈️ Jato Privado', price: 5000000 },
           'diamante_eterno': { name: '💎 Diamante Eterno', price: 10000000 },
-          'coroa_rei': { name: '👑 Coroa Real', price: 25000000 },
+          'coroa_rei': { name: '🌌 Coroa Real', price: 25000000 },
           'boost_permanente': { name: '⚡ Boost Permanente', price: 3000000 },
-          'protecao_vip': { name: '🛡️ Proteção VIP', price: 1000000 },
-          'multiplicador_xp': { name: '✨ Multiplicador XP', price: 2500000 }
+          'protecao_vip': { name: '⚙️ Proteção VIP', price: 1000000 },
+          'multiplicador_xp': { name: '◈ Multiplicador XP', price: 2500000 }
         };
 
         // Normaliza a busca do item ignorando acentos
@@ -12036,14 +12036,14 @@ if (isCmd && command && !isOwnerOrSub) {
 
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ ✅ *COMPRA PREMIUM* ⊱━━━╮\n│\n│ 🛒 ${item.name}\n│ 💰 -${item.price.toLocaleString()}\n│\n│ ✨ Item adicionado com sucesso!\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ ✅ *COMPRA PREMIUM* ⊱━━━╮\n│\n│ 🛒 ${item.name}\n│ 💰 -${item.price.toLocaleString()}\n│\n│ ◈ Item adicionado com sucesso!\n│\n╰━━━━━━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // Cassino Roleta - NERFADO
       case 'roleta':
       case 'roulette': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12107,7 +12107,7 @@ if (isCmd && command && !isOwnerOrSub) {
           await npcManager?.trigger(nazu, from, 'cassino_roleta_vitoria', sender, pushname, { result: winColor.toUpperCase(), amount: winnings });
         } else {
           me.wallet -= bet;
-          text += `💀 *VOCÊ PERDEU!*\n💸 -${bet.toLocaleString()}\n🎰 A roleta parece viciada...`;
+          text += `🌌 *VOCÊ PERDEU!*\n💸 -${bet.toLocaleString()}\n🎰 A roleta parece viciada...`;
           // 🤖 EVENTO NPC - ROLETA PERDA
           await npcManager?.trigger(nazu, from, 'cassino_roleta_perda', sender, pushname, { bet: normalizedChoice.toUpperCase() });
         }
@@ -12122,8 +12122,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'blackjack':
       case 'bj':
       case '21': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12194,7 +12194,7 @@ if (isCmd && command && !isOwnerOrSub) {
 
         if (playerValue > 21) {
           me.wallet -= bet;
-          text += `💀 *BUST!* Você passou de 21!\n💸 -${bet.toLocaleString()}\n🃏 Que azar...`;
+          text += `🌌 *BUST!* Você passou de 21!\n💸 -${bet.toLocaleString()}\n🃏 Que azar...`;
           // 🤖 EVENTO NPC - BLACKJACK BUST
           await npcManager?.trigger(nazu, from, 'cassino_slots_perda', sender, pushname);
         } else if (dealerValue > 21 || playerValue > dealerValue) {
@@ -12213,7 +12213,7 @@ if (isCmd && command && !isOwnerOrSub) {
           await npcManager?.trigger(nazu, from, 'cassino_slots_perda', sender, pushname);
         } else {
           me.wallet -= bet;
-          text += `💀 *DEALER VENCEU!*\n💸 -${bet.toLocaleString()}\n🃏 O dealer parece ter sorte demais...`;
+          text += `🌌 *DEALER VENCEU!*\n💸 -${bet.toLocaleString()}\n🃏 O dealer parece ter sorte demais...`;
           // 🤖 EVENTO NPC - BLACKJACK PERDA
           await npcManager?.trigger(nazu, from, 'cassino_slots_perda', sender, pushname);
         }
@@ -12228,8 +12228,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'slots':
       case 'slotmachine':
       case 'cacaniquel': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12294,7 +12294,7 @@ if (isCmd && command && !isOwnerOrSub) {
           await npcManager?.trigger(nazu, from, 'cassino_slots_vitoria', sender, pushname, { amount: winnings - bet });
         } else {
           me.wallet -= bet;
-          text += `💀 *PERDEU!*\n💸 -${bet.toLocaleString()}\n🎰 A máquina parece viciada...`;
+          text += `🌌 *PERDEU!*\n💸 -${bet.toLocaleString()}\n🎰 A máquina parece viciada...`;
           // 🤖 EVENTO NPC - SLOTS PERDA
           await npcManager?.trigger(nazu, from, 'cassino_slots_perda', sender, pushname, { amount: bet });
         }
@@ -12309,8 +12309,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'loteria':
       case 'lottery':
       case 'mega': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12373,8 +12373,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'corrida':
       case 'horserace':
       case 'cavalos': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12427,7 +12427,7 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `🎉 *VOCÊ GANHOU!*\n💰 +${winnings.toLocaleString()} (${selectedHorse.odds}x)`;
         } else {
           me.wallet -= bet;
-          text += `💀 *VOCÊ PERDEU!*\n💸 -${bet.toLocaleString()}`;
+          text += `🌌 *VOCÊ PERDEU!*\n💸 -${bet.toLocaleString()}`;
         }
 
         text += `\n\n╰━━━━━━━━━━━━━━━━━━━━╯`;
@@ -12440,8 +12440,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'leilao':
       case 'leilaorpg':
       case 'leiloar': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12560,7 +12560,7 @@ if (isCmd && command && !isOwnerOrSub) {
 
         const mentions = [];
         rankedUsers.forEach((user, i) => {
-          const medal = i === 0 ? '👑' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+          const medal = i === 0 ? '🌌' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
           text += `${medal} @${user.id.split('@')[0]}\n`;
           text += `   💰 ${user.totalWealth.toLocaleString()}\n`;
           mentions.push(user.id);
@@ -12573,17 +12573,17 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'boost':
       case 'buff':
       case 'impulsionar': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
         const boosts = {
-          xp: { name: '✨ Boost XP (2x)', price: 50000, duration: 3600000, effect: 'xpBoost' },
+          xp: { name: '◈ Boost XP (2x)', price: 50000, duration: 3600000, effect: 'xpBoost' },
           money: { name: '💰 Boost Moedas (1.5x)', price: 75000, duration: 3600000, effect: 'moneyBoost' },
           luck: { name: '🍀 Boost Sorte (+20%)', price: 100000, duration: 3600000, effect: 'luckBoost' },
-          power: { name: '⚔️ Boost Poder (+50%)', price: 80000, duration: 1800000, effect: 'powerBoost' },
+          power: { name: '◈ Boost Poder (+50%)', price: 80000, duration: 1800000, effect: 'powerBoost' },
           mega: { name: '🔥 Mega Boost (Todos)', price: 250000, duration: 1800000, effect: 'megaBoost' }
         };
 
@@ -12642,8 +12642,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'tributos':
       case 'impostos':
       case 'taxes': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12740,14 +12740,14 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'doar':
       case 'donate':
       case 'doacao': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
 
         const amount = parseInt(args[0]) || 0;
-        if (amount < 1000) return reply(`💝 *DOAÇÃO*\n\n💡 Uso: ${prefix}doar <valor>\n\n📌 Mínimo: 1.000 moedas\n✨ Ganhe karma e reputação por doar!`);
+        if (amount < 1000) return reply(`💝 *DOAÇÃO*\n\n💡 Uso: ${prefix}doar <valor>\n\n📌 Mínimo: 1.000 moedas\n◈ Ganhe karma e reputação por doar!`);
 
         if (me.wallet < amount) return reply('❌ Saldo insuficiente!');
 
@@ -12770,14 +12770,14 @@ if (isCmd && command && !isOwnerOrSub) {
 
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ 💝 *DOAÇÃO* ⊱━━━╮\n\n💰 Valor: ${amount.toLocaleString()}\n☯️ Karma: +${karmaGain}\n⭐ Reputação: +${Math.floor(karmaGain / 2)}\n\n📊 Total doado: ${me.donations.total.toLocaleString()}\n🏦 Tesouro: ${econ.treasury.toLocaleString()}\n\n✨ Obrigado pela generosidade!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
+        return reply(`╭━━━⊱ 💝 *DOAÇÃO* ⊱━━━╮\n\n💰 Valor: ${amount.toLocaleString()}\n☯️ Karma: +${karmaGain}\n⭐ Reputação: +${Math.floor(karmaGain / 2)}\n\n📊 Total doado: ${me.donations.total.toLocaleString()}\n🏦 Tesouro: ${econ.treasury.toLocaleString()}\n\n◈ Obrigado pela generosidade!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`);
       }
 
       // Sistema de Presente
       case 'presente':
       case 'gift': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12804,15 +12804,15 @@ if (isCmd && command && !isOwnerOrSub) {
 
         saveEconomy(econ);
 
-        return reply(`╭━━━⊱ 🎁 *PRESENTE ENVIADO* ⊱━━━╮\n\n📦 Item: ${item}\n🔢 Quantidade: ${qty}\n👤 Para: @${target.split('@')[0]}\n\n✨ Presente entregue!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
+        return reply(`╭━━━⊱ 🎁 *PRESENTE ENVIADO* ⊱━━━╮\n\n📦 Item: ${item}\n🔢 Quantidade: ${qty}\n👤 Para: @${target.split('@')[0]}\n\n◈ Presente entregue!\n\n╰━━━━━━━━━━━━━━━━━━━━╯`, { mentions: [target] });
       }
 
       // Estatísticas pessoais detalhadas
       case 'meustats':
       case 'mystats':
       case 'statsrpg': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12834,7 +12834,7 @@ if (isCmd && command && !isOwnerOrSub) {
         text += `├ Total: ${totalWealth.toLocaleString()}\n`;
         text += `└ Doações: ${(me.donations?.total || 0).toLocaleString()}\n\n`;
 
-        text += `⚔️ *COMBATE*\n`;
+        text += `◈ *COMBATE*\n`;
         text += `├ Batalhas vencidas: ${me.battlesWon || 0}\n`;
         text += `├ Batalhas perdidas: ${me.battlesLost || 0}\n`;
         text += `├ Duelos: ${me.stats?.duels || 0}\n`;
@@ -12871,8 +12871,8 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'evoluir':
       case 'evolucao':
       case 'prestige': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -12898,14 +12898,14 @@ if (isCmd && command && !isOwnerOrSub) {
           text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
           text += `🔱 Prestige Atual: ${me.prestige.level}\n`;
           text += `🔄 Resets Totais: ${me.prestige.totalResets}\n`;
-          text += `✨ Multiplicador: ${me.prestige.bonusMultiplier.toFixed(2)}x\n\n`;
+          text += `◈ Multiplicador: ${me.prestige.bonusMultiplier.toFixed(2)}x\n\n`;
           text += `📊 *REQUISITOS PARA PRESTIGE ${me.prestige.level + 1}:*\n`;
           text += `┌─────────────────────────\n`;
           text += `│ 📈 Level: ${me.level || 1}/${requiredLevel} ${(me.level || 1) >= requiredLevel ? '✅' : '❌'}\n`;
           text += `│ 💰 Carteira: ${(me.wallet || 0).toLocaleString()}/${requiredCoins.toLocaleString()} ${(me.wallet || 0) >= requiredCoins ? '✅' : '❌'}\n`;
           text += `│ 💎 Riqueza Total: ${currentTotalWealth.toLocaleString()}/${requiredTotalWealth.toLocaleString()} ${currentTotalWealth >= requiredTotalWealth ? '✅' : '❌'}\n`;
           text += `│ 🏆 Conquistas: ${currentAchievements}/${requiredAchievements} ${currentAchievements >= requiredAchievements ? '✅' : '❌'}\n`;
-          text += `│ ⚔️ Batalhas: ${currentBattlesWon}/${requiredBattlesWon} ${currentBattlesWon >= requiredBattlesWon ? '✅' : '❌'}\n`;
+          text += `│ ◈ Batalhas: ${currentBattlesWon}/${requiredBattlesWon} ${currentBattlesWon >= requiredBattlesWon ? '✅' : '❌'}\n`;
           text += `│ 💼 Trabalhos: ${currentWorkTimes}/${requiredWorkTimes} ${currentWorkTimes >= requiredWorkTimes ? '✅' : '❌'}\n`;
           text += `└─────────────────────────\n\n`;
 
@@ -12928,7 +12928,7 @@ if (isCmd && command && !isOwnerOrSub) {
             text += `• Moedas da carteira resetadas\n`;
             text += `• Banco reduzido em 50%\n`;
             text += `• XP zerada\n\n`;
-            text += `✨ *SERÁ MANTIDO:*\n`;
+            text += `◈ *SERÁ MANTIDO:*\n`;
             text += `• Pets e equipamentos\n`;
             text += `• Família, clã e relacionamento\n`;
             text += `• Itens premium\n`;
@@ -12962,7 +12962,7 @@ if (isCmd && command && !isOwnerOrSub) {
         }
 
         if (currentBattlesWon < requiredBattlesWon) {
-          return reply(`⚔️ Você precisa vencer ${requiredBattlesWon} batalhas!\n📊 Atual: ${currentBattlesWon}`);
+          return reply(`◈ Você precisa vencer ${requiredBattlesWon} batalhas!\n📊 Atual: ${currentBattlesWon}`);
         }
 
         if (currentWorkTimes < requiredWorkTimes) {
@@ -12995,11 +12995,11 @@ if (isCmd && command && !isOwnerOrSub) {
           bonus: me.prestige.bonusMultiplier
         };
 
-        let text = `╭━━━⊱ 🌟✨ *PRESTIGIADO!* ✨🌟 ⊱━━━╮\n`;
+        let text = `╭━━━⊱ 🌟◈ *PRESTIGIADO!* ◈🌟 ⊱━━━╮\n`;
         text += `╰━━━━━━━━━━━━━━━━━━━━╯\n\n`;
         text += `🎉 *PARABÉNS!*\n`;
         text += `Você alcançou o Prestige ${me.prestige.level}!\n\n`;
-        text += `✨ Novo multiplicador: ${me.prestige.bonusMultiplier.toFixed(2)}x\n`;
+        text += `◈ Novo multiplicador: ${me.prestige.bonusMultiplier.toFixed(2)}x\n`;
         text += `🔄 Total de resets: ${me.prestige.totalResets}\n`;
         text += `🏅 Título: ⭐ Prestige ${me.prestige.level}\n\n`;
         text += `💪 Você agora é MUITO mais forte!\n`;
@@ -13014,8 +13014,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Sistema de Investimentos
       case 'investir':
       case 'invest': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -13115,8 +13115,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'vender':
       case 'sell': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -13156,8 +13156,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Sistema de Apostas/Cassino - NERFADO
       case 'dados':
       case 'dice': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -13225,8 +13225,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'coinflip':
       case 'moeda': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -13279,8 +13279,8 @@ if (isCmd && command && !isOwnerOrSub) {
       }
 
       case 'crash': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -13335,8 +13335,8 @@ if (isCmd && command && !isOwnerOrSub) {
       // Sistema de Streaks
       case 'streak':
       case 'serie': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -13418,8 +13418,8 @@ if (isCmd && command && !isOwnerOrSub) {
 
       case 'reivindicar':
       case 'claim': {
-        if (!isGroup) return reply('⚔️ Este comando funciona apenas em grupos com Modo RPG ativo.');
-        if (!groupData.modorpg) return reply(`⚔️ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
+        if (!isGroup) return reply('◈ Este comando funciona apenas em grupos com Modo RPG ativo.');
+        if (!groupData.modorpg) return reply(`◈ Modo RPG desativado! Use ${prefix}modorpg para ativar.`);
 
         const econ = loadEconomy();
         const me = getEcoUser(econ, sender);
@@ -13735,7 +13735,7 @@ if (isCmd && command && !isOwnerOrSub) {
       //INTELIGENCIA ARTIFICIAL
       case 'gemma':
         if (!q) return reply(`🤔 Qual sua dúvida para o Gemma? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
-        reply(`⏳ Só um segundinho, estou consultando o Gemma... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Gemma... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13752,7 +13752,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'phi':
       case 'phi3':
         if (!q) return reply(`🤔 Qual sua dúvida para o Phi? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
-        reply(`⏳ Só um segundinho, estou consultando o Phi... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Phi... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13768,7 +13768,7 @@ if (isCmd && command && !isOwnerOrSub) {
         break;
       case 'qwen2':
         if (!q) return reply(`🤔 Qual sua dúvida para o Qwen2? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
-        reply(`⏳ Só um segundinho, estou consultando o Qwen2... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Qwen2... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13785,7 +13785,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'qwen':
       case 'qwen3':
         if (!q) return reply(`🤔 Qual sua dúvida para o Qwen? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
-        reply(`⏳ Só um segundinho, estou consultando o Qwen... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Qwen... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13802,7 +13802,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'llama':
       case 'llama3':
         if (!q) return reply(`🤔 Qual sua dúvida para o Llama? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
-        reply(`⏳ Só um segundinho, estou consultando o Llama... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Llama... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13818,7 +13818,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'baichuan':
       case 'baichuan2':
         if (!q) return reply(`🤔 Qual sua dúvida para o Baichuan? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
-        reply(`⏳ Só um segundinho, estou consultando o Baichuan... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Baichuan... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13834,7 +13834,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'marin':
         if (!q) return reply(`🤔 Qual sua dúvida para o Marin? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o Marin... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Marin... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13851,7 +13851,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'kimik2':
         if (!q) return reply(`🤔 Qual sua dúvida para o Kimi? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o Kimi... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Kimi... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13868,7 +13868,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'mistral':
         if (!q) return reply(`🤔 Qual sua dúvida para o Mistral? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o Mistral... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Mistral... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13885,7 +13885,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'magistral':
         if (!q) return reply(`🤔 Qual sua dúvida para o Magistral? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o Magistral... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Magistral... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13903,7 +13903,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'rocket':
         if (!q) return reply(`🤔 Qual sua dúvida para o RakutenAI? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o RakutenAI... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o RakutenAI... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13920,7 +13920,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'yi':
         if (!q) return reply(`🤔 Qual sua dúvida para o Yi? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o Yi... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Yi... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13937,7 +13937,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'gemma2':
         if (!q) return reply(`🤔 Qual sua dúvida para o Gemma2? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o Gemma2... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Gemma2... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13954,7 +13954,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'swallow':
         if (!q) return reply(`🤔 Qual sua dúvida para o Swallow? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o Swallow... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Swallow... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13971,7 +13971,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'falcon':
         if (!q) return reply(`🤔 Qual sua dúvida para o Falcon? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o Falcon... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Falcon... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -13988,7 +13988,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'qwencoder':
         if (!q) return reply(`🤔 Qual sua dúvida para o Qwencoder? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o Qwencoder... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o Qwencoder... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -14005,7 +14005,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'codegemma':
         if (!q) return reply(`🤔 Qual sua dúvida para o CodeGemma? Informe a pergunta após o comando! Exemplo: ${prefix}${command} quem descobriu o Brasil? 🌍`);
 
-        reply(`⏳ Só um segundinho, estou consultando o CodeGemma... ✨`).then(() => {
+        reply(`⏳ Só um segundinho, estou consultando o CodeGemma... ◈`).then(() => {
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', q, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
           }).catch((e) => {
@@ -14020,9 +14020,9 @@ if (isCmd && command && !isOwnerOrSub) {
         });
         break;
       case 'resumir':
-        if (!q) return reply(`📝 *Resumidor de Texto*\n\n💡 *Como usar:*\n• Envie o texto que deseja resumir após o comando\n• Ex: ${prefix}resumir [seu texto aqui]\n\n✨ O texto será resumido de forma clara e objetiva!`);
+        if (!q) return reply(`📝 *Resumidor de Texto*\n\n💡 *Como usar:*\n• Envie o texto que deseja resumir após o comando\n• Ex: ${prefix}resumir [seu texto aqui]\n\n◈ O texto será resumido de forma clara e objetiva!`);
 
-        reply('⏳ Aguarde enquanto preparo um resumo bem caprichado... ✨').then(() => {
+        reply('⏳ Aguarde enquanto preparo um resumo bem caprichado... ◈').then(() => {
           const prompt = `Resuma o seguinte texto em poucos parágrafos, de forma clara e objetiva, destacando as informações mais importantes:\n\n${q}`;
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', prompt, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
@@ -14043,7 +14043,7 @@ if (isCmd && command && !isOwnerOrSub) {
         if (!q.startsWith('http://') && !q.startsWith('https://')) {
           return reply(`🚫 Ops, parece que a URL é inválida! Certifique-se de incluir http:// ou https://. Exemplo: ${prefix}resumirurl https://exemplo.com/artigo 😊`);
         }
-        reply('⏳ Aguarde enquanto busco e resumo a página para você... ✨').then(() => {
+        reply('⏳ Aguarde enquanto busco e resumo a página para você... ◈').then(() => {
           axios.get(q, {
             timeout: 120000,
             headers: {
@@ -14085,7 +14085,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'ideia':
         if (!q) return reply(`💡 Quer ideias criativas? Diga o tema após o comando ${prefix}ideias! Exemplo: ${prefix}ideias nomes para um aplicativo de receitas 😊`);
 
-        reply('⏳ Um segundinho, estou pensando em ideias incríveis... ✨').then(() => {
+        reply('⏳ Um segundinho, estou pensando em ideias incríveis... ◈').then(() => {
           const prompt = `Gere 15 ideias criativas e detalhadas para o seguinte tema: ${q}`;
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', prompt, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
@@ -14104,7 +14104,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'explique':
         if (!q) return reply(`🤓 Quer entender algo? Diga o que deseja explicar após o comando ${prefix}explicar! Exemplo: ${prefix}explicar o que é inteligência artificial 😊`);
 
-        reply('⏳ Um momentinho, estou preparando uma explicação bem clara... ✨').then(() => {
+        reply('⏳ Um momentinho, estou preparando uma explicação bem clara... ◈').then(() => {
           const prompt = `Explique o seguinte conceito de forma simples e clara, como se fosse para alguém sem conhecimento prévio: ${q}`;
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', prompt, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
@@ -14123,7 +14123,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'correcao':
         if (!q) return reply(`✍️ Quer corrigir um texto? Envie o texto após o comando ${prefix}corrigir! Exemplo: ${prefix}corrigir Eu foi no mercado e comprei frutas. 😊`);
 
-        reply('⏳ Aguarde enquanto dou um polimento no seu texto... ✨').then(() => {
+        reply('⏳ Aguarde enquanto dou um polimento no seu texto... ◈').then(() => {
           const prompt = `Corrija os erros gramaticais, ortográficos e de estilo no seguinte texto, mantendo o significado original: ${q}`;
           ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', prompt, null).then((response) => {
             reply(formatAIResponse(response.data.choices[0].message.content));
@@ -14141,7 +14141,7 @@ if (isCmd && command && !isOwnerOrSub) {
       case 'resumirgrupo':
       case 'resumirconversa': {
         if (!isGroup) {
-          return reply('⚠️ Este comando só pode ser usado em grupos!');
+          return reply('⚠️ ◈ Este comando é só para grupos!');
         }
 
 
@@ -14239,7 +14239,7 @@ Faça um resumo conciso mas completo, destacando o que é mais relevante.`;
 
 
         if (!q) {
-          return reply(`📖 *Gerador de Histórias*\n\n💡 *Como usar:*\n• ${prefix}historia <gênero> <tema opcional>\n\n📚 *Gêneros disponíveis:*\n• fantasia, terror, romance, ficção científica, aventura, mistério, comédia, drama, ação, suspense\n\n✨ *Exemplos:*\n• ${prefix}historia fantasia dragões\n• ${prefix}historia terror casa abandonada\n• ${prefix}historia romance escola\n• ${prefix}historia ficção científica viagem no tempo`);
+          return reply(`📖 *Gerador de Histórias*\n\n💡 *Como usar:*\n• ${prefix}historia <gênero> <tema opcional>\n\n📚 *Gêneros disponíveis:*\n• fantasia, terror, romance, ficção científica, aventura, mistério, comédia, drama, ação, suspense\n\n◈ *Exemplos:*\n• ${prefix}historia fantasia dragões\n• ${prefix}historia terror casa abandonada\n• ${prefix}historia romance escola\n• ${prefix}historia ficção científica viagem no tempo`);
         }
 
         const generos = {
@@ -14267,7 +14267,7 @@ Faça um resumo conciso mas completo, destacando o que é mais relevante.`;
         const tipoHistoria = generos[genero] || `uma história criativa de ${genero}`;
         const temaExtra = tema ? ` envolvendo "${tema}"` : '';
 
-        await reply('📖 Escrevendo sua história... Aguarde um momento! ✨');
+        await reply('📖 Escrevendo sua história... Aguarde um momento! ◈');
 
         try {
           const prompt = `Escreva ${tipoHistoria}${temaExtra} em português brasileiro. A história deve ter:
@@ -14280,7 +14280,7 @@ Faça um resumo conciso mas completo, destacando o que é mais relevante.`;
 Seja criativo e original. Não use clichês. A história deve ser envolvente do início ao fim.`;
 
           const response = await ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', prompt, null);
-          await reply(`📖✨ *Sua História*\n\n${formatAIResponse(response.data.choices[0].message.content)}`);
+          await reply(`📖◈ *Sua História*\n\n${formatAIResponse(response.data.choices[0].message.content)}`);
         } catch (e) {
           console.error('Erro ao gerar história:', e);
           if (e.message?.includes('API key inválida')) {
@@ -14303,14 +14303,14 @@ Seja criativo e original. Não use clichês. A história deve ser envolvente do 
 
 
         if (!q) {
-          return reply(`🎬 *Recomendador de Mídia*\n\n💡 *Como usar:*\n• ${prefix}recomendar <tipo> <gênero/preferência>\n\n📺 *Tipos disponíveis:*\n• anime, jogo, musica, livro\n\n✨ *Exemplos:*\n• ${prefix}recomendar anime ação\n• ${prefix}recomendar jogo rpg\n• ${prefix}recomendar musica rock\n• ${prefix}recomendar livro fantasia`);
+          return reply(`🎬 *Recomendador de Mídia*\n\n💡 *Como usar:*\n• ${prefix}recomendar <tipo> <gênero/preferência>\n\n📺 *Tipos disponíveis:*\n• anime, jogo, musica, livro\n\n◈ *Exemplos:*\n• ${prefix}recomendar anime ação\n• ${prefix}recomendar jogo rpg\n• ${prefix}recomendar musica rock\n• ${prefix}recomendar livro fantasia`);
         }
 
         const tipos = {
           'anime': { emoji: '🎌', nome: 'animes' },
-          'jogo': { emoji: '🎮', nome: 'jogos' },
-          'jogos': { emoji: '🎮', nome: 'jogos' },
-          'game': { emoji: '🎮', nome: 'jogos' },
+          'jogo': { emoji: '🌌', nome: 'jogos' },
+          'jogos': { emoji: '🌌', nome: 'jogos' },
+          'game': { emoji: '🌌', nome: 'jogos' },
           'musica': { emoji: '🎵', nome: 'músicas/artistas' },
           'música': { emoji: '🎵', nome: 'músicas/artistas' },
           'livro': { emoji: '📚', nome: 'livros' },
@@ -14321,9 +14321,9 @@ Seja criativo e original. Não use clichês. A história deve ser envolvente do 
         const tipo = partes[0];
         const preferencia = partes.slice(1).join(' ') || 'qualquer gênero';
 
-        const tipoInfo = tipos[tipo] || { emoji: '✨', nome: tipo };
+        const tipoInfo = tipos[tipo] || { emoji: '◈', nome: tipo };
 
-        await reply(`${tipoInfo.emoji} Buscando recomendações de ${tipoInfo.nome}... Aguarde! ✨`);
+        await reply(`${tipoInfo.emoji} Buscando recomendações de ${tipoInfo.nome}... Aguarde! ◈`);
 
         try {
           const prompt = `Recomende 5 ${tipoInfo.nome} do gênero/estilo "${preferencia}" em português brasileiro.
@@ -14351,7 +14351,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       }
 
       // ═══════════════════════════════════════════════════════════════
-      // 🎮 WORDLE - Jogo de adivinhar palavra
+      // 🌌 WORDLE - Jogo de adivinhar palavra
       // ═══════════════════════════════════════════════════════════════
       case 'wordle':
       case 'palavra': {
@@ -14445,7 +14445,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         if (global.wordleGames[gameKey]) {
           const game = global.wordleGames[gameKey];
           const tamanho = game.palavra.length;
-          return reply(`🎮 *Jogo em andamento!*\n\n${game.historico.length > 0 ? game.historico.join('\n') + '\n\n' : ''}Tentativas: ${game.tentativas}/6\n📏 Tamanho: ${tamanho} letras\n\n💡 Chute uma palavra de ${tamanho} letras:\n${prefix}wordle [palavra]\n\n🔄 Para desistir: ${prefix}wordle desistir`);
+          return reply(`🌌 *Jogo em andamento!*\n\n${game.historico.length > 0 ? game.historico.join('\n') + '\n\n' : ''}Tentativas: ${game.tentativas}/6\n📏 Tamanho: ${tamanho} letras\n\n💡 Chute uma palavra de ${tamanho} letras:\n${prefix}wordle [palavra]\n\n🔄 Para desistir: ${prefix}wordle desistir`);
         }
 
         if (args[0] === 'desistir' && global.wordleGames[gameKey]) {
@@ -14471,7 +14471,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           iniciado: Date.now()
         };
 
-        await reply(`🎮 *WORDLE - Adivinhe a Palavra!*\n\n📝 Tente adivinhar a palavra de ${tamanhoEscolhido} letras!\n\n🟩 = Letra certa no lugar certo\n🟨 = Letra certa no lugar errado\n⬛ = Letra não existe\n\n💡 Você tem 6 tentativas!\n\n*Chute com:* ${prefix}wordle [palavra de ${tamanhoEscolhido} letras]`);
+        await reply(`🌌 *WORDLE - Adivinhe a Palavra!*\n\n📝 Tente adivinhar a palavra de ${tamanhoEscolhido} letras!\n\n🟩 = Letra certa no lugar certo\n🟨 = Letra certa no lugar errado\n⬛ = Letra não existe\n\n💡 Você tem 6 tentativas!\n\n*Chute com:* ${prefix}wordle [palavra de ${tamanhoEscolhido} letras]`);
         break;
       }
 
@@ -14617,7 +14617,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
               game.erros += 2;
               if (game.erros >= 6) {
                 delete global.forcaGames[forcaKey];
-                return reply(`${desenhoForca[6]}\n\n💀 *GAME OVER!*\n\n❌ A palavra era: *${game.palavra.toUpperCase()}*`);
+                return reply(`${desenhoForca[6]}\n\n🌌 *GAME OVER!*\n\n❌ A palavra era: *${game.palavra.toUpperCase()}*`);
               }
               return reply(`${desenhoForca[game.erros]}\n\n❌ Palavra errada! (+2 erros)\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ') || 'Nenhuma'}\n⚠️ Erros: ${game.erros}/6\n\n💡 Use ${prefix}forca dica para ver a dica`);
             }
@@ -14654,7 +14654,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
             if (game.erros >= 6) {
               delete global.forcaGames[forcaKey];
-              return reply(`${desenhoForca[6]}\n\n💀 *GAME OVER!*\n\n❌ A palavra era: *${game.palavra.toUpperCase()}*`);
+              return reply(`${desenhoForca[6]}\n\n🌌 *GAME OVER!*\n\n❌ A palavra era: *${game.palavra.toUpperCase()}*`);
             }
 
             return reply(`${desenhoForca[game.erros]}\n\n❌ Letra "${letra.toUpperCase()}" errada!\n\n📝 ${game.progresso.join(' ')}\n\n❌ Letras erradas: ${game.letrasErradas.join(', ')}\n⚠️ Erros: ${game.erros}/6\n\n💡 Use ${prefix}forca dica para ver a dica`);
@@ -15202,7 +15202,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const naviosIntactos = naviosAlvo.filter(n => n.acertos === 0);
 
           resposta += `\n📋 *Status da frota inimiga:*\n`;
-          resposta += `💀 Afundados: ${naviosAfundados.length}/${naviosAlvo.length}`;
+          resposta += `🌌 Afundados: ${naviosAfundados.length}/${naviosAlvo.length}`;
           if (naviosAfundados.length > 0) {
             resposta += ` (${naviosAfundados.map(n => n.nome).join(', ')})`;
           }
@@ -15240,7 +15240,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           status += `🎯 Turno: @${game.turno.split('@')[0]}\n\n`;
 
           status += `📋 *Frota inimiga:*\n`;
-          status += `💀 Afundados: ${naviosAfundadosStatus.length}/${naviosAlvoStatus.length}`;
+          status += `🌌 Afundados: ${naviosAfundadosStatus.length}/${naviosAlvoStatus.length}`;
           if (naviosAfundadosStatus.length > 0) {
             status += `\n   └ ${naviosAfundadosStatus.map(n => n.nome).join(', ')}`;
           }
@@ -15561,11 +15561,11 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       }
 
       // ═══════════════════════════════════════════════════════════════
-      // ⚔️ DUELO DE QUIZ - Competição de perguntas
+      // ◈ DUELO DE QUIZ - Competição de perguntas
       // ═══════════════════════════════════════════════════════════════
       case 'dueloquiz':
       case 'duelo': {
-        if (!isGroup) return reply('⚔️ Este jogo só funciona em grupos!');
+        if (!isGroup) return reply('◈ Este jogo só funciona em grupos!');
 
         // Carregar perguntas do JSON
         const quizPath = pathz.join(__dirname, 'funcs', 'json', 'quiz.json');
@@ -15614,7 +15614,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             created: Date.now()
           };
 
-          return reply(`⚔️ *DESAFIO DE QUIZ*\n\n@${sender.split('@')[0]} desafiou @${menc_os2.split('@')[0]} para um duelo de ${numPerguntas} perguntas!\n\n💡 O desafiado deve usar: ${prefix}dueloquiz aceitar\n⏱️ O desafio expira em 60 segundos.`, { mentions: [sender, menc_os2] });
+          return reply(`◈ *DESAFIO DE QUIZ*\n\n@${sender.split('@')[0]} desafiou @${menc_os2.split('@')[0]} para um duelo de ${numPerguntas} perguntas!\n\n💡 O desafiado deve usar: ${prefix}dueloquiz aceitar\n⏱️ O desafio expira em 60 segundos.`, { mentions: [sender, menc_os2] });
         }
 
         // Aceitar desafio
@@ -15679,7 +15679,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           delete global.dueloQuizChallenges[gameKey];
 
           const primeiraPergunta = perguntasSelecionadas[0];
-          return reply(`⚔️ *DUELO DE QUIZ INICIADO!*\n\n@${challenge.challenger.split('@')[0]} vs @${challenge.challenged.split('@')[0]}\n\n📊 ${challenge.numPerguntas} perguntas\n\n🎯 *Pergunta 1/${challenge.numPerguntas}*\n📂 Categoria: ${primeiraPergunta.categoria}\n\n❓ ${primeiraPergunta.pergunta.p}\n\n💡 É a vez de @${challenge.challenger.split('@')[0]} responder!\nUse: ${prefix}dueloquiz [resposta]`, { mentions: [challenge.challenger, challenge.challenged] });
+          return reply(`◈ *DUELO DE QUIZ INICIADO!*\n\n@${challenge.challenger.split('@')[0]} vs @${challenge.challenged.split('@')[0]}\n\n📊 ${challenge.numPerguntas} perguntas\n\n🎯 *Pergunta 1/${challenge.numPerguntas}*\n📂 Categoria: ${primeiraPergunta.categoria}\n\n❓ ${primeiraPergunta.pergunta.p}\n\n💡 É a vez de @${challenge.challenger.split('@')[0]} responder!\nUse: ${prefix}dueloquiz [resposta]`, { mentions: [challenge.challenger, challenge.challenged] });
         }
 
         // Processar resposta
@@ -15721,7 +15721,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             const acertos1 = game.respostas1.filter(r => r.acertou).length;
             const acertos2 = game.respostas2.filter(r => r.acertou).length;
 
-            let resultado = `⚔️ *DUELO FINALIZADO!*\n\n`;
+            let resultado = `◈ *DUELO FINALIZADO!*\n\n`;
             resultado += `📊 *Resultado:*\n`;
             resultado += `@${game.jogador1.split('@')[0]}: ${acertos1}/${game.perguntas.length} acertos\n`;
             resultado += `@${game.jogador2.split('@')[0]}: ${acertos2}/${game.perguntas.length} acertos\n\n`;
@@ -15755,7 +15755,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const game = global.dueloQuizGames[gameKey];
           const perguntaAtual = game.perguntas[game.perguntaAtual];
 
-          let status = `⚔️ *DUELO DE QUIZ*\n\n`;
+          let status = `◈ *DUELO DE QUIZ*\n\n`;
           status += `@${game.jogador1.split('@')[0]} vs @${game.jogador2.split('@')[0]}\n\n`;
           status += `🎯 *Pergunta ${game.perguntaAtual + 1}/${game.perguntas.length}*\n`;
           status += `📂 Categoria: ${perguntaAtual.categoria}\n\n`;
@@ -15767,7 +15767,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
         }
 
         // Mostrar ajuda
-        return reply(`⚔️ *DUELO DE QUIZ*\n\n💡 *Como jogar:*\n\n1️⃣ Desafie alguém:\n${prefix}dueloquiz @usuario [número]\n\n2️⃣ O desafiado aceita:\n${prefix}dueloquiz aceitar\n\n3️⃣ Respondam as perguntas alternadamente!\n\n🏆 Quem acertar mais perguntas vence!\n\n📌 Exemplo: ${prefix}dueloquiz @usuario 10`);
+        return reply(`◈ *DUELO DE QUIZ*\n\n💡 *Como jogar:*\n\n1️⃣ Desafie alguém:\n${prefix}dueloquiz @usuario [número]\n\n2️⃣ O desafiado aceita:\n${prefix}dueloquiz aceitar\n\n3️⃣ Respondam as perguntas alternadamente!\n\n🏆 Quem acertar mais perguntas vence!\n\n📌 Exemplo: ${prefix}dueloquiz @usuario 10`);
       }
 
       // ═══════════════════════════════════════════════════════════════
@@ -15982,14 +15982,14 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       }
 
       // ═══════════════════════════════════════════════════════════════
-      // 🔒 VERIFICADOR DE URL - FishFish API
+      // ⚙️ VERIFICADOR DE URL - FishFish API
       // ═══════════════════════════════════════════════════════════════
       case 'verificarurl':
       case 'checkurl':
       case 'urlsafe':
       case 'linkseguro': {
         if (!q) {
-          return reply(`🔒 *Verificador de Links*\n\n💡 *Como usar:*\n• ${prefix}verificarurl <link>\n\n✨ Verifica se um link é seguro ou malicioso usando a API FishFish.\n\n📌 *Exemplo:*\n${prefix}verificarurl exemplo.com`);
+          return reply(`⚙️ *Verificador de Links*\n\n💡 *Como usar:*\n• ${prefix}verificarurl <link>\n\n◈ Verifica se um link é seguro ou malicioso usando a API FishFish.\n\n📌 *Exemplo:*\n${prefix}verificarurl exemplo.com`);
         }
 
         // Limpar a URL
@@ -16034,7 +16034,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
               descricao = '⚠️ Este link pode infectar seu dispositivo!';
             }
 
-            await reply(`🔒 *Resultado da Verificação*\n\n🔗 *Domínio:* ${domain}\n\n${emoji} *Status:* ${status}\n📋 *Categoria:* ${categoria}\n\n${descricao}${data.description ? `\n\n📝 *Detalhes:* ${data.description}` : ''}`);
+            await reply(`⚙️ *Resultado da Verificação*\n\n🔗 *Domínio:* ${domain}\n\n${emoji} *Status:* ${status}\n📋 *Categoria:* ${categoria}\n\n${descricao}${data.description ? `\n\n📝 *Detalhes:* ${data.description}` : ''}`);
           }
         } catch (e) {
           console.error('Erro ao verificar URL:', e);
@@ -16105,7 +16105,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
             });
           }
 
-          await reply(`${weatherEmoji} *Clima em ${cityName}*\n📍 ${region}, ${country}\n\n🌡️ *Temperatura:* ${tempC}°C\n🤒 *Sensação:* ${feelsLike}°C\n💧 *Umidade:* ${humidity}%\n💨 *Vento:* ${windKmph} km/h (${windDir})\n☀️ *Índice UV:* ${uvIndex}\n👁️ *Visibilidade:* ${visibility} km\n☁️ *Nuvens:* ${cloudcover}%\n\n📋 *Condição:* ${descPt}${forecast}`);
+          await reply(`${weatherEmoji} *Clima em ${cityName}*\n▸ ${region}, ${country}\n\n🌡️ *Temperatura:* ${tempC}°C\n🤒 *Sensação:* ${feelsLike}°C\n💧 *Umidade:* ${humidity}%\n💨 *Vento:* ${windKmph} km/h (${windDir})\n☀️ *Índice UV:* ${uvIndex}\n👁️ *Visibilidade:* ${visibility} km\n☁️ *Nuvens:* ${cloudcover}%\n\n📋 *Condição:* ${descPt}${forecast}`);
         } catch (e) {
           console.error('Erro ao buscar clima:', e);
           await reply('❌ Não consegui encontrar informações do clima para essa cidade. Verifique o nome e tente novamente!');
@@ -16170,14 +16170,14 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
           const horaBrasil = agora.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit' });
           const dataBrasil = agora.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo', weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
 
-          return reply(`🕐 *Horário Atual*\n\n🇧🇷 *Brasil (Brasília):*\n⏰ ${horaBrasil}\n📅 ${dataBrasil}\n\n💡 *Ver outro fuso:*\n${prefix}hora <local>\n\n📍 *Locais disponíveis:*\nbrasil, eua, japao, china, coreia, londres, paris, portugal, dubai, australia, argentina...`);
+          return reply(`🕐 *Horário Atual*\n\n🇧🇷 *Brasil (Brasília):*\n⏰ ${horaBrasil}\n📅 ${dataBrasil}\n\n💡 *Ver outro fuso:*\n${prefix}hora <local>\n\n▸ *Locais disponíveis:*\nbrasil, eua, japao, china, coreia, londres, paris, portugal, dubai, australia, argentina...`);
         }
 
         const local = normalizar(q.toLowerCase().replace(/\s+/g, ''));
         const timezone = fusos[local];
 
         if (!timezone) {
-          return reply(`❌ Fuso horário "${q}" não encontrado!\n\n📍 *Locais disponíveis:*\nbrasil, eua, newyork, losangeles, japao, china, coreia, londres, paris, alemanha, portugal, russia, dubai, india, australia, argentina`);
+          return reply(`❌ Fuso horário "${q}" não encontrado!\n\n▸ *Locais disponíveis:*\nbrasil, eua, newyork, losangeles, japao, china, coreia, londres, paris, alemanha, portugal, russia, dubai, india, australia, argentina`);
         }
 
         try {
@@ -16206,7 +16206,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       case 'niver':
       case 'birthday': {
         if (!isGroup) {
-          return reply('⚠️ Este comando só funciona em grupos!');
+          return reply('⚠️ ◈ Este comando só funciona em grupos!');
         }
 
         // Carregar dados de aniversários do grupo
@@ -16304,7 +16304,7 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
       case 'estatisticas':
       case 'statsgrupo': {
         if (!isGroup) {
-          return reply('⚠️ Este comando só funciona em grupos!');
+          return reply('⚠️ ◈ Este comando só funciona em grupos!');
         }
 
         await reply('📊 Calculando estatísticas do grupo... ⏳');
@@ -16331,16 +16331,16 @@ Seja específico e recomende opções variadas (populares e menos conhecidas). F
 
           // Recursos ativos
           let recursos = [];
-          if (groupData.modorpg) recursos.push('⚔️ Modo RPG');
+          if (groupData.modorpg) recursos.push('◈ Modo RPG');
           if (groupData.welcome) recursos.push('👋 Boas-vindas');
-          if (groupData.antifake) recursos.push('🛡️ Anti-fake');
+          if (groupData.antifake) recursos.push('⚙️ Anti-fake');
           if (groupData.antilink) recursos.push('🔗 Anti-link');
           if (groupData.antilinksoft) recursos.push('🔗 Anti-link Soft');
           if (groupData.antiflood) recursos.push('🌊 Anti-flood');
 
-          const recursosStr = recursos.length > 0 ? `\n\n✨ *Recursos ativos:*\n${recursos.join('\n')}` : '';
+          const recursosStr = recursos.length > 0 ? `\n\n◈ *Recursos ativos:*\n${recursos.join('\n')}` : '';
 
-          await reply(`📊 *Estatísticas do Grupo*\n\n📛 *Nome:* ${groupName}\n📅 *Criado em:* ${groupCreation}\n\n👥 *Membros:* ${members}\n👑 *Admins:* ${admins}\n👤 *Membros comuns:* ${members - admins}${activityStats}${recursosStr}\n\n📝 *Descrição:*\n${groupDesc.substring(0, 200)}${groupDesc.length > 200 ? '...' : ''}`);
+          await reply(`📊 *Estatísticas do Grupo*\n\n📛 *Nome:* ${groupName}\n📅 *Criado em:* ${groupCreation}\n\n👥 *Membros:* ${members}\n🌌 *Admins:* ${admins}\n👤 *Membros comuns:* ${members - admins}${activityStats}${recursosStr}\n\n📝 *Descrição:*\n${groupDesc.substring(0, 200)}${groupDesc.length > 200 ? '...' : ''}`);
         } catch (e) {
           console.error('Erro ao buscar estatísticas:', e);
           await reply('❌ Erro ao obter estatísticas do grupo.');
@@ -16369,14 +16369,14 @@ Exemplo: ${prefix}tradutor inglês | Bom dia! 😊`);
           const partes = q.split('|');
           if (partes.length < 2) {
             return reply(`Formato incorreto! 😅 Use: ${prefix}tradutor idioma | texto
-Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
+Exemplo: ${prefix}tradutor espanhol | Olá mundo! ◈`);
           }
           const idioma = partes[0].trim();
           const texto = partes.slice(1).join('|').trim();
           reply('Aguarde um momentinho... ☀️').then(() => {
             const prompt = `Traduza o seguinte texto para ${idioma}:\n\n${texto}\n\nForneça apenas a tradução, sem explicações adicionais.`;
             ia.makeCognimaRequest('meta/llama-3.1-405b-instruct', prompt, null).then((bahz) => {
-              reply(`🌐✨ *Prontinho! Sua tradução para ${idioma.toUpperCase()} está aqui:*\n\n${formatAIResponse(bahz.data.choices[0].message.content)}`);
+              reply(`🌐◈ *Prontinho! Sua tradução para ${idioma.toUpperCase()} está aqui:*\n\n${formatAIResponse(bahz.data.choices[0].message.content)}`);
             }).catch((e) => {
               console.error("Erro ao traduzir texto:", e);
               reply("❌ Não foi possível realizar a tradução no momento. Tente novamente mais tarde.");
@@ -16385,12 +16385,12 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
         }
         break;
       case 'qrcode':
-        if (!q) return reply(`📲 *Gerador de QR Code*\n\n💡 *Como usar:*\n• Envie o texto ou link após o comando\n• Ex: ${prefix}qrcode https://exemplo.com\n• Ex: ${prefix}qrcode Seu texto aqui\n\n✨ O QR Code será gerado instantaneamente!`);
+        if (!q) return reply(`📲 *Gerador de QR Code*\n\n💡 *Como usar:*\n• Envie o texto ou link após o comando\n• Ex: ${prefix}qrcode https://exemplo.com\n• Ex: ${prefix}qrcode Seu texto aqui\n\n◈ O QR Code será gerado instantaneamente!`);
         reply('Aguarde um momentinho... ☀️').then(() => {
           const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(q)}`;
           return nazu.sendMessage(from, {
             image: { url: qrUrl },
-            caption: `📱✨ *Seu QR Code super fofo está pronto!*\n\nConteúdo: ${q.substring(0, 100)}${q.length > 100 ? '...' : ''}`
+            caption: `📱◈ *Seu QR Code super fofo está pronto!*\n\nConteúdo: ${q.substring(0, 100)}${q.length > 100 ? '...' : ''}`
           }, { quoted: info });
         }).catch((e) => {
           console.error("Erro ao gerar QR Code:", e);
@@ -16413,7 +16413,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
               } = respPT.data;
               const link = content_urls?.desktop?.page || '';
               const thumbUrl = thumbnail?.source || '';
-              let mensagem = `📖✨ *Encontrei isso na Wikipédia (PT):*\n\n*${title || q}*\n\n${extract}\n\n`;
+              let mensagem = `📖◈ *Encontrei isso na Wikipédia (PT):*\n\n*${title || q}*\n\n${extract}\n\n`;
               if (link) {
 
                 mensagem += `🔗 *Saiba mais:* ${link}\n`;
@@ -16448,7 +16448,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
                 } = respEN.data;
                 const link = content_urls?.desktop?.page || '';
                 const thumbUrl = thumbnail?.source || '';
-                let mensagem = `📖✨ *Encontrei isso na Wikipédia (EN):*\n\n*${title || q}*\n\n${extract}\n\n`;
+                let mensagem = `📖◈ *Encontrei isso na Wikipédia (EN):*\n\n*${title || q}*\n\n${extract}\n\n`;
                 if (link) {
 
                   mensagem += `🔗 *Saiba mais:* ${link}\n`;
@@ -16489,7 +16489,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
           axios.get(`https://significado.herokuapp.com/${encodeURIComponent(palavra)}`).then((resp) => {
             if (resp.data && resp.data.length > 0 && resp.data[0].meanings) {
               const significados = resp.data[0];
-              let mensagem = `📘✨ *Significado de "${palavra.toUpperCase()}":*\n\n`;
+              let mensagem = `📘◈ *Significado de "${palavra.toUpperCase()}":*\n\n`;
               if (significados.class) {
                 mensagem += `*Classe:* ${significados.class}\n\n`;
               }
@@ -16699,9 +16699,9 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
         try {
           const subdonos = getSubdonos();
           if (subdonos.length === 0) {
-            return reply("✨ Nenhum subdono cadastrado no momento.");
+            return reply("◈ Nenhum subdono cadastrado no momento.");
           }
-          let listaMsg = "👑 *Lista de Subdonos Atuais:*\n\n";
+          let listaMsg = "🌌 *Lista de Subdonos Atuais:*\n\n";
           const mentions = [];
           let participantsInfo = {};
           if (isGroup && groupMetadata.participants) {
@@ -17021,7 +17021,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
 ┃
 ┃ ✅ Mídias serão *PRESERVADAS*
 ┃
-┃ 🔒 Backup automático será criado
+┃ ⚙️ Backup automático será criado
 ┃
 ┃ ⏸️ Processamento de mensagens
 ┃    será *PAUSADO* durante update
@@ -17278,7 +17278,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
         }
         break;
       case 'leveling':
-        if (!isGroup) return reply("Este comando só funciona em grupos.");
+        if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
         if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando.");
         groupData.levelingEnabled = !groupData.levelingEnabled;
         writeJsonFile(groupFile, groupData);
@@ -17307,7 +17307,7 @@ Exemplo: ${prefix}tradutor espanhol | Olá mundo! ✨`);
         levelText += `│\n`;
         levelText += `├─────────────────────\n`;
         levelText += `│\n`;
-        levelText += `│ ✨ *Experiência:*\n`;
+        levelText += `│ ◈ *Experiência:*\n`;
         levelText += `│ └─ ${userDataLevel.xp} / ${nextLevelXp} XP\n`;
         levelText += `│\n`;
         levelText += `│ 📈 *Progresso:*\n`;
@@ -17411,7 +17411,7 @@ case 'addaluguel':
 
     if (!isGroup) {
         console.log('🚫 Bloqueado: comando não foi usado em grupo');
-        return reply("Este comando só pode ser usado em grupos.");
+        return reply("◈ Este comando é só para grupos.");
     }
 
     try {
@@ -17680,7 +17680,7 @@ case 'addaluguel':
           // Notifica o grupo
           try {
             await nazu.sendMessage(targetGroupId, {
-              text: `🎉 *BOA NOTÍCIA!*\n\nSeu aluguel foi estendido!\n\n➕ Dias adicionados: *${daysToAdd}*\n📅 Nova data de expiração: *${newExpirationDate}*\n⏳ Dias restantes: *${daysLeft}*\n\n✨ Continue aproveitando o bot!`
+              text: `🎉 *BOA NOTÍCIA!*\n\nSeu aluguel foi estendido!\n\n➕ Dias adicionados: *${daysToAdd}*\n📅 Nova data de expiração: *${newExpirationDate}*\n⏳ Dias restantes: *${daysLeft}*\n\n◈ Continue aproveitando o bot!`
             });
           } catch (e) {
             console.log("Não foi possível notificar o grupo:", e.message);
@@ -17742,7 +17742,7 @@ case 'addaluguel':
 
           if (isPermanent) {
             message += `♾️ *STATUS:* PERMANENTE\n\n`;
-            message += `✨ Este grupo tem aluguel permanente!\n`;
+            message += `◈ Este grupo tem aluguel permanente!\n`;
             message += `⏰ Não há data de expiração.`;
           } else {
             const isExpired = rental.expiresAt < now;
@@ -17837,7 +17837,7 @@ case 'addaluguel':
           let chatsDeleted = 0;
           let groupConversationsCleared = 0;
           let adminsNotified = 0;
-          const symbols = ['✨', '🌟', '⚡', '🔥', '🌈', '🍀', '💫', '🎉'];
+          const symbols = ['◈', '🌟', '⚡', '🔥', '🌈', '🍀', '💫', '🎉'];
 
           const currentGroups = await nazu.groupFetchAllParticipating();
           const currentGroupIds = Object.keys(currentGroups);
@@ -17877,7 +17877,7 @@ case 'addaluguel':
                 await new Promise(resolve => setTimeout(resolve, delay));
                 try {
                   await nazu.sendMessage(admin, {
-                    text: `⚠️ Olá, admin do grupo *${groupMetadata.subject}*! O aluguel do grupo expirou, e por isso saí. Para renovar, entre em contato com o dono. Obrigado! ${symbols[Math.floor(Math.random() * symbols.length)]}`
+                    text: `⚠️ 🌌 Admin do grupo *${groupMetadata.subject}*! O aluguel do grupo expirou, e por isso saí. Para renovar, entre em contato com o dono. Obrigado! ${symbols[Math.floor(Math.random() * symbols.length)]}`
                   });
                   adminsNotified++;
                 } catch (e) {
@@ -17995,7 +17995,7 @@ case 'addaluguel':
             }
           }
 
-          summary += `\n\n✨ Limpeza concluída com sucesso!`;
+          summary += `\n\n◈ Limpeza concluída com sucesso!`;
           await reply(summary);
         } catch (e) {
           console.error('Erro no comando limparaluguel:', e);
@@ -18085,7 +18085,7 @@ case 'addaluguel':
       case 'addautoadm':
       case 'addautoadmin':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
           if (!isGroupAdmin) return reply('🚫 Este comando é apenas para administradores do grupo!');
           if (!q || !q.includes('/')) return reply(`Por favor, forneça a mensagem recebida e a resposta separadas por /. Ex: ${groupPrefix}addautoadm oi/Olá! Como posso ajudar?`);
           const [received, response] = q.split('/').map(s => s.trim());
@@ -18110,7 +18110,7 @@ case 'addaluguel':
       case 'addautoadmidia':
       case 'addautoadmmidia':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
           if (!isGroupAdmin) return reply('🚫 Este comando é apenas para administradores do grupo!');
           if (!q) return reply(`📝 Como usar:\n\n1️⃣ ${groupPrefix}addautoadmidia [trigger]\n2️⃣ Responda uma mídia (imagem, vídeo, áudio ou sticker)\n3️⃣ Opcionalmente adicione uma legenda\n\nExemplo: ${groupPrefix}addautoadmidia bemvindo (respondendo uma imagem)`);
 
@@ -18205,7 +18205,7 @@ case 'addaluguel':
       case 'listautoadm':
       case 'listautoadmin':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
           if (!isGroupAdmin) return reply('🚫 Este comando é apenas para administradores do grupo!');
 
           const autoResponses = loadGroupAutoResponses(from);
@@ -18263,7 +18263,7 @@ case 'addaluguel':
       case 'delautoadm':
       case 'delautoadmin':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
           if (!isGroupAdmin) return reply('🚫 Este comando é apenas para administradores do grupo!');
           if (!q || isNaN(parseInt(q))) return reply(`Por favor, forneça o número da auto-resposta a ser removida. Ex: ${groupPrefix}delautoadm 1`);
           const index = parseInt(q) - 1;
@@ -18284,7 +18284,7 @@ case 'addaluguel':
       case 'autoresponses':
       case 'autorespostas':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
           if (!isGroupAdmin) return reply('🚫 Este comando é apenas para administradores do grupo!');
 
           const globalResponses = loadCustomAutoResponses();
@@ -18800,7 +18800,7 @@ case 'addaluguel':
             const flags = [];
             if (settings.ownerOnly) flags.push('🔐 Dono');
             if (settings.adminOnly) flags.push('🔐 Admin');
-            if (settings.context === 'group') flags.push('📍 Grupo');
+            if (settings.context === 'group') flags.push('▸ Grupo');
             if (settings.context === 'private') flags.push('📮 Privado');
             const flagsText = flags.length ? ` ${flags.join(' ')}` : '';
 
@@ -19325,7 +19325,7 @@ case 'addaluguel':
       case 'gerarnick':
       case 'nickgenerator':
         try {
-          if (!q) return reply(`🎮 *GERADOR DE NICK*\n\n📝 *Como usar:*\n• Digite o nick após o comando\n• Ex: ${prefix}nick kaiser`);
+          if (!q) return reply(`🌌 *GERADOR DE NICK*\n\n📝 *Como usar:*\n• Digite o nick após o comando\n• Ex: ${prefix}nick kaiser`);
           var datzn;
           datzn = await styleText(q);
           await reply(datzn.join('\n'));
@@ -19384,7 +19384,7 @@ case 'addaluguel':
       case 'scanlink':
       case 'urlscan':
         try {
-          if (!q) return reply(`🔒 *Verificador de Links*\n\n❌ Por favor, envie um link ou domínio para verificar.\n\n📝 *Uso:* ${prefix}${command} <link>\n\n📌 *Exemplos:*\n${prefix}${command} google.com\n${prefix}${command} https://exemplo.com/pagina`);
+          if (!q) return reply(`⚙️ *Verificador de Links*\n\n❌ Por favor, envie um link ou domínio para verificar.\n\n📝 *Uso:* ${prefix}${command} <link>\n\n📌 *Exemplos:*\n${prefix}${command} google.com\n${prefix}${command} https://exemplo.com/pagina`);
 
           // Extrair domínio do link
           let urlToCheck = q.trim();
@@ -19442,7 +19442,7 @@ case 'addaluguel':
               warningMsg = '\n\n🚫 *NÃO ACESSE ESTE LINK!*\nEste domínio foi identificado como perigoso e pode roubar seus dados ou infectar seu dispositivo!';
             }
 
-            await reply(`${statusEmoji} *Resultado da Verificação*\n\n🔗 *Link:* ${urlToCheck}\n🌐 *Domínio:* ${domain}\n\n📊 *Status:* ${statusText}\n🏷️ *Categoria:* ${category}\n⚡ *Nível de Risco:* ${riskLevel}\n📅 *Registrado em:* ${createdAt}${warningMsg}\n\n🔒 *Verificado por:* FishFish Security API`);
+            await reply(`${statusEmoji} *Resultado da Verificação*\n\n🔗 *Link:* ${urlToCheck}\n🌐 *Domínio:* ${domain}\n\n📊 *Status:* ${statusText}\n🏷️ *Categoria:* ${category}\n⚡ *Nível de Risco:* ${riskLevel}\n📅 *Registrado em:* ${createdAt}${warningMsg}\n\n⚙️ *Verificado por:* FishFish Security API`);
           } else {
             await reply('❌ Erro ao verificar o link. Tente novamente mais tarde.');
           }
@@ -21609,7 +21609,7 @@ Use: ${prefix}lermais
 3️⃣ *SISTEMA DE COMANDOS*
 ━━━━━━━━━━━━━━━━━━━━
 
-✨ *Criar Comandos Personalizados*
+◈ *Criar Comandos Personalizados*
 
 🔹 *Comando de Texto:*
 ${prefix}addcmd <nome> | <resposta>
@@ -21695,7 +21695,7 @@ ${prefix}addautomidia <palavra> | <legenda>
 5️⃣ *GERENCIAMENTO DE USUÁRIOS*
 ━━━━━━━━━━━━━━━━━━━━
 
-👑 *Sub-Donos*
+🌌 *Sub-Donos*
 • Adicionar: ${prefix}addsubdono @usuario
 • Remover: ${prefix}delsubdono @usuario
 • Listar: ${prefix}listasubdonos
@@ -21734,7 +21734,7 @@ ${prefix}addautomidia <palavra> | <legenda>
 • Desbanir: ${prefix}unbangp <id_grupo>
 • Listar: ${prefix}listbangp
 
-🔒 *Bloqueios Específicos*
+⚙️ *Bloqueios Específicos*
 • Bloquear comando: ${prefix}blockcmdg <comando> <grupo_id>
 • Bloquear usuário: ${prefix}blockuserg @usuario <grupo_id>
 • Desbloquear comando: ${prefix}unblockcmdg <comando> <grupo_id>
@@ -21875,7 +21875,7 @@ Use: ${prefix}divulgar
   ${prefix}sermembro
   Remove privilégios de admin do bot
 
-🛡️ *Proteção Anti-Ban*
+⚙️ *Proteção Anti-Ban*
 Use: ${prefix}antibanmarcar <ação>
 Ações: on, off, status
 
@@ -21941,7 +21941,7 @@ Protege o bot de banimento ao usar comandos de marcação em massa (hidetag, mar
   ${prefix}getcase <comando>
   Mostra o código-fonte do comando
 
-🔒 *Controles de Privacidade*
+⚙️ *Controles de Privacidade*
 
 • Anti-PV - Nível 1:
   ${prefix}antipv
@@ -22036,7 +22036,7 @@ Precisa de ajuda? Entre em contato:
 
 ━━━━━━━━━━━━━━━━━━━━
 
-✨ *Próximos Passos:*
+◈ *Próximos Passos:*
 1. Configure o básico (prefixo, nome, API keys)
 2. Personalize o visual do menu
 3. Adicione comandos e automações personalizadas
@@ -22180,7 +22180,7 @@ Precisa de ajuda? Entre em contato:
           const antipvFile = DATABASE_DIR + '/antipv.json';
           let antipvData = loadJsonFile(antipvFile, {
             mode: 'off',
-            message: '🚫 Este comando só funciona em grupos!'
+            message: '🚫 ◈ Este comando só funciona em grupos!'
           });
           antipvData.message = q.trim();
           writeJsonFile(antipvFile, antipvData);
@@ -22265,7 +22265,7 @@ Precisa de ajuda? Entre em contato:
       case 'tm':
         try {
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono 💔");
-          if (!q && !isImage && !isVideo && !isQuotedImage && !isQuotedVideo) return reply('Digite uma mensagem ou marque uma imagem/vídeo! Exemplo: ' + prefix + 'tm Olá a todos!');
+          if (!q && !isImage && !isVideo && !isQuotedImage && !isQuotedVideo) return reply('Digite ou marque uma imagem/vídeo! Exemplo: ' + prefix + 'tm Olá a todos!');
 
           const cabecalho = `╔══════════════════════\n║  📡 *TRANSMISSÃO DA BOT* 📡\n╚══════════════════════\n\n`;
           const genSuffix = () => Math.floor(100 + Math.random() * 900).toString();
@@ -22369,7 +22369,7 @@ Precisa de ajuda? Entre em contato:
           // Inscreve o usuário
           transmissao.subscribe(sender, pushname || 'Usuário');
 
-          reply(`🎉 *Inscrição confirmada!*\n\nVocê agora receberá as transmissões da bot diretamente no seu privado.\n\n💡 *Como funciona:*\n• Você receberá mensagens importantes da equipe\n• Para cancelar, use: ${prefix}desinscrever\n\n✨ Obrigado por se inscrever!`);
+          reply(`🎉 *Inscrição confirmada!*\n\nVocê agora receberá as transmissões da bot diretamente no seu privado.\n\n💡 *Como funciona:*\n• Você receberá mensagens importantes da equipe\n• Para cancelar, use: ${prefix}desinscrever\n\n◈ Obrigado por se inscrever!`);
         } catch (e) {
           console.error('[INSCREVERTM ERROR]', e);
           await reply("❌ Ocorreu um erro ao processar sua inscrição. Tente novamente mais tarde.");
@@ -22400,7 +22400,7 @@ Precisa de ajuda? Entre em contato:
       case 'tm2':
         try {
           if (!isOwnerOrSub) return reply("🚫 Este comando é apenas para o meu dono 💔");
-          if (!q && !isImage && !isVideo && !isQuotedImage && !isQuotedVideo) return reply('Digite uma mensagem ou marque uma imagem/vídeo! Exemplo: ' + prefix + 'tm2 Olá inscritos!');
+          if (!q && !isImage && !isVideo && !isQuotedImage && !isQuotedVideo) return reply('Digite ou marque uma imagem/vídeo! Exemplo: ' + prefix + 'tm2 Olá inscritos!');
 
           // Obtém lista de inscritos
           const subscribers = transmissao.getSubscribers();
@@ -22851,7 +22851,7 @@ case 'addcmd-subdono':
           const blockedUsers = globalBlocks.users ? Object.entries(globalBlocks.users).map(([user, data]) => {
             return `👤 *${getUserName(user)}* - Motivo: ${data.reason}`;
           }).join('\n') : 'Nenhum usuário bloqueado.';
-          const message = `🔒 *Bloqueios Globais - ${nomebot}* 🔒\n\n📜 *Comandos Bloqueados*:\n${blockedCommands}\n\n👥 *Usuários Bloqueados*:\n${blockedUsers}`;
+          const message = `⚙️ *Bloqueios Globais - ${nomebot}* ⚙️\n\n📜 *Comandos Bloqueados*:\n${blockedCommands}\n\n👥 *Usuários Bloqueados*:\n${blockedUsers}`;
           await reply(message);
         } catch (e) {
           console.error(e);
@@ -22935,7 +22935,7 @@ case 'nomedono':
     writeJsonFile(CONFIG_FILE, config);
 
     await reply(
-      `✅ Nome do dono alterado com sucesso para:\n👑 ${novoNome}`
+      `✅ Nome do dono alterado com sucesso para:\n🌌 ${novoNome}`
     );
 
   } catch (e) {
@@ -23067,7 +23067,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
       case 'reacao':
       case 'reagir':
         try {
-          if (!isGroup) return reply("Este comando só pode ser usado em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando é só para grupos 💔");
           if (!isOwnerOrSub) return reply("Apenas o dono ou sub-dono pode usar este comando. 💔");
 
           const args = q.trim().split(' ');
@@ -23085,7 +23085,7 @@ ${prefix}${command} 1a0b5879-bc22-4f4a
               listText = 'Nenhuma reação configurada neste grupo';
             }
 
-            return reply(`👑 *Reações por Nome*
+            return reply(`🌌 *Reações por Nome*
 
 📊 Status: ${status.enabled ? '✅ Ativado' : '❌ Desativado'}
 📝 Total: ${status.totalReactions} reação(ões)
@@ -23097,7 +23097,7 @@ ${prefix}reacao add <nome> <emoji> - Adicionar
 ${prefix}reacao excluir <nome> - Remover
 ${prefix}reacao toggle - Ativar/Desativar
 
-📌 *Exemplo:* ${prefix}reacao add leo 👑`);
+📌 *Exemplo:* ${prefix}reacao add leo 🌌`);
           }
 
           // !reacao toggle
@@ -23112,7 +23112,7 @@ ${prefix}reacao toggle - Ativar/Desativar
             const emoji = args[2];
             
             if (!nome || !emoji) {
-              return reply(`❌ Uso: ${prefix}reacao add <nome> <emoji>\n\n📌 Exemplo: ${prefix}reacao add leo 👑`);
+              return reply(`❌ Uso: ${prefix}reacao add <nome> <emoji>\n\n📌 Exemplo: ${prefix}reacao add leo 🌌`);
             }
             
             if (nameReactions.add(from, nome, emoji)) {
@@ -23381,7 +23381,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'fotomenugrupo':
       case 'setmenupic':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos 💔");
           if (!isGroupAdmin) return reply("Você precisa ser admin do grupo 💔");
 
           if (!isGroupCustomizationEnabled()) {
@@ -23417,7 +23417,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'removerfotomenu':
       case 'resetfotomenu':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos 💔");
           if (!isGroupAdmin) return reply("Você precisa ser admin do grupo 💔");
 
           if (!isGroupCustomizationEnabled()) {
@@ -23441,7 +23441,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'nomebotgrupo':
       case 'setbotname':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos 💔");
           if (!isGroupAdmin) return reply("Você precisa ser admin do grupo 💔");
 
           if (!isGroupCustomizationEnabled()) {
@@ -23474,7 +23474,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'removernome':
       case 'resetnome':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos 💔");
           if (!isGroupAdmin) return reply("Você precisa ser admin do grupo 💔");
 
           if (!isGroupCustomizationEnabled()) {
@@ -23497,7 +23497,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'infoperso':
       case 'personalizacao':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos 💔");
 
           if (!isGroupCustomizationEnabled()) {
             return reply("⚠️ O sistema de personalização está desativado.");
@@ -23563,7 +23563,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'setbordabaixo':
         try {
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono");
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`);
+          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ╰─┈┈┈┈┈◜◈◞┈┈┈┈┈─╯`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.bottomBorder = q;
@@ -23605,7 +23605,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'setitem':
         try {
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono");
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} •.̇𖥨֗🍓⭟`);
+          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ▸`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.menuItemIcon = q;
@@ -23626,7 +23626,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'seticoneseparador':
         try {
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono");
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ❁`);
+          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ◈`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.separatorIcon = q;
@@ -23647,7 +23647,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'settitulo':
         try {
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono");
-          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} 🍧ฺꕸ▸`);
+          if (!q) return reply(`Uso: ${prefix + command} <emoji/texto>\n\nExemplo: ${prefix + command} ◈`);
 
           const currentDesign = loadMenuDesign();
           currentDesign.menuTitleIcon = q;
@@ -23668,7 +23668,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'setheadermenu':
         try {
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono");
-          if (!q) return reply(`Uso: ${prefix + command} <texto>\n\nExemplo: ${prefix + command} ╭┈⊰ 🌸 『 *{botName}* 』\\n┊Olá, {userName}!\\n╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯\n\n*Placeholders disponíveis:*\n{botName} - Nome do bot\n{userName} - Nome do usuário`);
+          if (!q) return reply(`Uso: ${prefix + command} <texto>\n\nExemplo: ${prefix + command} ╭┈⊰ 🌌 『 *{botName}* 』\\n┊Viajante do Void!\\n╰─┈┈┈┈┈◜◈◞┈┈┈┈┈─╯\n\n*Placeholders disponíveis:*\n{botName} - Nome do bot\n{userName} - Nome do usuário`);
 
           const currentDesign = loadMenuDesign();
           // Processa quebras de linha explícitas
@@ -23692,12 +23692,12 @@ ${prefix}setgroq sua_chave_aqui
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono");
 
           const defaultDesign = {
-            header: `╔══════════════════════════════════════════════╗\n║              🤖 {botName}              ║\n║              Olá, {userName}!              ║\n╚══════════════════════════════════════════════╝`,
+            header: `╔══════════════════════════════════════════════╗\n║              🤖 {botName}              ║\n║              Viajante do Void!              ║\n╚══════════════════════════════════════════════╝`,
             menuTopBorder: "╭──────────────────────────────────────────────╮",
             bottomBorder: "╰──────────────────────────────────────────────╯",
-            menuTitleIcon: "🍧ฺꕸ▸",
-            menuItemIcon: "•.̇𖥨֗🍓⭟",
-            separatorIcon: "❁",
+            menuTitleIcon: "◈",
+            menuItemIcon: "▸",
+            separatorIcon: "◈",
             middleBorder: "│"
           };
 
@@ -23741,7 +23741,7 @@ ${prefix}setgroq sua_chave_aqui
 ┊ ${prefix}setheader - Alterar cabeçalho
 ┊ ${prefix}resetdesign - Resetar para padrão
 ┊
-╰─┈┈┈┈┈◜❁◞┈┈┈┈┈─╯`;
+╰─┈┈┈┈┈◜◈◞┈┈┈┈┈─╯`;
 
           await reply(designText);
         } catch (e) {
@@ -23805,7 +23805,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'unbangp':
       case 'desbangp':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono");
           banGpIds[from] = !banGpIds[from];
           if (banGpIds[from]) {
@@ -23863,7 +23863,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'addvipgp':
         try {
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono");
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!!premiumListaZinha[from]) return reply('O grupo ja esta na lista premium.');
           premiumListaZinha[from] = true;
           await nazu.sendMessage(from, {
@@ -23883,7 +23883,7 @@ ${prefix}setgroq sua_chave_aqui
       case 'rmvipgp':
         try {
           if (!isOwnerOrSub) return reply("Este comando é apenas para o meu dono");
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!premiumListaZinha[from]) return reply('O grupo não esta na lista premium.');
           delete premiumListaZinha[from];
           await nazu.sendMessage(from, {
@@ -23907,7 +23907,7 @@ ${prefix}setgroq sua_chave_aqui
           const premiumList = premiumListaZinha || {};
           const usersPremium = Object.keys(premiumList).filter(id => isUserId(id));
           const groupsPremium = Object.keys(premiumList).filter(id => id.includes('@g.us'));
-          let teks = `✨ *Lista de Membros Premium* ✨\n\n`;
+          let teks = `◈ *Lista de Membros Premium* ◈\n\n`;
 
           teks += `👤 *Usuários Premium* (${usersPremium.length})\n`;
           if (usersPremium.length > 0) {
@@ -24484,7 +24484,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'pubgavatar':
       case 'comics':
         try {
-          if (!q) return reply(`❌ Cadê o texto?\nExemplo: .${command} Olá Mundo`);
+          if (!q) return reply(`🌌 O texto está perdido no void!\nExemplo: .${command} Olá Mundo`);
 
           await reply(`⏳ Gerando logotipo... aguarde! ☀️`);
 
@@ -24677,7 +24677,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'mantercontador':
       case 'preservarcontador':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem configurar esta opção.");
 
           // Inicializa a configuração se não existir
@@ -24697,7 +24697,7 @@ ${prefix}togglecmdvip premium_ia off`);
           const status = groupData.preservarContador ? 'ativado' : 'desativado';
           const emoji = groupData.preservarContador ? '✅' : '❌';
 
-          await reply(`${emoji} *Preservação do contador ${status}!*\n\n${groupData.preservarContador ? '🔒 O bot não removerá mais do contador quem sair do grupo.\n📊 Os dados dos membros que saírem serão mantidos no rank de atividade.' : '🔓 O bot voltará a remover do contador quem sair do grupo.\n🧹 Use o comando *limparrank* para limpar usuários ausentes manualmente.'}`);
+          await reply(`${emoji} *Preservação do contador ${status}!*\n\n${groupData.preservarContador ? '⚙️ O bot não removerá mais do contador quem sair do grupo.\n📊 Os dados dos membros que saírem serão mantidos no rank de atividade.' : '🔓 O bot voltará a remover do contador quem sair do grupo.\n🧹 Use o comando *limparrank* para limpar usuários ausentes manualmente.'}`);
         } catch (e) {
           console.error('[MANTER CONTADOR] Erro:', e);
           await reply("❌ Ocorreu um erro ao configurar a preservação do contador. Tente novamente mais tarde.");
@@ -24705,14 +24705,14 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'limparrank':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem limpar o rank de atividade.");
 
           // Verifica se a preservação do contador está ativada
           const preservarContador = groupData.preservarContador === true;
 
           if (preservarContador) {
-            return reply("⚠️ *Preservação do contador ativada!*\n\n🔒 A remoção automática do contador está desativada neste grupo.\n\n💡 Para limpar o rank manualmente, primeiro desative a preservação com:\n*" + prefix + "mantercontador*");
+            return reply("⚠️ *Preservação do contador ativada!*\n\n⚙️ A remoção automática do contador está desativada neste grupo.\n\n💡 Para limpar o rank manualmente, primeiro desative a preservação com:\n*" + prefix + "mantercontador*");
           }
 
           // Get current group members with proper LID/JID handling
@@ -24779,7 +24779,7 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'resetrank':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem resetar o rank de atividade.");
           const oldCount = (groupData.contador || []).length;
           groupData.contador = [];
@@ -24941,7 +24941,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'rankativos':
       case 'rankativo':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
 
           // Verifica se a preservação do contador está ativada
           const preservarContadorRankativo = groupData.preservarContador === true;
@@ -25017,7 +25017,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'rankinativos':
       case 'rankinativo':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
 
           // Verifica se a preservação do contador está ativada
           const preservarContador = groupData.preservarContador === true;
@@ -25087,7 +25087,7 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'checkativo':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
 
           const mentionedJids = info.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
           let targetUser = sender;
@@ -25159,7 +25159,7 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'atividade':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
 
           // Verifica membros atuais do grupo
           const currentMembers = AllgroupMembers;
@@ -25270,7 +25270,7 @@ ${prefix}togglecmdvip premium_ia off`);
           try {
             profilePic = await nazu.profilePictureUrl(sender, 'image');
           } catch (e) { }
-          const statusMessage = `📊 *Meu Status - ${userName}* 📊\n\n👤 *Nome*: ${userName}\n📱 *Número*: @${getUserName(sender)}\n⭐ *Status*: ${userStatus}\n\n${isGroup ? `\n📌 *No Grupo: ${groupName}*\n💬 Mensagens: ${groupMessages}\n⚒️ Comandos: ${groupCommands}\n🎨 Figurinhas: ${groupStickers}\n` : ''}\n\n🌐 *Geral (Todos os Grupos)*\n💬 Mensagens: ${totalMessages}\n⚒️ Comandos: ${totalCommands}\n🎨 Figurinhas: ${totalStickers}\n\n✨ *Bot*: ${nomebot} by ${nomedono} ✨`;
+          const statusMessage = `📊 *Meu Status - ${userName}* 📊\n\n👤 *Nome*: ${userName}\n📱 *Número*: @${getUserName(sender)}\n⭐ *Status*: ${userStatus}\n\n${isGroup ? `\n📌 *No Grupo: ${groupName}*\n💬 Mensagens: ${groupMessages}\n⚒️ Comandos: ${groupCommands}\n🎨 Figurinhas: ${groupStickers}\n` : ''}\n\n🌐 *Geral (Todos os Grupos)*\n💬 Mensagens: ${totalMessages}\n⚒️ Comandos: ${totalCommands}\n🎨 Figurinhas: ${totalStickers}\n\n◈ *Bot*: ${nomebot} by ${nomedono} ◈`;
           if (profilePic) {
             await nazu.sendMessage(from, {
               image: {
@@ -25296,7 +25296,7 @@ ${prefix}togglecmdvip premium_ia off`);
         break;
       case 'infoserver':
         if (!isOwnerOrSub) {
-          await reply('🚫 *Ops! Você não tem permissão!* 😅\n\n🌸 *Este comando é só para o dono*\nInformações do servidor são confidenciais! ✨');
+          await reply('🚫 *Ops! Você não tem permissão!* 😅\n\n🌌 *Este comando é só para o dono*\nInformações do servidor são confidenciais! ◈');
           break;
         }
         const serverUptime = process.uptime();
@@ -25380,11 +25380,11 @@ ${prefix}togglecmdvip premium_ia off`);
           networkLatency = 'Erro ao testar';
           console.error('Erro ao testar latência de rede:', error);
         }
-        let infoServerMessage = `🌸 ═════════════════════ 🌸\n`;
+        let infoServerMessage = `🌌 ═════════════════════ 🌌\n`;
 
         infoServerMessage += `    *INFORMAÇÕES DO SERVIDOR*\n`;
 
-        infoServerMessage += `🌸 ═════════════════════ 🌸\n\n`;
+        infoServerMessage += `🌌 ═════════════════════ 🌌\n\n`;
 
         infoServerMessage += `🖥️ *Sistema Operacional:* 🏠\n`;
 
@@ -25462,7 +25462,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
         infoServerMessage += `├ ⏱️ Latência de Rede: ${networkLatency}\n`;
 
-        infoServerMessage += `└ 🛡️ Firewall: Ativo\n\n`;
+        infoServerMessage += `└ ⚙️ Firewall: Ativo\n\n`;
         const diskEmoji = diskUsagePercent > 80 ? '⚠️' : '✅';
         const diskBar = '█'.repeat(diskUsagePercent / 10) + '-'.repeat(10 - diskUsagePercent / 10);
 
@@ -25516,7 +25516,7 @@ ${prefix}togglecmdvip premium_ia off`);
           const currentTime = new Date().toLocaleString('pt-BR', {
             timeZone: 'America/Sao_Paulo'
           });
-          const lines = ["╭───🤖 STATUS DO BOT ───╮", `┊ 🏷️ Nome: ${nomebot}`, `┊ 👨‍💻 Dono: ${nomedono}`, `┊ 🆚 Versão: ${botVersion}`, `┊ 🟢 Status: ${botStatus}`, `┊ ⏰ Online há: ${botUptime}`, `┊ 🖥️ Plataforma: ${platform}`, `┊ 🟢 Node.js: ${nodeVersion}`, "┊", "┊ 📊 *Estatísticas:*", `┊ • 👥 Grupos: ${totalGroups}`, `┊ • 👤 Usuários: ${totalUsers}`, `┊ • ⚒️ Comandos: ${totalCommands}`, `┊ • 💎 Users Premium: ${premiumUsers}`, `┊ • 💎 Grupos Premium: ${premiumGroups}`, "┊", "┊ 🛡️ *Segurança:*", `┊ • 🚫 Users Bloqueados: ${blockedUsers}`, `┊ • 🚫 Cmds Bloqueados: ${blockedCommands}`, `┊ • 🏠 Modo Aluguel: ${rentalMode}`, "┊", "┊ 💾 *Sistema:*", `┊ • 🧠 RAM Usada: ${memUsed}MB`, `┊ • 📦 RAM Total: ${memTotal}MB`, `┊ • 🕐 Hora Atual: ${currentTime}`, "╰───────────────╯"].join("\n");
+          const lines = ["╭───🤖 STATUS DO BOT ───╮", `┊ 🏷️ Nome: ${nomebot}`, `┊ 👨‍💻 Dono: ${nomedono}`, `┊ 🆚 Versão: ${botVersion}`, `┊ 🟢 Status: ${botStatus}`, `┊ ⏰ Online há: ${botUptime}`, `┊ 🖥️ Plataforma: ${platform}`, `┊ 🟢 Node.js: ${nodeVersion}`, "┊", "┊ 📊 *Estatísticas:*", `┊ • 👥 Grupos: ${totalGroups}`, `┊ • 👤 Usuários: ${totalUsers}`, `┊ • ⚒️ Comandos: ${totalCommands}`, `┊ • 💎 Users Premium: ${premiumUsers}`, `┊ • 💎 Grupos Premium: ${premiumGroups}`, "┊", "┊ ⚙️ *Segurança:*", `┊ • 🚫 Users Bloqueados: ${blockedUsers}`, `┊ • 🚫 Cmds Bloqueados: ${blockedCommands}`, `┊ • 🏠 Modo Aluguel: ${rentalMode}`, "┊", "┊ 💾 *Sistema:*", `┊ • 🧠 RAM Usada: ${memUsed}MB`, `┊ • 📦 RAM Total: ${memTotal}MB`, `┊ • 🕐 Hora Atual: ${currentTime}`, "╰───────────────╯"].join("\n");
           await reply(lines);
         } catch (e) {
           console.error("Erro em statusbot:", e);
@@ -25579,7 +25579,7 @@ ${prefix}togglecmdvip premium_ia off`);
             return `${index + 1}º @${getUserName(user.userId)} - ${user.count} usos`;
           }).join('\n') : 'Nenhum usuário registrado';
           const lastUsed = new Date(stats.lastUsed).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-          const infoMessage = `📊 *Estatísticas do Comando: ${prefix}${stats.name}* 📊\n\n` + `📈 *Total de Usos*: ${stats.count}\n` + `👥 *Usuários Únicos*: ${stats.uniqueUsers}\n` + `🕒 *Último Uso*: ${lastUsed}\n\n` + `🏆 *Top Usuários*:\n${topUsersText}\n\n` + `✨ *Bot*: ${nomebot} by ${nomedono} ✨`;
+          const infoMessage = `📊 *Estatísticas do Comando: ${prefix}${stats.name}* 📊\n\n` + `📈 *Total de Usos*: ${stats.count}\n` + `👥 *Usuários Únicos*: ${stats.uniqueUsers}\n` + `🕒 *Último Uso*: ${lastUsed}\n\n` + `🏆 *Top Usuários*:\n${topUsersText}\n\n` + `◈ *Bot*: ${nomebot} by ${nomedono} ◈`;
           await nazu.sendMessage(from, {
             text: infoMessage,
             mentions: stats.topUsers.map(u => u.userId)
@@ -25594,7 +25594,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'statusgp':
       case 'dadosgp':
         try {
-          if (!isGroup) return reply("❌ Este comando só funciona em grupos!");
+          if (!isGroup) return reply("❌ ◈ Este comando só funciona em grupos!");
           const meta = await getCachedGroupMetadata(from);
           const subject = meta.subject || "—";
           const desc = meta.desc?.toString() || "Sem descrição";
@@ -25648,7 +25648,7 @@ ${prefix}togglecmdvip premium_ia off`);
           const configsSection = [
             "┊",
             "┊ ⚙️ *Configurações:*",
-            "┊ 🔒 Segurança:",
+            "┊ ⚙️ Segurança:",
             ...toLines(secFlags),
             "┊ 🧰 Recursos:",
             ...toLines(resFlags),
@@ -25664,7 +25664,7 @@ ${prefix}togglecmdvip premium_ia off`);
             "╭───📊 STATUS DO GRUPO ───╮",
             `┊ 📝 Nome: ${subject}`,
             `┊ 🆔 ID: ${getUserName(from)}`,
-            `┊ 👑 Dono: ${ownerTag}`,
+            `┊ 🌌 Dono: ${ownerTag}`,
             `┊ 📅 Criado: ${createdAt}`,
             `┊ 📄 Desc: ${desc.slice(0, 35)}${desc.length > 35 ? '...' : ''}`,
             `┊ 👥 Membros: ${totalMembers}`,
@@ -25695,7 +25695,7 @@ ${prefix}togglecmdvip premium_ia off`);
           const schedLines = [
             "\n╭───⏰ AGENDAMENTOS ───╮",
             `┊ 🔓 Abrir: ${openTime}`,
-            `┊ 🔒 Fechar: ${closeTime}`,
+            `┊ ⚙️ Fechar: ${closeTime}`,
             `┊ 🗓️ Últ. abrir: ${lastOpen}`,
             `┊ 🗓️ Últ. fechar: ${lastClose}`,
             "╰───────────────╯"
@@ -25711,7 +25711,7 @@ ${prefix}togglecmdvip premium_ia off`);
       case 'dono':
         try {
           const numeroDonoFormatado = numerodono ? String(numerodono).replace(/\D/g, '') : 'Não configurado';
-          const TextinDonoInfo = `╭━━━⊱ 👑 *DONO DO BOT* 👑 ⊱━━━╮
+          const TextinDonoInfo = `╭━━━⊱ 🌌 *DONO DO BOT* 🌌 ⊱━━━╮
 │
 │ 👤 *Nome:* ${nomedono}
 │ 📱 *Contato:* wa.me/${numeroDonoFormatado}
@@ -25743,7 +25743,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
       case 'eleicao':
       case 'eleição': {
-        if (!isGroup) return reply('❌ Este comando só pode ser usado em grupos.');
+        if (!isGroup) return reply('❌ ◈ Este comando é só para grupos.');
         if (!isGroupAdmin) return reply('❌ Apenas administradores podem iniciar uma eleição.');
 
         const elections = loadElections();
@@ -25776,7 +25776,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
       case 'parareleicao':
       case 'parareleição': {
-        if (!isGroup) return reply('❌ Este comando só pode ser usado em grupos.');
+        if (!isGroup) return reply('❌ ◈ Este comando é só para grupos.');
         if (!isGroupAdmin) return reply('❌ Apenas administradores podem parar uma eleição.');
 
         let elections = loadElections();
@@ -25793,7 +25793,7 @@ ${prefix}togglecmdvip premium_ia off`);
 
       case 'cand':
       case 'candidatar': {
-        if (!isGroup) return reply('❌ Este comando só pode ser usado em grupos.');
+        if (!isGroup) return reply('❌ ◈ Este comando é só para grupos.');
         
         const elections = loadElections();
         const election = elections.find(e => e.groupId === from);
@@ -25832,7 +25832,7 @@ ${prefix}togglecmdvip premium_ia off`);
           let text = `⚙️ *CONFIGURAÇÕES DA ELEIÇÃO*\n\n`;
           text += `⏳ *Candidatura:* ${config.candidatura} minutos\n`;
           text += `🗳️ *Votação:* ${config.votacao} minutos\n`;
-          text += `👑 *Mandato:* ${formatMandate(config.mandato)}\n\n`;
+          text += `🌌 *Mandato:* ${formatMandate(config.mandato)}\n\n`;
           text += `💡 *Para alterar, use:*\n`;
           text += `> ${prefix}tempeleicao candidatura <minutos>\n`;
           text += `> ${prefix}tempeleicao votacao <minutos>\n`;
@@ -26526,7 +26526,7 @@ packname: `${nomebot}`,            type: isVideo2 ? 'video' : 'image'
       case 'stickerpack':
       case 'packfig':
         try {
-          if (!q) return reply(`🎨 *Gerador de Figurinhas*\n\n🔢 *Como usar:*\n• Escolha quantas figurinhas deseja (1-15)\n• Ex: ${prefix}figurinhas 10\n• Ex: ${prefix}figurinhas 5\n\n✨ As figurinhas serão enviadas uma por uma!\n${isGroup ? '📬 *Nota:* Em grupos, as figurinhas serão enviadas no seu privado!' : ''}`);
+          if (!q) return reply(`🎨 *Gerador de Figurinhas*\n\n🔢 *Como usar:*\n• Escolha quantas figurinhas deseja (1-15)\n• Ex: ${prefix}figurinhas 10\n• Ex: ${prefix}figurinhas 5\n\n◈ As figurinhas serão enviadas uma por uma!\n${isGroup ? '📬 *Nota:* Em grupos, as figurinhas serão enviadas no seu privado!' : ''}`);
 
           const quantidade = parseInt(q);
 
@@ -26597,12 +26597,12 @@ packname: `${nomebot}`,            type: isVideo2 ? 'video' : 'image'
 
       case 'mention':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
-          if (!q) return reply(`📢 *Configuração de Marcações*\n\n🔧 Escolha como deseja ser mencionado:\n\n✅ *${prefix}mention all* → Marcado em tudo (marcações e jogos).\n📢 *${prefix}mention marca* → Apenas em marcações de administradores.\n🎮 *${prefix}mention games* → Somente em jogos do bot.\n🚫 *${prefix}mention 0* → Não será mencionado em nenhuma ocasião.`);
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
+          if (!q) return reply(`📢 *Configuração de Marcações*\n\n🔧 Escolha como deseja ser mencionado:\n\n✅ *${prefix}mention all* → Marcado em tudo (marcações e jogos).\n📢 *${prefix}mention marca* → Apenas em marcações de administradores.\n🌌 *${prefix}mention games* → Somente em jogos do bot.\n🚫 *${prefix}mention 0* → Não será mencionado em nenhuma ocasião.`);
           let options = {
-            all: '✨ Você agora será mencionado em todas as interações do bot, incluindo marcações de administradores e os jogos!',
+            all: '◈ Você agora será mencionado em todas as interações do bot, incluindo marcações de administradores e os jogos!',
             marca: '📢 A partir de agora, você será mencionado apenas quando um administrador marcar.',
-            games: '🎮 Você optou por ser mencionado somente em jogos do bot.',
+            games: '🌌 Você optou por ser mencionado somente em jogos do bot.',
             0: '🔕 Silêncio ativado! Você não será mais mencionado pelo bot, nem em marcações nem em jogos.'
           };
           if (options[q.toLowerCase()] !== undefined) {
@@ -26661,7 +26661,7 @@ packname: `${nomebot}`,            type: isVideo2 ? 'video' : 'image'
         // Usa a mesma verificação de permissão do comando !d
         // isGroupAdmin já inclui admins, moderadores e alphas com permissão
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos!");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos!");
           
           if (!menc_prt) return reply("👆 *Marque uma mensagem* para banir o usuário!");
           
@@ -26721,7 +26721,7 @@ packname: `${nomebot}`,            type: isVideo2 ? 'video' : 'image'
         }
         break;
       case 'blockuser':
-        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+        if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
         if (!isGroupAdmin) return reply("você precisa ser adm 💔");
         try {
           if (!menc_os2) return reply("Marque alguém 🙄");
@@ -26744,7 +26744,7 @@ packname: `${nomebot}`,            type: isVideo2 ? 'video' : 'image'
         }
         break;
       case 'unblockuser':
-        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+        if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
         if (!isGroupAdmin) return reply("você precisa ser adm 💔");
         try {
           if (!menc_os2) return reply("Marque alguém 🙄");
@@ -26775,7 +26775,7 @@ case 'poll':
   try {
 
     if (!isGroup) {
-      return reply("❌ Este comando só pode ser usado em grupos.");
+      return reply("❌ ◈ Este comando é só para grupos.");
     }
 
     if (!isGroupAdmin) {
@@ -26833,11 +26833,11 @@ case 'poll':
 break;
       case 'listblocksgp':
       case 'blocklist':
-        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+        if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
         if (!isGroupAdmin) return reply("você precisa ser adm 💔");
         try {
           const blockedUsers = groupData.blockedUsers ? Object.entries(groupData.blockedUsers).map(([user, data]) => `👤 *${getUserName(user)}* - Motivo: ${data.reason}`).join('\n') : 'Nenhum usuário bloqueado no grupo.';
-          const message = `🔒 *Usuários Bloqueados no Grupo - ${groupName}* 🔒\n\n${blockedUsers}`;
+          const message = `⚙️ *Usuários Bloqueados no Grupo - ${groupName}* ⚙️\n\n${blockedUsers}`;
           await reply(message);
         } catch (e) {
           console.error(e);
@@ -26845,7 +26845,7 @@ break;
         }
         break;
       case 'chamar': {
-        if (!isGroup) return reply('❌ Este comando só pode ser usado em grupos.');
+        if (!isGroup) return reply('❌ ◈ Este comando é só para grupos.');
         if (!isGroupAdmin) return reply('❌ Apenas administradores podem usar este comando.');
 
         const target = menc_os2 || (menc_jid2 && menc_jid2[0]);
@@ -27100,7 +27100,7 @@ break;
       case 'b':
       case 'kick':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!menc_os2) return reply("Marque alguém 🙄");
@@ -27127,7 +27127,7 @@ break;
       case 'ban2':
       case 'banir2':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!menc_os2) return reply("Marque alguém 🙄");
@@ -27167,7 +27167,7 @@ break;
 
       case 'bam':
       case 'banfake':
-        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+        if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
         if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
         if (!menc_os2) return reply("Marque alguém 🙄");
         if (menc_os2 === nmrdn) return reply("❌ Não posso banir o dono do bot.");
@@ -27196,7 +27196,7 @@ break;
 
       case 'setbammsg':
       case 'editarbam':
-        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+        if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
         if (!isGroupAdmin) return reply("Comando restrito a Administradores 💔");
 
         if (!q) {
@@ -27215,7 +27215,7 @@ break;
 
       case 'verbammsg':
       case 'verbam':
-        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+        if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
 
         try {
           const defaultMsg = `😂 *ERA MEME!*\n\n#user#, relaxa, era só uma brincadeira! 🤣\n\nVocê não vai ser banido... dessa vez! 😎`;
@@ -27229,7 +27229,7 @@ break;
 
       case 'resetbammsg':
       case 'resetarbam':
-        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+        if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
         if (!isGroupAdmin) return reply("Comando restrito a Administradores 💔");
 
         try {
@@ -27245,7 +27245,7 @@ break;
       case 'linkgp':
       case 'linkgroup':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           var linkgc;
@@ -27524,7 +27524,7 @@ break;
           let msg = `${emoji} *Captcha para Solicitações ${status}!*\n\n`;
 
           if (groupData.captchaEnabled) {
-            msg += `🔒 Quando alguém solicitar entrar no grupo:\n`;
+            msg += `⚙️ Quando alguém solicitar entrar no grupo:\n`;
             msg += `1️⃣ Receberá uma conta matemática\n`;
 
 
@@ -27567,7 +27567,7 @@ break;
       case 'promover':
       case 'promote':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!menc_os2) return reply("Marque alguém 🙄");
@@ -27584,7 +27584,7 @@ break;
       case 'rebaixar':
       case 'demote':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!menc_os2) return reply("Marque alguém 🙄");
@@ -27604,7 +27604,7 @@ break;
       case 'alterarnome':
       case 'renomeargrupo':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const newName = q.trim();
@@ -27633,7 +27633,7 @@ break;
       case 'alterardesc':
       case 'descricao':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const newDesc = q.trim();
@@ -27660,7 +27660,7 @@ break;
       case 'alterarfoto':
       case 'fotogp':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           if (!isQuotedImage && !isImage) return reply('❌ Envie ou marque uma imagem para definir como foto do grupo.\n\n📝 *Uso:* Envie uma imagem com o comando ou responda uma imagem com ' + groupPrefix + 'fotogrupo');
@@ -27690,7 +27690,7 @@ break;
         break;
       case 'marcar':
       case 'mark':
-        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+        if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
         if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
         if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
         try {
@@ -27731,7 +27731,7 @@ break;
       case 'gpinfo':
       case 'infogrupo':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           
           if (command === 'gpinfo' || command === 'infogrupo') {
             const groupMetadata = isGroup ? await nazu.groupMetadata(from) : {};
@@ -27744,11 +27744,11 @@ break;
               `├─────────────────────⭓\n` +
               `│\n` +
               `│ 🏷️ Nome: ${groupName}\n` +
-              `│ 👑 Dono: @${owner.split('@')[0]}\n` +
+              `│ 🌌 Dono: @${owner.split('@')[0]}\n` +
               `│ 👥 Membros: ${groupMetadata.participants.length}\n` +
               `│\n` +
               `├─────────────────────⭓\n` +
-              `│ 🛡️ Anti-Link: ${groupData.antilink ? 'Ativo ✅' : 'Inativo ❌'}\n` +
+              `│ ⚙️ Anti-Link: ${groupData.antilink ? 'Ativo ✅' : 'Inativo ❌'}\n` +
               `│ 🚫 Anti-Flood: ${groupData.antiflood ? 'Ativo ✅' : 'Inativo ❌'}\n` +
               `│ ⚙️ Prefixo: ${prefix}\n` +
               `│\n` +
@@ -27776,7 +27776,7 @@ break;
             // Notificação X9 para fechamento do grupo
             if (groupData.x9) {
               await nazu.sendMessage(from, {
-                text: `🔒 *X9 Report:* Grupo fechado por @${sender.split('@')[0]}. Apenas ADMs podem enviar mensagens.`,
+                text: `⚙️ *X9 Report:* Grupo fechado por @${sender.split('@')[0]}. Apenas ADMs podem enviar mensagens.`,
                 mentions: [sender],
               }).catch(err => console.error(`❌ Erro ao enviar X9: ${err.message}`));
             }
@@ -27791,7 +27791,7 @@ break;
       case 'opengp':
       case 'abrirgp':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return sendKaiserWarning("Apenas administradores podem usar este comando.");
           if (!q) return reply(`Uso: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 07:00 | ${groupPrefix}${command} off`);
           const rawArg = q.trim();
@@ -27849,7 +27849,7 @@ break;
       case 'closegp':
       case 'fechargp':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return sendKaiserWarning("Apenas administradores podem usar este comando.");
           if (!q) return reply(`Uso: ${groupPrefix}${command} HH:MM (24h)\nExemplos: ${groupPrefix}${command} 22:30 | ${groupPrefix}${command} off`);
           const rawArg = q.trim();
@@ -27906,7 +27906,7 @@ break;
         break;
       case 'automsg':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return sendKaiserWarning("Apenas administradores podem usar este comando.");
 
           const subCommand = args[0]?.toLowerCase();
@@ -28180,7 +28180,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
         break;
       case 'chaveamento':
         try {
-          if (!isGroup) return reply("Este comando só pode ser usado em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando é só para grupos 💔");
           let participantes = [];
           if (q) {
             participantes = q.split(',').map(n => n.trim()).filter(n => n);
@@ -28291,8 +28291,8 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
         break;
       case 'sorteio':
         try {
-          if (!isGroup) return reply("Este comando só pode ser usado em grupos 💔");
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return reply("◈ Este comando é só para grupos 💔");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           let path = pathz.join(GRUPOS_DIR, `${from}.json`);
           // Otimização: Usar cache para leitura de arquivo
           let data = await optimizer.loadJsonWithCache(path, { mark: {} });
@@ -28323,7 +28323,7 @@ A mensagem será enviada todos os dias às ${normalizedTime} (horário de São P
   try {
 
     if (!isGroup) {
-      return reply("❌ Este comando só pode ser usado em grupos.");
+      return reply("❌ ◈ Este comando é só para grupos.");
     }
 
     if (!isGroupAdmin) {
@@ -28391,7 +28391,7 @@ break;
       case 'cita':
       case 'hidetag':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Comando restrito a Administradores ou Moderadores com permissão. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
 
@@ -28794,7 +28794,7 @@ break;
       case 'div':
       case 'divulgar':
         try {
-          if (!isGroup) return reply("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return reply("◈ Este comando é só para grupos.");
           if (!isOwnerOrSub) return reply("Apenas o dono do bot pode usar este comando.");
 
           const delay = 500;
@@ -28942,7 +28942,7 @@ break;
         break;
 
       case 'antistts': {
-        if (!isGroup) return reply("❌ Este comando só funciona em grupos.");
+        if (!isGroup) return reply("❌ ◈ Este comando só funciona em grupos.");
         if (!isGroupAdmin) return reply("❌ Apenas administradores podem usar este comando.");
         
         if (args[0] === 'on') {
@@ -28983,7 +28983,7 @@ Qualquer solicitação de pagamento será ${groupData.antirequest ? 'bloqueada e
         break;
       case 'limitmessage':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos 💔");
           if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando 🚫");
           if (!q) {
             return reply(`📝 Configure o limite de mensagens! Exemplo: ${prefix}limitmessage 5 1m ban\n` + `Formato: ${prefix}limitmessage <quantidade> <tempo> <ação>\n` + `Tempo: s (segundos), m (minutos), h (horas)\n` + `Ação: ban (banimento direto) ou adv (advertências)`);
@@ -29033,7 +29033,7 @@ Qualquer solicitação de pagamento será ${groupData.antirequest ? 'bloqueada e
         break;
       case 'dellimitmessage':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos 💔");
           if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando 🚫");
           if (!groupData.messageLimit?.enabled) {
             return reply("📴 O limite de mensagens não está ativo neste grupo.");
@@ -29048,7 +29048,7 @@ Qualquer solicitação de pagamento será ${groupData.antirequest ? 'bloqueada e
         break;
       case 'setprefix':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem alterar o prefixo.");
           if (!q) return reply(`Por favor, forneça o novo prefixo. Exemplo: ${groupPrefix}setprefix !`);
           let newPrefix = q.trim();
@@ -29121,7 +29121,7 @@ Exemplos:
             const enabled = cfg.enabled ? '✅ ON' : '❌ OFF';
             const limit = cfg.limit || 5; const interval = cfg.interval || 10; const block = cfg.blockTime || 600;
             const blockedNow = Object.values(cfg.blocks || {}).filter(b => Date.now() < (b.until || 0)).length;
-            return reply(`🛡️ AntiSpam Global: ${enabled}
+            return reply(`⚙️ AntiSpam Global: ${enabled}
 • Limite: ${limit} cmds
 • Janela: ${interval}s
 • Bloqueio: ${Math.floor(block / 60)}m
@@ -29179,7 +29179,7 @@ Exemplos:
       case 'modobn':
       case 'gamemode':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.modobrincadeira || groupData.modobrincadeira === undefined) {
@@ -29205,7 +29205,7 @@ Exemplos:
       case 'boasvindas':
       case 'welcome':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.bemvindo || groupData.bemvindo === undefined) {
@@ -29217,7 +29217,7 @@ Exemplos:
           }
           writeJsonFile(groupFilePath, groupData);
           if (groupData.bemvindo) {
-            await reply(`✅ *Boas-vindas ativadas!* Agora, novos membros serão recebidos com uma mensagem personalizada.\n📝 Para configurar a mensagem, use: *${prefixo}legendabv*\n⚠️ O *bemvindo2* foi desativado automaticamente para evitar duplicidade.`);
+            await reply(`◈ *Boas-vindas do Void ativadas!* Agora, novas almas serão consumidas com uma mensagem personalizada.\n📝 Para configurar a mensagem, use: *${prefixo}legendabv*\n⚠️ O *bemvindo2* foi desativado automaticamente para evitar duplicidade.`);
           } else {
             await reply('⚠️ *Boas-vindas desativadas!* O grupo não enviará mais mensagens para novos membros.');
           }
@@ -29231,7 +29231,7 @@ Exemplos:
 case 'bemvindo2':        
        case 'welcome2':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.bemvindo2 || groupData.bemvindo2 === undefined) {
@@ -29243,7 +29243,7 @@ case 'bemvindo2':
           }
           writeJsonFile(groupFilePath, groupData);
           if (groupData.bemvindo2) {
-            await reply(`✅ *Boas-vindas ativadas!* Agora, novos membros serão recebidos com uma mensagem personalizada.\n📝 Para configurar a mensagem, use: *${prefixo}legendabv2*\n*Esse bem vindo não tem foto!*\n⚠️ O *bemvindo* foi desativado automaticamente para evitar duplicidade.`);
+            await reply(`◈ *Boas-vindas do Void ativadas!* Agora, novas almas serão consumidas com uma mensagem personalizada.\n📝 Para configurar a mensagem, use: *${prefixo}legendabv2*\n*Esse bem vindo não tem foto!*\n⚠️ O *bemvindo* foi desativado automaticamente para evitar duplicidade.`);
           } else {
             await reply('⚠️ *Boas-vindas desativadas!* O grupo não enviará mais mensagens para novos membros.\n*Esse bem vindo não tem foto!*');
           }
@@ -29316,7 +29316,7 @@ case 'bemvindo2':
       case 'fotobv':
       case 'welcomeimg':
         {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
 
           try {
@@ -29359,7 +29359,7 @@ case 'bemvindo2':
 
       case 'set-fotobv':
         {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
 
           try {
@@ -29485,7 +29485,7 @@ case 'set-bannerbv':
       case 'imgsaiu':
       case 'exitimg':
         {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!isQuotedImage && !isImage) return reply('❌ Marque uma imagem ou envie uma imagem com o comando!');
           try {
@@ -29547,7 +29547,7 @@ case 'set-bannerbv':
             const isEnabled = config[from]?.enabled || false;
             const memberCount = AllgroupMembers?.length || 0;
             let statusMsg = `📊 *Status da Proteção Anti-Ban*\n\n`;
-            statusMsg += `🔒 Status: ${isEnabled ? '✅ Ativa' : '❌ Desativada'}\n`;
+            statusMsg += `⚙️ Status: ${isEnabled ? '✅ Ativa' : '❌ Desativada'}\n`;
             statusMsg += `👥 Membros no grupo: ${memberCount}\n`;
             statusMsg += `⚠️ Limite aplicado: ${memberCount >= MASS_MENTION_THRESHOLD ? 'Sim (150+ membros)' : 'Não (menos de 150)'}\n\n`;
 
@@ -29616,7 +29616,7 @@ case 'set-bannerbv':
       case 'legendasaiu':
       case 'exitmsg':
         {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!q) return reply(`📝 Para configurar a mensagem de saída, use:\n${prefix}${command} <mensagem>\n\nVocê pode usar:\n#numerodele# - Menciona quem saiu\n#nomedogp# - Nome do grupo\n#membros# - Total de membros\n#desc# - Descrição do grupo`);
           try {
@@ -29639,7 +29639,7 @@ case 'set-bannerbv':
       case 'saida':
       case 'exit':
         {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           try {
             if (!groupData.exit) {
@@ -29659,7 +29659,7 @@ case 'set-bannerbv':
       case 'parcerias':
       case 'partnerships':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando.");
           if (!parceriasData.active) {
             return reply("O sistema de parcerias não está ativo neste grupo.");
@@ -29683,7 +29683,7 @@ case 'set-bannerbv':
       case 'addparceria':
       case 'addpartnership':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando.");
           if (!q) return reply(`Uso: ${prefix}addparceria @usuário limite ou marcando uma mensagem com ${prefix}addparceria limite`);
           let userId, limit;
@@ -29726,7 +29726,7 @@ case 'set-bannerbv':
       case 'delparceria':
       case 'delpartnership':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando.");
           let userId;
           if (menc_os2) {
@@ -29755,7 +29755,7 @@ case 'set-bannerbv':
         break;
       case 'modoparceria':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando.");
           parceriasData.active = !parceriasData.active;
           saveParceriasData(from, parceriasData);
@@ -29768,14 +29768,14 @@ case 'set-bannerbv':
       case 'modofut':
       case 'modofutbol':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem usar este comando.");
           groupData.modofut = groupData.modofut === false ? true : (groupData.modofut === undefined ? false : !groupData.modofut);
           writeJsonFile(groupFile, groupData);
           if (isGroup) {
             optimizer.invalidateGroup(from);
           }
-          await reply(`⚽ Modo Futebol ${groupData.modofut ? 'ATIVADO' : 'DESATIVADO'} neste grupo.\n\n${groupData.modofut ? '🏆 Agora os membros podem usar todos os comandos de futebol!' : '🔒 Comandos de futebol desativados.'}`);
+          await reply(`⚽ Modo Futebol ${groupData.modofut ? 'ATIVADO' : 'DESATIVADO'} neste grupo.\n\n${groupData.modofut ? '🏆 Agora os membros podem usar todos os comandos de futebol!' : '⚙️ Comandos de futebol desativados.'}`);
         } catch (e) {
           console.error('Erro no comando modofut:', e);
           await reply("Ocorreu um erro ao alterar o modo de futebol 💔");
@@ -29783,7 +29783,7 @@ case 'set-bannerbv':
         break;
       case 'antifig':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem gerenciar o antifig.");
 
           groupData.antifig = groupData.antifig || {};
@@ -30140,7 +30140,7 @@ case 'set-bannerbv':
       case 'onlyadm':
       case 'soadmin':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = buildGroupFilePath(from);
           if (!groupData.soadm || groupData.soadm === undefined) {
@@ -30217,7 +30217,7 @@ case 'set-bannerbv':
         break;
       case 'antilinkgp':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -30227,7 +30227,7 @@ case 'set-bannerbv':
 
           groupData.antilinkgp = !groupData.antilinkgp;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
-          const message = groupData.antilinkgp ? `✅ *Antilinkgp foi ativado com sucesso!*\n\nAgora, se alguém enviar links de outros grupos, será banido automaticamente. Mantenha o grupo seguro! 🛡️` : `✅ *Antilinkgp foi desativado.*\n\nLinks de outros grupos não serão mais bloqueados. Use com cuidado! ⚠️`;
+          const message = groupData.antilinkgp ? `✅ *Antilinkgp foi ativado com sucesso!*\n\nAgora, se alguém enviar links de outros grupos, será banido automaticamente. Mantenha o grupo seguro! ⚙️` : `✅ *Antilinkgp foi desativado.*\n\nLinks de outros grupos não serão mais bloqueados. Use com cuidado! ⚠️`;
           reply(`${message}`);
         } catch (e) {
           console.error(e);
@@ -30239,7 +30239,7 @@ case 'set-bannerbv':
 
 case 'antistickerplus':
   try {
-    if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+    if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
     if (!isGroupAdmin) return reply("você precisa ser adm 💔");
     if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
 
@@ -30320,7 +30320,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
       case 'antilinkcanal':
       case 'antilinkch':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -30330,7 +30330,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
 
           groupData.antilinkcanal = !groupData.antilinkcanal;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
-          const message = groupData.antilinkcanal ? `✅ *Antilinkcanal foi ativado com sucesso!*\n\nAgora, se alguém enviar links de canais do WhatsApp, será banido automaticamente. Mantenha o grupo seguro! 🛡️` : `✅ *Antilinkcanal foi desativado.*\n\nLinks de canais não serão mais bloqueados. Use com cuidado! ⚠️`;
+          const message = groupData.antilinkcanal ? `✅ *Antilinkcanal foi ativado com sucesso!*\n\nAgora, se alguém enviar links de canais do WhatsApp, será banido automaticamente. Mantenha o grupo seguro! ⚙️` : `✅ *Antilinkcanal foi desativado.*\n\nLinks de canais não serão mais bloqueados. Use com cuidado! ⚠️`;
           reply(`${message}`);
         } catch (e) {
           console.error(e);
@@ -30339,7 +30339,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
         break;
       case 'antilinksoft':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           let groupData = fs.existsSync(groupFilePath) ? JSON.parse(fs.readFileSync(groupFilePath)) : {
@@ -30357,7 +30357,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
         break;
       case 'antiporn':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -30367,7 +30367,7 @@ ${prefix}antistickerplus remover → remove usuário e apaga mensagem
 
           groupData.antiporn = !groupData.antiporn;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
-          const message = groupData.antiporn ? `✅ *Antiporn foi ativado com sucesso!*\n\nAgora, se alguém enviar conteúdo adulto (NSFW), será banido automaticamente. Mantenha o grupo seguro e adequado! 🛡️` : `✅ *Antiporn foi desativado.*\n\nConteúdo adulto não será mais bloqueado. Use com responsabilidade! ⚠️`;
+          const message = groupData.antiporn ? `✅ *Antiporn foi ativado com sucesso!*\n\nAgora, se alguém enviar conteúdo adulto (NSFW), será banido automaticamente. Mantenha o grupo seguro e adequado! ⚙️` : `✅ *Antiporn foi desativado.*\n\nConteúdo adulto não será mais bloqueado. Use com responsabilidade! ⚠️`;
           reply(`${message}`);
         } catch (e) {
           console.error(e);
@@ -30480,7 +30480,7 @@ case 'assistent':
   break;
       case 'antigore':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para realizar esta ação.");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -30490,7 +30490,7 @@ case 'assistent':
 
           groupData.antigore = !groupData.antigore;
           fs.writeFileSync(groupFilePath, JSON.stringify(groupData));
-          const message = groupData.antigore ? `✅ *Antigore foi ativado com sucesso!*\n\nAgora, se alguém enviar conteúdo gore, será banido automaticamente. Mantenha o grupo seguro e saudável! 🛡️` : `✅ *Antigore foi desativado.*\n\nConteúdo gore não será mais bloqueado. Use com cuidado! ⚠️`;
+          const message = groupData.antigore ? `✅ *Antigore foi ativado com sucesso!*\n\nAgora, se alguém enviar conteúdo gore, será banido automaticamente. Mantenha o grupo seguro e saudável! ⚙️` : `✅ *Antigore foi desativado.*\n\nConteúdo gore não será mais bloqueado. Use com cuidado! ⚠️`;
           reply(`${message}`);
         } catch (e) {
           console.error(e);
@@ -30501,7 +30501,7 @@ case 'assistent':
       case 'textbv':
       case 'welcomemsg':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           if (!q) return reply(`📝 *Configuração da Mensagem de Boas-Vindas*\n\nPara definir uma mensagem personalizada, digite o comando seguido do texto desejado. Você pode usar as seguintes variáveis:\n\n- *#numerodele#* → Marca o novo membro.\n- *#nomedogp#* → Nome do grupo.\n- *#desc#* → Descrição do grupo.\n- *#membros#* → Número total de membros no grupo.\n\n📌 *Exemplo:*\n${prefixo}legendabv Bem-vindo(a) #numerodele# ao grupo *#nomedogp#*! Agora somos #membros# membros. Leia a descrição: #desc#`);
@@ -30521,7 +30521,7 @@ case 'assistent':
       case 'textbv2':
       case 'welcomemsg2':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
           if (!q) return reply(`*Esse bem vindo não tem foto!*\n\n📝 *Configuração da Mensagem de Boas-Vindas*\n\nPara definir uma mensagem personalizada, digite o comando seguido do texto desejado. Você pode usar as seguintes variáveis:\n\n- *#numerodele#* → Marca o novo membro.\n- *#nomedogp#* → Nome do grupo.\n- *#desc#* → Descrição do grupo.\n- *#membros#* → Número total de membros no grupo.\n\n📌 *Exemplo:*\n${prefixo}legendabv2 Bem-vindo(a) #numerodele# ao grupo *#nomedogp#*! Agora somos #membros# membros. Leia a descrição: #desc#`);
@@ -30538,7 +30538,7 @@ case 'assistent':
       case 'mute':
       case 'mutar':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Você precisa ser administrador para usar este comando. 💔");
           if (!isBotAdmin) return sendKaiserWarning("Eu preciso ser administrador para apagar as mensagens.");
           if (!menc_os2) return reply("Marque alguém para mutar. 🙄");
@@ -30566,7 +30566,7 @@ case 'assistent':
       case 'desmutar':
       case 'unmute':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("Você precisa ser administrador para usar este comando. 💔");
           if (!menc_os2) return reply("Marque alguém para desmutar. 🙄");
 
@@ -30592,7 +30592,7 @@ case 'assistent':
       // ═══════════════════════════════════════════════════════════════
       case 'npc':
         try {
-          if (!isGroup) return reply("Este comando só pode ser usado em grupos 💔");
+          if (!isGroup) return reply("◈ Este comando é só para grupos 💔");
           if (!isOwnerOrSub) return reply("Apenas o dono ou sub-dono pode usar este comando. 💔");
 
           const subCmd = args[0]?.toLowerCase();
@@ -30659,7 +30659,7 @@ case 'assistent':
       case 'mute2':
       case 'mutar2':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!menc_os2) return reply("Marque alguém 🙄");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -30689,7 +30689,7 @@ case 'assistent':
       case 'desmutar2':
       case 'unmute2':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!menc_os2) return reply("Marque alguém 🙄");
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -30718,7 +30718,7 @@ case 'assistent':
         break;
       case 'blockcmd':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!q) return reply(`❌ Digite o comando que deseja bloquear. Exemplo: ${prefix}blockcmd sticker`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -30738,7 +30738,7 @@ case 'assistent':
         break;
       case 'unblockcmd':
         try {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isGroupAdmin) return reply("você precisa ser adm 💔");
           if (!q) return reply(`❌ Digite o comando que deseja desbloquear. Exemplo: ${prefix}unblockcmd sticker`);
           const groupFilePath = __dirname + `/../database/grupos/${from}.json`;
@@ -30763,7 +30763,7 @@ case 'assistent':
       case 'jogodavelha':
       case 'tictactoe':
         {
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!menc_os2) return reply("Marque alguém 🙄");
           if (!tictactoe || typeof tictactoe.invitePlayer !== 'function') {
             console.warn('[TICTACTOE] invitePlayer not available');
@@ -30784,7 +30784,7 @@ case 'assistent':
       case 'c4':
       case 'ligue4':
         {
-          if (!isGroup) return reply("❌ Este comando só pode ser usado em grupos!");
+          if (!isGroup) return reply("❌ ◈ Este comando é só para grupos!");
           if (!connect4 || typeof connect4.invitePlayer !== 'function') {
             return reply("Sistema Connect4 temporariamente indisponível.");
           }
@@ -30798,7 +30798,7 @@ case 'assistent':
       // UNO - Jogo de cartas
       // ═══════════════════════════════════════════════════════════════
       case 'uno':
-        if (!isGroup) return reply("❌ Este comando só pode ser usado em grupos!");
+        if (!isGroup) return reply("❌ ◈ Este comando é só para grupos!");
         if (!uno) return reply("Sistema UNO temporariamente indisponível.");
 
         const subCmdUno = normalizeCommand(args[0]);
@@ -30957,7 +30957,7 @@ ${prefix}uno sair - Sair da partida
       // ═══════════════════════════════════════════════════════════════
       case 'memoria':
       case 'memory':
-        if (!isGroup) return reply("❌ Este comando só pode ser usado em grupos!");
+        if (!isGroup) return reply("❌ ◈ Este comando é só para grupos!");
         if (!memoria) return reply("Sistema de memória temporariamente indisponível.");
 
         const subCmdMemory = args[0]?.toLowerCase();
@@ -30975,7 +30975,7 @@ ${prefix}uno sair - Sair da partida
             const result = memoria.makeMove(from, sender, pos);
             return reply(result.message);
           }
-          return reply(`🎮 Jogo em andamento! Use um número de 1-16 para revelar uma carta.\nOu ${prefix}memoria sair para desistir.`);
+          return reply(`🌌 Jogo em andamento! Use um número de 1-16 para revelar uma carta.\nOu ${prefix}memoria sair para desistir.`);
         }
 
         if (subCmdMemory === 'sair') {
@@ -31599,7 +31599,7 @@ Resolva passo a passo e explique cada etapa.`;
         const legenda = `🔮 *HORÓSCOPO* 🔮\n\n` +
           `${emojiSigno} *Signo:* ${nomeSigno}\n` +
           `📅 *Data:* ${resultado.dia}\n` +
-          `✨ *Previsão do Dia:*\n${resultado.previsao}\n\n` +
+          `◈ *Previsão do Dia:*\n${resultado.previsao}\n\n` +
           `🔗 Fonte: Horóscopo Virtual\n` +
           `🌐 ${resultado.url}`;
 
@@ -31728,7 +31728,7 @@ ${prefix}aventura sair - Abandona a história
       // ═══════════════════════════════════════════════════════════════
       case 'antitoxic':
       case 'antitóxico':
-        if (!isGroup) return reply("❌ Este comando só pode ser usado em grupos!");
+        if (!isGroup) return reply("❌ ◈ Este comando é só para grupos!");
         if (!isGroupAdmin) return reply("❌ Apenas admins podem configurar o antitoxic!");
         if (!antitoxic) return reply("Sistema antitoxic temporariamente indisponível.");
 
@@ -31777,7 +31777,7 @@ ${prefix}antitoxic sensibilidade <0-100> - Define sensibilidade
       // ═══════════════════════════════════════════════════════════════
       case 'antipalavra':
       case 'antiword':
-        if (!isGroup) return reply("❌ Este comando só pode ser usado em grupos!");
+        if (!isGroup) return reply("❌ ◈ Este comando é só para grupos!");
         if (!isGroupAdmin) return reply("❌ Apenas administradores podem usar este comando!");
         if (!antipalavra) return reply("❌ Sistema antipalavra temporariamente indisponível.");
 
@@ -31881,7 +31881,7 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
 
       case 'chance':
         try {
-          if (!isGroup) return reply("🎮 Ops! Esse comando só funciona em grupos! Chama a galera! 👥 ");
+          if (!isGroup) return reply("🌌 Ops! Esse comando só funciona em grupos! Chama a galera! 👥 ");
           if (!isModoBn) return reply('❌ O modo brincadeira está off nesse grupo! Pede pro admin ativar a diversão! 🎉');
           if (!q) return reply(`🎲 Me conta algo para eu calcular as chances! 📊
 
@@ -31889,7 +31889,7 @@ Membros que falarem palavras da blacklist serão BANIDOS AUTOMATICAMENTE do grup
 🚀 *Exemplo:* ${prefix}chance eu virar milionário
 💖 *Exemplo:* ${prefix}chance encontrar o amor`);
           const chance = Math.floor(Math.random() * 101);
-          const emojis = ['🎯', '📊', '🎲', '✨', '🔮', '🍀', '🎆'];
+          const emojis = ['🎯', '📊', '🎲', '◈', '🔮', '🍀', '🎆'];
           const emoji = emojis[Math.floor(Math.random() * emojis.length)];
           const comentarios = [
             'As estrelas sussurraram...', 'Minha bola de cristal revelou...', 'Calculei usando matemática quântica...',
@@ -31908,7 +31908,7 @@ ${chance >= 80 ? '🚀 Uau! Apostaria minhas fichas nisso!' : chance >= 60 ? '�
         break;
       case 'quando':
         try {
-          if (!isGroup) return reply("🕰️ Esse comando só funciona em grupos! Vem com a galera!  ✨");
+          if (!isGroup) return reply("🕰️ Esse comando só funciona em grupos! Vem com a galera!  ◈");
           if (!isModoBn) return reply('❌ O modo brincadeira está dormindo nesse grupo! Acorda ele! 😴🎉');
           if (!q) return reply(`🔮 Me conta o que você quer que eu preveja! 🌠
 
@@ -31920,13 +31920,13 @@ ${chance >= 80 ? '🚀 Uau! Apostaria minhas fichas nisso!' : chance >= 60 ? '�
           const tempos = [
             'hoje à noite 🌙', 'amanhã de manhã 🌅', 'na próxima semana 📅',
             'no próximo mês 🌕', 'no próximo ano 🎆', 'em 2025 🚀',
-            'quando você menos esperar ✨', 'em uma terça-feira chuvosa 🌧️',
+            'quando você menos esperar ◈', 'em uma terça-feira chuvosa 🌧️',
             'depois do carnaval 🎡', 'nunca 😅', 'já aconteceu e você não viu 🤯',
             'numa sexta-feira 13 😈', 'quando os santos ajudarem 😇'
           ];
           const tempo = tempos[Math.floor(Math.random() * tempos.length)];
           const prefixos = [
-            '🔮 Minha visão revela que', '✨ As energias indicam que', '🌠 Consultei as estrelas e',
+            '🔮 Minha visão revela que', '◈ As energias indicam que', '🌠 Consultei as estrelas e',
             '💫 O universo sussurra que', '🧙‍♂️ Pelos poderes que me foram concedidos'
           ];
           const prefixo = prefixos[Math.floor(Math.random() * prefixos.length)];
@@ -32090,7 +32090,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
       case 'couples':
       case 'listacasais': {
         if (!isGroup) {
-          await reply('⚠️ Este comando só pode ser usado em grupos.');
+          await reply('⚠️ ◈ Este comando é só para grupos.');
           break;
         }
 
@@ -32298,7 +32298,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
 │
 │ 💫 *${comentario}*
 │
-│ 👑 *CASAL DO MOMENTO*
+│ 🌌 *CASAL DO MOMENTO*
 │ @${getUserName(membro1)} ❤️ @${getUserName(membro2)}
 │
 │ 📊 *Estatísticas*
@@ -32357,8 +32357,8 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
 │
 │ 💫 *${comentario}*
 │
-│ 👑 *SHIP SELECIONADO*
-│ @${getUserName(menc_os2)} ✨ @${getUserName(par)}
+│ 🌌 *SHIP SELECIONADO*
+│ @${getUserName(menc_os2)} ◈ @${getUserName(par)}
 │
 │ 💫 *Ship name:* ${nomeShip}
 │
@@ -32380,7 +32380,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
         break;
       case 'sn':
         try {
-          if (!isGroup) return reply("🎱 Esse comando só funciona em grupos! Chama todo mundo!  ✨");
+          if (!isGroup) return reply("🎱 Esse comando só funciona em grupos! Chama todo mundo!  ◈");
           if (!isModoBn) return reply('❌ O modo brincadeira está pausado nesse grupo! Hora de ativar a diversão! 🎉');
           if (!q) return reply(`🎱 Faça uma pergunta para o oráculo! 🔮
 
@@ -32390,7 +32390,7 @@ ${tempo.includes('nunca') ? '😂 Brincadeira! Nunca desista dos seus sonhos!' :
 • ${prefix}sn Vale a pena investir em Bitcoin?
 • ${prefix}sn Vou passar na prova?`);
           const respostasPositivas = [
-            'Sim! 🎉', 'Claro que sim! 😎', 'Com certeza! ✨', 'Pode apostar! 🎯',
+            'Sim! 🎉', 'Claro que sim! 😎', 'Com certeza! ◈', 'Pode apostar! 🎯',
             'Sem dúvida! 👍', 'Obviamente! 😌', 'É isso aí! 🚀', 'Vai dar certo! 🍀'
           ];
           const respostasNegativas = [
@@ -32421,7 +32421,7 @@ ${isPositive ? '🎉 O destino sorri para você!' : '😅 Mas não desista dos s
         break;
       case 'sorte':
         try {
-          if (!isGroup) return reply("🍀 Esse comando só funciona em grupos! Chama a galera pra testar a sorte! ✨👥");
+          if (!isGroup) return reply("🍀 Esse comando só funciona em grupos! Chama a galera pra testar a sorte! ◈👥");
           if (!isModoBn) return reply('❌ O modo brincadeira está desativado nesse grupo! Hora de liberar a diversão! 🎉🎲');
 
           const usuario = menc_os2 || sender;
@@ -32436,9 +32436,9 @@ ${isPositive ? '🎉 O destino sorri para você!' : '😅 Mas não desista dos s
 
           const statusSorte = nivelSorte >= 90 ? '🌟 SORTE LENDÁRIA!' :
             nivelSorte >= 75 ? '🍀 Super sortudo!' :
-              nivelSorte >= 60 ? '✨ Boa sorte!' :
+              nivelSorte >= 60 ? '◈ Boa sorte!' :
                 nivelSorte >= 40 ? '🤞 Sorte média!' :
-                  nivelSorte >= 20 ? '😅 Sorte baixa...' : '💀 Azar total!';
+                  nivelSorte >= 20 ? '😅 Sorte baixa...' : '🌌 Azar total!';
 
           const dicas = [
             'Aposte na loteria hoje!', 'Evite gatos pretos!', 'Use algo verde!', 'Faça um pedido!',
@@ -32470,7 +32470,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
       case 'admin':
       case 'adm':
       case 'adms':
-        if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+        if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
         try {
           let membros = groupAdmins;
           let msg = `📢 *Mencionando os admins do grupo:* ${q ? `\n💬 *Mensagem:* ${q}` : ''}\n\n`;
@@ -32721,7 +32721,7 @@ ${nivelSorte >= 70 ? '🎉 Hoje é seu dia de sorte!' : nivelSorte >= 40 ? '🤔
 
       case 'ppt':
         try {
-          if (!q) return reply(`🎮 *Pedra, Papel ou Tesoura*\n\n💡 *Como jogar:*\n• Escolha sua jogada após o comando\n• Ex: ${prefix}ppt pedra\n• Ex: ${prefix}ppt papel\n• Ex: ${prefix}ppt tesoura\n\n🎲 Vamos ver quem ganha!`);
+          if (!q) return reply(`🌌 *Pedra, Papel ou Tesoura*\n\n💡 *Como jogar:*\n• Escolha sua jogada após o comando\n• Ex: ${prefix}ppt pedra\n• Ex: ${prefix}ppt papel\n• Ex: ${prefix}ppt tesoura\n\n🎲 Vamos ver quem ganha!`);
           const escolhas = ['pedra', 'papel', 'tesoura'];
           if (!escolhas.includes(q.toLowerCase())) return reply('Escolha inválida! Use: pedra, papel ou tesoura.');
           const botEscolha = escolhas[Math.floor(Math.random() * 3)];
@@ -32746,7 +32746,7 @@ case 'eununca':
   try {
 
     if (!isGroup) {
-      return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+      return sendKaiserWarning("◈ Este comando é só para grupos.");
     }
 
     if (!isModoBn) {
@@ -32792,7 +32792,7 @@ case 'vab':
   try {
 
     if (!isGroup) {
-      return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+      return sendKaiserWarning("◈ Este comando é só para grupos.");
     }
 
     if (!isModoBn) {
@@ -33142,7 +33142,7 @@ break;
           if (isModoLite && ['pirocudo', 'pirokudo', 'gostoso', 'nazista', 'machista', 'homofobico', 'racista'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não esta ativo nesse grupo');
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             games: {}
@@ -33266,7 +33266,7 @@ break;
           if (isModoLite && ['bucetuda', 'cachorra', 'vagabunda', 'racista', 'nazista', 'gostosa', 'machista', 'homofobica'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não esta ativo nesse grupo');
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
             games: {}
@@ -33353,7 +33353,7 @@ break;
           if (isModoLite && ['rankgostoso', 'rankgostosos', 'ranknazista'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não está ativo nesse grupo.');
           let path = buildGroupFilePath(from);
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
@@ -33435,7 +33435,7 @@ break;
           if (isModoLite && ['rankgostosa', 'rankgostosas', 'ranknazista'].includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não está ativo nesse grupo.');
           let path = buildGroupFilePath(from);
           let gamesData = fs.existsSync(__dirname + '/funcs/json/games.json') ? JSON.parse(fs.readFileSync(__dirname + '/funcs/json/games.json')) : {
@@ -33513,7 +33513,7 @@ break;
           if (isModoLite && comandosImpróprios.includes(command)) return nazu.react('❌', {
             key: info.key
           });
-          if (!isGroup) return sendKaiserWarning("Este comando só pode ser usado em grupos.");
+          if (!isGroup) return sendKaiserWarning("◈ Este comando é só para grupos.");
           if (!isModoBn) return reply('❌ O modo brincadeira não está ativo nesse grupo.');
           // Para punheta, usa o próprio sender se ninguém foi mencionado
           const targetUser = menc_os2 || sender;
@@ -33601,7 +33601,7 @@ break;
         break;
       case 'afk':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           const reason = q.trim();
 
           groupData.afkUsers = groupData.afkUsers || {};
@@ -33624,7 +33624,7 @@ Motivo: ${reason}`;
         break;
       case 'voltei':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (groupData.afkUsers && groupData.afkUsers[sender]) {
             delete groupData.afkUsers[sender];
             fs.writeFileSync(groupFile, JSON.stringify(groupData, null, 2));
@@ -33639,7 +33639,7 @@ Motivo: ${reason}`;
         break;
       case 'regras':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!groupData.rules || groupData.rules.length === 0) {
             return reply("📜 Nenhuma regra definida para este grupo ainda.");
           }
@@ -33659,7 +33659,7 @@ Motivo: ${reason}`;
       case 'addregra':
       case 'addrule':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem adicionar regras.");
           if (!q) return reply(`📝 Por favor, forneça o texto da regra. Ex: ${prefix}addregra Proibido spam.`);
 
@@ -33676,7 +33676,7 @@ ${groupData.rules.length}. ${q}`);
       case 'delregra':
       case 'delrule':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem remover regras.");
           if (!q || isNaN(parseInt(q))) return reply(`🔢 Por favor, forneça o número da regra a ser removida. Ex: ${prefix}delregra 3`);
 
@@ -33695,7 +33695,7 @@ ${groupData.rules.length}. ${q}`);
         break;
       case 'addmod':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem adicionar moderadores.");
           if (!menc_os2) return reply(`Marque o usuário que deseja promover a moderador. Ex: ${prefix}addmod @usuario`);
           const modToAdd = menc_os2;
@@ -33716,7 +33716,7 @@ ${groupData.rules.length}. ${q}`);
         break;
       case 'delmod':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem remover moderadores.");
           if (!menc_os2) return reply(`Marque o usuário que deseja remover de moderador. Ex: ${prefix}delmod @usuario`);
           const modToRemove = menc_os2;
@@ -33739,11 +33739,11 @@ ${groupData.rules.length}. ${q}`);
       case 'listmods':
       case 'modlist':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (groupData.moderators.length === 0) {
-            return reply("🛡️ Não há moderadores definidos para este grupo.");
+            return reply("⚙️ Não há moderadores definidos para este grupo.");
           }
-          let modsMessage = `🛡️ *Moderadores do Grupo ${groupName}* 🛡️\n\n`;
+          let modsMessage = `⚙️ *Moderadores do Grupo ${groupName}* ⚙️\n\n`;
           const mentionedUsers = [];
           groupData.moderators.forEach(modJid => {
             modsMessage += `➥ @${getUserName(modJid)}\n`;
@@ -33760,7 +33760,7 @@ ${groupData.rules.length}. ${q}`);
 
       case 'addalpha':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem adicionar Alphas.");
           if (!menc_os2) return reply(`Marque o usuário que deseja promover a Alpha. Ex: ${prefix}addalpha @usuario`);
           const alphaToAdd = menc_os2;
@@ -33786,7 +33786,7 @@ ${groupData.rules.length}. ${q}`);
 
       case 'delalpha':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem remover Alphas.");
           if (!menc_os2) return reply(`Marque o usuário que deseja remover de Alpha. Ex: ${prefix}delalpha @usuario`);
           const alphaToRemove = menc_os2;
@@ -33810,7 +33810,7 @@ ${groupData.rules.length}. ${q}`);
       case 'listalphas':
       case 'alphalist':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (groupData.alphas.length === 0) {
             return reply("🐺 Não há Alphas definidos para este grupo.");
           }
@@ -33831,7 +33831,7 @@ ${groupData.rules.length}. ${q}`);
       case 'grantmodcmd':
       case 'addmodcmd':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem gerenciar permissões de moderador.");
           if (!q) return reply(`Por favor, especifique o comando para permitir aos moderadores. Ex: ${prefix}grantmodcmd ban`);
           const cmdToAllow = q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll(prefix, "");
@@ -33849,7 +33849,7 @@ ${groupData.rules.length}. ${q}`);
       case 'revokemodcmd':
       case 'delmodcmd':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem gerenciar permissões de moderador.");
           if (!q) return reply(`Por favor, especifique o comando para proibir aos moderadores. Ex: ${prefix}revokemodcmd ban`);
           const cmdToDeny = q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll(prefix, "");
@@ -33867,7 +33867,7 @@ ${groupData.rules.length}. ${q}`);
         break;
       case 'listmodcmds':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (groupData.allowedModCommands.length === 0) {
             return reply("🔧 Nenhum comando específico permitido para moderadores neste grupo.");
           }
@@ -33885,7 +33885,7 @@ ${groupData.rules.length}. ${q}`);
       case 'grantalphacmd':
       case 'addalphacmd':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem gerenciar permissões de Alpha.");
           if (!q) return reply(`Por favor, especifique o comando para permitir aos Alphas. Ex: ${prefix}grantalphacmd ban`);
           const cmdToAllow = q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll(prefix, "");
@@ -33904,7 +33904,7 @@ ${groupData.rules.length}. ${q}`);
       case 'revokealphacmd':
       case 'delalphacmd':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem gerenciar permissões de Alpha.");
           if (!q) return reply(`Por favor, especifique o comando para proibir aos Alphas. Ex: ${prefix}revokealphacmd ban`);
           const cmdToDeny = q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").replaceAll(prefix, "");
@@ -33923,7 +33923,7 @@ ${groupData.rules.length}. ${q}`);
 
       case 'listalphacmds':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (groupData.allowedAlphaCommands.length === 0) {
             return reply("🔧 Nenhum comando específico permitido para Alphas neste grupo.");
           }
@@ -33942,7 +33942,7 @@ ${groupData.rules.length}. ${q}`);
       case 'wladd':
       case 'addwhitelist':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem adicionar usuários à whitelist.");
 
           if (!menc_os2) {
@@ -34003,7 +34003,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
       case 'wlremove':
       case 'removewhitelist':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem remover usuários da whitelist.");
 
           if (!menc_os2) {
@@ -34035,7 +34035,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
       case 'listawhitelist':
       case 'whitelistlista':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
 
           const whitelistEntries = Object.entries(groupData.adminWhitelist || {});
 
@@ -34070,7 +34070,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'minmessage':
         try {
-          if (!isGroup) return reply("Este comando só funciona em grupos.");
+          if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
           if (!isGroupAdmin) return reply("Apenas administradores podem configurar isso.");
           if (!args[0]) return reply(`Uso: ${prefix}minmessage <mínimo de dígitos> <ban/adv> ou ${prefix}minmessage off`);
           if (args[0].toLowerCase() === 'off') {
@@ -34276,14 +34276,14 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
             { name: 'Muay Thai Champion 🥊', emoji: '🥊', baseMinutes: [11, 21, 31, 41, 51, 1] },
             { name: 'Circus Delight 🎪', emoji: '🎪', baseMinutes: [13, 23, 33, 43, 53, 3] },
             { name: 'Piggy Gold 🐷', emoji: '🐷', baseMinutes: [16, 26, 36, 46, 56, 6] },
-            { name: 'Midas Fortune 👑', emoji: '👑', baseMinutes: [12, 22, 32, 42, 52, 2] },
+            { name: 'Midas Fortune 🌌', emoji: '🌌', baseMinutes: [12, 22, 32, 42, 52, 2] },
             { name: 'Sun & Moon ☀️🌙', emoji: '🌙', baseMinutes: [15, 25, 35, 45, 55, 5] },
             { name: 'Wild Bandito 🤠', emoji: '🤠', baseMinutes: [17, 27, 37, 47, 57, 7] },
             { name: 'Fortune Dragon 🐉', emoji: '🐉', baseMinutes: [19, 29, 39, 49, 59, 9] },
             { name: 'Cash Patrol 🚔', emoji: '🚔', baseMinutes: [18, 28, 38, 48, 58, 8] }
           ];
 
-          let responseText = `🎰✨ *HORÁRIOS PAGANTES* ✨🎰\n\n`;
+          let responseText = `🎰◈ *HORÁRIOS PAGANTES* ◈🎰\n\n`;
           responseText += `┏━━━━━━━━━━━━━━━━━━━━━━━━┓\n`;
           responseText += `┃  ⏰ *Horário (BR):* ${currentHour}:${currentMinute}  ┃\n`;
           responseText += `┃  📅 *Data:* ${brasiliaTime.toLocaleDateString('pt-BR')}     ┃\n`;
@@ -34374,7 +34374,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
               `• Envia horários a cada hora\n` +
               `• Apenas em grupos\n` +
               `• Inclui link se configurado\n\n` +
-              `🔒 *Restrito a administradores*`;
+              `⚙️ *Restrito a administradores*`;
 
             await reply(helpText);
             break;
@@ -34567,7 +34567,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'salvarm':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
           if (!quotedMessageContent) return reply(`📸 Como usar:\n\n1️⃣ Responda uma mensagem (texto, áudio, foto, vídeo, etc)\n2️⃣ Mande ${groupPrefix}salvarm\n\nExemplo: ${groupPrefix}salvarm (respondendo uma foto)`);
 
           // Obter informações de quem pediu o salvamento
@@ -34650,7 +34650,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
       case 'moment':
       case 'moments':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
 
           const moments = getMoments(from);
           if (moments.length === 0) return reply('📸 Nenhum momento salvo para hoje!');
@@ -34703,7 +34703,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'apm':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
           if (!q) return reply(`📄 Como usar:\n\n${groupPrefix}apm [número]\n\nExemplo: ${groupPrefix}apm 1`);
 
           const momentIndex = parseInt(q) - 1;
@@ -34735,7 +34735,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'm':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
           if (!q) return reply(`📄 Como usar:\n\n${groupPrefix}m [número]\n\nExemplo: ${groupPrefix}m 1`);
 
           const momentIndex = parseInt(q.trim()) - 1;
@@ -34785,8 +34785,8 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
 
       case 'medirpau':
         try {
-          if (!isGroup) return reply('🚫 Este comando só funciona em grupos!');
-          if (!groupData.modobrincadeira) return reply('🎮 O modo de brincadeiras não está ativado! Use !modobrincadeiras para ativar.');
+          if (!isGroup) return reply('🚫 ◈ Este comando só funciona em grupos!');
+          if (!groupData.modobrincadeira) return reply('🌌 O modo de brincadeiras não está ativado! Use !modobrincadeiras para ativar.');
 
           const tamanho = Math.floor(Math.random() * 67) + 1;
           let mensagem = '';
@@ -34818,7 +34818,7 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
           } else if (tamanho >= 61 && tamanho <= 66) {
             mensagem = `${tamanho} cm ➥ Detectado por radares militares. 🎯`;
           } else if (tamanho === 67) {
-            mensagem = `👑 CHEFE FINAL DOS CHEFES 👑\n➥ Raridade: Impossível.\n➥ Status: Bug do sistema.\n➥ O bot travou tentando calcular.\n➥ Resultado validado por nenhum cientista.`;
+            mensagem = `🌌 CHEFE FINAL DOS CHEFES 🌌\n➥ Raridade: Impossível.\n➥ Status: Bug do sistema.\n➥ O bot travou tentando calcular.\n➥ Resultado validado por nenhum cientista.`;
           }
 
           await reply(mensagem);

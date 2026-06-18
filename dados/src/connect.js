@@ -577,7 +577,7 @@ async function handleGroupJoinRequest(KaiserSock, inf) {
             CaptchaIndex.add(typeIds, from, answer, expiresAt, nome);
 
             await KaiserSock.sendMessage(from, {
-                text: `🔐 *VERIFICAÇÃO DE SEGURANÇA*\n\n👋 Olá @${numero}!\n\nPara garantir que você não é um bot, resolva:\n❓ *${num1} + ${num2} = ?*\n\n⏱️ Você tem 5 minutos ou será removido.`,
+                text: `🔐 *VERIFICAÇÃO DE SEGURANÇA*\n\n🌌 Viajante @${numero}!\n\nPara confirmar que não é uma sombra, resolva:\n❓ *${num1} + ${num2} = ?*\n\n⏱️ Você tem 5 minutos ou será removido.`,
                 mentions: [participantJid]
             });
         }
@@ -1323,13 +1323,13 @@ async function createBotSocket(authDir) {
                 qr
             } = update;
             if (qr && !KaiserSock.authState.creds.registered && !codeMode) {
-                console.log('🔗 QR Code gerado para autenticação:');
+                console.log('🔗 🌌 QR do Void gerado para autenticação:');
                 qrcode.generate(qr, {
                     small: true
                 }, (qrcodeText) => {
                     console.log(qrcodeText);
                 });
-                console.log('📱 Escaneie o QR code acima com o WhatsApp para autenticar o bot.');
+                console.log('📱 ◈ Escaneie o QR nas sombras acima com o WhatsApp para autenticar o bot.');
             }
             if (connection === 'open') {
                  /*
