@@ -7,7 +7,7 @@ async function menuVIP(prefix, botName = "MeuBot", userName = "Usuário", {
   header = `╭──────────────────────────────────────────────╮⊰ 🌸 『 *${botName}* 』\n│Olá, #user#!\n╰──────────────────────────────────────────────╯`,
   menuTopBorder = "╭──────────────────────────────────────────────╮",
   bottomBorder = "╰──────────────────────────────────────────────╯",
-  menuItemIcon = "•.̇𖥨֗🍓⭟",
+  menuItemIcon = "▸",
   separatorIcon = "❁",
   middleBorder = "│"
 } = {}) {
@@ -22,7 +22,7 @@ async function menuVIP(prefix, botName = "MeuBot", userName = "Usuário", {
 
     if (stats.active === 0) {
       menu += `${menuTopBorder}
-│ 👑 COMANDOS VIP
+│ 🌌 COMANDOS VIP
 ${middleBorder}
 ${middleBorder}📭 Nenhum comando cadastrado
 ${middleBorder}
@@ -105,7 +105,7 @@ async function listVIPCommands(prefix, botName = "MeuBot", userName = "Usuário"
   header = `╭──────────────────────────────────────────────╮⊰ 🌸 『 *${botName}* 』\n│Olá, #user#!\n╰──────────────────────────────────────────────╯`,
   menuTopBorder = "╭──────────────────────────────────────────────╮",
   bottomBorder = "╰──────────────────────────────────────────────╯",
-  menuItemIcon = "•.̇𖥨֗🍓⭟",
+  menuItemIcon = "▸",
   separatorIcon = "❁",
   middleBorder = "│"
 } = {}) {
@@ -124,7 +124,7 @@ Categorias: download, diversao, utilidade, ia, editor, info, outros`;
   let list = `${formattedHeader}
 
 ${menuTopBorder}
-│ 👑 COMANDOS VIP
+│ 🌌 COMANDOS VIP
 ${middleBorder}
 ${middleBorder}Total: ${stats.active}
 ${middleBorder}Categorias: ${stats.categories}

@@ -2,8 +2,8 @@ async function menuDono(prefix, botName = "MeuBot", userName = "Usuário", {
     header = `╭──────────────────────────────────────────────╮⊰  『 *${botName}* 』\n│Olá, #user#!\n╰──────────────────────────────────────────────╯`,
     menuTopBorder = "╭──────────────────────────────────────────────╮",
     bottomBorder = "╰──────────────────────────────────────────────╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "📍",
+    menuTitleIcon = "◈",
+    menuItemIcon = "▸",
     separatorIcon = "❁",
     middleBorder = "│",
     aiMenuTitle = "🤖 INTELIGÊNCIA ARTIFICIAL",
@@ -40,7 +40,7 @@ ${middleBorder}📝 Status: ${prefix}setgroq
 ${bottomBorder}
 
 ${menuTopBorder}
-│ 👑 REAÇÕES POR NOME
+│ 🌌 REAÇÕES POR NOME
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}reacao - Ver lista
 ${middleBorder}${menuItemIcon}${prefix}reacao add <nome> <emoji>

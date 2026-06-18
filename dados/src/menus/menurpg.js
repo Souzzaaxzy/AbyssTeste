@@ -1,16 +1,16 @@
 export default async function menurpg(prefix, botName = "MeuBot", userName = "Usuário", {
-    header = `╭──────────────────────────────────────────────╮⊰ ⚔️ 『 *MODO RPG* 』\n│Olá, #user#!\n╰─┈┈┈┈┈◜⚔️◞┈┈┈┈┈─╯`,
+    header = `╭──────────────────────────────────────────────╮⊰ 🌌 MODO RPG* 』\n│Olá, #user#!\n╰─┈┈┈┈┈◜◈◞┈┈┈┈┈─╯`,
     menuTopBorder = "╭──────────────────────────────────────────────╮",
-    bottomBorder = "╰─┈┈┈┈┈◜⚔️◞┈┈┈┈┈─╯",
-    menuTitleIcon = "⚔️ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗✨⭟",
-    separatorIcon = "⚔️",
+    bottomBorder = "╰─┈┈┈┈┈◜◈◞┈┈┈┈┈─╯",
+    menuTitleIcon = "◈",
+    menuItemIcon = "▸",
+    separatorIcon = "◈",
     middleBorder = "│",
     profileMenuTitle = "👤 PERFIL & STATUS",
     economyMenuTitle = "💰 ECONOMIA & FINANÇAS",
     activitiesMenuTitle = "🎯 ATIVIDADES DIÁRIAS",
     adventureMenuTitle = "🗺️ AVENTURA & EXPLORAÇÃO",
-    combatMenuTitle = "⚔️ COMBATE & BATALHAS",
+    combatMenuTitle = "◈ COMBATE & BATALHAS",
     craftingMenuTitle = "🔨 CRAFTING & EQUIPAMENTOS",
     socialMenuTitle = "💝 SOCIAL & INTERAÇÕES",
     familyMenuTitle = "👨‍👩‍👧‍👦 FAMÍLIA & ADOÇÃO",
@@ -134,7 +134,7 @@ ${middleBorder}${menuItemIcon}${prefix}dungeon sair
 ${bottomBorder}
 
 ${menuTopBorder}
-│ ⚔️ CLASSES & PROFISSÕES
+│ ◈ CLASSES & PROFISSÕES
 ${middleBorder}
 ${middleBorder}${menuItemIcon}${prefix}class - Ver classes
 ${middleBorder}${menuItemIcon}${prefix}class <nome> - Escolher

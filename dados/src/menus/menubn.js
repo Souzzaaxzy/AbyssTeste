@@ -2,8 +2,8 @@ export default async function menubn(prefix, botName = "MeuBot", userName = "Usu
     header = `╭──────────────────────────────────────────────╮⊰ 🌸 『 *${botName}* 』\n│Olá, #user#!\n╰──────────────────────────────────────────────╯`,
     menuTopBorder = "╭──────────────────────────────────────────────╮",
     bottomBorder = "╰──────────────────────────────────────────────╯",
-    menuTitleIcon = "🍧ฺꕸ▸",
-    menuItemIcon = "•.̇𖥨֗🍓⭟",
+    menuTitleIcon = "◈",
+    menuItemIcon = "▸",
     separatorIcon = "❁",
     middleBorder = "│",
     gamesMenuTitle = "🎮 JOGOS & DIVERSÃO 🎲",
@@ -13,7 +13,7 @@ export default async function menubn(prefix, botName = "MeuBot", userName = "Usu
     hotInteractionsMenuTitle = '🔥 INTERAÇÕES "PICANTES" 😏',
     maleFunMenuTitle = "🎯 BRINCADEIRAS MASCULINAS 🔥",
     femaleFunMenuTitle = "💅 BRINCADEIRAS FEMININAS 👸",
-    maleRanksMenuTitle = "🏆 RANKINGS MASCULINOS 👑",
+    maleRanksMenuTitle = "🏆 RANKINGS MASCULINOS 🌌",
     femaleRanksMenuTitle = "👸 RANKINGS FEMININOS 💎"
 } = {}) {
     const formattedHeader = header.replace(/#user#/g, userName);
