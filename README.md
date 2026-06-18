@@ -1,15 +1,15 @@
-#              👑 KaiserBot
+#              👑 Abyss
 
 <p align="center">
-  <img src="dados/midias/menu.gif" alt="KaiserBot GIF" width="600">
+  <img src="dados/midias/menu.gif" alt="Abyss GIF" width="600">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/package-json/v/Souzzaaxzy/KaiserBot?style=for-the-badge&color=gold" alt="Versão">
-  <img src="https://img.shields.io/github/license/Souzzaaxzy/KaiserBot?style=for-the-badge&color=blue" alt="Licença">
+  <img src="https://img.shields.io/github/package-json/v/Souzzaaxzy/Abyss?style=for-the-badge&color=gold" alt="Versão">
+  <img src="https://img.shields.io/github/license/Souzzaaxzy/Abyss?style=for-the-badge&color=blue" alt="Licença">
 </p>
 
-> **KaiserBot** é um bot multifuncional de alto desempenho para WhatsApp.
+> **Abyss** é um bot multifuncional de alto desempenho para WhatsApp.
 
 ---
 
@@ -28,8 +28,8 @@
 
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/Souzzaaxzy/KaiserBot.git
-   cd KaiserBot
+   git clone https://github.com/Souzzaaxzy/Abyss.git
+   cd Abyss
    ```
 
 2. **Instale as dependências:**

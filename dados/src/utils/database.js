@@ -1952,7 +1952,7 @@ function ensureEconomyDefaults(econ) {
     }
   });
 
-    // === NOVA LOJA (KAISERBOT) ===
+    // === NOVA LOJA (ABYSS) ===
   const kaiserShop = {
   "arco_basico": { "name": "Arco Básico", "price": 600, "type": "weapon", "rarity": "Comum", "durability": -1, "effect": { "attack": 8 } },
   "espada_de_ferro": { "name": "Espada de Ferro", "price": 800, "type": "weapon", "rarity": "Comum", "durability": -1, "effect": { "attack": 10 } },
@@ -2021,7 +2021,7 @@ function ensureEconomyDefaults(econ) {
   "pocao_de_vida": { "name": "Poção de Vida", "price": 400, "type": "consumable", "rarity": "Comum", "durability": -1, "effect": { "special": "+50 HP" } }
 };
 
-  // Força a atualização de todos os itens da loja KaiserBot para garantir tipos e preços corretos
+  // Força a atualização de todos os itens da loja Abyss para garantir tipos e preços corretos
   for (const [k, v] of Object.entries(kaiserShop)) {
     if (!econ.shop[k] || JSON.stringify(econ.shop[k]) !== JSON.stringify(v)) {
       econ.shop[k] = v;

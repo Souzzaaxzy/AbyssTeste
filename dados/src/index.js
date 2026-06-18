@@ -6835,7 +6835,7 @@ if (isCmd && command && !isOwnerOrSub) {
 
             const catArg = args[0];
             if (!catArg || !['armas', 'armaduras', 'escudos', 'elmos', 'acessorios', 'botas', 'ferramentas', 'consumiveis'].includes(catArg)) {
-              let text = `╭━━━⊱ 🛍️ *LOJA KAISERBOT* 🛍️ ⊱━━━╮\n│\n`;
+              let text = `╭━━━⊱ 🛍️ *LOJA ABYSS* 🛍️ ⊱━━━╮\n│\n`;
               text += `│ 🌌 *${pushname}*! Escolha uma categoria:\n│\n`;
               text += `│ ◈ *${prefix}loja armas*\n`;
               text += `│ ⚙️ *${prefix}loja armaduras*\n`;
