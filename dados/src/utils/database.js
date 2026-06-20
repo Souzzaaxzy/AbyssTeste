@@ -1953,7 +1953,7 @@ function ensureEconomyDefaults(econ) {
   });
 
     // === NOVA LOJA (ABYSS) ===
-  const kaiserShop = {
+  const abyssShop = {
   "arco_basico": { "name": "Arco Básico", "price": 600, "type": "weapon", "rarity": "Comum", "durability": -1, "effect": { "attack": 8 } },
   "espada_de_ferro": { "name": "Espada de Ferro", "price": 800, "type": "weapon", "rarity": "Comum", "durability": -1, "effect": { "attack": 10 } },
   "espada_rubra_do_guerreiro": { "name": "Espada Rubra do Guerreiro", "price": 10000, "type": "weapon", "rarity": "Raro", "durability": -1, "effect": { "attack": 18, "special": "Chance de queimadura" } },
@@ -2022,7 +2022,7 @@ function ensureEconomyDefaults(econ) {
 };
 
   // Força a atualização de todos os itens da loja Abyss para garantir tipos e preços corretos
-  for (const [k, v] of Object.entries(kaiserShop)) {
+  for (const [k, v] of Object.entries(abyssShop)) {
     if (!econ.shop[k] || JSON.stringify(econ.shop[k]) !== JSON.stringify(v)) {
       econ.shop[k] = v;
       changed = true;

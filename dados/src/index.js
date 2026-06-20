@@ -717,7 +717,7 @@ const {
 } = modules.default;
 
 
-async function createGroupMessage(KaiserSock, groupMetadata, participants, settings, isWelcome = true) {
+async function createGroupMessage(AbyssSock, groupMetadata, participants, settings, isWelcome = true) {
   const globalJson = JSON.parse(
     fs.readFileSync(DATABASE_DIR + '/global.json', 'utf-8')
   );
@@ -19313,7 +19313,7 @@ case 'addaluguel':
           if (!q) return reply(`❌️ *Forma incorreta, use está como exemplo:* ${prefix + command} https://instagram.com/hiudyyy_`);
           const shortResponse = await axios.post("https://spoo.me/api/v1/shorten", {
             long_url: q,
-            alias: `kaiser_${Math.floor(10000 + Math.random() * 90000)}`
+            alias: `abyss_${Math.floor(10000 + Math.random() * 90000)}`
           });
           reply(`✅ *Link encurtado com sucesso!*\n\n🔗 *Link curto:* ${shortResponse.data.short_url}\n📎 *Link original:* ${shortResponse.data.long_url}`);
         } catch (e) {
@@ -19630,7 +19630,7 @@ case 'addaluguel':
           if (!datz.ok) return reply(datz.msg);
           return axios.post("https://spoo.me/api/v1/shorten", {
             long_url: datz.url,
-            alias: `kaiser_${Math.floor(10000 + Math.random() * 90000)}`
+            alias: `abyss_${Math.floor(10000 + Math.random() * 90000)}`
           }).then((shortLinkPlugin) => {
             return nazu.sendMessage(from, {
               image: { url: datz.image },
@@ -20524,7 +20524,7 @@ case 'pin':
           if (fileSizeBytes > maxSize) {
             const shortLinkGdrive = await axios.post("https://spoo.me/api/v1/shorten", {
               long_url: downloadUrl,
-              alias: `kaiser_${Math.floor(10000 + Math.random() * 90000)}`
+              alias: `abyss_${Math.floor(10000 + Math.random() * 90000)}`
             });
             return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📋 *Tipo:* ${mimetype}\n\n⚠️ *Arquivo muito grande para enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkGdrive.data.short_url}`);
           }
@@ -20621,7 +20621,7 @@ case 'pin':
           if (fileSizeBytes > maxSize) {
             const shortLinkMf = await axios.post("https://spoo.me/api/v1/shorten", {
               long_url: downloadUrl,
-              alias: `kaiser_${Math.floor(10000 + Math.random() * 90000)}`
+              alias: `abyss_${Math.floor(10000 + Math.random() * 90000)}`
             });
             return reply(`📁 *Arquivo encontrado!*\n\n📄 *Nome:* ${fileName}\n📊 *Tamanho:* ${fileSize}\n📅 *Upload:* ${uploadDate || 'N/A'}\n📋 *Tipo:* ${extension || mimetype}\n\n⚠️ *Arquivo muito grande para enviar!*\nO limite do WhatsApp é 100MB.\n\n🔗 *Link direto:*\n${shortLinkMf.data.short_url}`);
           }
@@ -20996,7 +20996,7 @@ case 'download-bot':
       from,
       {
         document: zipBuffer,
-        fileName: 'kaiser-bot.zip',
+        fileName: 'abyss-bot.zip',
         mimetype: 'application/zip',
         caption:
           `📦 *Código-fonte do ${nomebot}*\n\n` +

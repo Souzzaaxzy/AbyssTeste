@@ -279,7 +279,7 @@ try {
     }
 
 
-    DEBUG_MODE = config.debug === true || process.env.KAISER_DEBUG === '1';
+    DEBUG_MODE = config.debug === true || process.env.ABYSS_DEBUG === '1';
     if (DEBUG_MODE) {
         console.log('🐛 Modo DEBUG ativado - Logs detalhados habilitados');
     }
@@ -334,7 +334,7 @@ const GLOBAL_BLACKLIST_TTL_MS = 60_000;
 let msgRetryCounterCache;
 let messagesCache;
 
-async function initializeOptimizedCaches(KaiserSock) {
+async function initializeOptimizedCaches(AbyssSock) {
     try {
         await performanceOptimizer.initialize();
 
@@ -343,8 +343,8 @@ async function initializeOptimizedCaches(KaiserSock) {
             /*
                 Vai receber apenas os ids expirados
             */
-            await KaiserSock.sendMessage(dataCaptcha.groupId, { text: `⚠️ @${dataCaptcha.idOrigin.split('@')[0]} não resolveu o captcha a tempo e foi removido.` });
-            await KaiserSock.groupParticipantsUpdate(dataCaptcha.groupId, [dataCaptcha.idOrigin], 'remove').catch(() => { });
+            await AbyssSock.sendMessage(dataCaptcha.groupId, { text: `⚠️ @${dataCaptcha.idOrigin.split('@')[0]} não resolveu o captcha a tempo e foi removido.` });
+            await AbyssSock.groupParticipantsUpdate(dataCaptcha.groupId, [dataCaptcha.idOrigin], 'remove').catch(() => { });
         };
         await initCaptchaIndex(requestCaptchaMsg);
 
@@ -367,7 +367,7 @@ async function initializeOptimizedCaches(KaiserSock) {
 
     }
 }
-const codeMode = process.argv.includes('--code') || process.env.KAISER_CODE_MODE === '1';
+const codeMode = process.argv.includes('--code') || process.env.ABYSS_CODE_MODE === '1';
 
 // Cleanup otimizado do cache de mensagens
 let cacheCleanupInterval = null;
@@ -504,7 +504,7 @@ export async function saveGroupSettings(groupId, settings) {
         console.error(`❌ Erro ao salvar settings de ${groupId}:`, error);
     }
 }
-async function handleGroupJoinRequest(KaiserSock, inf) {
+async function handleGroupJoinRequest(AbyssSock, inf) {
     try {
         const typeIds = { id: '', lid: '', participant: '' };
         const from = inf.id;
@@ -543,7 +543,7 @@ async function handleGroupJoinRequest(KaiserSock, inf) {
 
         if (groupSettings.autoAcceptRequests) {
             if (DEBUG_MODE) console.log(`[Auto-Accept] Aceitando ${participantJid} no grupo ${from}`);
-            await KaiserSock.groupRequestParticipantsUpdate(from, [participantJid], 'approve');
+            await AbyssSock.groupRequestParticipantsUpdate(from, [participantJid], 'approve');
             if (!groupSettings.captchaEnabled) return;
         }
 
@@ -558,25 +558,25 @@ async function handleGroupJoinRequest(KaiserSock, inf) {
 
             const numero = participantJid.split('@')[0];
 
-            const foto = await KaiserSock.profilePictureUrl(participantJid, 'image')
+            const foto = await AbyssSock.profilePictureUrl(participantJid, 'image')
                 .catch(() => 'sem foto');
 
-            const waInfo = await KaiserSock.onWhatsApp(participantJid)
+            const waInfo = await AbyssSock.onWhatsApp(participantJid)
                 .catch(() => null);
 
             let nome = inf.participant;
             try {
-                nome = await KaiserSock.getName(participantJid);
+                nome = await AbyssSock.getName(participantJid);
             } catch { }
 
-            const metadata = await KaiserSock.groupMetadata(from).catch(() => null);
+            const metadata = await AbyssSock.groupMetadata(from).catch(() => null);
             const participanteMeta = metadata?.participants?.find(p => p.id === participantJid);
 
 
 
             CaptchaIndex.add(typeIds, from, answer, expiresAt, nome);
 
-            await KaiserSock.sendMessage(from, {
+            await AbyssSock.sendMessage(from, {
                 text: `🔐 *VERIFICAÇÃO DE SEGURANÇA*\n\n🌌 Viajante @${numero}!\n\nPara confirmar que não é uma sombra, resolva:\n❓ *${num1} + ${num2} = ?*\n\n⏱️ Você tem 5 minutos ou será removido.`,
                 mentions: [participantJid]
             });
@@ -832,7 +832,7 @@ async function handleJidFiles(jidFiles, jidToLidMap, orphanJidsSet) {
     return { totalReplacements, totalRemovals, updatedFiles, renamedFiles, deletedFiles };
 }
 
-async function fetchLidWithRetry(KaiserSock, jid, maxRetries = 3) {
+async function fetchLidWithRetry(AbyssSock, jid, maxRetries = 3) {
     if (!jid || !isValidJid(jid)) {
         console.warn(`⚠️ JID inválido fornecido: ${jid}`);
         return null;
@@ -840,7 +840,7 @@ async function fetchLidWithRetry(KaiserSock, jid, maxRetries = 3) {
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         try {
-            const result = await KaiserSock.onWhatsApp(jid);
+            const result = await AbyssSock.onWhatsApp(jid);
             if (result && result[0] && result[0].lid) {
                 return { jid, lid: result[0].lid };
             }
@@ -857,7 +857,7 @@ async function fetchLidWithRetry(KaiserSock, jid, maxRetries = 3) {
     return null;
 }
 
-async function fetchLidsInBatches(KaiserSock, uniqueJids, batchSize = 5) {
+async function fetchLidsInBatches(AbyssSock, uniqueJids, batchSize = 5) {
     const lidResults = [];
     const jidToLidMap = new Map();
     let successfulFetches = 0;
@@ -865,7 +865,7 @@ async function fetchLidsInBatches(KaiserSock, uniqueJids, batchSize = 5) {
     for (let i = 0; i < uniqueJids.length; i += batchSize) {
         const batch = uniqueJids.slice(i, i + batchSize);
 
-        const batchPromises = batch.map(jid => fetchLidWithRetry(KaiserSock, jid));
+        const batchPromises = batch.map(jid => fetchLidWithRetry(AbyssSock, jid));
         const batchResults = await Promise.allSettled(batchPromises);
 
         batchResults.forEach((result, index) => {
@@ -885,10 +885,10 @@ async function fetchLidsInBatches(KaiserSock, uniqueJids, batchSize = 5) {
     return { lidResults, jidToLidMap, successfulFetches };
 }
 
-async function updateOwnerLid(KaiserSock) {
+async function updateOwnerLid(AbyssSock) {
     const ownerJid = `${numerodono}@s.whatsapp.net`;
     try {
-        const result = await fetchLidWithRetry(KaiserSock, ownerJid);
+        const result = await fetchLidWithRetry(AbyssSock, ownerJid);
         if (result) {
             config.lidowner = result.lid;
             await fs.writeFile(configPath, JSON.stringify(config, null, 2), 'utf-8');
@@ -898,7 +898,7 @@ async function updateOwnerLid(KaiserSock) {
     }
 }
 
-async function performMigration(KaiserSock) {
+async function performMigration(AbyssSock) {
     let scanResult;
     try {
         scanResult = await scanForJids(DATABASE_DIR);
@@ -913,7 +913,7 @@ async function performMigration(KaiserSock) {
         return;
     }
 
-    const { jidToLidMap, successfulFetches } = await fetchLidsInBatches(KaiserSock, uniqueJids);
+    const { jidToLidMap, successfulFetches } = await fetchLidsInBatches(AbyssSock, uniqueJids);
     const orphanJidsSet = new Set(uniqueJids.filter(jid => !jidToLidMap.has(jid)));
 
     if (jidToLidMap.size === 0) {
@@ -980,7 +980,7 @@ async function createBotSocket(authDir) {
         const version = await getWAVersion();
         console.log(`📱 Usando versão do WhatsApp: ${version.join('.')}`);
 
-        const KaiserSock = makeWASocket({
+        const AbyssSock = makeWASocket({
             version: version,
             emitOwnEvents: true,
             fireInitQueries: true,
@@ -1007,7 +1007,7 @@ async function createBotSocket(authDir) {
             logger
         });
 
-        if (codeMode && !KaiserSock.authState.creds.registered) {
+        if (codeMode && !AbyssSock.authState.creds.registered) {
             console.log('📱 Insira o número de telefone (com código de país, ex: +5511912345678 ou +554112345678): ');
             let phoneNumber = await ask('--> ');
             phoneNumber = phoneNumber.replace(/\D/g, '');
@@ -1015,15 +1015,15 @@ async function createBotSocket(authDir) {
                 console.log('⚠️ Número inválido! Use um número válido com código de país (ex: 551199999999).');
                 process.exit(1);
             }
-            const rawCode = await KaiserSock.requestPairingCode(phoneNumber);
+            const rawCode = await AbyssSock.requestPairingCode(phoneNumber);
             const formattedCode = rawCode?.match(/.{1,4}/g)?.join('-') || rawCode;
             console.log(`🔑 Código de pareamento: ${formattedCode}`);
             console.log('📲 Envie este código no WhatsApp para autenticar o bot.');
         }
 
-        KaiserSock.ev.on('creds.update', saveCreds);
+        AbyssSock.ev.on('creds.update', saveCreds);
 
-        KaiserSock.ev.on('groups.update', async (updates) => {
+        AbyssSock.ev.on('groups.update', async (updates) => {
             if (!Array.isArray(updates) || updates.length === 0) return;
 
             if (DEBUG_MODE) {
@@ -1071,7 +1071,7 @@ async function createBotSocket(authDir) {
                     }
 
                     if (mensagem) {
-                        await KaiserSock.sendMessage(groupId, {
+                        await AbyssSock.sendMessage(groupId, {
                             text: mensagem
                         }).catch(err => {
                             console.error(`❌ Erro ao enviar X9: ${err.message}`);
@@ -1080,7 +1080,7 @@ async function createBotSocket(authDir) {
 
                     // 🔹 Atualiza metadata (opcional)
                     if (DEBUG_MODE) {
-                        const meta = await KaiserSock.groupMetadata(groupId).catch(() => null);
+                        const meta = await AbyssSock.groupMetadata(groupId).catch(() => null);
                         if (meta) {
                             console.log('🐛 Metadata atualizado para:', groupId);
                         }
@@ -1097,7 +1097,7 @@ async function createBotSocket(authDir) {
 
 
         // Listener para solicitações de entrada em grupos (join requests)
-        KaiserSock.ev.on('group.join-request', async (inf) => {
+        AbyssSock.ev.on('group.join-request', async (inf) => {
             if (DEBUG_MODE) {
                 console.log('\n🐛 ========== GROUP JOIN REQUEST ==========');
                 console.log('📅 Timestamp:', new Date().toISOString());
@@ -1110,12 +1110,12 @@ async function createBotSocket(authDir) {
                 console.log('📦 Full event data:', JSON.stringify(inf, null, 2));
                 console.log('🐛 ===========================================\n');
             }
-            await handleGroupJoinRequest(KaiserSock, inf);
+            await handleGroupJoinRequest(AbyssSock, inf);
         });
 
 
 
-        KaiserSock.ev.on('group-participants.update', async (inf) => {
+        AbyssSock.ev.on('group-participants.update', async (inf) => {
             console.log(`[SOCKET EVENT] group-participants.update disparado: ${inf.action} em ${inf.id}`);
             if (DEBUG_MODE) {
                 console.log('\n🐛 ========== GROUP PARTICIPANTS UPDATE ==========');
@@ -1136,7 +1136,7 @@ async function createBotSocket(authDir) {
 
             // Chama o handler centralizado do index.js que corrigimos
             if (typeof handleGroupParticipantsUpdate === 'function') {
-                await handleGroupParticipantsUpdate(KaiserSock, updateData);
+                await handleGroupParticipantsUpdate(AbyssSock, updateData);
             } else {
                 console.error('\x1b[31m[ERRO CRÍTICO]\x1b[0m handleGroupParticipantsUpdate não foi importado corretamente de index.js');
             }
@@ -1194,7 +1194,7 @@ async function createBotSocket(authDir) {
 
 
             if (typeof indexModule === 'function') {
-                await indexModule(KaiserSock, info, null, messagesCache, rentalExpirationManager);
+                await indexModule(AbyssSock, info, null, messagesCache, rentalExpirationManager);
             } else {
                 throw new Error('Módulo index.js não é uma função válida. Verifique o arquivo index.js.');
             }
@@ -1204,7 +1204,7 @@ async function createBotSocket(authDir) {
             if (messagesListenerAttached) return;
             messagesListenerAttached = true;
 
-            KaiserSock.ev.on('messages.upsert', async (m) => {
+            AbyssSock.ev.on('messages.upsert', async (m) => {
                 if (!m.messages || !Array.isArray(m.messages)) return;
 
 
@@ -1240,7 +1240,7 @@ async function createBotSocket(authDir) {
                 }
             });
 
-            KaiserSock.ev.on('messages.update', async (updates) => {
+            AbyssSock.ev.on('messages.update', async (updates) => {
                 for (const update of updates) {
                     if (update.update.pollUpdates) {
                         const pollUpdate = update.update.pollUpdates[0];
@@ -1283,7 +1283,7 @@ async function createBotSocket(authDir) {
                 }
             });
 
-            KaiserSock.ev.on('messages.upsert', async (m) => {
+            AbyssSock.ev.on('messages.upsert', async (m) => {
                 if (m.type !== 'notify') return;
                 for (const info of m.messages) {
                     const type = Object.keys(info.message || {})[0];
@@ -1316,13 +1316,13 @@ async function createBotSocket(authDir) {
             });
         };
 
-        KaiserSock.ev.on('connection.update', async (update) => {
+        AbyssSock.ev.on('connection.update', async (update) => {
             const {
                 connection,
                 lastDisconnect,
                 qr
             } = update;
-            if (qr && !KaiserSock.authState.creds.registered && !codeMode) {
+            if (qr && !AbyssSock.authState.creds.registered && !codeMode) {
                 console.log('🔗 🌌 QR do Void gerado para autenticação:');
                 qrcode.generate(qr, {
                     small: true
@@ -1348,26 +1348,26 @@ async function createBotSocket(authDir) {
                 forbidden403Attempts = 0;
                 console.log(`🔄 Conexão aberta. Inicializando sistema de otimização...`);
 
-                    await initializeOptimizedCaches(KaiserSock);
+                    await initializeOptimizedCaches(AbyssSock);
 
-                    await updateOwnerLid(KaiserSock);
+                    await updateOwnerLid(AbyssSock);
 
                      /*
                      CORREÇÃO: performMigration é adiado para DEPOIS da inicialização completa.
-                     Antes era await direto aqui — o scan do filesystem + chamadas KaiserSock.onWhatsApp()
+                     Antes era await direto aqui — o scan do filesystem + chamadas AbyssSock.onWhatsApp()
                      podiam levar dezenas de segundos, fazendo o keepalive (30s) expirar e
                      o WhatsApp fechar a conexão por inatividade logo após a abertura.
                      */
                      setTimeout(() => {
-                        performMigration(KaiserSock).catch(err => {
+                        performMigration(AbyssSock).catch(err => {
                             console.error('❌ Erro na migração (não-bloqueante):', err.message);
                         });
                     }, 10_000);
 
-                    rentalExpirationManager.nazu = KaiserSock;
+                    rentalExpirationManager.nazu = AbyssSock;
                     await rentalExpirationManager.initialize();
 
-                    const electionManager = new ElectionManager(KaiserSock);
+                    const electionManager = new ElectionManager(AbyssSock);
                     await electionManager.initialize();
 
                     attachMessagesListener();
@@ -1388,7 +1388,7 @@ async function createBotSocket(authDir) {
                                 ownerMsgTimer = null;
                                 try {
                                     const ownerJid = buildUserId(numerodono, config);
-                                    await KaiserSock.sendMessage(ownerJid, {
+                                    await AbyssSock.sendMessage(ownerJid, {
                                         text: msgBotOnConfig.message
                                     });
                                     console.log('✅ Mensagem de inicialização enviada para o dono');
@@ -1515,7 +1515,7 @@ async function createBotSocket(authDir) {
                 }, reconnectDelay);
             }
         });
-        return KaiserSock;
+        return AbyssSock;
     } catch (err) {
         console.error(`❌ Erro ao criar socket do bot: ${err.message}`);
         throw err;
