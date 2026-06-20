@@ -1397,7 +1397,7 @@ Exemplo: *!fut codigo ELITE2026*
       
       const negotiation = db.createNegotiation(player.currentClub, targetUser, salary, false);
       
-      return sendReply(`⚽ *NOVA PROPOSTA!* ⚽\n\n📤 De: ${userClub.name}\n💰 Salário: ${salary.toLocaleString()}/sem\n\n📩 Enviada para @${targetUser.split('@')[0]}!\n\n⏳ Aguardando resposta...`);
+      return sendReply(`⚽ *NOVA PROPOSTA!* ⚽\n\n📤 De: ${userClub.name} (#${userClub.shortId})\n💰 Salário: ${salary.toLocaleString()}/sem\n\n📩 Enviada para @${targetUser.split('@')[0]}!\n\n⏳ Aguardando resposta...\n\n📌 O jogador pode aceitar com: !fut ace ${userClub.shortId}`);
     
     case 'negociacoes':
     case 'negs':
@@ -1425,7 +1425,7 @@ Exemplo: *!fut codigo ELITE2026*
           negsText += `${i + 1}. @${n.playerName}\n`;
           negsText += `   💰 ${n.salary.toLocaleString()}/sem\n`;
           negsText += `   ${n.counterOffer ? '🔄 Contra-oferta' : '📤 Proposta'}\n`;
-          negsText += `   ID: ${n.id}\n`;
+          negsText += `   🏆 Clube: #${n.clubShortId || n.clubId}\n`;
         });
         negsText += `\n📌 *AÇÕES:*\n`;
         negsText += `• !fut ace [id] - Contratar\n`;
@@ -1447,7 +1447,7 @@ Exemplo: *!fut codigo ELITE2026*
           playerNegsText += `${i + 1}. ${n.clubName}\n`;
           playerNegsText += `   💰 ${n.salary.toLocaleString()}/sem\n`;
           playerNegsText += `   ${n.counterOffer ? '🔄 Contra-oferta' : '📤 Proposta'}\n`;
-          playerNegsText += `   ID: ${n.id}\n`;
+          playerNegsText += `   🏆 Clube: #${n.clubShortId || n.clubId}\n`;
         });
         playerNegsText += `\n📌 *AÇÕES:*\n`;
         playerNegsText += `• !fut ace [id] - Aceitar\n`;
@@ -1465,7 +1465,7 @@ Exemplo: *!fut codigo ELITE2026*
       
       const negId = args[1];
       if (!negId) {
-        return sendReply('📌 Use: *!fut ace [id]*');
+        return sendReply('📌 Use: *!fut ace [id]*\n💡 Dica: use o ID do clube #XXXXXX');
       }
       
       const acceptResult = db.acceptNegotiation(negId);
@@ -1483,7 +1483,7 @@ Exemplo: *!fut codigo ELITE2026*
       
       const rejectNegId = args[1];
       if (!rejectNegId) {
-        return sendReply('📌 Use: *!fut repro [id]*');
+        return sendReply('📌 Use: *!fut repro [id]*\n💡 Dica: use o ID do clube #XXXXXX');
       }
       
       const rejectResult = db.rejectNegotiation(rejectNegId);
@@ -1503,7 +1503,7 @@ Exemplo: *!fut codigo ELITE2026*
       const counterSalary = parseInt(args[2]);
       
       if (!negToCounterId || !counterSalary) {
-        return sendReply('📌 Use: *!fut cnt [id] [valor]*');
+        return sendReply('📌 Use: *!fut cnt [id] [valor]*\n💡 Dica: use o ID do clube #XXXXXX');
       }
       
       const existingNeg = db.getNegotiation(negToCounterId);
@@ -1522,7 +1522,7 @@ Exemplo: *!fut codigo ELITE2026*
         
         const counterNeg = db.createNegotiation(player.currentClub, existingNeg.playerId, counterSalary, true);
         
-        return sendReply(`🔄 *CONTRA-OFERTA ENVIADA!* 🔄\n\n📤 Para: @${existingNeg.playerName}\n💰 Novo salário: ${counterSalary.toLocaleString()}/sem\n\nAguardando resposta...`);
+        return sendReply(`🔄 *CONTRA-OFERTA ENVIADA!* 🔄\n\n📤 Para: @${existingNeg.playerName}\n💰 Novo salário: ${counterSalary.toLocaleString()}/sem\n\nAguardando resposta...\n\n📌 Jogador pode aceitar com: !fut ace ${existingNeg.clubShortId}`);
       } else {
         // Jogador fazendo contra-oferta
         if (existingNeg.playerId !== sender) {
@@ -1531,7 +1531,7 @@ Exemplo: *!fut codigo ELITE2026*
         
         const counterNegFromPlayer = db.createNegotiation(existingNeg.clubId, sender, counterSalary, true);
         
-        return sendReply(`🔄 *CONTRA-OFERTA ENVIADA!* 🔄\n\n📤 Para: ${existingNeg.clubName}\n💰 Salário proposto: ${counterSalary.toLocaleString()}/sem\n\nAguardando resposta...`);
+        return sendReply(`🔄 *CONTRA-OFERTA ENVIADA!* 🔄\n\n📤 Para: ${existingNeg.clubName} (#${existingNeg.clubShortId})\n💰 Salário proposto: ${counterSalary.toLocaleString()}/sem\n\nAguardando resposta...`);
       }
     
     case 'minhaspropostas':
@@ -1552,7 +1552,7 @@ Exemplo: *!fut codigo ELITE2026*
         myProposalsText += `${i + 1}. ${n.clubName}\n`;
         myProposalsText += `💰 ${n.salary.toLocaleString()}/sem\n`;
         myProposalsText += `${n.counterOffer ? '🔄 Contra-oferta' : '📤 Nova'}\n`;
-        myProposalsText += `ID: ${n.id}\n`;
+        myProposalsText += `🏆 Clube: #${n.clubShortId || n.clubId}\n`;
       });
       
       return sendReply(myProposalsText);

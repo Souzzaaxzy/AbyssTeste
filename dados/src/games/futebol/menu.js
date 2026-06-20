@@ -845,7 +845,8 @@ export function getClubMessage(club, players) {
     ? Math.round(club.players.reduce((sum, p) => sum + (players[p.id]?.ovr || 60), 0) / club.players.length)
     : 60;
   
-  let text = `⚽ *CLUBE ${club.name.toUpperCase()}* ⚽\n\n`;
+  let text = `⚽ *CLUBE ${club.name.toUpperCase()}* ⚽\n`;
+  text += `🔖 *ID:* #${club.shortId}\n\n`;
   
   text += `👑 *Presidente:* ${club.president.name}\n`;
   text += `💰 *Saldo:* ${club.economy.balance.toLocaleString()} FC Coins\n`;

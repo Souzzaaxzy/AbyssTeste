@@ -144,6 +144,46 @@ class FootballDB {
       championsActive: false
     });
     this.groups = readJSON(FILES.GROUPS, {}); // Configurações por grupo
+    
+    // Gerar shortId para clubes existentes que não têm
+    this.migrateClubShortIds();
+  }
+
+  // Gerar ID curto único de 6 dígitos para clubes
+  generateShortClubId() {
+    let shortId;
+    let attempts = 0;
+    const maxAttempts = 100;
+    
+    do {
+      shortId = Math.floor(100000 + Math.random() * 900000).toString(); // 6 dígitos
+      const exists = Object.values(this.clubs).some(c => c.shortId === shortId);
+      if (!exists) return shortId;
+      attempts++;
+    } while (attempts < maxAttempts);
+    
+    // Fallback: adicionar timestamp parcial
+    return (Date.now() % 1000000).toString().padStart(6, '0');
+  }
+
+  // Migrar shortId para clubes existentes
+  migrateClubShortIds() {
+    let migrated = 0;
+    for (const clubId in this.clubs) {
+      if (!this.clubs[clubId].shortId) {
+        this.clubs[clubId].shortId = this.generateShortClubId();
+        migrated++;
+      }
+    }
+    if (migrated > 0) {
+      console.log(`[FUT] Migrados ${migrated} clubes para usar shortId`);
+      this.save();
+    }
+  }
+
+  // Buscar clube por shortId
+  getClubByShortId(shortId) {
+    return Object.values(this.clubs).find(c => c.shortId === shortId) || null;
   }
 
   // Salvar todos os dados
@@ -2094,9 +2134,11 @@ ${rewards.messages.length > 0 ? rewards.messages.map(m => `🎉 ${m}`).join('\n'
 
   createClub(name, ownerId, ownerName) {
     const clubId = `club_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const shortId = this.generateShortClubId();
     
     const club = {
       id: clubId,
+      shortId: shortId,
       name: name,
       createdAt: Date.now(),
       president: {
@@ -2827,11 +2869,13 @@ ${rewards.messages.length > 0 ? rewards.messages.map(m => `🎉 ${m}`).join('\n'
 
   createNegotiation(clubId, playerId, salary, counterOffer = false) {
     const negotiationId = `neg_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+    const club = this.clubs[clubId];
     
     const negotiation = {
       id: negotiationId,
       clubId: clubId,
-      clubName: this.clubs[clubId]?.name || 'Clube',
+      clubName: club?.name || 'Clube',
+      clubShortId: club?.shortId || null,
       playerId: playerId,
       playerName: this.players[playerId]?.name || 'Jogador',
       salary: salary,
@@ -2860,7 +2904,28 @@ ${rewards.messages.length > 0 ? rewards.messages.map(m => `🎉 ${m}`).join('\n'
   }
 
   getNegotiation(negotiationId) {
-    return this.market.negotiations.find(n => n.id === negotiationId);
+    // Tentar encontrar por ID da negociação primeiro
+    let neg = this.market.negotiations.find(n => n.id === negotiationId);
+    if (neg) return neg;
+    
+    // Se não encontrar, tentar por shortId do clube (para usuário comum)
+    // Pegar negociações pendentes do jogador e encontrar uma com o shortId
+    const player = Object.values(this.players).find(p => p.id === negotiationId || p.name?.toLowerCase().includes(negotiationId.toLowerCase()));
+    if (player) {
+      neg = this.market.negotiations.find(n => n.playerId === player.id && n.status === 'pending');
+      if (neg) return neg;
+    }
+    
+    return null;
+  }
+  
+  // Buscar negociação por shortId do clube
+  getNegotiationByClubShortId(shortId, playerId) {
+    return this.market.negotiations.find(n => 
+      n.clubShortId === shortId && 
+      n.playerId === playerId && 
+      n.status === 'pending'
+    );
   }
 
   acceptNegotiation(negotiationId, byPlayer = false) {
