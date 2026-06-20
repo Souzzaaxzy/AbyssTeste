@@ -33138,8 +33138,8 @@ break;
             mencts.push(menb);
           }
           await nazu.sendMessage(from, {
-            image: {
-              url: 'https://raw.githubusercontent.com/nazuninha/uploads/main/outros/1747545773146_rrv7of.bin'
+            video: {
+              url: path.join(__dirname, './midias/surubao.mp4')
             },
             caption: ABC,
             mentions: mencts
