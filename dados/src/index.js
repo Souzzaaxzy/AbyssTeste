@@ -64,9 +64,9 @@ export const handleGroupParticipantsUpdate = async (nazu, { id, participants, ac
                 
                 const settings = {
                     text: isBv2 ? (groupSettings.textbv2 || groupSettings.boasvindas2) : (groupSettings.textbv || groupSettings.boasvindas),
-                    photoType: groupSettings.welcome?.photoType || 'api',
-                    photo: groupSettings.welcome?.photo !== false,
-                    image: groupSettings.welcome?.image
+                    photoType: isBv2 ? 'none' : (groupSettings.welcome?.photoType || 'api'),
+                    photo: isBv2 ? false : (groupSettings.welcome?.photo !== false),
+                    image: isBv2 ? null : groupSettings.welcome?.image
                 };
 
                 const message = await createGroupMessage(
@@ -777,7 +777,7 @@ async function createGroupMessage(AbyssSock, groupMetadata, participants, settin
     message.image = { url: settings.image };
     message.caption = text;
     delete message.text;
-  } else if (globalJson.welcomecard?.fundo) {
+  } else if (settings.photoType !== 'none' && globalJson.welcomecard?.fundo) {
     message.image = { url: globalJson.welcomecard.fundo };
     message.caption = text;
     delete message.text;
