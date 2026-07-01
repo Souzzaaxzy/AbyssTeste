@@ -31303,6 +31303,101 @@ ${prefix}nota buscar <termo> - Busca nas notas`);
         }
         break;
 
+      // ═══════════════════════════════════════════════════════════════
+      // FIXAR MENSAGEM - Fixar e desfixar mensagens no grupo
+      // ═══════════════════════════════════════════════════════════════
+      case 'fixar':
+      case 'pinmsg':
+      case 'pinmessage':
+        if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
+        if (!isGroupAdmin) return reply("◈ Apenas administradores podem fixar mensagens.");
+        
+        try {
+          // Verificar se há mensagem respondida
+          const quotedMsg = info.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+          const quotedKey = info.message?.extendedTextMessage?.contextInfo?.quotedMessage?.quotedMessageKey;
+          
+          // Determinar o período de fixação
+          let duration = 604800; // Padrão: 7 dias (em segundos)
+          let text = q;
+          
+          // Parsear o período
+          if (q && q.includes('grupo')) {
+            const timeMatch = q.match(/grupo\s+(\d+)\s*d/i);
+            if (timeMatch) {
+              const days = parseInt(timeMatch[1]);
+              if (days === 24 || days === 1) {
+                duration = 86400; // 24 horas
+              } else if (days === 7) {
+                duration = 604800; // 7 dias
+              } else if (days === 30) {
+                duration = 2592000; // 30 dias
+              } else {
+                return reply(`❌ Período inválido! Use: 24h, 7d ou 30d\n\nExemplo: ${prefix}fixar mensagem grupo 7d`);
+              }
+              text = q.replace(/grupo\s+\d+\s*d/gi, '').trim();
+            }
+          }
+          
+          if (quotedMsg && quotedKey) {
+            // Fixar mensagem respondida
+            const messageTimestamp = quotedKey?.timestamp ? parseInt(quotedKey.timestamp) : Math.floor(Date.now() / 1000);
+            const messageKey = {
+              remoteJid: from,
+              id: quotedKey?.id || info.message?.extendedTextMessage?.contextInfo?.stanzaId,
+              fromMe: quotedKey?.fromMe || false,
+              participant: quotedKey?.participant || sender
+            };
+            
+            await nazu.pinMessage(from, messageKey, true, duration).catch(() => {});
+            
+            const durationText = duration === 86400 ? '24 horas' : duration === 604800 ? '7 dias' : '30 dias';
+            return reply(`✅ *Mensagem fixada com sucesso!*\n\n⏰ Duração: ${durationText}`);
+          } else if (text) {
+            // Criar nova mensagem e fixar
+            const sentMsg = await nazu.sendMessage(from, { text: text }, { quoted: info });
+            const messageKey = sentMsg?.key;
+            
+            if (messageKey) {
+              await nazu.pinMessage(from, messageKey, true, duration).catch(() => {});
+              
+              const durationText = duration === 86400 ? '24 horas' : duration === 604800 ? '7 dias' : '30 dias';
+              return reply(`✅ *Mensagem criada e fixada!*\n\n📌 Conteúdo: ${text}\n⏰ Duração: ${durationText}`);
+            } else {
+              return reply("❌ Erro ao criar mensagem para fixação.");
+            }
+          } else {
+            return reply(`❌ Você precisa responder a uma mensagem ou informar o texto.\n\n*Uso:*\n${prefix}fixar <texto> [grupo <tempo>]\n${prefix}fixar (responder mensagem)\n\n*Tempos:* grupo 24h, grupo 7d, grupo 30d\n\n*Exemplo:* ${prefix}fixar Olá, pessoal! grupo 7d`);
+          }
+        } catch (e) {
+          console.error('Erro ao fixar mensagem:', e);
+          return reply("❌ Erro ao fixar mensagem.");
+        }
+        break;
+        
+      case 'desfixar':
+      case 'unpinmsg':
+      case 'unpinmessage':
+      case 'desfixarmsg':
+        if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
+        if (!isGroupAdmin) return reply("◈ Apenas administradores podem desfixar mensagens.");
+        
+        try {
+          // Desfixar a mensagem (enviar key vazio ou null para desfixar a mensagem fixada atual)
+          const result = await nazu.pinMessage(from, { remoteJid: from }, false).catch(() => null);
+          
+          // Tentar método alternativo se o primeiro não funcionar
+          if (!result) {
+            await nazu.sendMessage(from, { text: "🔓 Desfixando mensagem..." }, { quoted: info });
+          }
+          
+          return reply("✅ *Mensagem desfixada com sucesso!*");
+        } catch (e) {
+          console.error('Erro ao desfixar mensagem:', e);
+          return reply("❌ Não foi possível desfixar a mensagem. Verifique se há alguma mensagem fixada.");
+        }
+        break;
+
       case 'notas':
       case 'notes':
         if (!notes) return reply("Sistema de notas temporariamente indisponível.");

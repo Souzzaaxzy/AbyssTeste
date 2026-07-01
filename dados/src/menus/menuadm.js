@@ -79,6 +79,8 @@ ${middleBorder} ${menuItemIcon}${prefix}descgrupo
 ${middleBorder} ${menuItemIcon}${prefix}fotogrupo
 ${middleBorder} ${menuItemIcon}${prefix}addregra
 ${middleBorder} ${menuItemIcon}${prefix}delregra
+${middleBorder} ${menuItemIcon}${prefix}fixar
+${middleBorder} ${menuItemIcon}${prefix}desfixar
 ${middleBorder} ${menuItemIcon}${prefix}role.criar
 ${middleBorder} ${menuItemIcon}${prefix}role.alterar
 ${middleBorder} ${menuItemIcon}${prefix}role.excluir
