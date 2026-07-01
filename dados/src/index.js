@@ -1937,8 +1937,12 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     const budy2 = normalizar(body);
     const menc_prt = info.message?.extendedTextMessage?.contextInfo?.participant;
     const menc_jid2 = info.message?.extendedTextMessage?.contextInfo?.mentionedJid;
-    const menc_os2 = (menc_jid2 && menc_jid2.length > 0) ? menc_jid2[0] : menc_prt;
-    const sender_ou_n = (menc_jid2 && menc_jid2.length > 0) ? menc_jid2[0] : menc_prt || sender;
+    let menc_os2 = (menc_jid2 && menc_jid2.length > 0) ? menc_jid2[0] : menc_prt;
+    // Converter menc_os2 para LID se for JID (para совместимость com sender)
+    if (menc_os2 && isValidJid(menc_os2)) {
+      menc_os2 = await getLidFromJidCached(nazu, menc_os2);
+    }
+    const sender_ou_n = menc_os2 || sender;
     const groupFile = buildGroupFilePath(from);
     // Otimização: Carregar groupData com cache (TTL curto de 5 segundos)
     let groupData = {};
@@ -34222,7 +34226,7 @@ ${groupData.rules.length}. ${q}`);
           if (!isGroupAdmin) return reply("Apenas administradores podem adicionar usuários à whitelist.");
 
           if (!menc_os2) {
-            const availableAntis = ['antilink', 'antilinkgp', 'antilinkhard', 'antilinksoft', 'antiporn', 'antistatus', 'antistts', 'antipagamento', 'antibtn', 'antidoc', 'antiloc', 'antifig'];
+            const availableAntis = ['antilink', 'antilinkgp', 'antilinkhard', 'antilinksoft', 'antilinkcanal', 'antiporn', 'antistatus', 'antistts', 'antipagamento', 'antibtn', 'antidoc', 'antiloc', 'antifig', 'antistickerplus', 'antipalavra'];
             return reply(`📋 *Uso do comando:*
 ${prefix}wl.add @usuario | anti1,anti2,anti3
 
