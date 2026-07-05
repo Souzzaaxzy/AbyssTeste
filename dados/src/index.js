@@ -2852,13 +2852,19 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       try {
         const deletedMsgKey = info.message.protocolMessage.key;
         const deletedMsgId = deletedMsgKey?.id;
-        const cacheKey = `${deletedMsgKey.remoteJid || from}_${deletedMsgId}`;
+        const deletedMsgRemoteJid = deletedMsgKey?.remoteJid;
+        const cacheKey = `${deletedMsgRemoteJid || from}_${deletedMsgId}`;
+        
+        console.log(`[LIXEIRA] Evento detectado - cacheKey: ${cacheKey}, isGroup: ${isGroup}`);
+        
         const cachedInfo = messagesCache.get(cacheKey);
 
         if (cachedInfo && cachedInfo.message) {
           const msgOriginal = cachedInfo.message;
-          const fromGroup = cachedInfo.key?.remoteJid || from;
-          const participant = cachedInfo.key?.participant || info.message.protocolMessage.key?.participant;
+          const fromGroup = cachedInfo.key?.remoteJid || deletedMsgRemoteJid || from;
+          const participant = cachedInfo.key?.participant || deletedMsgKey?.participant || info.message.protocolMessage.key?.participant;
+
+          console.log(`[LIXEIRA] Mensagem encontrada no cache - fromGroup: ${fromGroup}, participant: ${participant}`);
 
           if (participant) {
             let userName = cachedInfo?.pushName || participant.split('@')[0];
@@ -2886,9 +2892,11 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
             } else {
               console.log(`[LIXEIRA] Falha ao salvar mensagem ${deletedMsgId}`);
             }
+          } else {
+            console.log(`[LIXEIRA] Participant não encontrado`);
           }
         } else {
-          console.log(`[LIXEIRA] Mensagem não encontrada no cache: ${cacheKey}`);
+          console.log(`[LIXEIRA] Mensagem não encontrada no cache: ${cacheKey}, cacheSize: ${messagesCache?.size || 0}`);
         }
       } catch (e) {
         console.error('[LIXEIRA] Erro ao salvar mensagem deletada:', e.message);
