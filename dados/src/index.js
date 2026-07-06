@@ -10,6 +10,7 @@ import {
 } from 'baileys';
 
 import { handleFut, handleFutCommand } from './games/futebol/index.js';
+import { sendQuickReply, sendList, getSelectedButtonId, isInteractiveResponse } from '../../lib/buttons.js';
 
 import dotenv from 'dotenv';
 
@@ -2466,6 +2467,26 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     };
     const groupPrefix = groupData.customPrefix || prefixo;
     var isCmd = body.trim().startsWith(groupPrefix);
+
+    // ═══════════════════════════════════════════════════════════════
+    // 🔘 TRATAMENTO DE CLIQUES EM BOTÕES INTERATIVOS
+    // ═══════════════════════════════════════════════════════════════
+    // Verifica se a mensagem é uma resposta de botão interativo
+    if (!isCmd && isInteractiveResponse(info)) {
+      const buttonId = getSelectedButtonId(info);
+      if (buttonId) {
+        console.log(`[BOTÕES] Clique detectado: ${buttonId}`);
+        // Remove o prefixo do ID para obter o comando
+        const cmdFromButton = buttonId.replace(/^[!&]/, '').trim();
+        if (cmdFromButton) {
+          // Define o comando como se o usuário tivesse digitado
+          isCmd = true;
+          body = groupPrefix + cmdFromButton;
+          console.log(`[BOTÕES] Executando comando: ${cmdFromButton}`);
+        }
+      }
+    }
+    // ═══════════════════════════════════════════════════════════════
 
     // Otimização: Throttle de comandos (máximo 3 por 5 segundos)
     if (isCmd && !info.key.fromMe) {
@@ -21583,40 +21604,17 @@ break;
       case 'teste': {
         console.log('[TESTE] Comando recebido, prefix:', prefix, 'from:', from);
         try {
-          const msg = generateWAMessageFromContent(from, {
-            viewOnceMessage: {
-              message: {
-                interactiveMessage: {
-                  header: { hasMediaAttachment: false },
-                  body: { text: '🌸 *Teste dos Botões*\n\nEscolha uma opção abaixo.' },
-                  footer: { text: 'Teste' },
-                  contextInfo: { starredTag: false },
-                  nativeFlowMessage: {
-                    buttons: [
-                      {
-                        name: 'quick_reply',
-                        buttonParamsJson: JSON.stringify({
-                          display_text: '🏓 Ping',
-                          id: `${prefix}ping`
-                        })
-                      },
-                      {
-                        name: 'quick_reply',
-                        buttonParamsJson: JSON.stringify({
-                          display_text: '🧪 Teste',
-                          id: `${prefix}teste`
-                        })
-                      }
-                    ],
-                    messageParamsJson: ''
-                  }
-                }
-              }
-            }
-          }, {});
-
-          await nazu.relayMessage(from, msg.message, {});
-
+          // Teste do sistema de botões modernos
+          await sendQuickReply(nazu, from, 
+            '🌸 *Teste dos Botões Abyss*\n\nEscolha uma opção abaixo:', 
+            [
+              { id: `${prefix}menu`, displayText: '📋 Menu' },
+              { id: `${prefix}ping`, displayText: '🏓 Ping' },
+              { id: `${prefix}teste`, displayText: '🧪 Teste' }
+            ],
+            { footer: 'Abyss Bot • Sistema de Botões Modernos' }
+          );
+          console.log('[TESTE] Botões enviados com sucesso!');
         } catch (err) {
           console.log('[TESTE] Erro:', err);
           reply(`Erro:\n${err.message}`);
