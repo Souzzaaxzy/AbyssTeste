@@ -790,11 +790,56 @@ async function loadGroupSettings(groupId) {
   const groupFilePath = path.join(DATABASE_DIR, 'grupos', `${groupId}.json`);
 
   try {
+    // Verifica se o arquivo existe
+    await fs.access(groupFilePath);
     const data = await readFile(groupFilePath, 'utf-8');
     return JSON.parse(data);
   } catch (e) {
+    // Arquivo não existe - cria com valores padrão
+    if (e.code === 'ENOENT') {
+      console.log(`📝 Criando arquivo de configuração para o grupo ${groupId}`);
+      const defaultSettings = {
+        bemvindo: false,
+        bemvindo2: false,
+        welcome: { enabled: false },
+        exit: { enabled: false },
+        textbv: '',
+        textbv2: '',
+        customPrefix: null
+      };
+      
+      try {
+        // Garante que o diretório existe
+        await fs.mkdir(path.join(DATABASE_DIR, 'grupos'), { recursive: true });
+        await writeFile(groupFilePath, JSON.stringify(defaultSettings, null, 2), 'utf-8');
+        console.log(`✅ Configurações padrão criadas para ${groupId}`);
+      } catch (mkdirErr) {
+        console.error(`❌ Erro ao criar diretório para ${groupId}:`, mkdirErr.message);
+      }
+      
+      return defaultSettings;
+    }
+    
+    // Outro erro - retorna configurações padrão
     console.error(`❌ Erro ao ler configurações do grupo ${groupId}: ${e.message}`);
-    return {};
+    return {
+      bemvindo: false,
+      bemvindo2: false,
+      welcome: { enabled: false },
+      exit: { enabled: false }
+    };
+  }
+}
+
+// Salvar configurações do grupo
+async function saveGroupSettings(groupId, settings) {
+  const groupFilePath = path.join(DATABASE_DIR, 'grupos', `${groupId}.json`);
+  
+  try {
+    await fs.mkdir(path.join(DATABASE_DIR, 'grupos'), { recursive: true });
+    await writeFile(groupFilePath, JSON.stringify(settings, null, 2), 'utf-8');
+  } catch (e) {
+    console.error(`❌ Erro ao salvar configurações do grupo ${groupId}:`, e.message);
   }
 }
 
