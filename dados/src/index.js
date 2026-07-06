@@ -13,14 +13,6 @@ import { handleFut, handleFutCommand } from './games/futebol/index.js';
 
 import dotenv from 'dotenv';
 
-import {
-  createTestInteractiveMessage,
-  sendInteractiveMessage,
-  getSelectedButtonId,
-  isInteractiveResponse,
-  createButtonResponse
-} from './utils/interactiveButtons.js';
-
 
 // Suprimir warnings de execuções perdidas do node-cron
 const originalWarn = console.warn;
@@ -21453,19 +21445,55 @@ break;
       case 'testeinterativo':
       case 'testebotoes':
       case 'testebotao':
-      case 'botoesteste': {
+      case 'botoesteste':
+      case 'botaoteste': {
         try {
           console.log(`[TESTE INTERATIVO] Enviando mensagem com botões para ${from}`);
           
-          // Cria a mensagem interativa de teste
-          const interactiveMsg = createTestInteractiveMessage();
-          
-          // Envia a mensagem
-          await sendInteractiveMessage(nazu, from, interactiveMsg, {
-            quoted: info
-          });
-          
-          console.log(`[TESTE INTERATIVO] Mensagem enviada com sucesso!`);
+          // Primeiro tenta enviar com botões modernos
+          try {
+            await nazu.sendMessage(from, {
+              text: "🔘 Teste dos Botões Modernos\n\nSe você está vendo estes botões, significa que a implementação funcionou.",
+              footer: "Abyss Bot • Botões Interativos v1.0",
+              buttons: [
+                {
+                  buttonId: "test_button_1",
+                  buttonText: { displayText: "✅ Botão 1" },
+                  type: 1
+                },
+                {
+                  buttonId: "test_button_2",
+                  buttonText: { displayText: "🎵 Botão 2" },
+                  type: 1
+                },
+                {
+                  buttonId: "test_button_3",
+                  buttonText: { displayText: "⚙️ Configurações" },
+                  type: 1
+                }
+              ],
+              headerType: 1
+            }, { quoted: info });
+            console.log(`[TESTE INTERATIVO] Botões enviados com sucesso!`);
+          } catch (buttonError) {
+            // Fallback: Lista interativa
+            console.log(`[TESTE INTERATIVO] Botões falharam, usando fallback lista...`);
+            await nazu.sendMessage(from, {
+              text: "🔘 Teste dos Botões Modernos\n\nSe você está vendo esta lista, os botões não foram suportados.",
+              footer: "Abyss Bot • Botões Interativos v1.0",
+              buttonText: "📋 Ver Opções",
+              sections: [
+                {
+                  title: "Opções de Teste",
+                  rows: [
+                    { title: "✅ Botão 1", rowId: "test_button_1" },
+                    { title: "🎵 Botão 2", rowId: "test_button_2" },
+                    { title: "⚙️ Configurações", rowId: "test_button_3" }
+                  ]
+                }
+              ]
+            }, { quoted: info });
+          }
         } catch (e) {
           console.error('Erro no comando testeinterativo:', e);
           await reply('❌ Erro ao enviar mensagem interativa: ' + e.message);
@@ -21481,17 +21509,24 @@ break;
       case 'test_button_3': {
         try {
           // Verifica se é uma resposta de botão interativo
-          const isInteractiveBtn = info.message?.interactiveResponseMessage?.nativeFlowResponseMessage ||
-                                   info.message?.buttonsResponseMessage ||
-                                   (info.message?.viewOnceMessage?.message?.interactiveMessage &&
-                                    info.message?.viewOnceMessage?.message?.interactiveMessage?.nativeFlowMessage);
+          const isInteractiveBtn = 
+            info.message?.buttonsResponseMessage?.selectedButtonId === command ||
+            info.message?.interactiveResponseMessage ||
+            info.message?.listResponseMessage?.singleSelectReply?.selectedRowId === command;
           
           if (isInteractiveBtn) {
             console.log(`[TESTE INTERATIVO] Botão pressionado: ${command}`);
             
-            const responseText = createButtonResponse(command);
-            await reply(responseText);
+            const responses = {
+              'test_button_1': { emoji: '✅', text: 'Você selecionou o Botão 1!' },
+              'test_button_2': { emoji: '🎵', text: 'Você selecionou o Botão 2!' },
+              'test_button_3': { emoji: '⚙️', text: 'Você selecionou o Botão 3!' }
+            };
             
+            const response = responses[command];
+            const responseText = `🎉 *Botão Selecionado!*\n\n${response.emoji} ${response.text}\n\n📋 ID: \`${command}\``;
+            
+            await reply(responseText);
             console.log(`[TESTE INTERATIVO] Resposta enviada para o botão ${command}`);
           }
         } catch (e) {
