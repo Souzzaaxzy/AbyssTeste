@@ -21581,60 +21581,60 @@ break;
       }
 
       case 'teste': {
-try {
+        console.log('[TESTE] Comando recebido, prefix:', prefix, 'from:', from);
+        try {
+
+        const msg = {
+        viewOnceMessage: {
+        message: {
+        interactiveMessage: {
+        body: {
+        text:
+        `🌸 *Teste dos Botões*\n\nEscolha uma opção abaixo.`
+        },
+        footer: {
+        text: "Teste"
+        },
+        header: {
+        hasMediaAttachment: false
+        },
+        nativeFlowMessage: {
+        buttons: [
+        {
+        name: "quick_reply",
+        buttonParamsJson: JSON.stringify({
+        display_text: "🏓 Ping",
+        id: `${prefix}ping`
+        })
+        },
+        {
+        name: "quick_reply",
+        buttonParamsJson: JSON.stringify({
+        display_text: "🧪 Teste",
+        id: `${prefix}teste`
+        })
+        }
+        ]
+        }
+        }
+        }
+        }
+        }
 
 
-const msg = {
-viewOnceMessage: {
-message: {
-interactiveMessage: {
-body: {
-text:
-`🌸 *Teste dos Botões*\n\nEscolha uma opção abaixo.`
-},
-footer: {
-text: "Teste"
-},
-header: {
-hasMediaAttachment: false
-},
-nativeFlowMessage: {
-buttons: [
-{
-name: "quick_reply",
-buttonParamsJson: JSON.stringify({
-display_text: "🏓 Ping",
-id: `${prefix}ping`
-})
-},
-{
-name: "quick_reply",
-buttonParamsJson: JSON.stringify({
-display_text: "🧪 Teste",
-id: `${prefix}teste`
-})
-}
-]
-}
-}
-}
-}
-}
+        await nazu.relayMessage(
+        from,
+        msg,
+        {}
+        )
 
 
-await nazu.relayMessage(
-from,
-msg,
-{}
-)
-
-
-} catch (err) {
-console.log(err)
-reply(`Erro:\n${err}`)
-}
-}
-break
+        } catch (err) {
+        console.log('[TESTE] Erro:', err)
+        reply(`Erro:\n${err}`)
+        }
+        }
+        break
 
       case 'menu':
       case 'help':
