@@ -1,9 +1,9 @@
 /**
  * Módulo de Botões Interativos Modernos para WhatsApp
- * Utiliza NativeFlowMessage (formato mais moderno do Baileys v7+)
+ * Compatível com Baileys v6+
  */
 
-import { generateWAMessageFromContent, proto } from 'baileys';
+import { proto, generateWAMessageFromContent } from 'baileys';
 
 /**
  * Tipos de botões suportados
@@ -16,46 +16,115 @@ export const ButtonType = {
 };
 
 /**
- * Cria uma mensagem com botões interativos usando NativeFlowMessage
- * Formato compatível com Baileys v7+
- * 
+ * Cria botões no formato correto para a versão do Baileys
+ */
+function createButton(btn) {
+  // Verifica se está usando proto.Message.InteractiveMessage.Button
+  const ButtonClass = proto?.Message?.InteractiveMessage?.Button;
+  
+  if (ButtonClass && typeof ButtonClass.create === 'function') {
+    return ButtonClass.create({
+      name: btn.name,
+      buttonParamsJson: JSON.stringify({
+        display_text: btn.buttonParams?.displayText || btn.displayText,
+        id: btn.buttonParams?.id || btn.id,
+        copy_code: btn.buttonParams?.copyCode || btn.copyCode,
+        url: btn.buttonParams?.url || btn.url
+      })
+    });
+  }
+  
+  // Fallback: formato direto
+  return {
+    name: btn.name,
+    buttonParamsJson: JSON.stringify({
+      display_text: btn.buttonParams?.displayText || btn.displayText,
+      id: btn.buttonParams?.id || btn.id
+    })
+  };
+}
+
+/**
+ * Cria uma mensagem com botões interativos
  * @param {Object} options - Opções da mensagem
- * @param {string} options.title - Título da mensagem
- * @param {string} options.text - Texto da mensagem
- * @param {Array} options.buttons - Array de botões
- * @param {string} options.footer - Texto do rodapé (opcional)
  * @returns {Object} Mensagem formatada com proto
  */
 export function createInteractiveMessage(options) {
   const { title, text, buttons, footer } = options;
 
-  const interactiveMessage = proto.Message.InteractiveMessage.create({
-    header: proto.Message.InteractiveMessage.Header.create({
-      title: title || '',
-      hasMediaAttachment: false
-    }),
-    body: proto.Message.InteractiveMessage.Body.create({ text: text || '' }),
-    footer: footer ? proto.Message.InteractiveMessage.Footer.create({ text: footer }) : undefined,
-    nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
-      buttons: buttons.map(btn => {
-        return proto.Message.InteractiveMessage.Button.create({
-          name: btn.name,
-          buttonParams: proto.Message.InteractiveMessage.Button.ButtonParams.create({
-            displayText: btn.buttonParams?.displayText || btn.displayText,
-            id: btn.buttonParams?.id || btn.id,
-            copyCode: btn.buttonParams?.copyCode || btn.copyCode,
-            url: btn.buttonParams?.url || btn.url
-          })
-        });
-      })
-    })
-  });
+  try {
+    // Verifica se InteractiveMessage existe
+    const InteractiveMessageClass = proto?.Message?.InteractiveMessage;
+    
+    if (InteractiveMessageClass && typeof InteractiveMessageClass.create === 'function') {
+      const Header = InteractiveMessageClass.Header;
+      const Body = InteractiveMessageClass.Body;
+      const Footer = InteractiveMessageClass.Footer;
+      const NativeFlowMessage = InteractiveMessageClass.NativeFlowMessage;
 
-  return proto.Message.create({
-    viewOnceMessage: proto.Message.ViewOnceMessage.create({
-      message: proto.Message.InteractiveMessage.create(interactiveMessage)
-    })
-  });
+      const interactiveMessage = InteractiveMessageClass.create({
+        header: Header?.create({
+          title: title || '',
+          hasMediaAttachment: false
+        }),
+        body: Body?.create({ text: text || '' }),
+        footer: footer ? Footer?.create({ text: footer }) : undefined,
+        nativeFlowMessage: NativeFlowMessage?.create({
+          buttons: buttons.map(btn => createButton(btn))
+        })
+      });
+
+      return {
+        message: {
+          viewOnceMessage: {
+            message: {
+              interactiveMessage
+            }
+          }
+        }
+      };
+    }
+    
+    // Fallback: formato antigo
+    return createLegacyInteractiveMessage(options);
+    
+  } catch (error) {
+    console.error('[InteractiveButtons] Erro ao criar mensagem:', error);
+    return createLegacyInteractiveMessage(options);
+  }
+}
+
+/**
+ * Fallback: formato legado compatível com mais versões
+ */
+function createLegacyInteractiveMessage(options) {
+  const { title, text, buttons, footer } = options;
+
+  return {
+    message: {
+      viewOnceMessage: {
+        message: {
+          interactiveMessage: proto.Message.InteractiveMessage.create({
+            header: proto.Message.InteractiveMessage.Header.create({
+              title: title || '',
+              hasMediaAttachment: false
+            }),
+            body: proto.Message.InteractiveMessage.Body.create({ text: text || '' }),
+            footer: footer ? proto.Message.InteractiveMessage.Footer.create({ text: footer }) : undefined,
+            nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+              buttons: buttons.map(btn => ({
+                name: btn.name,
+                buttonParamsJson: JSON.stringify({
+                  display_text: btn.buttonParams?.displayText || btn.displayText,
+                  id: btn.buttonParams?.id || btn.id
+                })
+              }))
+            })
+          })
+        }
+      }
+    }
+  };
 }
 
 /**
@@ -96,60 +165,60 @@ export function createTestInteractiveMessage() {
 }
 
 /**
- * Envia mensagem interativa com botões usando relayMessage
+ * Envia mensagem interativa com botões
  * @param {Object} sock - Socket do Baileys
  * @param {string} jid - ID do chat
  * @param {Object} interactiveMessage - Mensagem interativa
  * @param {Object} options - Opções adicionais
  */
 export async function sendInteractiveMessage(sock, jid, interactiveMessage, options = {}) {
-  // Extrai a mensagem do formato gerado
-  let messageToSend = interactiveMessage;
-  
-  if (interactiveMessage?.message?.viewOnceMessage) {
-    messageToSend = interactiveMessage;
-  } else if (interactiveMessage?.viewOnceMessage) {
-    messageToSend = interactiveMessage;
-  }
+  try {
+    let msgToSend = interactiveMessage;
+    
+    // Extrai a mensagem do formato correto
+    if (interactiveMessage?.message?.viewOnceMessage?.message?.interactiveMessage) {
+      msgToSend = interactiveMessage.message;
+    } else if (interactiveMessage?.viewOnceMessage?.message?.interactiveMessage) {
+      msgToSend = { viewOnceMessage: interactiveMessage.viewOnceMessage };
+    } else if (interactiveMessage?.interactiveMessage) {
+      msgToSend = interactiveMessage;
+    }
 
-  // Usa relayMessage para enviar mensagens interativas (formato nativo do Baileys)
-  await sock.relayMessage(jid, messageToSend, {
-    messageId: options.messageId || `${Date.now()}`,
-    ...options
-  });
+    // Usa sendMessage com o formato correto
+    await sock.sendMessage(jid, msgToSend, {
+      quoted: options.quoted,
+      ...options
+    });
+  } catch (error) {
+    console.error('[InteractiveButtons] Erro ao enviar mensagem:', error);
+    throw error;
+  }
 }
 
 /**
  * Extrai o ID do botão selecionado de uma mensagem
- * @param {Object} msg - Mensagem recebida
- * @returns {string|null} ID do botão ou null
  */
 export function getSelectedButtonId(msg) {
   try {
     const msgContent = msg.message || msg;
     
-    // Tenta diferentes formatos de resposta de botão
-    // NativeFlowResponseMessage (formato moderno)
+    // NativeFlowResponseMessage
     if (msgContent.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson) {
       try {
         const params = JSON.parse(msgContent.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson);
         return params.id || params.selectedId || null;
-      } catch {
-        return null;
-      }
+      } catch { return null; }
     }
 
-    // buttonsResponseMessage (formato antigo mas ainda usado)
+    // buttonsResponseMessage
     if (msgContent.buttonsResponseMessage?.selectedButtonId) {
       return msgContent.buttonsResponseMessage.selectedButtonId;
     }
 
     // ViewOnceMessage com InteractiveMessage
-    if (msgContent.viewOnceMessage?.message?.interactiveMessage) {
-      const viewOnceMsg = msgContent.viewOnceMessage.message.interactiveMessage;
-      if (viewOnceMsg.contextInfo?.buttonWithPayloadResponse?.buttonId) {
-        return viewOnceMsg.contextInfo.buttonWithPayloadResponse.buttonId;
-      }
+    const viewOnceMsg = msgContent.viewOnceMessage?.message?.interactiveMessage;
+    if (viewOnceMsg?.contextInfo?.buttonWithPayloadResponse?.buttonId) {
+      return viewOnceMsg.contextInfo.buttonWithPayloadResponse.buttonId;
     }
 
     // interactiveResponseMessage
@@ -166,27 +235,20 @@ export function getSelectedButtonId(msg) {
 
 /**
  * Verifica se uma mensagem é uma resposta de botão interativo
- * @param {Object} msg - Mensagem
- * @returns {boolean}
  */
 export function isInteractiveResponse(msg) {
   try {
     const msgContent = msg.message || msg;
-    
     return !!(
       msgContent.interactiveResponseMessage ||
       msgContent.buttonsResponseMessage ||
-      (msgContent.viewOnceMessage?.message?.interactiveMessage)
+      msgContent.viewOnceMessage?.message?.interactiveMessage
     );
-  } catch {
-    return false;
-  }
+  } catch { return false; }
 }
 
 /**
  * Cria resposta para o botão selecionado
- * @param {string} buttonId - ID do botão
- * @returns {string} Resposta formatada
  */
 export function createButtonResponse(buttonId) {
   const responses = {
