@@ -21622,11 +21622,7 @@ break;
         }
 
 
-        await nazu.relayMessage(
-        from,
-        msg,
-        {}
-        )
+        await nazu.sendMessage(from, msg, {});
 
 
         } catch (err) {
