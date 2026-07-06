@@ -13,6 +13,14 @@ import { handleFut, handleFutCommand } from './games/futebol/index.js';
 
 import dotenv from 'dotenv';
 
+import {
+  createTestInteractiveMessage,
+  sendInteractiveMessage,
+  getSelectedButtonId,
+  isInteractiveResponse,
+  createButtonResponse
+} from './utils/interactiveButtons.js';
+
 
 // Suprimir warnings de execuções perdidas do node-cron
 const originalWarn = console.warn;
@@ -2077,12 +2085,13 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       if (message.interactiveResponseMessage) {
         const interactiveResponse = message.interactiveResponseMessage;
 
+        // NativeFlowMessage - resposta de botões interativos modernos (quick_reply)
         if (interactiveResponse.nativeFlowResponseMessage?.paramsJson) {
           try {
             const params = JSON.parse(interactiveResponse.nativeFlowResponseMessage.paramsJson);
-            return params.id || '';
+            return params.id || params.selectedId || '';
           } catch (error) {
-            console.error('Erro ao processar resposta de single_select:', error);
+            console.error('Erro ao processar resposta de native_flow:', error);
           }
         }
 
@@ -2099,12 +2108,22 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         }
       }
 
+      // List Response - resposta de listas
       if (message.listResponseMessage?.singleSelectReply?.selectedRowId) {
         return message.listResponseMessage.singleSelectReply.selectedRowId;
       }
 
+      // Buttons Response - resposta de botões legados e NativeFlow
       if (message.buttonsResponseMessage?.selectedButtonId) {
         return message.buttonsResponseMessage.selectedButtonId;
+      }
+
+      // ViewOnceMessage com InteractiveMessage (para NativeFlowMessage)
+      if (message.viewOnceMessage?.message?.interactiveMessage?.nativeFlowMessage) {
+        const viewOnceInteractive = message.viewOnceMessage.message.interactiveMessage;
+        if (viewOnceInteractive?.contextInfo?.buttonWithPayloadResponse?.buttonId) {
+          return viewOnceInteractive.contextInfo.buttonWithPayloadResponse.buttonId;
+        }
       }
 
       return message.conversation || message.extendedTextMessage?.text || message.imageMessage?.caption || message.videoMessage?.caption || message.documentWithCaptionMessage?.message?.documentMessage?.caption || message.viewOnceMessage?.message?.imageMessage?.caption || message.viewOnceMessage?.message?.videoMessage?.caption || message.viewOnceMessageV2?.message?.imageMessage?.caption || message.viewOnceMessageV2?.message?.videoMessage?.caption || message.editedMessage?.message?.protocolMessage?.editedMessage?.extendedTextMessage?.text || message.editedMessage?.message?.protocolMessage?.editedMessage?.imageMessage?.caption || '';
@@ -21427,6 +21446,60 @@ break;
           reply('❌ Erro ao processar o comando. Tente novamente.');
         }
         break;
+
+      // ═══════════════════════════════════════════════════════════════
+      // 🔘 COMANDO DE TESTE - BOTÕES INTERATIVOS MODERNOS
+      // ═══════════════════════════════════════════════════════════════
+      case 'testeinterativo':
+      case 'testebotoes':
+      case 'testebotao':
+      case 'botoesteste': {
+        try {
+          console.log(`[TESTE INTERATIVO] Enviando mensagem com botões para ${from}`);
+          
+          // Cria a mensagem interativa de teste
+          const interactiveMsg = createTestInteractiveMessage();
+          
+          // Envia a mensagem
+          await sendInteractiveMessage(nazu, from, interactiveMsg, {
+            quoted: info
+          });
+          
+          console.log(`[TESTE INTERATIVO] Mensagem enviada com sucesso!`);
+        } catch (e) {
+          console.error('Erro no comando testeinterativo:', e);
+          await reply('❌ Erro ao enviar mensagem interativa: ' + e.message);
+        }
+        break;
+      }
+
+      // ═══════════════════════════════════════════════════════════════
+      // 🔘 HANDLER DE RESPOSTA - BOTÕES INTERATIVOS MODERNOS
+      // ═══════════════════════════════════════════════════════════════
+      case 'test_button_1':
+      case 'test_button_2':
+      case 'test_button_3': {
+        try {
+          // Verifica se é uma resposta de botão interativo
+          const isInteractiveBtn = info.message?.interactiveResponseMessage?.nativeFlowResponseMessage ||
+                                   info.message?.buttonsResponseMessage ||
+                                   (info.message?.viewOnceMessage?.message?.interactiveMessage &&
+                                    info.message?.viewOnceMessage?.message?.interactiveMessage?.nativeFlowMessage);
+          
+          if (isInteractiveBtn) {
+            console.log(`[TESTE INTERATIVO] Botão pressionado: ${command}`);
+            
+            const responseText = createButtonResponse(command);
+            await reply(responseText);
+            
+            console.log(`[TESTE INTERATIVO] Resposta enviada para o botão ${command}`);
+          }
+        } catch (e) {
+          console.error('Erro ao processar resposta de botão:', e);
+        }
+        break;
+      }
+
       case 'menu':
       case 'help':
       case 'comandos':
