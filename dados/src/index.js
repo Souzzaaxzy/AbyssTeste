@@ -21583,51 +21583,43 @@ break;
       case 'teste': {
         console.log('[TESTE] Comando recebido, prefix:', prefix, 'from:', from);
         try {
+          const msg = generateWAMessageFromContent(from, {
+            viewOnceMessage: {
+              message: {
+                interactiveMessage: {
+                  header: { hasMediaAttachment: false },
+                  body: { text: '🌸 *Teste dos Botões*\n\nEscolha uma opção abaixo.' },
+                  footer: { text: 'Teste' },
+                  contextInfo: { starredTag: false },
+                  nativeFlowMessage: {
+                    buttons: [
+                      {
+                        name: 'quick_reply',
+                        buttonParamsJson: JSON.stringify({
+                          display_text: '🏓 Ping',
+                          id: `${prefix}ping`
+                        })
+                      },
+                      {
+                        name: 'quick_reply',
+                        buttonParamsJson: JSON.stringify({
+                          display_text: '🧪 Teste',
+                          id: `${prefix}teste`
+                        })
+                      }
+                    ],
+                    messageParamsJson: ''
+                  }
+                }
+              }
+            }
+          }, {});
 
-        const msg = {
-        viewOnceMessage: {
-        message: {
-        interactiveMessage: {
-        body: {
-        text:
-        `🌸 *Teste dos Botões*\n\nEscolha uma opção abaixo.`
-        },
-        footer: {
-        text: "Teste"
-        },
-        header: {
-        hasMediaAttachment: false
-        },
-        nativeFlowMessage: {
-        buttons: [
-        {
-        name: "quick_reply",
-        buttonParamsJson: JSON.stringify({
-        display_text: "🏓 Ping",
-        id: `${prefix}ping`
-        })
-        },
-        {
-        name: "quick_reply",
-        buttonParamsJson: JSON.stringify({
-        display_text: "🧪 Teste",
-        id: `${prefix}teste`
-        })
-        }
-        ]
-        }
-        }
-        }
-        }
-        }
-
-
-        await nazu.sendMessage(from, msg, {});
-
+          await nazu.relayMessage(from, msg.message, {});
 
         } catch (err) {
-        console.log('[TESTE] Erro:', err)
-        reply(`Erro:\n${err}`)
+          console.log('[TESTE] Erro:', err);
+          reply(`Erro:\n${err.message}`);
         }
         }
         break
