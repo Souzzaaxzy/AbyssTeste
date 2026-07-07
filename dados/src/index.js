@@ -7,7 +7,7 @@ import {
   DisconnectReason,
   fetchLatestBaileysVersion,
   makeCacheableSignalKeyStore
-} from 'baileys';
+} from '@whiskeysockets/baileys';
 
 import { handleFut, handleFutCommand } from './games/futebol/index.js';
 import { sendQuickReply, sendList, getSelectedButtonId, isInteractiveResponse } from '../../lib/buttons.js';
