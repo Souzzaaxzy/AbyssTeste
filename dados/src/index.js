@@ -2431,6 +2431,24 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       return message.conversation || message.extendedTextMessage?.text || message.imageMessage?.caption || message.videoMessage?.caption || message.documentWithCaptionMessage?.message?.documentMessage?.caption || message.viewOnceMessage?.message?.imageMessage?.caption || message.viewOnceMessage?.message?.videoMessage?.caption || message.viewOnceMessageV2?.message?.imageMessage?.caption || message.viewOnceMessageV2?.message?.videoMessage?.caption || message.editedMessage?.message?.protocolMessage?.editedMessage?.extendedTextMessage?.text || message.editedMessage?.message?.protocolMessage?.editedMessage?.imageMessage?.caption || '';
     };
     const body = getMessageText(info.message) || info?.text || '';
+    
+    // ═══════════════════════════════════════════════════════════════
+    // 🔘 TRATAMENTO DE CLIQUES EM BOTÕES DO SISTEMA
+    // ═══════════════════════════════════════════════════════════════
+    if (isButtonMessage) {
+      const buttonId = body;
+      
+      // Tratamento dos botões do sistema
+      if (buttonId === '!opcao_1') {
+        await reply('🎉 Você escolheu a *Opção 1*!');
+        return;
+      }
+      if (buttonId === '!opcao_2') {
+        await reply('🎉 Você escolheu a *Opção 2*!');
+        return;
+      }
+    }
+    
     // ==================== INICIAR ====================
     startAutoAcceptSystem(nazu, from);
 
@@ -36662,6 +36680,53 @@ ${groupPrefix}nota buscar <termo> - Busca nas notas`);
         break;
       }
       
+
+      case 'botao': {
+        // Enviar mensagem com botões interativos usando relayMessage
+        const botoes = [
+          {
+            name: "quick_reply",
+            buttonParamsJson: JSON.stringify({
+              display_text: "Opção 1",
+              id: "!opcao_1"
+            })
+          },
+          {
+            name: "quick_reply",
+            buttonParamsJson: JSON.stringify({
+              display_text: "Opção 2",
+              id: "!opcao_2"
+            })
+          }
+        ];
+
+        const msg = {
+          viewOnceMessage: {
+            message: {
+              interactiveMessage: {
+                header: {
+                  title: "🔘 Teste de Botões",
+                  hasMediaAttachment: false
+                },
+                body: {
+                  text: "👋 Olá! Toque em um botão para testar:"
+                },
+                footer: {
+                  text: "© Abyss Bot"
+                },
+                nativeFlowMessage: {
+                  buttons: botoes,
+                  version: 2
+                }
+              }
+            }
+          }
+        };
+
+        await nazu.relayMessage(from, msg, { messageId: NazuNator.key.id });
+        break;
+      }
+
       case 'restaurar':
       case 'restore': {
         if (!isGroup) return reply("◈ Este comando só funciona em grupos.");
