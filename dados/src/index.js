@@ -2451,11 +2451,39 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         return;
       }
       if (buttonId === '!teste_resposta_1') {
-        await reply('🎯 *ACERTOU!*\n\n✅ Você escolheu o *Botão 1*\n\n💡 Esse botão funciona perfeitamente!');
+        await reply(`╭━━━━━━━━━━━━━━━━━━━━━╮
+│
+│   🎉 *SELEÇÃO CONFIRMADA* 🎉
+│
+│   ━━━━━━━━━━━━━━━━━━━
+│
+│   🔵 Você escolheu a
+│      *OPÇÃO 1*
+│
+│   ━━━━━━━━━━━━━━━━━━━
+│
+│   ✅ Sistema funcionando
+│      com sucesso!
+│
+╰━━━━━━━━━━━━━━━━━━━━━╯`);
         return;
       }
       if (buttonId === '!teste_resposta_2') {
-        await reply('🎯 *ACERTOU!*\n\n✅ Você escolheu o *Botão 2*\n\n💡 Sistema de botões funcionando!');
+        await reply(`╭━━━━━━━━━━━━━━━━━━━━━╮
+│
+│   🎉 *SELEÇÃO CONFIRMADA* 🎉
+│
+│   ━━━━━━━━━━━━━━━━━━━
+│
+│   🟢 Você escolheu a
+│      *OPÇÃO 2*
+│
+│   ━━━━━━━━━━━━━━━━━━━
+│
+│   ✅ Sistema funcionando
+│      com sucesso!
+│
+╰━━━━━━━━━━━━━━━━━━━━━╯`);
         return;
       }
     }
