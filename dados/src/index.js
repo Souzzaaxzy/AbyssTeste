@@ -2393,7 +2393,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     const ROLE_NOT_GOING_BASE = '🤷';
     const isGoingEmoji = (emoji) => typeof emoji === 'string' && emoji.includes(ROLE_GOING_BASE);
     const isNotGoingEmoji = (emoji) => typeof emoji === 'string' && emoji.includes(ROLE_NOT_GOING_BASE);
-    const isButtonMessage = info.message.interactiveMessage || info.message.templateButtonReplyMessage || info.message.buttonsMessage || info.message.interactiveResponseMessage || info.message.listResponseMessage || info.message.buttonsResponseMessage ? true : false;
+    const isButtonMessage = info.message.templateButtonReplyMessage || info.message.interactiveMessage || info.message.buttonsMessage || info.message.interactiveResponseMessage || info.message.listResponseMessage || info.message.buttonsResponseMessage ? true : false;
     const isStatusMention = JSON.stringify(info.message).includes('groupStatusMentionMessage');
     
     // Debug: log message types
@@ -2405,6 +2405,11 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     
     const getMessageText = message => {
       if (!message) return '';
+
+      // Para templateButtonReplyMessage (WhatsApp Business)
+      if (message.templateButtonReplyMessage?.selectedId) {
+        return message.templateButtonReplyMessage.selectedId;
+      }
 
       if (message.interactiveResponseMessage) {
         const interactiveResponse = message.interactiveResponseMessage;
