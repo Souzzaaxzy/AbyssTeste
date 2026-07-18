@@ -22874,6 +22874,38 @@ break;
         break;
       }
 
+      // ═══════════════════════════════════════════════════════════════
+      // 🔓 DESLOGAR E RELOGAR
+      // ═══════════════════════════════════════════════════════════════
+      case 'deslogar': {
+        try {
+          await reply("🔓 Deslogando...");
+          
+          const authDir = path.join(__dirname, '..', 'database', 'qr-code');
+          const fs = await import('fs');
+          
+          if (fs.existsSync(authDir)) {
+            fs.rmSync(authDir, { recursive: true, force: true });
+            console.log('[AUTH] Pasta de autenticação limpa');
+          }
+          
+          await reply("✅ Deslogado! Reiniciando...");
+          
+          // Encerrar conexão atual
+          if (nazu.ws) {
+            nazu.ws.close();
+          }
+          
+          // Reiniciar processo
+          process.exit(1);
+          
+        } catch(e) {
+          console.error('Erro ao deslogar:', e);
+          reply("❌ Erro ao deslogar.");
+        }
+        break;
+      }
+
       case 'menu':
       case 'help':
       case 'comandos':
