@@ -2450,6 +2450,14 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         await reply('🎉 Você escolheu a *Opção 2*!');
         return;
       }
+      if (buttonId === '!teste_resposta_1') {
+        await reply('✅ Você clicou no *Botão 1*!');
+        return;
+      }
+      if (buttonId === '!teste_resposta_2') {
+        await reply('✅ Você clicou no *Botão 2*!');
+        return;
+      }
     }
     
     // ==================== INICIAR ====================
@@ -36581,6 +36589,30 @@ ${groupPrefix}nota buscar <termo> - Busca nas notas`);
         }
 
         switch (subCmdNote) {
+          case 'teste': {
+            // Enviar mensagem com botões interativos
+            await sendInteractiveMessage(nazu, from, {
+              text: "👋 *Teste de botões!*\n\nEscolha uma opção abaixo:",
+              footer: "© Abyss Bot",
+              interactiveButtons: [
+                {
+                  name: "quick_reply",
+                  buttonParamsJson: JSON.stringify({
+                    display_text: "Botão 1",
+                    id: "!teste_resposta_1"
+                  })
+                },
+                {
+                  name: "quick_reply",
+                  buttonParamsJson: JSON.stringify({
+                    display_text: "Botão 2",
+                    id: "!teste_resposta_2"
+                  })
+                }
+              ]
+            }, { quoted: info });
+            break;
+          }
           case 'add':
           case 'criar': {
             const texto = args.slice(1).join(' ');
