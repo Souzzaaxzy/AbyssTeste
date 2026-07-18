@@ -6513,6 +6513,33 @@ if (isCmd && command && !isOwnerOrSub) {
     switch (command) {
 
       // ═══════════════════════════════════════════════════════════════
+      // 🧪 TESTE DE BOTÕES
+      // ═══════════════════════════════════════════════════════════════
+      case 'teste': {
+        await sendInteractiveMessage(nazu, from, {
+          text: "👋 *Teste de botões!*\n\nEscolha uma opção abaixo:",
+          footer: "© Abyss Bot",
+          interactiveButtons: [
+            {
+              name: "quick_reply",
+              buttonParamsJson: JSON.stringify({
+                display_text: "Botão 1",
+                id: "!teste_resposta_1"
+              })
+            },
+            {
+              name: "quick_reply",
+              buttonParamsJson: JSON.stringify({
+                display_text: "Botão 2",
+                id: "!teste_resposta_2"
+              })
+            }
+          ]
+        }, { quoted: info });
+        break;
+      }
+
+      // ═══════════════════════════════════════════════════════════════
       // 💌 SISTEMA DE CONFISSÕES
       // ═══════════════════════════════════════════════════════════════
       case 'confessar': {
