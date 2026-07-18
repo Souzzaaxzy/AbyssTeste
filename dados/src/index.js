@@ -2395,6 +2395,14 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     const isNotGoingEmoji = (emoji) => typeof emoji === 'string' && emoji.includes(ROLE_NOT_GOING_BASE);
     const isButtonMessage = info.message.interactiveMessage || info.message.templateButtonReplyMessage || info.message.buttonsMessage || info.message.interactiveResponseMessage || info.message.listResponseMessage || info.message.buttonsResponseMessage ? true : false;
     const isStatusMention = JSON.stringify(info.message).includes('groupStatusMentionMessage');
+    
+    // Debug: log message types
+    if (isButtonMessage) {
+      console.log('[DEBUG-BUTTON] Mensagem de botão detectada!');
+      console.log('[DEBUG-BUTTON] Keys:', Object.keys(info.message).join(', '));
+      console.log('[DEBUG-BUTTON] Full message:', JSON.stringify(info.message).substring(0, 500));
+    }
+    
     const getMessageText = message => {
       if (!message) return '';
 
@@ -2435,11 +2443,17 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     };
     const body = getMessageText(info.message) || info?.text || '';
     
+    // Debug: log body extraído
+    if (isButtonMessage) {
+      console.log('[DEBUG-BUTTON] Body extraído:', body);
+    }
+    
     // ═══════════════════════════════════════════════════════════════
     // 🔘 TRATAMENTO DE CLIQUES EM BOTÕES DO SISTEMA
     // ═══════════════════════════════════════════════════════════════
     if (isButtonMessage) {
       const buttonId = body;
+      console.log('[DEBUG-BUTTON] ButtonId:', buttonId);
       if (buttonId === '!opcao_1') {
         await reply('🎉 Você escolheu a *Opção 1*!');
         return;
@@ -2448,7 +2462,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         await reply('🎉 Você escolheu a *Opção 2*!');
         return;
       }
-      if (buttonId === '!teste_resposta_1') {
+      if (buttonId === '!teste_op1') {
         await reply(`╭━━━━━━━━━━━━━━━━━━━━━╮
 │
 │   🎉 *SELEÇÃO CONFIRMADA* 🎉
@@ -2466,7 +2480,7 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
 ╰━━━━━━━━━━━━━━━━━━━━━╯`);
         return;
       }
-      if (buttonId === '!teste_resposta_2') {
+      if (buttonId === '!teste_op2') {
         await reply(`╭━━━━━━━━━━━━━━━━━━━━━╮
 │
 │   🎉 *SELEÇÃO CONFIRMADA* 🎉
@@ -6577,14 +6591,14 @@ if (isCmd && command && !isOwnerOrSub) {
               name: "quick_reply",
               buttonParamsJson: JSON.stringify({
                 display_text: "🔵 Opção 1",
-                id: "!teste_resposta_1"
+                id: "!teste_op1"
               })
             },
             {
               name: "quick_reply",
               buttonParamsJson: JSON.stringify({
                 display_text: "🟢 Opção 2",
-                id: "!teste_resposta_2"
+                id: "!teste_op2"
               })
             }
           ]
