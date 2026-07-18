@@ -12,6 +12,9 @@ import {
   makeCacheableSignalKeyStore
 } from 'baileys';
 
+// Import do baileys_helpers para mensagens interativas
+import { sendInteractiveMessage } from 'baileys_helpers';
+
 import { handleFut, handleFutCommand } from './games/futebol/index.js';
 
 import dotenv from 'dotenv';
@@ -36682,40 +36685,27 @@ ${groupPrefix}nota buscar <termo> - Busca nas notas`);
       
 
       case 'botao': {
-        // Enviar mensagem com botões interativos usando relayMessage (mesmo padrão do HIYUKI)
-        const botoes = [
-          {
-            name: "quick_reply",
-            buttonParamsJson: JSON.stringify({
-              display_text: "Opção 1",
-              id: "!opcao_1"
-            })
-          },
-          {
-            name: "quick_reply",
-            buttonParamsJson: JSON.stringify({
-              display_text: "Opção 2",
-              id: "!opcao_2"
-            })
-          }
-        ];
-
-        await nazu.relayMessage(from, {
-          interactiveMessage: {
-            contextInfo: {
-              stanzaId: info.key.id,
-              participant: info.key.participant || info.key.remoteJid,
-              quotedMessage: info.message,
-              mentionedJid: [sender]
+        // Enviar mensagem com botões interativos usando sendInteractiveMessage (padrão baileys_helpers)
+        await sendInteractiveMessage(nazu, from, {
+          text: "👋 Olá! Toque em um botão para testar:",
+          footer: "© Abyss Bot",
+          interactiveButtons: [
+            {
+              name: "quick_reply",
+              buttonParamsJson: JSON.stringify({
+                display_text: "Opção 1",
+                id: "!opcao_1"
+              })
             },
-            body: { text: "👋 Olá! Toque em um botão para testar:" },
-            footer: { text: "© Abyss Bot" },
-            nativeFlowMessage: {
-              buttons: botoes,
-              version: 2
+            {
+              name: "quick_reply",
+              buttonParamsJson: JSON.stringify({
+                display_text: "Opção 2",
+                id: "!opcao_2"
+              })
             }
-          }
-        }, {});
+          ]
+        }, { quoted: info });
         break;
       }
 
