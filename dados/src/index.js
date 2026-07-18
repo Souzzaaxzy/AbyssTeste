@@ -2476,6 +2476,20 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       const buttonId = getSelectedButtonId(info);
       if (buttonId) {
         console.log(`[BOTÕES] Clique detectado: ${buttonId}`);
+        
+        // ═══════════════════════════════════════════════════════════════
+        // 🔘 TRATAMENTO ESPECIAL PARA BOTÕES DE TESTE
+        // ═══════════════════════════════════════════════════════════════
+        if (buttonId === 'opcao_1') {
+          await reply('Você escolheu a Opção 1.');
+          return;
+        }
+        if (buttonId === 'opcao_2') {
+          await reply('Você escolheu a Opção 2.');
+          return;
+        }
+        // ═══════════════════════════════════════════════════════════════
+        
         // Remove o prefixo do ID para obter o comando
         const cmdFromButton = buttonId.replace(/^[!&]/, '').trim();
         if (cmdFromButton) {
@@ -35696,6 +35710,50 @@ ${prefix}wl.add @usuario | antilink,antistatus`);
         } catch (e) {
           console.error('Erro no comando medirpau:', e);
           await reply('❌ Ocorreu um erro ao medir 💔');
+        }
+        break;
+
+      // ═══════════════════════════════════════════════════════════════
+      // TESTE DE BOTÕES - Sistema Interactive Messages
+      // ═══════════════════════════════════════════════════════════════
+      case 'botao':
+        try {
+          const botoes = [
+            {
+              name: "quick_reply",
+              buttonParamsJson: JSON.stringify({
+                display_text: "Opção 1",
+                id: "opcao_1"
+              })
+            },
+            {
+              name: "quick_reply",
+              buttonParamsJson: JSON.stringify({
+                display_text: "Opção 2",
+                id: "opcao_2"
+              })
+            }
+          ];
+
+          await nazu.relayMessage(from, {
+            interactiveMessage: {
+              contextInfo: {
+                stanzaId: info.key.id,
+                participant: info.key.participant || info.key.remoteJid,
+                quotedMessage: info.message,
+                mentionedJid: [sender]
+              },
+              body: { text: "Teste de botões da Abyss.\nEscolha uma opção abaixo." },
+              footer: { text: "© Abyss Bot" },
+              nativeFlowMessage: {
+                buttons: botoes
+              }
+            }
+          }, {});
+
+        } catch (e) {
+          console.error('Erro no comando botao:', e);
+          await reply('❌ Ocorreu um erro ao enviar os botões.');
         }
         break;
 
