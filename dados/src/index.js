@@ -6526,22 +6526,38 @@ if (isCmd && command && !isOwnerOrSub) {
       // 🧪 TESTE DE BOTÕES
       // ═══════════════════════════════════════════════════════════════
       case 'teste': {
-        console.log('[DEBUG TESTE] Executando case teste!');
         await sendInteractiveMessage(nazu, from, {
-          text: "👋 *Teste de botões!*\n\nEscolha uma opção abaixo:",
-          footer: "© Abyss Bot",
+          text: `╭━━━━━━━━━━━━━━━━━━━━━╮
+│
+│   🌟 *TESTE DE BOTÕES* 🌟
+│
+│   ━━━━━━━━━━━━━━━━━━━
+│
+│   👋 Olá! Bem-vindo ao
+│      teste interativo!
+│
+│   🎮 Clique em um botão
+│      abaixo para testar
+│      o sistema.
+│
+│   ━━━━━━━━━━━━━━━━━━━
+│
+│   ✨ *Escolha uma opção* ✨
+│
+╰━━━━━━━━━━━━━━━━━━━━━╯`,
+          footer: "© Abyss Bot • Sistema Ativo",
           interactiveButtons: [
             {
               name: "quick_reply",
               buttonParamsJson: JSON.stringify({
-                display_text: "Botão 1",
+                display_text: "🔵 Opção 1",
                 id: "!teste_resposta_1"
               })
             },
             {
               name: "quick_reply",
               buttonParamsJson: JSON.stringify({
-                display_text: "Botão 2",
+                display_text: "🟢 Opção 2",
                 id: "!teste_resposta_2"
               })
             }
