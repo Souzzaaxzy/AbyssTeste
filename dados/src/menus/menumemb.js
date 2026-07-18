@@ -23,6 +23,11 @@ export default async function menuMembros(prefix, botName = "MeuBot", userName =
 ╰──────────────
 
 
+╭─❖ 🧪 TESTES
+│ 🧪 ${prefix}teste
+╰──────────────
+
+
 ╭─❖ ⚙️ CONFIGURAÇÕES PESSOAIS
 │ 📢 ${prefix}mention
 │ 🌙 ${prefix}afk
