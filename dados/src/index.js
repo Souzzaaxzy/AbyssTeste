@@ -2789,6 +2789,11 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
 
     var command = isCmd ? matchedAlias ? matchedAlias.command : normalizar(bodyWithoutPrefix.split(/ +/).shift().trim()).replace(/\s+/g, '') : null;
 
+    // DEBUG GLOBAL
+    if (body.includes('teste')) {
+      console.log('[DEBUG] body="' + body + '", isCmd=' + isCmd + ', command="' + command + '", groupPrefix="' + groupPrefix + '", isGroup=' + isGroup);
+    }
+
     // Recalcular args usando bodyWithoutPrefix para suportar "! comando" (com espaço)
     if (isCmd && !matchedAlias) {
       const newArgs = bodyWithoutPrefix.split(/ +/).slice(1);
