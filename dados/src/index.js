@@ -6510,12 +6510,18 @@ if (isCmd && command && !isOwnerOrSub) {
       }
     }
 
+    // DEBUG
+    if (command === 'teste') {
+      console.log('[DEBUG TESTE] Entrou no comando teste!');
+    }
+
     switch (command) {
 
       // ═══════════════════════════════════════════════════════════════
       // 🧪 TESTE DE BOTÕES
       // ═══════════════════════════════════════════════════════════════
       case 'teste': {
+        console.log('[DEBUG TESTE] Executando case teste!');
         await sendInteractiveMessage(nazu, from, {
           text: "👋 *Teste de botões!*\n\nEscolha uma opção abaixo:",
           footer: "© Abyss Bot",
