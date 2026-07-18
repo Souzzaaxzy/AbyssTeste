@@ -599,10 +599,10 @@ axios@^1.13.2:
     https-proxy-agent "^5.0.1"
     proxy-from-env "^2.1.0"
 
-baileys_helpers@^1.0.16:
-  version "1.0.16"
-  resolved "https://registry.npmjs.org/baileys_helpers/-/baileys_helpers-1.0.16.tgz"
-  integrity sha512-WyU4QmKoV1Xt/UXaDn+LivJ/GpyCTCG+DtuduTzYVY3QaFxyrMPBWYHg0i2lTO6au9oeHL/pU8YvtTcj+bl2QQ==
+baileys_helpers@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.npmjs.org/baileys_helpers/-/baileys_helpers-1.0.9.tgz"
+  integrity sha512-nUl9zCtNamadtii4Z3/FfItw9zBzjzzEI+JFW9gaL5+eAzZ5yrchRyy7SdrMvPELdXNf1ANMPTUt9V+Qb4a1hQ==
 
 baileys@^7.0.0-rc.9:
   version "7.0.0-rc13"
