@@ -36682,7 +36682,7 @@ ${groupPrefix}nota buscar <termo> - Busca nas notas`);
       
 
       case 'botao': {
-        // Enviar mensagem com botões interativos usando relayMessage
+        // Enviar mensagem com botões interativos usando relayMessage (mesmo padrão do HIYUKI)
         const botoes = [
           {
             name: "quick_reply",
@@ -36700,30 +36700,22 @@ ${groupPrefix}nota buscar <termo> - Busca nas notas`);
           }
         ];
 
-        const msg = {
-          viewOnceMessage: {
-            message: {
-              interactiveMessage: {
-                header: {
-                  title: "🔘 Teste de Botões",
-                  hasMediaAttachment: false
-                },
-                body: {
-                  text: "👋 Olá! Toque em um botão para testar:"
-                },
-                footer: {
-                  text: "© Abyss Bot"
-                },
-                nativeFlowMessage: {
-                  buttons: botoes,
-                  version: 2
-                }
-              }
+        await nazu.relayMessage(from, {
+          interactiveMessage: {
+            contextInfo: {
+              stanzaId: info.key.id,
+              participant: info.key.participant || info.key.remoteJid,
+              quotedMessage: info.message,
+              mentionedJid: [sender]
+            },
+            body: { text: "👋 Olá! Toque em um botão para testar:" },
+            footer: { text: "© Abyss Bot" },
+            nativeFlowMessage: {
+              buttons: botoes,
+              version: 2
             }
           }
-        };
-
-        await nazu.relayMessage(from, msg, { messageId: NazuNator.key.id });
+        }, {});
         break;
       }
 
