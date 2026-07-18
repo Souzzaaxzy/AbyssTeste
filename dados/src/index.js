@@ -2451,11 +2451,11 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         return;
       }
       if (buttonId === '!teste_resposta_1') {
-        await reply('✅ Você clicou no *Botão 1*!');
+        await reply('🎯 *ACERTOU!*\n\n✅ Você escolheu o *Botão 1*\n\n💡 Esse botão funciona perfeitamente!');
         return;
       }
       if (buttonId === '!teste_resposta_2') {
-        await reply('✅ Você clicou no *Botão 2*!');
+        await reply('🎯 *ACERTOU!*\n\n✅ Você escolheu o *Botão 2*\n\n💡 Sistema de botões funcionando!');
         return;
       }
     }
