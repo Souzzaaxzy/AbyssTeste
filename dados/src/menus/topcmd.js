@@ -1,0 +1,52 @@
+async function menuTopCmd(prefix, botName = "MeuBot", userName = "UsuГЎrio", topCommands = [], {
+    header = `в•ӯв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв•®вҠ° рҹҢё гҖҺ *${botName}* гҖҸ\nв”ӮOlГЎ, #user#!\nв•°в”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв•Ҝ`,
+    menuTopBorder = "в•ӯв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв•®",
+    bottomBorder = "в•°в”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв”Җв•Ҝ",
+    menuTitleIcon = "в—Ҳ",
+    menuItemIcon = "в–ё",
+    separatorIcon = "вқҒ",
+    middleBorder = "в”Ӯ",
+    topCommandsMenuTitle = "MAIS USADOS",
+    infoSectionTitle = "InformaГ§Гөes"
+} = {}) {
+    const formattedHeader = header.replace(/#user#/g, userName);
+    if (!topCommands || topCommands.length === 0) {
+        return `${formattedHeader}
+
+${menuTopBorder}
+в”Ӯ ${topCommandsMenuTitle}
+${middleBorder}
+${middleBorder} Nenhum comando foi registrado ainda.
+${middleBorder} Use ${prefix}menu para ver a lista
+${middleBorder} de comandos disponГӯveis!
+${middleBorder}
+${bottomBorder}
+`;
+    }
+    const commandsList = topCommands.map((cmd, index) => {
+        const position = index + 1;
+        const emoji = position <= 3 ? ['рҹҘҮ', 'рҹҘҲ', 'рҹҘү'][index] : 'рҹҸ…';
+        return `${middleBorder}${emoji} ${position}Вә: *${prefix}${cmd.name}*\n${middleBorder}   вҶі ${cmd.count} usos por ${cmd.uniqueUsers} usuГЎrios`;
+    }).join('\n');
+    return `
+${formattedHeader}
+
+${menuTopBorder}
+в”Ӯ Top ${topCommands.length} Comandos
+${commandsList}
+${middleBorder}
+${middleBorder}в•ӯв”Җв–ё *${infoSectionTitle}:*
+${middleBorder}
+${middleBorder}рҹ”Қ Use ${prefix}cmdinfo [comando]
+${middleBorder}   вҶі Para ver estatГӯsticas detalhadas
+${middleBorder}   вҶі Ex: ${prefix}cmdinfo menu
+${middleBorder}
+${bottomBorder}
+
+╭─────────────────╮
+│ 📢 Canal Oficial da Lizzy
+│ https://whatsapp.com/channel/0029Vb8VWbG3WHTWX9ZPnj0Y
+╰─────────────────╯
+`;
+}
+export default menuTopCmd;
