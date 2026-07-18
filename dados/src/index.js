@@ -2401,13 +2401,29 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
       if (message.interactiveResponseMessage) {
         const interactiveResponse = message.interactiveResponseMessage;
 
+        // Tenta extrair do nativeFlowResponseMessage.paramsJson
         if (interactiveResponse.nativeFlowResponseMessage?.paramsJson) {
           try {
             const params = JSON.parse(interactiveResponse.nativeFlowResponseMessage.paramsJson);
-            return params.id || '';
+            if (params.id) return params.id;
           } catch (error) {
             console.error('Erro ao processar resposta de single_select:', error);
           }
+        }
+
+        // Tenta extrair de nativeFlowResponseMessage directamente (algumas versões do Baileys)
+        if (interactiveResponse.nativeFlowResponseMessage?.id) {
+          return interactiveResponse.nativeFlowResponseMessage.id;
+        }
+
+        // Tenta extrair do SelectedId directamente
+        if (interactiveResponse.selectedId) {
+          return interactiveResponse.selectedId;
+        }
+
+        // Tenta extrair do SelectedRowId (listas)
+        if (interactiveResponse.selectedRowId) {
+          return interactiveResponse.selectedRowId;
         }
 
         if (interactiveResponse.body?.text) {
@@ -2431,6 +2447,13 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         return message.buttonsResponseMessage.selectedButtonId;
       }
 
+      // Fallback: tentar extrair de qualquer propriedade que contenha o ID do botão
+      const messageStr = JSON.stringify(message);
+      const buttonIdMatch = messageStr.match(/"id"\s*:\s*"([^"]+)"/);
+      if (buttonIdMatch && buttonIdMatch[1]?.startsWith('!')) {
+        return buttonIdMatch[1];
+      }
+
       return message.conversation || message.extendedTextMessage?.text || message.imageMessage?.caption || message.videoMessage?.caption || message.documentWithCaptionMessage?.message?.documentMessage?.caption || message.viewOnceMessage?.message?.imageMessage?.caption || message.viewOnceMessage?.message?.videoMessage?.caption || message.viewOnceMessageV2?.message?.imageMessage?.caption || message.viewOnceMessageV2?.message?.videoMessage?.caption || message.editedMessage?.message?.protocolMessage?.editedMessage?.extendedTextMessage?.text || message.editedMessage?.message?.protocolMessage?.editedMessage?.imageMessage?.caption || '';
     };
     const body = getMessageText(info.message) || info?.text || '';
@@ -2439,6 +2462,13 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     // 🔘 TRATAMENTO DE CLIQUES EM BOTÕES DO SISTEMA
     // ═══════════════════════════════════════════════════════════════
     if (isButtonMessage) {
+      console.log('[DEBUG BUTTON] Button message detected:', {
+        body,
+        type,
+        hasInteractiveResponse: !!info.message?.interactiveResponseMessage,
+        interactiveResponseKeys: info.message?.interactiveResponseMessage ? Object.keys(info.message.interactiveResponseMessage) : [],
+        hasButtonsResponse: !!info.message?.buttonsResponseMessage
+      });
       const buttonId = body;
       if (buttonId === '!opcao_1') {
         await reply('🎉 Você escolheu a *Opção 1*!');
@@ -2448,40 +2478,24 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
         await reply('🎉 Você escolheu a *Opção 2*!');
         return;
       }
-      if (buttonId === '!teste_resposta_1') {
-        await reply(`╭━━━━━━━━━━━━━━━━━━━━━╮
-│
-│   🎉 *SELEÇÃO CONFIRMADA* 🎉
-│
-│   ━━━━━━━━━━━━━━━━━━━
-│
-│   🔵 Você escolheu a
-│      *OPÇÃO 1*
-│
-│   ━━━━━━━━━━━━━━━━━━━
-│
-│   ✅ Sistema funcionando
-│      com sucesso!
-│
-╰━━━━━━━━━━━━━━━━━━━━━╯`);
+      if (buttonId === 'teste_op1') {
+        await reply(`╭┈ׅׄ┉ׅ━━ׁ۫━፝֟━̷━𑁁━𑁁━፝֟━̷━ׁ۫━━┉ֹׅ┈ׅ╮
+╠━━ׁ۫━፝֟━̷━𑁁━🔵━𑁁━፝֟━̷━ׁ۫━━╮
+┃࣪ ┃֪࣪𝆺᮫𝅥🔵 *SELEÇÃO CONFIRMADA* 🔵
+┃࣪ ┃֪࣪𝆺᮫𝅥🔵 Você escolheu a *OPÇÃO 1*
+╠━━ׁ۫━፝֟━̷━𑁁━✅━𑁁━፝֟━̷━ׁ۫━━╯
+╰ׅ┈ׅׄ┉ׅ━━ׁ۫━፝֟━̷━𑁁━━𑁁━፝֟━̷━ׁ۫━━┉ֹׅ┈ׅ╯
+✅ *Sistema funcionando com sucesso!*`);
         return;
       }
-      if (buttonId === '!teste_resposta_2') {
-        await reply(`╭━━━━━━━━━━━━━━━━━━━━━╮
-│
-│   🎉 *SELEÇÃO CONFIRMADA* 🎉
-│
-│   ━━━━━━━━━━━━━━━━━━━
-│
-│   🟢 Você escolheu a
-│      *OPÇÃO 2*
-│
-│   ━━━━━━━━━━━━━━━━━━━
-│
-│   ✅ Sistema funcionando
-│      com sucesso!
-│
-╰━━━━━━━━━━━━━━━━━━━━━╯`);
+      if (buttonId === 'teste_op2') {
+        await reply(`╭┈ׅׄ┉ׅ━━ׁ۫━፝֟━̷━𑁁━𑁁━፝֟━̷━ׁ۫━━┉ֹׅ┈ׅ╮
+╠━━ׁ۫━፝֟━̷━𑁁━🟢━𑁁━፝֟━̷━ׁ۫━━╮
+┃࣪ ┃֪࣪𝆺᮫𝅥🟢 *SELEÇÃO CONFIRMADA* 🟢
+┃࣪ ┃֪࣪𝆺᮫𝅥🟢 Você escolheu a *OPÇÃO 2*
+╠━━ׁ۫━፝֟━̷━𑁁━✅━𑁁━፝֟━̷━ׁ۫━━╯
+╰ׅ┈ׅׄ┉ׅ━━ׁ۫━፝֟━̷━𑁁━━𑁁━፝֟━̷━ׁ۫━━┉ֹׅ┈ׅ╯
+✅ *Sistema funcionando com sucesso!*`);
         return;
       }
     }
@@ -6552,43 +6566,51 @@ if (isCmd && command && !isOwnerOrSub) {
       // 🧪 TESTE DE BOTÕES
       // ═══════════════════════════════════════════════════════════════
       case 'teste': {
-        await sendInteractiveMessage(nazu, from, {
-          text: `╭━━━━━━━━━━━━━━━━━━━━━╮
-│
-│   🌟 *TESTE DE BOTÕES* 🌟
-│
-│   ━━━━━━━━━━━━━━━━━━━
-│
-│   👋 Olá! Bem-vindo ao
-│      teste interativo!
-│
-│   🎮 Clique em um botão
-│      abaixo para testar
-│      o sistema.
-│
-│   ━━━━━━━━━━━━━━━━━━━
-│
-│   ✨ *Escolha uma opção* ✨
-│
-╰━━━━━━━━━━━━━━━━━━━━━╯`,
-          footer: "© Abyss Bot • Sistema Ativo",
-          interactiveButtons: [
+        try {
+          await reply("🫧 Testando sistema de botões...");
+
+          const listaTeste = {
+            título: "🧪 𝚃𝙴𝚂𝚃𝙴 𝙳𝙴 𝙱𝙾𝚃Õ𝙴𝚂 🧪",
+            seções: [
+              {
+                título: "🧪 𝙴𝚂𝙲𝙾𝙻𝙷𝙰 𝚄𝙼𝙰 𝙾𝙿Ç𝙰𝙾 🧪",
+                destaque_label: "Escolha abaixo",
+                linhas: [
+                  {title:"🔵 𝙾𝙿Ç𝙰𝙾 𝟷",description:"Resposta azul - Opção 1",id:`${prefix}teste_op1`},
+                  {title:"🟢 𝙾𝙿Ç𝙰𝙾 𝟸",description:"Resposta verde - Opção 2",id:`${prefix}teste_op2`}
+                ]
+              }
+            ]
+          };
+
+          const botoesTeste = [
             {
-              name: "quick_reply",
-              buttonParamsJson: JSON.stringify({
-                display_text: "🔵 Opção 1",
-                id: "!teste_resposta_1"
-              })
-            },
-            {
-              name: "quick_reply",
-              buttonParamsJson: JSON.stringify({
-                display_text: "🟢 Opção 2",
-                id: "!teste_resposta_2"
-              })
+              nome:"seleção_única",
+              buttonParamsJson:JSON.stringify(listaTeste)
             }
-          ]
-        }, { quoted: info });
+          ];
+
+          const textoTeste = `╭┈ׅׄ┉ׅ━━ׁ۫━፝֟━̷━𑁁━𑁁━፝֟━̷━ׁ۫━━┉ֹׅ┈ׅ╮
+╠━━ׁ۫━፝֟━̷━𑁁━🧪━𑁁━፝֟━̷━ׁ۫━━╮
+┃࣪ ┃֪࣪𝆺᮫𝅥🧪✿ Teste de Botões
+┃࣪ ┃֪࣪𝆺᮫𝅥🧪✿ Usuário: ${pushname}
+┃࣪ ┃֪࣪𝆺᮫𝅥🧪✿ Status: Ativo ✅
+╠━━ׁ۫━፝֟━̷━𑁁━🧪━𑁁━፝֟━̷━ׁ۫━━╯
+╰ׅ┈ׅׄ┉ׅ━━ׁ۫━፝֟━̷━𑁁━━𑁁━፝֟━̷━ׁ۫━━┉ֹׅ┈ׅ╯
+🎮 *Clique em uma opção abaixo*`;
+
+          await sendInteractiveMessage(nazu, from, {
+            texto: textoTeste,
+            footer: "© Abyss Bot • Sistema Ativo",
+            interactiveButtons: botoesTeste
+          }, { quoted: info });
+          break;
+
+        } catch(e) {
+          console.error("Erro no teste:", e);
+          if(e.formatDetailed) console.log(e.formatDetailed());
+          await reply("❌ Erro ao enviar teste de botões.");
+        }
         break;
       }
 
