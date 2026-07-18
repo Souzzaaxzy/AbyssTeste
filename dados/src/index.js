@@ -2440,6 +2440,8 @@ async function NazuninhaBotExec(nazu, info, store, messagesCache, rentalExpirati
     // ═══════════════════════════════════════════════════════════════
     if (isButtonMessage) {
       const buttonId = body;
+      console.log('[DEBUG BOTAO] buttonId="' + buttonId + '"');
+      console.log([DEBUG
       
       // Tratamento dos botões do sistema
       if (buttonId === '!opcao_1') {
