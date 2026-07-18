@@ -5451,6 +5451,19 @@ if (isGroup && groupData.antistickerplus && !isGroupAdmin && !isOwner && !isParc
           } else {
             await reply(`📌 Prefixo atual deste grupo: ${currentPrefix}`);
           }
+          
+          // Adicionar botão Ver Canal
+          try {
+            await nazu.sendMessage(from, {
+              text: `📌 Canal Oficial: https://whatsapp.com/channel/0029Vb8VWbG3WHTWX9ZPnj0Y`,
+              buttons: [
+                { buttonId: '!ver_canal', buttonText: { displayText: '📢 Ver Canal' }, type: 1 }
+              ],
+              headerType: 1
+            }, { quoted: info });
+          } catch (e) {
+            console.log('[VER-CANAL] Erro:', e.message);
+          }
         }
 
         if (isGroup && antipalavra && body && !isCmd) {
